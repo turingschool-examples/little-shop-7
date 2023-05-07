@@ -19,6 +19,9 @@ Students should be prepared to answer questions from the instructor surrounding 
 
 ## Rubric
 
+Reminder: your project should feature a thorough README to describe the project
+   - README should include a basic description of the project, a summary of the work completed, and some ideas for a potential contributor to work on/refactor next. Also include the names and GitHub links of all student contributors on your project. 
+
 | | **Feature Completeness** | **Rails** | **ActiveRecord** | **Testing and Debugging** | **API Consumption** |
 | --- | --- | --- | --- | --- | --- |
 | **Exceptional**  | All User Stories 100% complete including all sad paths and edge cases, and some extension work completed | Students implement strategies not discussed in class and can defend their design decisions (callbacks, scopes, application_helper view methods are created, etc) | At least one ActiveRecord extension is complete | Students can point to multiple examples of edge case testing that are not included in the user stories | API Design demonstrates the principles of abstraction and encapsulation. Webmock is used to test API.
