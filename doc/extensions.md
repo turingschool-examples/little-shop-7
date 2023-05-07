@@ -26,7 +26,7 @@ When I click these buttons, the list is updated accordingly.
 
 Implement a consistent look and feel throughout your site with reusable styles.
 
-You could use a framework for this such as: [Bootstrap](https://getbootstrap.com)
+You could use a framework for this such as [Bootstrap](https://getbootstrap.com) or [Tailwind](https://tailwindcss.com/). 
 
 [Bootstrap Ruby Gem](https://github.com/twbs/bootstrap-rubygem)
 
