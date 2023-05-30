@@ -20,4 +20,14 @@ namespace :csv_load do
     ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
     puts "Merchant loaded successfully"
   end
+
+  desc "load items from csv file"
+  task items: :environment do
+    Item.destroy_all
+    CSV.foreach("db/data/items.csv", headers: true, header_converters: :symbol) do |row|
+     Item.create!(row.to_h)
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+    puts "Items loaded successfully"
+  end
 end
