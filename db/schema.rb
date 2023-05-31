@@ -20,6 +20,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_202424) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+ 
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
+  end
 
   create_table "invoice_items", force: :cascade do |t|
     t.bigint "item_id", null: false
@@ -33,13 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_202424) do
     t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end
 
-  create_table "invoices", force: :cascade do |t|
-    t.bigint "customer_id", null: false
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_invoices_on_customer_id"
-  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
