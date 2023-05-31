@@ -1,7 +1,20 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+
+#   @merchant = create(:merchant)
+#   @item_1 = create(:item, merchant: @merchant)
+#   @customer_1 = create(:customer)
+#   @invoice = create(:invoice, customer: @customer_1)
+#   @transaction = create(:transaction, invoice: @invoice)
+#   @invoice_item = create(:invoice_item, item: @item_1, invoice: @invoice)
+
+
+
+
 require 'simplecov'
 SimpleCov.start
 require 'spec_helper'
+require 'faker'
+require 'factory_bot'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -61,8 +74,11 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
+
+  config.include FactoryBot::Syntax::Methods
   # config.filter_gems_from_backtrace("gem name")
 end
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
      with.test_framework :rspec
