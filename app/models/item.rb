@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
   belongs_to :merchant
-  belongs_to :invoice_item
-  belongs_to :invoice, through: :invoice_item
+  has_many :invoice_items
+  has_many :invoices, through: :invoice_items
 end
