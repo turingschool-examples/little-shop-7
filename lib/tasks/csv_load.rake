@@ -60,4 +60,9 @@ namespace :csv_load do
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
     puts "Invoice Items loaded successfully"
   end
+
+  desc "Load all CSV data"
+  task all: ["csv_load:customers", "csv_load:merchants", "csv_load:items", "csv_load:invoices", "csv_load:transactions", "csv_load:invoice_items"] do
+    puts "All CSV data loaded"
+  end
 end
