@@ -16,6 +16,23 @@ namespace :csv_load do
     ActiveRecord::Base.connection.reset_pk_sequence!(‘customers’)
   end
   # task invoice_items: :environment do
+  desc "invoice items"
+  task invoice_items: :environment do
+    require "csv"
+    csv_text = File.read(Rails.root.join("db", "data", "invoice_items.csv"))
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      t = InvoiceItem.new
+      t.item_id = row["item_id"]
+      t.invoice_id = row["invoice_id"] 
+      t.quantity = row["quantity"] 
+      t.unit_price = row["unit_price"] 
+      t.status = row["status"]
+      t.save
+      puts "invoice_items csv loaded"
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+  end
   
   # end
   
