@@ -13,7 +13,7 @@ namespace :csv_load do
     end
 
     CSV.foreach("./db/data/merchants.csv", headers: true, header_converters: :symbol) do |row| 
-      Merchant.create!(row.to_hash)
+      Merchant.create!(row.to_hash) 
     end
 
     CSV.foreach("./db/data/invoices.csv", headers: true, header_converters: :symbol) do |row| 
