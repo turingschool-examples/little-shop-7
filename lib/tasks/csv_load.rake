@@ -40,4 +40,14 @@ namespace :csv_load do
     ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
     puts "Invoices loaded successfully"
   end
+
+  desc "load transactions from csv file"
+  task transactions: :environment do
+    Transaction.destroy_all
+    CSV.foreach("db/data/transactions.csv", headers: true, header_converters: :symbol) do |row|
+      Transaction.create!(row.to_h)
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
+    puts "Transactions loaded successfully"
+  end
 end
