@@ -25,9 +25,19 @@ namespace :csv_load do
   task items: :environment do
     Item.destroy_all
     CSV.foreach("db/data/items.csv", headers: true, header_converters: :symbol) do |row|
-     Item.create!(row.to_h)
+      Item.create!(row.to_h)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('items')
     puts "Items loaded successfully"
+  end
+  
+  desc "load invoices from csv file"
+  task invoices: :environment do
+    Invoice.destroy_all
+    CSV.foreach("db/data/invoices.csv", headers: true, header_converters: :symbol) do |row|
+      Invoice.create!(row.to_h)
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    puts "Invoices loaded successfully"
   end
 end
