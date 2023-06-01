@@ -33,8 +33,7 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
       
       click_link("Update #{@merchant_1.name}")
 
-      expect(current_path).to eq()
-
+      expect(current_path).to eq(edit_admin_merchant_path(@merchant_1))
     end
   end
 end
