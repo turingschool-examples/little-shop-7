@@ -13,7 +13,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
       expect(page).to have_content("Admin Merchant Index Page")
       expect(page).to have_content("Merchants:")
       expect(page).to have_content(@merchant_1.name)
-      expect(page).to_not have_content(@merchant_2.name)
+      expect(page).to have_content(@merchant_2.name)
     end
   end
 end
