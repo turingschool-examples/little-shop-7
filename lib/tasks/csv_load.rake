@@ -4,10 +4,8 @@ namespace :csv_load do
   desc "Load customers CSV data into the database"
   task :customers => :environment do
     Customer.destroy_all
-    file_path = "db/data/customers.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      Customer.create!(attributes)
+    CSV.foreach("db/data/customers.csv", headers: true) do |row|
+      Customer.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("customers")
   end
@@ -15,10 +13,8 @@ namespace :csv_load do
   desc "Load invoice items CSV data into the database"
   task :invoice_items => :environment do
     InvoiceItem.destroy_all
-    file_path = "db/data/invoice_items.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      InvoiceItem.create!(attributes)
+    CSV.foreach("db/data/invoice_items.csv", headers: true) do |row|
+      InvoiceItem.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("invoice_item")
   end
@@ -26,10 +22,8 @@ namespace :csv_load do
   desc "Load invoices CSV data into the database"
   task :invoices => :environment do
     Invoice.destroy_all
-    file_path = "db/data/invoices.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      Invoice.create!(attributes)
+    CSV.foreach("db/data/invoices.csv", headers: true) do |row|
+      Invoice.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("invoices")
   end
@@ -37,10 +31,8 @@ namespace :csv_load do
   desc "Load items CSV data into the database"
   task :items => :environment do
     Item.destroy_all
-    file_path = "db/data/items.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      Item.create!(attributes)
+    CSV.foreach("db/data/items.csv", headers: true) do |row|
+      Item.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("item")
   end
@@ -48,10 +40,8 @@ namespace :csv_load do
   desc "Load merchants CSV data into the database"
   task :merchants => :environment do
     Merchant.destroy_all
-    file_path = "db/data/merchants.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      Merchant.create!(attributes)
+    CSV.foreach("db/data/merchants.csv", headers: true) do |row|
+      Merchant.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("merchant")
   end
@@ -59,11 +49,14 @@ namespace :csv_load do
   desc "Load transactions CSV data into the database"
   task :transactions => :environment do
     Transaction.destroy_all
-    file_path = "db/data/transactions.csv"
-    CSV.foreach(file_path, headers: true) do |row|
-      attributes = row.to_hash
-      Transaction.create!(attributes)
+    CSV.foreach("db/data/transactions.csv", headers: true) do |row|
+      Transaction.create!(row.to_hash)
     end
     ActiveRecord::Base.connection.reset_pk_sequence!("transaction")
+  end
+
+  desc "Load all CSV data into the database"
+  task all:["csv_load:customers", "csv_load:merchants", "csv_load:invoices", "csv_load:items", "csv_load:invoice_items", "csv_load:transactions"] do
+    puts "Load all successful!"
   end
 end
