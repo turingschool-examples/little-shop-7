@@ -18,7 +18,6 @@ RSpec.describe "Admin Dashboard Index Page" do
       visit admin_path
 
       expect(page).to have_link("Merchants", href: admin_merchants_path)
-      
       click_link("Merchants")
       expect(page).to have_current_path(admin_merchants_path)
     end
