@@ -17,17 +17,18 @@ RSpec.describe "Admin Dashboard Index Page" do
     it "displays a link to the admin merchants index page" do
       visit admin_path
 
-      expect(page).to have_link("Merchants", href: "/admin/merchants")
-      click_on("Merchants")
-      expect(page).to have_current_path("/admin/merchants")
+      expect(page).to have_link("Merchants", href: admin_merchants_path)
+      
+      click_link("Merchants")
+      expect(page).to have_current_path(admin_merchants_path)
     end
 
     it "displays a link to the admin invoices index page" do
       visit admin_path
 
-      expect(page).to have_link("Invoices", href: "/admin/invoices")
-      click_on("Invoices")
-      expect(page).to have_current_path("/admin/invoices")
+      expect(page).to have_link("Invoices", href: admin_invoices_path)
+      click_link("Invoices")
+      expect(page).to have_current_path(admin_invoices_path)
     end
   end
 end
