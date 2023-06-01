@@ -10,4 +10,9 @@ class Admin::MerchantsController < ApplicationController
   def edit
     @merchant = Merchant.find(params[:id])
   end
+
+  def update
+    require 'pry'; binding.pry
+    @merchant = Merchant.find(params[:id])
+  end
 end
