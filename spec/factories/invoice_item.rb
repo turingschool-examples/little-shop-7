@@ -1,9 +1,9 @@
 FactoryBot.define do
-  factory :invoiceitem do
-    item_id {"1"}
-    invoice_id {"2"}
-    quantity {"2"}
-    unit_price {"2300"}
-    status {"Shipped"}
+  factory :invoice_item, class: InvoiceItem do
+    item
+    invoice
+    quantity {Faker::Number.number(digits: 1)}
+    unit_price {Faker::Number.number(digits: 4)}
+    status {Faker::Number.between(from: 0, to: 2)}
   end
 end

@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :invoice do
-    customer_id {"1"}
+    customer
     status {"completed"}
-    quantity {"2"}
   end
 end
