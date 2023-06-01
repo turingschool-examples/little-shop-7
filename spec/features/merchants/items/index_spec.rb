@@ -7,7 +7,7 @@ RSpec.describe "Merchant Items Index Page" do
     before(:each) do 
       @merchant = create(:merchant)
         @item_1 = create(:item, merchant: @merchant)
-        @item_2 = create(:item) 
+        @item_2 = create(:item, merchant: create(:merchant)) 
     end
     # User Story 6
 #     As a merchant,
