@@ -8,7 +8,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
 
   describe "When I visit the admin merchants index" do
     it "displays the name of each merchant in the system" do
-      visit "admin/merchants"
+      visit admin_merchants_path
 
       expect(page).to have_content("Admin Merchant Index Page")
       expect(page).to have_content("Merchants:")
