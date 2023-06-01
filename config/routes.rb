@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   get '/merchants/:id/dashboard', to: 'merchants#show', as: 'merchant_dashboard'
 
   get "/admin", to: "admin#index"
+
+  namespace :admin do
+    resources :merchants, only: [:index], controller: "merchants"
+  end
 end
