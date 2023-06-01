@@ -11,6 +11,27 @@ RSpec.describe "Index" do
     puts invoice_item.unit_price
     puts invoice_item.status
   end
+
+  # it "displays invoice Index" do
+  #   # merchant = create(:merchant)
+  #   invoice = create(:invoice)
+  #   # require 'pry'; binding.pry
+  #   puts invoice.status
+  # end
+
+  # it "displays merchants" do
+  #   # merchant = create(:merchant)
+  #   merchant = create(:merchant)
+  #   # require 'pry'; binding.pry
+  #   puts merchant.name
+  # end
+
+  # it "displays merchants" do
+  #   # merchant = create(:merchant)
+  #   item = create(:item)
+  #   # require 'pry'; binding.pry
+  #   puts item.name
+  # end
 end
 
 # create_list(:customer, 3)

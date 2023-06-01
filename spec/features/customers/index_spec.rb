@@ -6,4 +6,11 @@ RSpec.describe "Index" do
     puts customer.first_name
     puts customer.last_name
   end
+# end
+  # it "can make transactions" do
+  #   transaction = create(:transaction)
+  #   puts transaction.credit_card_number
+  #   puts transaction.credit_card_expiration_date
+  #   puts transaction.result
+  # end
 end
