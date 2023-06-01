@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   get '/merchants/:id/dashboard', to: 'merchants#show', as: 'merchant_dashboard'
 
+  get "/admin", to: "admin#index"
 end
