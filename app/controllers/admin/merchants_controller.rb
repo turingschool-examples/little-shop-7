@@ -15,20 +15,21 @@ class Admin::MerchantsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:id])
 
-    if @merchant
-      if @merchant.update(merchant_params)
-        flash[:success] = "#{@merchant.name} was successfully updated"
-        redirect_to admin_merchant_path(@merchant)
-      else
-        flash[:error] = "Merchant must have a name"
-        redirect_to edit_admin_merchant_path(@merchant)
-      end
+    if @merchant.update(merchant_params)
+      !params[:merchant][:status].nil?
+      redirect_to admin_merchants_path
+    elsif
+      flash[:success] = "#{@merchant.name} was successfully updated"
+      redirect_to admin_merchant_path(@merchant)
+    else
+      flash[:error] = "Merchant must have a name"
+      redirect_to edit_admin_merchant_path(@merchant)
     end
   end
 
 
   private
   def merchant_params
-    params.require(:merchant).permit(:name)
+    params.require(:merchant).permit(:name, :status)
   end
 end
