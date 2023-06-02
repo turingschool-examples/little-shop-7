@@ -10,7 +10,7 @@ RSpec.describe "Admin Merchant Edit Form", type: :feature do
     it "has the existing merchant attribute information" do
       visit edit_admin_merchant_path(@merchant_1)
       
-      expect(page).to have_content("Merchant Edit Page")
+      expect(page).to have_content("#{@merchant_1.name} Edit Page")
       expect(page).to have_field('Name', with: @merchant_1.name)
     end
     
