@@ -72,7 +72,7 @@ desc "customers"
       t.save
     end
     puts "Items loaded"
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
   
   task merchants: :environment do
@@ -88,7 +88,7 @@ desc "customers"
       t.save
     end
     puts "Merchants loaded"
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
   end
   
   task transactions: :environment do
@@ -107,7 +107,7 @@ desc "customers"
       t.save
     end
     puts "Transactions loaded"
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
 
   task all: :environment do
