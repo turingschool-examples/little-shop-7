@@ -23,5 +23,9 @@ RSpec.describe "Admin Merchant Edit Form", type: :feature do
       expect(page).to have_content("Jim Bob's")
       expect(page).to have_content("Jim Bob's was successfully updated")
     end
+
+    it "will re-render the edit form if fields are left blank" do
+      
+    end
   end
 end
