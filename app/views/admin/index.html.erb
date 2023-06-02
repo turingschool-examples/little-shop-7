@@ -1,1 +1,10 @@
 <%= render "admin_header" %>
+
+<section id="top-five-customers">
+  <h3>Top Customers</h3>
+  <ol>
+    <% @customers.each do |customer| %>
+      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.num_successful_transactions} purchases"%></li>
+    <% end %>
+  </ol>
+</section>
