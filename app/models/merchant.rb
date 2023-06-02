@@ -8,4 +8,8 @@ class Merchant < ApplicationRecord
   validates :name, presence: true
 
   enum status: {"disabled": 0, "enabled": 1}
+
+  def self.enabled_merchants
+    where('status = 1')
+  end
 end
