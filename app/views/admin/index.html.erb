@@ -1,1 +1,7 @@
 <%= render "admin_header" %>
+
+<ol>
+  <% @customers.each do |customer| %>
+    <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.successful_transaction_count} purchases"%></li>
+  <% end %>
+</ol>
