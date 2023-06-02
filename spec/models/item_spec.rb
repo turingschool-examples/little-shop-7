@@ -26,7 +26,5 @@ RSpec.describe Item, type: :model do
     @invoice = create(:invoice, customer_id: @customer.id)
     @invoice_item = create(:invoice_item, invoice_id: @invoice.id, item_id: @item.id)
     @transaction = create(:transaction, invoice_id: @invoice.id)
-    require 'pry'; binding.pry
   end
-
 end

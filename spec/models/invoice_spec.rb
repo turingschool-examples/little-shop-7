@@ -16,7 +16,7 @@ RSpec.describe Invoice, type: :model do
   before(:each) do
     @customer = create(:customer)
     @merchant = create(:merchant)
-
+    @invoice = create(:invoice, customer_id: @customer.id)
   end
 
 end
