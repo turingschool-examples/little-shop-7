@@ -6,4 +6,13 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
 
   validates :name, presence: true
+
+  def top_five_customers
+    Merchant.joins(invoice_items: [invoice: [customer: :transactions]])
+            .where(merchants: { id: id }, transactions: { result: "success" })
+            .select("customers.*")
+            .group("customers.id")
+            .order(count: :desc)
+            .limit(5)
+  end
 end
