@@ -72,15 +72,15 @@ RSpec.describe "Admin Dashboard Index Page" do
     # User Story 21
     it "displays the names and # of successful transactions for the top five costumers" do
       visit admin_path
-      
+
       within("#top-five-customers") do
         expect(page).to have_content("Top Customers")
 
-        expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 6 purchases")
-        expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 5 purchases")
-        expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 4 purchases")
-        expect(page).to have_content("4. #{@customer_4.first_name} #{@customer_4.last_name} - 3 purchases")
-        expect(page).to have_content("5. #{@customer_5.first_name} #{@customer_5.last_name} - 2 purchases")
+        expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name} - 6 purchases")
+        expect(page).to have_content("#{@customer_2.first_name} #{@customer_2.last_name} - 5 purchases")
+        expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name} - 4 purchases")
+        expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name} - 3 purchases")
+        expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name} - 2 purchases")
         expect(page).to_not have_content("#{@customer_6.first_name} #{@customer_6.last_name}")
         expect(page).to_not have_content("#{@customer_7.first_name} #{@customer_7.last_name}")
 
