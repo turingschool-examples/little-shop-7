@@ -26,7 +26,7 @@ RSpec.describe Merchant, type: :model do
         expect(Merchant.enabled_merchants).to eq([@merchant_3, @merchant_4, @merchant_5])
       end
 
-      xit "groups merchants based on their disabled status" do
+      it "groups merchants based on their disabled status" do
         expect(Merchant.disabled_merchants).to eq([@merchant_1, @merchant_2])
       end
     end
