@@ -74,3 +74,15 @@
 #     add_reference :transactions, :invoice, foreign_key: true
 #   end
 # end
+
+# @merchant = create(:merchant)
+# @item = create(:item, merchant_id: @merchant.id)
+# @item1 = create(:item, merchant_id: @merchant.id)
+# @item2 = create(:item, merchant_id: @merchant.id)
+# @item3 = create(:item, merchant_id: @merchant.id)
+# @item4 = create(:item, merchant_id: @merchant.id)
+
+# @customer = create(:customer)
+# @invoice = create(:invoice, customer_id: @customer.id)
+# @invoice_item = create(:invoice_item, invoice_id: @invoice.id, item_id: @item.id)
+# @transaction = create(:transaction, invoice_id: @invoice.id)
