@@ -2,6 +2,6 @@
 
 <ol>
   <% @customers.each do |customer| %>
-    <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.successful_transaction_count} purchases"%></li>
+    <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.num_successful_transactions} purchases"%></li>
   <% end %>
 </ol>
