@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Admin Merchant Index Page", type: :feature do
   before(:each) do
-    @merchant_1 = create(:merchant, enabled: false)
-    @merchant_2 = create(:merchant, enabled: true)
+    @merchant_1 = create(:merchant, status: 0)
+    @merchant_2 = create(:merchant, status: 1)
   end
 
   describe "When I visit the admin merchants index" do

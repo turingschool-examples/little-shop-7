@@ -7,6 +7,15 @@
   <% end %>
 
 <section id="enabled_merchants">
-  <h4>Enabled Merchants</h4>
-  
+  <ul>
+    <h4>Enabled Merchants</h4>
+    <% @enabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: [:admin, merchant], local: true do |form| %>
+          <%= form.hidden_field :status, value: "disabled" %>
+          <%= form.submit "Disable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </section>
