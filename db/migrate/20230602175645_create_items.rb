@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.integer :unit_price
       t.string :created_at
       t.string :updated_at
+      t.references :merchant, null: false, foreign_key: true
     end
-    add_reference :items, :merchant, foreign_key: true
   end
 end

@@ -29,7 +29,7 @@ namespace :csv_load do
   end
 
   desc "Load items CSV data into the database"
-  task :items => :environment do
+  task :items => [:environment, :merchants] do
     Item.destroy_all
     CSV.foreach("db/data/items.csv", headers: true) do |row|
       Item.create!(row.to_hash)
