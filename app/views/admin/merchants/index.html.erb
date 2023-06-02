@@ -2,7 +2,11 @@
 
 <h1>Admin Merchant Index Page</h1>
 
-<h3>Merchants:</h3>
   <% @merchants.each do |merchant| %>
     <p><%= link_to merchant.name, admin_merchant_path(merchant) %></p>
   <% end %>
+
+<section id="enabled_merchants">
+  <h4>Enabled Merchants</h4>
+  
+</section>
