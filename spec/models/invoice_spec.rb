@@ -1,8 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Invoice, type: :model do
-  it { should belong_to :customer }
-  it { should have_many :invoice_items }
-  it { should have_many(:items).through(:invoice_items) }
-  it { should have_many :transactions }
+
+  context "relationship" do
+    it { should belong_to :customer }
+    it { should have_many :invoice_items }
+    it { should have_many(:items).through(:invoice_items) }
+    it { should have_many :transactions }
+  end
+
+  context "validations" do
+    it { should validate_presence_of :status}
+  end
+
+  before(:each) do
+    @customer = create(:customer)
+    attributes = attributes_for(:invoice)
+    @invoice = @customer.invoices.create(attributes)
+  end
+
 end
