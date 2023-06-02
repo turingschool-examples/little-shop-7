@@ -21,6 +21,7 @@ class Admin::MerchantsController < ApplicationController
       else
         flash[:error] = "Merchant must have a name"
         render :edit
+        # redirect_to edit_admin_merchant_path(@merchant_2)
       end
     end
   end

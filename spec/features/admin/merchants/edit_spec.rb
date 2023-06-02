@@ -23,5 +23,14 @@ RSpec.describe "Admin Merchant Edit Form", type: :feature do
       expect(page).to have_content("Jim Bob's")
       expect(page).to have_content("Jim Bob's was successfully updated")
     end
+
+    it "will re-render the edit form if fields are left blank" do
+      visit edit_admin_merchant_path(@merchant_2)
+      fill_in("Name", with: "" )
+      click_button("Submit")
+
+      expect(current_path).to eq(edit_admin_merchant_path(@merchant_2))
+      expect(page).to have_content("Merchant must have a name")
+    end
   end
 end

@@ -2,7 +2,7 @@
 
 <h1>Merchant Edit Page</h1>
 
-<%= form_with model: [:admin, @merchant], local: true do |form| %>
+<%= form_with model: [:admin, @merchant], data: {turbo: false}, local: true do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
   <%= form.submit "Submit" %>
