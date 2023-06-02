@@ -6,8 +6,8 @@ class CreateInvoiceItems < ActiveRecord::Migration[7.0]
       t.string :status
       t.string :created_at
       t.string :updated_at
+      t.references :item, null: false, foreign_key: true
+      t.references :invoice, null: false, foreign_key: true
     end
-    add_reference :invoice_items, :item, foreign_key: true
-    add_reference :invoice_items, :invoice, foreign_key: true
   end
 end

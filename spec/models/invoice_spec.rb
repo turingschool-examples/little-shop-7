@@ -15,8 +15,8 @@ RSpec.describe Invoice, type: :model do
 
   before(:each) do
     @customer = create(:customer)
-    attributes = attributes_for(:invoice)
-    @invoice = @customer.invoices.create(attributes)
+    @merchant = create(:merchant)
+
   end
 
 end
