@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_204959) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_220834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "customers", id: false, force: :cascade do |t|
-    t.integer "id", null: false
+  create_table "customers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
@@ -23,13 +22,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_204959) do
     t.index ["id"], name: "index_customers_on_id", unique: true
   end
 
-  create_table "invoice_items", id: false, force: :cascade do |t|
-    t.integer "id", null: false
-    t.bigint "item_id", null: false
-    t.bigint "invoice_id", null: false
-    t.integer "quantity"
-    t.integer "unit_price"
+  create_table "invoice_items", force: :cascade do |t|
     t.integer "status"
+    t.bigint "invoice_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "unit_price"
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_invoice_items_on_id", unique: true
@@ -37,31 +35,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_204959) do
     t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end
 
-  create_table "invoices", id: false, force: :cascade do |t|
-    t.integer "id", null: false
-    t.bigint "customer_id", null: false
+  create_table "invoices", force: :cascade do |t|
     t.integer "status"
+    t.bigint "customer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["id"], name: "index_invoices_on_id", unique: true
   end
 
-  create_table "items", id: false, force: :cascade do |t|
-    t.integer "id", null: false
+  create_table "items", force: :cascade do |t|
     t.string "name"
+    t.integer "status"
     t.text "description"
     t.integer "unit_price"
     t.bigint "merchant_id", null: false
-    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_items_on_id", unique: true
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
-  create_table "merchants", id: false, force: :cascade do |t|
-    t.integer "id", null: false
+  create_table "merchants", force: :cascade do |t|
     t.string "name"
     t.integer "status"
     t.datetime "created_at", null: false
@@ -69,12 +64,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_204959) do
     t.index ["id"], name: "index_merchants_on_id", unique: true
   end
 
-  create_table "transactions", id: false, force: :cascade do |t|
-    t.integer "id", null: false
-    t.bigint "invoice_id", null: false
+  create_table "transactions", force: :cascade do |t|
     t.string "credit_card_number"
     t.string "credit_card_expiration_date"
     t.integer "result"
+    t.bigint "invoice_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_transactions_on_id", unique: true
