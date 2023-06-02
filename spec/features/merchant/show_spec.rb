@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Merchant Dashboard' do
   before(:each) do 
     @merchant_1 = create(:merchant, name: 'Merchant 1')
-    @m1 = Merchant.create!(name: 'Merchant 1')
+    @m2 = Merchant.create!(name: 'Merchant 2')
       @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
       @c2 = Customer.create!(first_name: 'Frodo', last_name: 'Baggins')
       @c3 = Customer.create!(first_name: 'Samwise', last_name: 'Gamgee')
@@ -52,6 +52,7 @@ RSpec.describe 'Merchant Dashboard' do
     describe "US3 Lists Top 5 Customers" do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant " do
         visit "/merchants/#{@merchant_1.id}/dashboard"
+        require 'pry'; binding.pry
       end
     end
   end
