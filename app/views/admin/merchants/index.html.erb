@@ -20,3 +20,18 @@
     <% end %>
   </ul>
 </section>
+
+<section id="disabled_merchants">
+  <ul>
+    <h4>Disabled Merchants</h4>
+    <% @disabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: merchant, url: admin_merchant_path(merchant), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "enabled" %>
+          <%= form.submit "Enable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>
