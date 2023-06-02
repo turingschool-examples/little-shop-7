@@ -12,6 +12,10 @@ RSpec.describe "/merchants/:id/dashboard" do
         visit "/merchants/#{merchant_1.id}/dashboard"
         expect(page).to have_content(merchant_1.name)
         expect(page).to_not have_content(merchant_2.name)
+
+        visit "/merchants/#{merchant_2.id}/dashboard"
+        expect(page).to have_content(merchant_2.name)
+        expect(page).to_not have_content(merchant_1.name)
       end
 
     end
