@@ -22,31 +22,31 @@ RSpec.describe "/admin", type: :feature do
     let!(:trans_4_s) { create_list(:transaction, 4, result: 1, invoice_id: invoice_4.id) }
     let!(:trans_5_s) { create_list(:transaction, 5, result: 1, invoice_id: invoice_5.id) }
     let!(:trans_6_f) { create_list(:transaction, 6, result: 0, invoice_id: invoice_6.id) }
-  end
 
-  it "will display a header indicating you are on the dashboard" do
-    visit admin_index_path
+    it "will display a header indicating you are on the dashboard" do
+      visit admin_index_path
 
-    expect(page).to have_content("Admin Dashboard")
-  end
+      expect(page).to have_content("Admin Dashboard")
+    end
 
-  it "should display links to admin/merchants, admin/invoices, and admin/dashboard" do
-    visit admin_index_path
+    it "should display links to admin/merchants, admin/invoices, and admin/dashboard" do
+      visit admin_index_path
 
-    expect(page).to have_link("Dashboard", :href => admin_index_path)
-    expect(page).to have_link("Merchants", :href => admin_merchants_path)
-    expect(page).to have_link("Invoices", :href => admin_invoices_path)
-  end
+      expect(page).to have_link("Dashboard", :href => admin_index_path)
+      expect(page).to have_link("Merchants", :href => admin_merchants_path)
+      expect(page).to have_link("Invoices", :href => admin_invoices_path)
+    end
 
-  it "should display top 5 customers by successful transactions" do
-    visit admin_index_path
+    it "should display top 5 customers by successful transactions" do
+      visit admin_index_path
 
-    within "#top-5-customers" do
-      expect(customer_5.name).to appear_before(customer_4.name)
-      expect(customer_4.name).to appear_before(customer_3.name)
-      expect(customer_3.name).to appear_before(customer_2.name)
-      expect(customer_2.name).to appear_before(customer_1.name)
-      expect(page).to_not have_content(customer_6.name)
+      within "#top-5-customers" do
+        expect(customer_5.first_name).to appear_before(customer_4.first_name)
+        expect(customer_4.first_name).to appear_before(customer_3.first_name)
+        expect(customer_3.first_name).to appear_before(customer_2.first_name)
+        expect(customer_2.first_name).to appear_before(customer_1.first_name)
+        expect(page).to_not have_content(customer_6.first_name)
+      end
     end
   end
 end
