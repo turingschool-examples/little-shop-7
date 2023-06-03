@@ -1,1 +1,5 @@
+<% flash.each do |type, message| %>
+  <%= message %>
+<% end %>
 <h1><%= "#{@merchant.name}" %></h1>
+<%= link_to "Edit #{@merchant.name}", "/admin/merchants/#{@merchant.id}/edit" %>
