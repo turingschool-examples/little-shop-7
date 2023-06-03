@@ -86,3 +86,6 @@
 # @invoice = create(:invoice, customer_id: @customer.id)
 # @invoice_item = create(:invoice_item, invoice_id: @invoice.id, item_id: @item.id)
 # @transaction = create(:transaction, invoice_id: @invoice.id)
+
+
+# refactor routes to be path_helpers or whatever they're called...resources? 
