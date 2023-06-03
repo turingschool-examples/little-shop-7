@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Merchant Dashboard' do
   before(:each) do 
     @merchant_1 = create(:merchant, name: 'Merchant 1')
-    @m2 = Merchant.create!(name: 'Merchant 2')
+    # @m2 = Merchant.create!(name: 'Merchant 2')
       @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
       @c2 = Customer.create!(first_name: 'Frodo', last_name: 'Baggins')
       @c3 = Customer.create!(first_name: 'Samwise', last_name: 'Gamgee')
@@ -18,10 +18,14 @@ RSpec.describe 'Merchant Dashboard' do
       @i3 = Invoice.create!(customer_id: @c2.id, status: 2)
       @i4 = Invoice.create!(customer_id: @c3.id, status: 2)
       @i5 = Invoice.create!(customer_id: @c4.id, status: 2)
+
       @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 0)
       @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
       @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
       @ii_4 = InvoiceItem.create!(invoice_id: @i3.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
+
+      @tran1 = Transaction.create!(invoice_id: @i1.id, result: )
+
   end
   
   describe "US1 '/merchants/:merchant_id/dashboard'" do 
