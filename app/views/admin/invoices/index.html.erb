@@ -1,0 +1,6 @@
+<center>Invoices</center>
+<% @invoices.each do |invoice| %>
+  <ul style="list-style-type:none;">
+    <li><%= link_to "Invoice #{invoice.id}", "/admin/invoices/:invoice_id" %></li>
+  </ul>
+<% end %>
