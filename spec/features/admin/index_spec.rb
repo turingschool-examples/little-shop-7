@@ -29,4 +29,13 @@ RSpec.describe "/admin", type: :feature do
 
     expect(page).to have_content("Admin Dashboard")
   end
+
+  it "should display links to admin/merchants, admin/invoices, and admin/dashboard" do
+    visit admin_index_path
+
+    expect(page).to have_link("Dashboard", :href => admin_index_path)
+    expect(page).to have_link("Merchants", :href => admin_merchants_path)
+    expect(page).to have_link("Invoices", :href => admin_invoices_path)
+  end
+
 end
