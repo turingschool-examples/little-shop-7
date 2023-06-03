@@ -9,8 +9,7 @@ class Merchant < ApplicationRecord
     customers.joins(:transactions)
     .group(:id)
     .where( transactions: {result: 0})
-    .limit(5)
-    
+    .limit(5)  
 
     # customers.joins(invoices: :transactions)
     # .where(transactions: { result: 0 })
