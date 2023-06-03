@@ -9,3 +9,10 @@
     <% end %>
   </ol>
 </div>
+<div id="incomplete-invoices", style="float:left; margin:20px;"><h3 style="background-color:lightgrey;"><center>Incomplete Invoices</h3>
+  <ul>
+    <% @invoices.each do |invoice| %>
+        <li>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></li><br>
+    <% end %>
+  </ul>
+</div>
