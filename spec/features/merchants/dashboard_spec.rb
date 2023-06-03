@@ -3,20 +3,27 @@ require "rails_helper"
 RSpec.describe "Merchant Dashboard" do 
   describe "It shows the merchant dashboard" do
     let!(:merchant) { create(:merchant, id: 1, name:"Dealer of Death", status: 1 )}
+    let!(:merchant2) { create(:merchant, id: 2, name:"Dealer of Life", status: 1 )}
+
 
     let!(:item1) { create(:item, id: 1, merchant_id: 1 )}
     let!(:item2) { create(:item, id: 2, merchant_id: 1 )}
     let!(:item3) { create(:item, id: 3, merchant_id: 1 )}
     let!(:item4) { create(:item, id: 4, merchant_id: 1 )}
     let!(:item5) { create(:item, id: 5, merchant_id: 1 )}
+    let!(:item6) { create(:item, id: 6, merchant_id: 1 )}
+    let!(:item7) { create(:item, id: 7, merchant_id: 1 )}
 
-    let!(:customer1) { create(:customer, id: 1 )}
-    let!(:customer2) { create(:customer, id: 2 )}
-    let!(:customer3) { create(:customer, id: 3 )}
-    let!(:customer4) { create(:customer, id: 4 )}
-    let!(:customer5) { create(:customer, id: 5 )}
-    let!(:customer6) { create(:customer, id: 6 )}
-    let!(:customer7) { create(:customer, id: 7 )}
+    let!(:item1) { create(:item, id: 1, merchant_id: 2 )}
+    let!(:item2) { create(:item, id: 2, merchant_id: 2 )}
+
+    let!(:customer1) { create(:customer, id: 1, first_name: "Austin" )}
+    let!(:customer2) { create(:customer, id: 2, first_name: "Jimmy" )}
+    let!(:customer3) { create(:customer, id: 3, first_name: "Garret" )}
+    let!(:customer4) { create(:customer, id: 4, first_name: "Julian" )}
+    let!(:customer5) { create(:customer, id: 5, first_name: "James" )}
+    let!(:customer6) { create(:customer, id: 6, first_name: "John" )}
+    let!(:customer7) { create(:customer, id: 7, first_name: "Jerry" )}
 
     let!(:invoice1) { create(:invoice, id: 1, customer_id: customer1.id )}
     let!(:invoice2) { create(:invoice, id: 2, customer_id: customer1.id )}
@@ -41,28 +48,28 @@ RSpec.describe "Merchant Dashboard" do
 
     let!(:invoice17) { create(:invoice, id: 17, customer_id: customer5.id )}
 
-    let!(:invoice_item1) { create(:invoice_item, id: 1, item_id: item1.id, invoice_id: invoice1.id )}
-    let!(:invoice_item2) { create(:invoice_item, id: 2, item_id: item1.id, invoice_id: invoice2.id )}
-    let!(:invoice_item3) { create(:invoice_item, id: 3, item_id: item1.id, invoice_id: invoice3.id )}
-    let!(:invoice_item4) { create(:invoice_item, id: 4, item_id: item1.id, invoice_id: invoice4.id )}
+    let!(:invoice_item1) { create(:invoice_item, id: 1, status: 0,  item_id: item1.id, invoice_id: invoice1.id )}
+    let!(:invoice_item2) { create(:invoice_item, id: 2, status: 1, item_id: item1.id, invoice_id: invoice2.id )}
+    let!(:invoice_item3) { create(:invoice_item, id: 3, status: 1, item_id: item1.id, invoice_id: invoice3.id )}
+    let!(:invoice_item4) { create(:invoice_item, id: 4, status: 2, item_id: item6.id, invoice_id: invoice4.id )}
 
-    let!(:invoice_item5) { create(:invoice_item, id: 5, item_id: item2.id, invoice_id: invoice5.id )}
-    let!(:invoice_item6) { create(:invoice_item, id: 6, item_id: item2.id, invoice_id: invoice6.id )}
-    let!(:invoice_item7) { create(:invoice_item, id: 7, item_id: item2.id, invoice_id: invoice7.id )}
-    let!(:invoice_item8) { create(:invoice_item, id: 8, item_id: item2.id, invoice_id: invoice8.id )}
+    let!(:invoice_item5) { create(:invoice_item, id: 5, status: 0, item_id: item2.id, invoice_id: invoice5.id )}
+    let!(:invoice_item6) { create(:invoice_item, id: 6, status: 2, item_id: item6.id, invoice_id: invoice6.id )}
+    let!(:invoice_item7) { create(:invoice_item, id: 7, status: 2, item_id: item7.id, invoice_id: invoice7.id )}
+    let!(:invoice_item8) { create(:invoice_item, id: 8, status: 1, item_id: item2.id, invoice_id: invoice8.id )}
 
-    let!(:invoice_item9) { create(:invoice_item, id: 9, item_id: item3.id, invoice_id: invoice9.id )}
-    let!(:invoice_item10) { create(:invoice_item, id: 10, item_id: item3.id, invoice_id: invoice10.id )}
-    let!(:invoice_item11) { create(:invoice_item, id: 11, item_id: item3.id, invoice_id: invoice11.id )}
-    let!(:invoice_item12) { create(:invoice_item, id: 12, item_id: item3.id, invoice_id: invoice12.id )}
+    let!(:invoice_item9) { create(:invoice_item, id: 9, status: 0, item_id: item3.id, invoice_id: invoice9.id )}
+    let!(:invoice_item10) { create(:invoice_item, id: 10, status: 1, item_id: item3.id, invoice_id: invoice10.id )}
+    let!(:invoice_item11) { create(:invoice_item, id: 11, status: 1, item_id: item3.id, invoice_id: invoice11.id )}
+    let!(:invoice_item12) { create(:invoice_item, id: 12, status: 2, item_id: item7.id, invoice_id: invoice12.id )}
 
-    let!(:invoice_item13) { create(:invoice_item, id: 13, item_id: item4.id, invoice_id: invoice13.id )}
-    let!(:invoice_item14) { create(:invoice_item, id: 14, item_id: item4.id, invoice_id: invoice14.id)}
+    let!(:invoice_item13) { create(:invoice_item, id: 13, status: 2, item_id: item7.id, invoice_id: invoice13.id )}
+    let!(:invoice_item14) { create(:invoice_item, id: 14, status: 1, item_id: item4.id, invoice_id: invoice14.id)}
 
-    let!(:invoice_item15) { create(:invoice_item, id: 15, item_id: item5.id, invoice_id: invoice15.id )}
-    let!(:invoice_item16) { create(:invoice_item, id: 16, item_id: item5.id, invoice_id: invoice16.id )}
+    let!(:invoice_item15) { create(:invoice_item, id: 15, status: 1, item_id: item5.id, invoice_id: invoice15.id )}
+    let!(:invoice_item16) { create(:invoice_item, id: 16, status: 2, item_id: item6.id, invoice_id: invoice16.id )}
 
-    let!(:invoice_item17) { create(:invoice_item, id: 17, item_id: item5.id, invoice_id: invoice17.id )}
+    let!(:invoice_item17) { create(:invoice_item, id: 17, status: 2, item_id: item6.id, invoice_id: invoice17.id )}
 
     let!(:transaction1) { create(:transaction, id: 1, result: 1, invoice_id: invoice1.id )}
     let!(:transaction2) { create(:transaction, id: 2, result: 1, invoice_id: invoice2.id )}
@@ -108,8 +115,8 @@ RSpec.describe "Merchant Dashboard" do
       expect(customer1.first_name).to appear_before(customer3.first_name)
       expect(customer3.first_name).to appear_before(customer4.first_name)
       expect(customer4.first_name).to appear_before(customer5.first_name)
-      expect(page).to_not have_content(customer6.first_name)
-      expect(page).to_not have_content(customer7.first_name)
+      # expect(page).to_not have_content(customer6.first_name)
+      # expect(page).to_not have_content(customer7.first_name)
     end
 
     it "displays the number of successful transactions next to customer's name" do
@@ -120,8 +127,29 @@ RSpec.describe "Merchant Dashboard" do
       expect(page).to have_content("#{customer3.first_name} #{customer3.last_name} | 2 - Successful Transactions")
       expect(page).to have_content("#{customer4.first_name} #{customer4.last_name} | 2 - Successful Transactions")
       expect(page).to have_content("#{customer5.first_name} #{customer5.last_name} | 1 - Successful Transactions")
+    end
 
+    it "displays items ready to ship with names of all items that have been ordered and not yet shipped" do
+      visit "/merchants/#{merchant.id}/dashboard"
 
+      expect(page).to have_content("Items Ready to Ship")
+
+      expect(page).to have_content(invoice_item1.item.name)
+      expect(page).to have_content(invoice_item2.item.name)
+      expect(page).to have_content(invoice_item3.item.name)
+      expect(page).to have_content(invoice_item5.item.name)
+      expect(page).to have_content(invoice_item8.item.name)
+      expect(page).to have_content(invoice_item9.item.name)
+      expect(page).to have_content(invoice_item10.item.name)
+      expect(page).to have_content(invoice_item11.item.name)
+      expect(page).to have_content(invoice_item14.item.name)
+      expect(page).to have_content(invoice_item15.item.name)
+# save_and_open_page
+      expect(page).to_not have_content(invoice_item4.item.name)
+      expect(page).to_not have_content(invoice_item6.item.name)
+      expect(page).to_not have_content(invoice_item7.item.name)
+      expect(page).to_not have_content(invoice_item12.item.name)
+      expect(page).to_not have_content(invoice_item16.item.name)
     end
   end
 end

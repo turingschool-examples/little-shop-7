@@ -10,9 +10,18 @@ class Merchant < ApplicationRecord
   def top_5_customers
     Customer.joins(:transactions)
     .select("customers.id, customers.first_name, customers.last_name, COUNT(transactions.id) AS transaction_count")
-    .where(transactions: { result: 1 })
+    .where(transactions: { result: 1 } )
     .group("customers.id, customers.first_name, customers.last_name")
     .order("transaction_count DESC")
     .limit(5)
   end
+
+  def not_shipped_items
+    # require 'pry'; binding.pry
+    Item.joins(:invoice_items)
+    .select("items.*, invoice_items.status")
+    .where("invoice_items.status != 2")
+    
+  end
+
 end

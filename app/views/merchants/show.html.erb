@@ -8,3 +8,9 @@
 <% @merchant.top_5_customers.each do |customer| %>
   <p><%= customer.first_name %> <%= customer.last_name %> | <%= customer.transaction_count %> - Successful Transactions </p>
 <% end %>
+
+<h2> Items Ready to Ship </h2>
+
+<% @merchant.not_shipped_items.each do |item| %>
+ <p> <%= item.name %> - Invoice # <%= link_to %> </p>
+<% end %>
