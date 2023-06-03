@@ -6,4 +6,14 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
 
   validates :name, presence: true
+
+  enum status: {"disabled": 0, "enabled": 1}
+
+  def self.enabled_merchants
+    where('status = 1')
+  end
+
+  def self.disabled_merchants
+    where('status = 0')
+  end
 end
