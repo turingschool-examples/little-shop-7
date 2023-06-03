@@ -16,7 +16,6 @@ RSpec.describe Merchant, type: :model do
     @c6 = Customer.create!(first_name: 'Legolas', last_name: 'Greenleaf')
     @c7 = Customer.create!(first_name: 'Gandalf', last_name: 'The Great')
 
-
     @inv1 = Invoice.create!(customer_id: @c1.id, status: 2)
     @inv2 = Invoice.create!(customer_id: @c1.id, status: 2)
     @inv3 = Invoice.create!(customer_id: @c2.id, status: 2)
@@ -34,7 +33,6 @@ RSpec.describe Merchant, type: :model do
     @ii_6 = InvoiceItem.create!(invoice_id: @inv6.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
     @ii_7 = InvoiceItem.create!(invoice_id: @inv7.id, item_id: @item_4.id, quantity: 1, unit_price: 5, status: 1)
     @ii_8 = InvoiceItem.create!(invoice_id: @inv8.id, item_id: @item_4.id, quantity: 1, unit_price: 5, status: 1)
-
 
     @tran1 = Transaction.create!(invoice_id: @inv1.id, result: 0)
     @tran2 = Transaction.create!(invoice_id: @inv1.id, result: 0)
@@ -71,11 +69,8 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe "top five customers who have conducted the largest number of successful transactions with my merchant" do
-    it " #top_five_customers" do
-      #succ-transaction cust @c1-5, @c2-2, @c3-1, @c4-4, @c5-3 Ordered most to least [@c1, @c4, @c5, @c2, @c3]
-      
+    it "::top_five_customers" do
       expect(@merchant_1.top_five_customers).to eq([@c1, @c4, @c5, @c2, @c3])
-      # Transaction.where(result: 0).size
     end
   end
 end

@@ -11,12 +11,5 @@ class Merchant < ApplicationRecord
     .where( transactions: {result: 0})
     .order("COUNT(transactions.id) DESC")
     .limit(5)  
-    # require 'pry'; binding.pry
-
-    # customers.joins(invoices: :transactions)
-    # .where(transactions: { result: 0 })
-    # .group(:id)
-    # .select(:customers)
-    # .order("COUNT(transactions.id) DESC").limit(5)
   end
 end
