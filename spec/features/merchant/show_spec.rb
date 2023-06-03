@@ -87,7 +87,7 @@ save_and_open_page
 
         within(".top_five_customers")do
         expect(page).to have_content("Top Five Customers")
-        expect(page).to have_content(@c1.first_name)
+        expect(page).to have_content("#{@c1.first_name} #{@c1.last_name} has #{@c1.transaction_counter} Successful Transactions")
         expect(page).to have_content(@c2.first_name)
         expect(page).to have_content(@c3.first_name)
         expect(page).to have_content(@c4.first_name)
