@@ -15,8 +15,6 @@ class Merchant < ApplicationRecord
 
   def items_ready_to_ship
     # invoice_items.where(status: 1)
-    # require 'pry'; binding.pry
     Item.joins(:invoice_items).where(invoice_items: {status: 1}).distinct
-    # require 'pry'; binding.pry
   end
 end
