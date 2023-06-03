@@ -115,13 +115,32 @@ RSpec.describe 'Merchant Dashboard' do
 
       it "next to each item I see the id of the invoice that ordered my item and each invoice id is a link to my merchant's invoice show page" do
         visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content("---- Invoice ID Links ")
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv3.id)
+        click_link(@inv3.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv3.id}")
 
-        expect(page).to have_content(@item_3.invoice_ids)
-        expect(page).to have_content(@item_4.invoice_ids)
-        expect(page).to have_link(@item_3.invoice_ids)
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv4.id)
+        click_link(@inv4.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv4.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv4.id}")
 
-        click_link(@item_3.invoice_ids)
-        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices")
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv5.id)
+        click_link(@inv5.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv5.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv5.id}")
+
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv6.id)
+        click_link(@inv6.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv6.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv6.id}")
       end
     end
   end
