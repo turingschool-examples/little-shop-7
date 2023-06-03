@@ -1,5 +1,9 @@
 <h1>Admin Merchants</h1>
 
+<%= link_to "Create New Merchant", "/admin/merchants/new", method: :get %>
+
+
+
 <div class="enabled_admin_merchants">
   <h2>Enabled Merchants</h2>
   <% @merchants.filter_enabled.each do |merchant| %>
