@@ -5,4 +5,10 @@ class Invoice < ApplicationRecord
   belongs_to :customer
   has_many :transactions
   enum :status, ["cancelled", "in progress", "completed"]
+
+  def self.incomplete_invoices
+    Invoice.joins(:invoice_items)
+      .where("invoice_items.status !=2")
+      .group(:id)
+  end
 end
