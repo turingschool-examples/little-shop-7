@@ -14,6 +14,10 @@
 <h3> Items Ready To Ship </h3>
   <ol>
     <% @merchant.items_ready_to_ship.each do |item|%>
-      <li><%= item.name %> ---- Invoice ID Links <%= link_to "#{item.invoice_ids}", "/merchants/#{@merchant.id}/invoices" %></li>
-    <% end %> 
+      <section id="items-<% item %>"><li><%= item.name %> ---- Invoice ID Links 
+      <% item.invoice_ids.each do |id| %>
+      <%= link_to "#{id}", "/merchants/#{@merchant.id}/invoices/#{id}" %></li><br>
+      <% end %>
+      </section>
+    <% end %>
   </ol>
