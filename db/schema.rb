@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_143608) do
     t.string "name"
     t.string "created_at"
     t.string "updated_at"
-    t.string "status", default: "enabled"
+    t.integer "status", default: 0
   end
 
   create_table "transactions", force: :cascade do |t|
