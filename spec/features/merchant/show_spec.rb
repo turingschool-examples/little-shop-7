@@ -83,7 +83,7 @@ RSpec.describe 'Merchant Dashboard' do
     describe "US3 Lists Top 5 Customers" do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant " do
         visit "/merchants/#{@merchant_1.id}/dashboard"
-save_and_open_page
+
 
         within(".top_five_customers")do
           expect(page).to have_content("Top Five Customers")
@@ -101,6 +101,19 @@ save_and_open_page
           expect(@c2.first_name).to_not appear_before(@c1.first_name)
         end
       end
+    end
+
+    describe "US4 Items Ready to Ship" do
+      it " I see a section for 'Items Ready to Ship' In that section I see a list of the names of all of my items that have been ordered and have not yet been shipped" do
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        require 'pry'; binding.pry
+
+        
+      
+      end
+
+      it "next to each Item I see the id of the invoice that ordered my item
+      And each invoice id is a link to my merchant's invoice show page"
     end
   end
 end
