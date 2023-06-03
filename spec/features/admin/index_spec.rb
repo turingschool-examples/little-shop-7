@@ -14,14 +14,20 @@ RSpec.describe "/admin", type: :feature do
     let!(:customer_6) { create(:customer) }
     let!(:customer_7) { create(:customer) }
 
+    static_time_1 = Time.zone.parse('2023-04-13 00:50:37')
+    static_time_2 = Time.zone.parse('2023-03-13 00:50:37')
+    static_time_3 = Time.zone.parse('2023-02-13 00:50:37')
+
     let!(:invoice_1) { create(:invoice, customer_id: customer_1.id) }
     let!(:invoice_2) { create(:invoice, customer_id: customer_2.id) }
     let!(:invoice_3) { create(:invoice, customer_id: customer_3.id) }
     let!(:invoice_4) { create(:invoice, customer_id: customer_4.id) }
     let!(:invoice_5) { create(:invoice, customer_id: customer_5.id) }
     let!(:invoice_6) { create(:invoice, customer_id: customer_6.id) }
-    let!(:invoice_7) { create(:invoice, customer_id: customer_7.id) }
+    let!(:invoice_7) { create(:invoice, customer_id: customer_7.id, created_at: static_time_1) }
     let!(:invoice_8) { create(:invoice, customer_id: customer_7.id) }
+    let!(:invoice_9) { create(:invoice, customer_id: customer_7.id, created_at: static_time_2) }
+    let!(:invoice_10) { create(:invoice, customer_id: customer_7.id, created_at: static_time_3) }
 
     let!(:invoice_item_1) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[0].id, status: 1 ) }
     let!(:invoice_item_2) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[1].id, status: 1 ) }
@@ -29,6 +35,10 @@ RSpec.describe "/admin", type: :feature do
     let!(:invoice_item_4) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[3].id, status: 0 ) }
     let!(:invoice_item_5) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[4].id, status: 2 ) }
     let!(:invoice_item_6) { create(:invoice_item, invoice_id: invoice_8.id, item_id: items_m1[4].id, status: 2 ) }
+    let!(:invoice_item_7) { create(:invoice_item, invoice_id: invoice_9.id, item_id: items_m1[3].id, status: 0 ) }
+    let!(:invoice_item_8) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[4].id, status: 0 ) }
+    let!(:invoice_item_9) { create(:invoice_item, invoice_id: invoice_9.id, item_id: items_m1[4].id, status: 0 ) }
+    let!(:invoice_item_10) { create(:invoice_item, invoice_id: invoice_10.id, item_id: items_m1[4].id, status: 0 ) }
 
     let!(:trans_1_s) { create_list(:transaction, 1, result: 1, invoice_id: invoice_1.id) }
     let!(:trans_2_s) { create_list(:transaction, 2, result: 1, invoice_id: invoice_2.id) }
@@ -66,12 +76,21 @@ RSpec.describe "/admin", type: :feature do
 
     it "should displays a section for incomplete invoices with ids as links" do
       visit admin_index_path
-      
+
       within "#incomplete-invoices" do
         expect(page).to have_content("Incomplete Invoices")
         expect(page).to have_content("Invoice ##{invoice_7.id}")
         expect(page).to have_link("#{invoice_7.id}", :href => admin_invoice_path(invoice_7))
         expect(page).to_not have_link("#{invoice_8.id}", :href => admin_invoice_path(invoice_8))
+      end
+    end
+
+    it "should list invoice dates and sort them by oldest to newest" do
+      visit admin_index_path
+
+      within "#incomplete-invoices" do
+        expect(invoice_10.format_time_stamp).to appear_before(invoice_9.format_time_stamp)
+        expect(invoice_9.format_time_stamp).to appear_before(invoice_7.format_time_stamp)
       end
     end
   end
