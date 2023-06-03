@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   patch "/admin/merchants/:id", to: "admin/merchants#update"
 
   get "/admin/invoices", to: "admin/invoices#index"
+  get "/admin/invoices/:id", to: "admin/invoices#show"
 end
