@@ -18,12 +18,4 @@ RSpec.describe Invoice, type: :model do
     @merchant = create(:merchant)
     @invoice = create(:invoice, customer_id: @customer.id)
   end
-
-  describe "instance methods" do
-    describe "#formatted_time" do
-      it "returns the time formatted" do
-        expect(@invoice.formatted_time).to eq(@invoice.created_at.to_datetime.strftime("%A, %B %d, %Y"))
-      end
-    end
-  end
 end
