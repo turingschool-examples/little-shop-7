@@ -14,5 +14,16 @@ RSpec.describe "/admin/merchants/:id" do
       expect(page).to_not have_content("#{merchant_1.name}")
       expect(page).to_not have_content("#{merchant_3.name}")
     end
+
+    it "displays a link to that takes you to a page to edit the merchants information" do
+      visit "/admin/merchants/#{merchant_2.id}"
+
+      expect(page).to_not have_content("Merchant #{merchant_1.id} has been successfully updated")
+
+      expect(page).to have_link("Edit #{merchant_2.name}")
+      click_link("Edit #{merchant_2.name}")
+
+      expect(current_path).to eq("/admin/merchants/#{merchant_2.id}/edit")
+    end
   end
 end
