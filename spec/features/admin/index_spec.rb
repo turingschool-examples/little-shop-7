@@ -38,4 +38,15 @@ RSpec.describe "/admin", type: :feature do
     expect(page).to have_link("Invoices", :href => admin_invoices_path)
   end
 
+  it "should display top 5 customers by successful transactions" do
+    visit admin_index_path
+
+    within "#top-5-customers" do
+      expect(customer_5.name).to appear_before(customer_4.name)
+      expect(customer_4.name).to appear_before(customer_3.name)
+      expect(customer_3.name).to appear_before(customer_2.name)
+      expect(customer_2.name).to appear_before(customer_1.name)
+      expect(page).to_not have_content(customer_6.name)
+    end
+  end
 end
