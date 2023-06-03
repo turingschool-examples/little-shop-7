@@ -1,3 +1,5 @@
+require "date"
+
 class Invoice < ApplicationRecord
   belongs_to :customer
   has_many :transactions
@@ -7,4 +9,8 @@ class Invoice < ApplicationRecord
   validates_presence_of :status
 
   enum status: ["cancelled", "completed", "in progress"] # can = 0 com = 1 in p = 2 need to remigrate and make integers
+
+  def formatted_time
+    created_at.to_datetime.strftime("%A, %B %d, %Y")
+  end
 end
