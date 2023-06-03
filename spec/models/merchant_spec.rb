@@ -74,7 +74,7 @@ RSpec.describe Merchant, type: :model do
     it " #top_five_customers" do
       #succ-transaction cust @c1-5, @c2-2, @c3-1, @c4-4, @c5-3 Ordered most to least [@c1, @c4, @c5, @c2, @c3]
       
-      expect(@merchant_1.top_five_customers).to match_array([@c1, @c4, @c5, @c2, @c3])
+      expect(@merchant_1.top_five_customers).to eq([@c1, @c4, @c5, @c2, @c3])
       # Transaction.where(result: 0).size
     end
   end
