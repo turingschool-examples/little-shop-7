@@ -144,12 +144,20 @@ RSpec.describe "Merchant Dashboard" do
       expect(page).to have_content(invoice_item11.item.name)
       expect(page).to have_content(invoice_item14.item.name)
       expect(page).to have_content(invoice_item15.item.name)
-# save_and_open_page
+
       expect(page).to_not have_content(invoice_item4.item.name)
       expect(page).to_not have_content(invoice_item6.item.name)
       expect(page).to_not have_content(invoice_item7.item.name)
       expect(page).to_not have_content(invoice_item12.item.name)
       expect(page).to_not have_content(invoice_item16.item.name)
+
+      # expect(page).to have_link("/merchants/#{merchant.id}/invoices/#{item1.invoice_items.first.invoice.id}")
+      expect(page).to have_content("#{item1.invoice_items.first.invoice.id}")
+      expect(page).to have_content("#{item2.invoice_items.first.invoice.id}")
+      expect(page).to have_content("#{item3.invoice_items.first.invoice.id}")
+      expect(page).to have_content("#{item5.invoice_items.first.invoice.id}")
+
+      expect(page).to_not have_content("#{item7.invoice_items.first.invoice.id}")
     end
   end
 end
