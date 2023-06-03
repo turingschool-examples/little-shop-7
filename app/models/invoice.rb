@@ -10,5 +10,10 @@ class Invoice < ApplicationRecord
     Invoice.joins(:invoice_items)
       .where("invoice_items.status !=2")
       .group(:id)
+      .order(:created_at)
+  end
+
+  def format_time_stamp
+    created_at.strftime('%A, %B %e, %Y')
   end
 end

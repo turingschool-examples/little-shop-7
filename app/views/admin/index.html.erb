@@ -12,7 +12,7 @@
 <div id="incomplete-invoices", style="float:left; margin:20px;"><h3 style="background-color:lightgrey;"><center>Incomplete Invoices</h3>
   <ul>
     <% @invoices.each do |invoice| %>
-        <li>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></li><br>
+        <li>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %> - <%= invoice.format_time_stamp %> </li><br>
     <% end %>
   </ul>
 </div>
