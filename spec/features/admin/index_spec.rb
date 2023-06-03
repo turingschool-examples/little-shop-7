@@ -23,4 +23,10 @@ RSpec.describe "/admin", type: :feature do
     let!(:trans_5_s) { create_list(:transaction, 5, result: 1, invoice_id: invoice_5.id) }
     let!(:trans_6_f) { create_list(:transaction, 6, result: 0, invoice_id: invoice_6.id) }
   end
+
+  it "will display a header indicating you are on the dashboard" do
+    visit admin_index_path
+
+    expect(page).to have_content("Admin Dashboard")
+  end
 end
