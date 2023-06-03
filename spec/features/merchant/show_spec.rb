@@ -106,14 +106,21 @@ RSpec.describe 'Merchant Dashboard' do
     describe "US4 Items Ready to Ship" do
       it " I see a section for 'Items Ready to Ship' In that section I see a list of the names of all of my items that have been ordered and have not yet been shipped" do
         visit "/merchants/#{@merchant_1.id}/dashboard"
-        require 'pry'; binding.pry
+save_and_open_page
 
-        
-      
+        expect(page).to have_content("Items Ready To Ship")
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_4.name)      
       end
 
-      it "next to each Item I see the id of the invoice that ordered my item
-      And each invoice id is a link to my merchant's invoice show page"
+      it "next to each item I see the id of the invoice that ordered my item and each invoice id is a link to my merchant's invoice show page" do
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+
+        expect(page).to have_content(@item_3.invoice_ids)
+        expect(page).to have_content(@item_4.invoice_ids)
+        expect(page).to have_link(@item_3.invoice_ids)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices")
+      end
     end
   end
 end

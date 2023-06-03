@@ -76,8 +76,7 @@ RSpec.describe Merchant, type: :model do
 
   describe " Lists list of the names of all of my items that have been ordered and have not yet been shipped" do
     it "::items_ready_to_ship" do
-      expect(@merchant_1.items_ready_to_ship).to eq([ @item_4.name, @item_3.name])
+      expect(@merchant_1.items_ready_to_ship).to eq([ @item_3, @item_4])
     end
   end
-
 end
