@@ -10,7 +10,7 @@ class Invoice < ApplicationRecord
 
   enum status: ["cancelled", "completed", "in progress"] # can = 0 com = 1 in p = 2 need to remigrate and make integers
 
-  def formatted_time
-    created_at.to_datetime.strftime("%A, %B %d, %Y")
+  def revenue
+    invoice_items.sum("unit_price * quantity")
   end
 end
