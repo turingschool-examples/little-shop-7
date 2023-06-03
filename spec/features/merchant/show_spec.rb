@@ -101,5 +101,46 @@ RSpec.describe 'Merchant Dashboard' do
         end
       end
     end
+
+    describe "US4 Items Ready to Ship" do
+      it " I see a section for 'Items Ready to Ship' In that section I see a list of the names of all of my items that have been ordered and have not yet been shipped" do
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+# save_and_open_page
+
+        expect(page).to have_content("Items Ready To Ship")
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_4.name)      
+      end
+
+      it "next to each item I see the id of the invoice that ordered my item and each invoice id is a link to my merchant's invoice show page" do
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content("---- Invoice ID Links ")
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv3.id)
+        click_link(@inv3.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv3.id}")
+
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv4.id)
+        click_link(@inv4.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv4.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv4.id}")
+
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv5.id)
+        click_link(@inv5.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv5.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv5.id}")
+
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_link(@inv6.id)
+        click_link(@inv6.id)
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv6.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@inv6.id}")
+      end
+    end
   end
 end
