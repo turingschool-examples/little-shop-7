@@ -86,22 +86,21 @@ RSpec.describe 'Merchant Dashboard' do
 save_and_open_page
 
         within(".top_five_customers")do
-        expect(page).to have_content("Top Five Customers")
-        expect(page).to have_content("#{@c1.first_name} #{@c1.last_name} has #{@c1.transaction_counter} Successful Transactions")
-        expect(page).to have_content(@c2.first_name)
-        expect(page).to have_content(@c3.first_name)
-        expect(page).to have_content(@c4.first_name)
-        expect(page).to have_content(@c5.first_name)
-        expect(page).to_not have_content(@c6.first_name)
+          expect(page).to have_content("Top Five Customers")
+          expect(page).to have_content("#{@c1.first_name} #{@c1.last_name} has #{@c1.transaction_counter} Succesful Transactions")
+          expect(page).to have_content("#{@c2.first_name} #{@c2.last_name} has #{@c2.transaction_counter} Succesful Transactions")
+          expect(page).to have_content("#{@c3.first_name} #{@c3.last_name} has #{@c3.transaction_counter} Succesful Transactions")
+          expect(page).to have_content("#{@c4.first_name} #{@c4.last_name} has #{@c4.transaction_counter} Succesful Transactions")
+          expect(page).to have_content("#{@c5.first_name} #{@c5.last_name} has #{@c5.transaction_counter} Succesful Transactions")
+          expect(page).to_not have_content("#{@c6.first_name} #{@c6.last_name} has #{@c6.transaction_counter} Succesful Transactions")
+
+          expect(@c1.first_name).to appear_before(@c2.first_name)
+          expect(@c4.first_name).to appear_before(@c2.first_name)
+          expect(@c2.first_name).to appear_before(@c3.first_name)
+          expect(@c5.first_name).to appear_before(@c2.first_name)
+          expect(@c2.first_name).to_not appear_before(@c1.first_name)
         end
       end
     end
   end
 end
-
-# As a merchant,
-# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-# Then I see the names of the top 5 customers
-# who have conducted the largest number of successful transactions with my merchant
-# And next to each customer name I see the number of successful transactions they have
-# conducted with my merchant
