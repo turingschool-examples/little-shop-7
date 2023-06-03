@@ -56,14 +56,17 @@ RSpec.describe "/admin" do
 
   describe "As an admin" do
     describe "when I visit the admin dashboard page " do
-      it "displays a header to inidicate the user is on the 'admin dashboard' page" do
+      it "displays headers to inidicate the user is on the Little Esty Shop 'admin dashboard' page" do
         visit "/admin"
         expect(current_path).to eq("/admin")
-        
 
-        # within ".admin_dashboard_header" do
-        #   expect(page).to have_content("Admin Dashboard")
-        # end
+        within "h1" do
+          expect(page).to have_content("Little Esty Shop")
+        end
+
+        within ".admin_dashboard_header" do
+          expect(page).to have_content("Admin Dashboard")
+        end
       end
     end
 
