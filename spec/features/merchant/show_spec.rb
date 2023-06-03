@@ -18,13 +18,28 @@ RSpec.describe 'Merchant Dashboard' do
       @i3 = Invoice.create!(customer_id: @c2.id, status: 2)
       @i4 = Invoice.create!(customer_id: @c3.id, status: 2)
       @i5 = Invoice.create!(customer_id: @c4.id, status: 2)
+      @i6 = Invoice.create!(customer_id: @c5.id, status: 2)
+  
 
       @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 0)
       @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
       @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
       @ii_4 = InvoiceItem.create!(invoice_id: @i3.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
 
-      @tran1 = Transaction.create!(invoice_id: @i1.id, result: )
+      @tran1 = Transaction.create!(invoice_id: @i1.id, result: 0)
+      @tran2 = Transaction.create!(invoice_id: @i1.id, result: 0)
+      @tran3 = Transaction.create!(invoice_id: @i1.id, result: 0)
+      @tran4 = Transaction.create!(invoice_id: @i2.id, result: 0)
+      @tran5 = Transaction.create!(invoice_id: @i2.id, result: 0)
+      @tran6 = Transaction.create!(invoice_id: @i3.id, result: 0)
+      @tran7 = Transaction.create!(invoice_id: @i3.id, result: 0)
+      @tran8 = Transaction.create!(invoice_id: @i4.id, result: 0)
+      @tran9 = Transaction.create!(invoice_id: @i5.id, result: 0)
+      @tran10 = Transaction.create!(invoice_id: @i5.id, result: 0)
+      @tran11 = Transaction.create!(invoice_id: @i5.id, result: 0)
+      @tran12 = Transaction.create!(invoice_id: @i5.id, result: 0)
+      @tran13 = Transaction.create!(invoice_id: @i6.id, result: 0)
+      @tran14 = Transaction.create!(invoice_id: @i6.id, result: 1)
 
   end
   
