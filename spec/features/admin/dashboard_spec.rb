@@ -83,6 +83,24 @@ RSpec.describe "Admin Dashboard" do
       expect("Forest, Gump").to appear_before("Sterling, Archer", only_text: true)
       expect("Sterling, Archer").to_not appear_before("Danger, Powers", only_text: true)
     end
+
+    # As an admin,
+    # When I visit the admin dashboard (/admin)
+    # Then I see a section for "Incomplete Invoices"
+    # In that section I see a list of the ids of all invoices
+    # That have items that have not yet been shipped
+    # And each invoice id links to that invoice's admin show page
+    it "displays incomomplete invoices" do
+
+      visit "/admin"
+      within("#Incomplete_Invoices") do
+        invoices = create_list(:invoice, 5)
+        invoice_items = create_list(:invoice_item, 5)
+        require 'pry'; binding.pry
+          expect(page).to have_content("Incomplete Invoices")
+          expect(page).to have_content()
+      end
+    end
   end
 end
 
