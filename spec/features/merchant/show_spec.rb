@@ -83,7 +83,6 @@ RSpec.describe 'Merchant Dashboard' do
     describe "US3 Lists Top 5 Customers" do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant " do
         visit "/merchants/#{@merchant_1.id}/dashboard"
-save_and_open_page
 
         within(".top_five_customers")do
           expect(page).to have_content("Top Five Customers")
