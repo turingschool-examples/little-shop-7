@@ -84,7 +84,6 @@ RSpec.describe 'Merchant Dashboard' do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant " do
         visit "/merchants/#{@merchant_1.id}/dashboard"
 
-
         within(".top_five_customers")do
           expect(page).to have_content("Top Five Customers")
           expect(page).to have_content("#{@c1.first_name} #{@c1.last_name} has #{@c1.transaction_counter} Succesful Transactions")

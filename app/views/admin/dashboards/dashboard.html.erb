@@ -10,3 +10,10 @@
     Transactions made: <%= customer.transaction_counter %>
   </p>
 <% end %>
+
+<section id = "Incomplete_Invoices">
+  <h2> Incomplete Invoices </h2>
+  <% @invoices.incomplete_orders.each do |invoice| %>
+    <%= link_to "ID: #{invoice.id}", "/admin/invoices/#{invoice.id}" %><br>
+  <% end %>
+</section>
