@@ -61,13 +61,3 @@ RSpec.describe 'Merchant Invoice Show' do
     end
   end
 end
-
-# 4. Merchant Dashboard Items Ready to Ship
-
-# As a merchant
-# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-# Then I see a section for "Items Ready to Ship"
-# In that section I see a list of the names of all of my items that
-# have been ordered and have not yet been shipped,
-# And next to each Item I see the id of the invoice that ordered my item
-# And each invoice id is a link to my merchant's invoice show page
