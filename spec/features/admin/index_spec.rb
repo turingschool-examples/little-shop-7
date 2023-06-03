@@ -87,12 +87,10 @@ RSpec.describe "/admin", type: :feature do
 
     it "should list invoice dates and sort them by oldest to newest" do
       visit admin_index_path
-      save_and_open_page
 
       within "#incomplete-invoices" do
         expect(invoice_10.format_time_stamp).to appear_before(invoice_9.format_time_stamp)
         expect(invoice_9.format_time_stamp).to appear_before(invoice_7.format_time_stamp)
-        # expect("Invoice ##{invoice_9.id} - Monday, March 13, 2023").to appear_before("Invoice ##{invoice_7.id} - Thursday, April 13, 2023")
       end
     end
   end
