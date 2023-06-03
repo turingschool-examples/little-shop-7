@@ -21,7 +21,7 @@ class Merchant < ApplicationRecord
     Item.joins(invoices: [:invoice_items])
     .select("items.*, invoices.created_at as creation_date, invoice_items.status")
     .where("invoice_items.status != 2")
-    .order(:creation_date)
+    .order("creation_date" )
   end
 
 end
