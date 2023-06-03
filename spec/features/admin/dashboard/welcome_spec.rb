@@ -56,32 +56,55 @@ RSpec.describe "/admin" do
 
   describe "As an admin" do
     describe "when I visit the admin dashboard page " do
-      it "displays headers to inidicate the user is on the Little Esty Shop 'admin dashboard' page" do
-        visit "/admin"
-        expect(current_path).to eq("/admin")
+      context "headers" do
+        it "displays headers to inidicate the user is on the Little Esty Shop 'admin dashboard' page" do
+          visit "/admin"
+          expect(current_path).to eq("/admin")
 
-        within "h1" do
-          expect(page).to have_content("Little Esty Shop")
+          within "h1" do
+            expect(page).to have_content("Little Esty Shop")
+          end
+
+          within ".admin_dashboard_header" do
+            expect(page).to have_content("Admin Dashboard")
+          end
+        end
+      end
+
+      context "nav_bar" do
+        it "displays a link to redirect you to the Admin Dashboard welcome page" do
+          visit "/admin"
+
+          within ".admin_dashboard_nav_bar" do
+            expect(page).to have_link("Dashboard")
+            click_link "Dashboard"
+          end
+
+          expect(current_path).to eq("/admin")
         end
 
-        within ".admin_dashboard_header" do
-          expect(page).to have_content("Admin Dashboard")
+        it "displays a link to redirect you to the Admin Merchants index page" do
+          visit "/admin"
+          
+          within ".admin_dashboard_nav_bar" do
+            expect(page).to have_link("Merchants")
+            click_link "Merchants"
+          end
+    
+          expect(current_path).to eq("/admin/merchants")
+        end
+
+        it "displays a link to redirect you to the Admin Invoices index page" do
+          visit "/admin"
+          
+          within ".admin_dashboard_nav_bar" do
+            expect(page).to have_link("Invoices")
+            click_link "Invoices"
+          end
+    
+          expect(current_path).to eq("/admin/invoices")
         end
       end
     end
-
-    # it "displays a link to each of the merchants on the admin merchants index page" do
-    #   visit "/admin/merchants"
-
-    #   # within ".admin_merchants" do
-    #   #   expect(page).to have_link("#{merchant_1.name}")
-    #   #   expect(page).to have_link("#{merchant_2.name}")
-    #   #   expect(page).to have_link("#{merchant_3.name}")
-
-    #   #   click_link("#{merchant_2.name}")
-    #   # end
-
-    #   # expect(current_path).to eq("/admin/merchants/#{merchant_2.id}")
-    # end
   end
 end
