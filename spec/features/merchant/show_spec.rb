@@ -2,26 +2,35 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Dashboard' do
   before(:each) do 
-    @merchant_1 = create(:merchant, name: 'Merchant 1')
-    @m2 = Merchant.create!(name: 'Merchant 2')
-      @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
-      @c2 = Customer.create!(first_name: 'Frodo', last_name: 'Baggins')
-      @c3 = Customer.create!(first_name: 'Samwise', last_name: 'Gamgee')
-      @c4 = Customer.create!(first_name: 'Aragorn', last_name: 'Elessar')
-      @c5 = Customer.create!(first_name: 'Arwen', last_name: 'Undomiel')
-      @c6 = Customer.create!(first_name: 'Legolas', last_name: 'Greenleaf')
-      @item_1 = Item.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10, merchant_id: @m1.id)
-      @item_2 = Item.create!(name: 'Conditioner', description: 'This makes your hair shiny', unit_price: 8, merchant_id: @m1.id)
-      @item_3 = Item.create!(name: 'Brush', description: 'This takes out tangles', unit_price: 5, merchant_id: @m1.id)
-      @i1 = Invoice.create!(customer_id: @c1.id, status: 2)
-      @i2 = Invoice.create!(customer_id: @c1.id, status: 2)
-      @i3 = Invoice.create!(customer_id: @c2.id, status: 2)
-      @i4 = Invoice.create!(customer_id: @c3.id, status: 2)
-      @i5 = Invoice.create!(customer_id: @c4.id, status: 2)
-      @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 0)
-      @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
-      @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
-      @ii_4 = InvoiceItem.create!(invoice_id: @i3.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
+    @merchant_1 = create(:merchant)
+    @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
+    @c2 = Customer.create!(first_name: 'Frodo', last_name: 'Baggins')
+    @c3 = Customer.create!(first_name: 'Samwise', last_name: 'Gamgee')
+    @c4 = Customer.create!(first_name: 'Aragorn', last_name: 'Elessar')
+    @c5 = Customer.create!(first_name: 'Arwen', last_name: 'Undomiel')
+    @c6 = Customer.create!(first_name: 'Legolas', last_name: 'Greenleaf')
+    
+    @item_1 = @merchant_1.items.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10)
+    @item_2 = @merchant_1.items.create!(name: 'Conditioner', description: 'This makes your hair shiny', unit_price: 8)
+    @item_3 = @merchant_1.items.create!(name: 'Brush', description: 'This takes out tangles', unit_price: 5)
+    
+    @i1 = @c1.invoices.create!(status: 2)
+    @i2 = @c1.invoices.create!(status: 2)
+    @i3 = @c2.invoices.create!(status: 2)
+    @i4 = @c3.invoices.create!(status: 2)
+    @i5 = @c3.invoices.create!(status: 2)
+    
+    @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 1, unit_price: 10, status: 0)
+    @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
+    @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
+    @ii_4 = InvoiceItem.create!(invoice_id: @i3.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 1)
+    
+    @t1 = create(:transaction, invoice_id: @i1.id)
+    @t2 = create(:transaction, invoice_id: @i2.id)
+    @t3 = create(:transaction, invoice_id: @i3.id)
+    @t4 = create(:transaction, invoice_id: @i4.id)
+    @t5 = create(:transaction, invoice_id: @i5.id)
+      require 'pry'; binding.pry
   end
   
   describe "US1 '/merchants/:merchant_id/dashboard'" do 
@@ -53,6 +62,9 @@ RSpec.describe 'Merchant Dashboard' do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant " do
         visit "/merchants/#{@merchant_1.id}/dashboard"
         require 'pry'; binding.pry
+        within("#top-customers") do 
+          expect(page).to have_content("")
+        end
       end
     end
   end
