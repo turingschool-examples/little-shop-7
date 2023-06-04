@@ -12,4 +12,8 @@ class Merchant < ApplicationRecord
   def self.filter_disabled
     Merchant.where(status: "disabled")
   end
+
+  def total_revenue
+    require 'pry'; binding.pry
+  end
 end
