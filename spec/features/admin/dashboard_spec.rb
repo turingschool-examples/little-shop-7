@@ -50,7 +50,7 @@ RSpec.describe "Admin Dashboard" do
     let!(:transaction14) {Transaction.create!( invoice_id: invoice14.id, result: 0)}
     let!(:transaction15) {Transaction.create!( invoice_id: invoice15.id, result: 0)}
     let!(:transaction16) {Transaction.create!( invoice_id: invoice16.id, result: 1)}
-   
+  
     let!(:invoice_item1) {InvoiceItem.create!( item_id: item1.id, invoice_id: invoice1.id, status: 0)}
     let!(:invoice_item2) {InvoiceItem.create!( item_id: item2.id, invoice_id: invoice1.id, status: 1)}
     let!(:invoice_item3) {InvoiceItem.create!( item_id: item3.id, invoice_id: invoice2.id, status: 0)}
@@ -101,14 +101,7 @@ RSpec.describe "Admin Dashboard" do
       expect("Sterling, Archer").to_not appear_before("Danger, Powers", only_text: true)
     end
 
-    # As an admin,
-    # When I visit the admin dashboard (/admin)
-    # Then I see a section for "Incomplete Invoices"
-    # In that section I see a list of the ids of all invoices
-    # That have items that have not yet been shipped
-    # And each invoice id links to that invoice's admin show page
     it "displays incomomplete invoices" do
-
       visit "/admin"
       within("#Incomplete_Invoices") do
         expect(page).to have_content("Incomplete Invoices")
@@ -118,6 +111,36 @@ RSpec.describe "Admin Dashboard" do
         expect(page).to_not have_content(invoice4.id)
       end
     end
+
+    it "next to each invoice, it displays the date invoice was recieved" do
+      visit "/admin"
+      within("#Incomplete_Invoices") do
+        expect(page).to have_content(invoice1.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(invoice2.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(invoice3.created_at.strftime("%A, %B %d, %Y"))
+      end
+    end
+  end
+
+  describe "date" do
+    let!(:invoice1) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-04)}
+    let!(:invoice2) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-05)}
+    let!(:invoice3) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-06)}
+    it "should display oldest invoices first" do
+
+      visit "/admin"
+      within("#Incomplete_Invoices") do
+      save_and_open_page
+        expect(invoice1.created_at).to appear_before(invoice2.created_at)
+      end
+    end
   end
 end
 
+# 23) Admin Dashboard Invoices sorted by least recent
+# As an admin,
+# When I visit the admin dashboard (/admin)
+# In the section for "Incomplete Invoices",
+# Next to each invoice id I see the date that the invoice was created
+# And I see the date formatted like "Monday, July 18, 2019"
+# And I see that the list is ordered from oldest to newest
