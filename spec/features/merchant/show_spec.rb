@@ -105,7 +105,6 @@ RSpec.describe 'Merchant Dashboard' do
     describe "US4 Items Ready to Ship" do
       it " I see a section for 'Items Ready to Ship' In that section I see a list of the names of all of my items that have been ordered and have not yet been shipped" do
         visit "/merchants/#{@merchant_1.id}/dashboard"
-# save_and_open_page
 
         expect(page).to have_content("Items Ready To Ship")
         expect(page).to have_content(@item_3.name)
