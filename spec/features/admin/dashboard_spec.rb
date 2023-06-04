@@ -123,24 +123,15 @@ RSpec.describe "Admin Dashboard" do
   end
 
   describe "date" do
-    let!(:invoice1) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-04)}
-    let!(:invoice2) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-05)}
-    let!(:invoice3) {Invoice.create!( customer_id: person1.id, status: 1, created_at: 2023-06-06)}
     it "should display oldest invoices first" do
 
       visit "/admin"
       within("#Incomplete_Invoices") do
       save_and_open_page
-        expect(invoice1.created_at).to appear_before(invoice2.created_at)
+        expect(invoice1.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to appear_before(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
+        expect(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to appear_before(invoice3.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
+        expect(invoice3.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to_not appear_before(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
       end
     end
   end
 end
-
-# 23) Admin Dashboard Invoices sorted by least recent
-# As an admin,
-# When I visit the admin dashboard (/admin)
-# In the section for "Incomplete Invoices",
-# Next to each invoice id I see the date that the invoice was created
-# And I see the date formatted like "Monday, July 18, 2019"
-# And I see that the list is ordered from oldest to newest

@@ -70,6 +70,7 @@ RSpec.describe Invoice, type: :model do
     it "#incomplete_orders" do
       expect(Invoice.incomplete_orders).to eq([invoice1, invoice2, invoice3])
     end
+    
   end
 end
 
