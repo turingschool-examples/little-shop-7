@@ -15,4 +15,5 @@ RSpec.describe "Admin Merchant" do
       expect(page).to_not have_content("Junk")
     end
   end
+
 end
