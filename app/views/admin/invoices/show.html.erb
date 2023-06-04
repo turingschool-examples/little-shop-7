@@ -1,4 +1,25 @@
 <center>Invoice <%= @invoice.id %></center>
-<p>Status: <%= @invoice.status %></p>
-<p>Created on: <%= @invoice.formatted_time %></p>
-<p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+<section id="invoice_info">
+  <p>Status: <%= @invoice.status %></p>
+  <p>Created on: <%= @invoice.created_at.to_datetime.strftime("%A, %B %d, %Y") %></p>
+  <p>Revenue: <%= format_price(@invoice.revenue) %></p>
+  <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+</section>
+<section id="item_table">
+  <h2>Items on Invoice</h2>
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Status</th>
+    </tr>
+    <% @invoice.invoice_items.each do |invoice_item| %>
+      <tr>
+        <td><%= invoice_item.item.name %></td>
+        <td><%= invoice_item.quantity %></td>
+        <td><%= format_price(invoice_item.unit_price) %></td>
+        <td><%= invoice_item.status %></td>
+      </tr>
+    </section>
+  <% end %>

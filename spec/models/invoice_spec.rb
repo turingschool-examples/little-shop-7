@@ -16,13 +16,26 @@ RSpec.describe Invoice, type: :model do
   before(:each) do
     @customer = create(:customer)
     @merchant = create(:merchant)
-    @invoice = create(:invoice, customer_id: @customer.id)
+
+    @invoice_1 = create(:invoice, customer_id: @customer.id)
+    @invoice_2 = create(:invoice, customer_id: @customer.id)
+
+    @item_1 = create(:item, merchant_id: @merchant.id)
+    @item_2 = create(:item, merchant_id: @merchant.id)
+    @item_3 = create(:item, merchant_id: @merchant.id)
+    @item_4 = create(:item, merchant_id: @merchant.id)
+
+    @invoice_item_1 = create(:invoice_item, invoice_id: @invoice_1.id, item_id: @item_1.id, unit_price: 1080, quantity: 2)
+    @invoice_item_2 = create(:invoice_item, invoice_id: @invoice_1.id, item_id: @item_2.id, unit_price: 267, quantity: 3)
+    @invoice_item_3 = create(:invoice_item, invoice_id: @invoice_2.id, item_id: @item_3.id, unit_price: 32, quantity: 1)
+    @invoice_item_4 = create(:invoice_item, invoice_id: @invoice_2.id, item_id: @item_4.id, unit_price: 124, quantity: 1)
   end
 
   describe "instance methods" do
-    describe "#formatted_time" do
-      it "returns the time formatted" do
-        expect(@invoice.formatted_time).to eq(@invoice.created_at.to_datetime.strftime("%A, %B %d, %Y"))
+    describe "#revenue" do
+      it "returns the total revenue for a single invoice" do
+        expect(@invoice_1.revenue).to eq(2961)
+        expect(@invoice_2.revenue).to eq(156)
       end
     end
   end

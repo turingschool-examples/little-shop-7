@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <div id="flash-messages">
+        <%= msg %>
+      </div>
+    <% end %>
+    <h1 style="text-align: center;">Little Esty Shop</h1>
     <%= yield %>
   </body>
 </html>
