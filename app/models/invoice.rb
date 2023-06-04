@@ -4,9 +4,10 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   belongs_to :customer
   has_many :transactions
+  has_many :merchants, through: :items
   enum :status, ["cancelled", "in progress", "completed"]
 
-  def self.incomplete_invoices
+  def self.sorted_incomplete_invoices
     Invoice.joins(:invoice_items)
       .where("invoice_items.status !=2")
       .group(:id)

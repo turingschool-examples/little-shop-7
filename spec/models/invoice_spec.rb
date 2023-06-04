@@ -51,12 +51,13 @@ RSpec.describe Invoice, type: :model do
     it { should have_many(:items).through(:invoice_items) }
     it { should belong_to(:customer) }
     it { should have_many(:transactions) }
+    it { should have_many(:merchants) }
   end
 
   describe "class methods" do
-    context "::incomplete_invoices" do
+    context "::sorted_incomplete_invoices" do
       it "returns all incomplete invoices grouped by invoice sorted oldest to newest" do
-        expect(Invoice.incomplete_invoices).to eq([invoice_10, invoice_9, invoice_7])
+        expect(Invoice.sorted_incomplete_invoices).to eq([invoice_10, invoice_9, invoice_7])
       end
     end
   end
