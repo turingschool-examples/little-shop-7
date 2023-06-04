@@ -4,6 +4,6 @@
 <%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
 <h3>Top 5 Customers</h3>
 <%= @merchant.top_5_custies.each do |custie| %>
-  <%= %>
-  require 'pry'; binding.pry
+  <%= custie.first_name %>
+  <%= custie.transaction_count %></br>
 <% end %>

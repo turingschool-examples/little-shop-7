@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  context "relationships" do 
+  context "relationships" do
     it { should have_many :items }
     it { should have_many(:invoice_items).through(:items) }
   end
@@ -10,7 +10,7 @@ RSpec.describe Merchant, type: :model do
     it {should validate_presence_of(:name)}
   end
 
-  before(:each) do 
+  before(:each) do
     @merchant_1 = create(:merchant, status: 0)
     @merchant_2 = create(:merchant, status: 0)
     @merchant_3 = create(:merchant, status: 1)
@@ -34,5 +34,3 @@ RSpec.describe Merchant, type: :model do
     end
   end
 end
-
-

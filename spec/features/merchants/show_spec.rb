@@ -86,9 +86,9 @@ RSpec.describe "/merchants/:id/dashboard" do
 
       it "see top 5 customers on on dashboard" do
         visit "/merchants/#{merchant_1.id}/dashboard"
-        save_and_open_page
         expect(page).to have_content("Top 5 Customers")
         expect(page).to have_content(customer_1.name)
+        save_and_open_page
       end
     end
   end

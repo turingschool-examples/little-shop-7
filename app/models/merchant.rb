@@ -9,9 +9,9 @@ class Merchant < ApplicationRecord
 
   def top_5_custies
     # customers.joins(:transactions).select("customers.*, count(result) as most_success").group(:id).order(:most_success)
-    custies = customers.joins(:transactions).where(transactions: {result: "success"}).group(:id)
-    custies.sort_by{|k,v| -v}.take(5)
-    end
+    # custies = customers.joins(:transactions).where(transactions: {result: "success"}).group(:id)
+    # custies.sort_by{|k,v| v}.take(5)
+    customers.joins(:transactions).select("customers.*, COUNT(transactions.id) as transaction_count").where(transactions: {result: "success"}).group("customers.id").order("transaction_count DESC").limit(5)
   end
 
   enum status: ["enabled", "disabled"] # enabled = 0, disabled = 1
