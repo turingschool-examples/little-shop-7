@@ -13,8 +13,8 @@ RSpec.describe "Admin Merchant" do
     click_link "Update Merchant"
     expect(current_path).to eq("/admin/merchants/#{merchant1.id}/edit")
     fill_in("Name", with: "Savings Emporium")
-    click_link "Submit"
+    click_button "Submit"
     expect(current_path).to eq("/admin/merchants/#{merchant1.id}")
-
+    expect(page).to have_content("Savings Emporium")
   end
 end
