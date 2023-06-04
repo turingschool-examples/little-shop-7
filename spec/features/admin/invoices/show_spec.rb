@@ -73,7 +73,6 @@ RSpec.describe "Admin Invoices Show Page" do
 
     it "displays the total revenue for an invoice" do
       visit "/admin/invoices/#{@invoice_1.id}"
-      save_and_open_page
       within("#invoice_info") do
         expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_1.revenue)}")
       end
