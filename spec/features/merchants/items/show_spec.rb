@@ -16,7 +16,7 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
       it "displays the name, description and current selling price of that item" do
         item_1.update(unit_price: 3378)
         item_2.update(unit_price: 42343)
-        
+
         visit "/merchants/#{merchant_1.id}/items/#{item_1.id}"
         expect(page).to have_content("Item Name: #{item_1.name}")
         expect(page).to have_content("Item Description: #{item_1.description}")
@@ -35,6 +35,34 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
         expect(page).to_not have_content("Item Description: #{item_1.description}")
         expect(page).to_not have_content("Current Selling Price: $33.78")
       end
+
+      # User Story 8 - Merchant Item Update
+
+      it "has a button to update the item information" do
+        visit "/merchants/#{merchant_1.id}/items/#{item_1.id}"
+        click_link "Edit #{item_1.name}"
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}/edit")
+
+        fill_in("Name:", with: "The New Black")
+        fill_in("Description:", with: "The Newer Black")
+        fill_in("Unit Price:", with: 66666)
+
+        click_button "Update Item"
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
+        
+        expect(page).to have_content("Item Name: The New Black")
+        expect(page).to have_content("Item Description: The Newer Black")
+        expect(page).to have_content("Current Selling Price: $666.66")
+        new_item = Item.find(item_1.id)
+        expect(page).to have_content("Item #{new_item.name} Successfully Updated!")
+
+        expect(page).to_not have_content("Item Name: #{item_1.name}")
+        expect(page).to_not have_content("Item Description: #{item_1.description}")
+        expect(page).to_not have_content("Current Selling Price: #{item_1.unit_price}")
+
+      end
+
+
     end
   end
 end
