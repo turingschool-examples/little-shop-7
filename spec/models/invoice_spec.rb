@@ -72,5 +72,14 @@ RSpec.describe Invoice, type: :model do
       end
     end
 
+    describe 'instance methods' do 
+      it '#date_format' do 
+        freeze_time do 
+          allow(Time).to receive(:current).and_return Time.new(2000)
+          invoice = create(:invoice, created_at: Time.current) 
+          expect(invoice.format_date).to eq("Saturday, January 1, 2000")
+        end
+      end
+    end
 end
 

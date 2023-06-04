@@ -12,7 +12,7 @@ RSpec.describe Item, type: :model do
       freeze_time do 
         allow(Time).to receive(:current).and_return Time.new(2000)
         item = create(:item, created_at: Time.current) 
-        expect(item.date_format).to eq("Saturday, January 1, 2000")
+        expect(item.format_date).to eq("Saturday, January 1, 2000")
       end
     end
   end
