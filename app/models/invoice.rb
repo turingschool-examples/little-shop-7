@@ -9,4 +9,8 @@ class Invoice < ApplicationRecord
   def self.incomplete_orders
     joins(:invoice_items).select(:id).where(invoice_items: {status: [1, 0]}).uniq
   end
+
+  def format_date
+    created_at.strftime("%A, %B %-d, %Y")
+  end
 end
