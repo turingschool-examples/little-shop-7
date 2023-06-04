@@ -3,4 +3,7 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
 
+  def format_date
+    created_at.strftime("%A, %B %-d, %Y")
+  end
 end
