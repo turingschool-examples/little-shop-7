@@ -3,4 +3,7 @@
 <%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
 <h3>Top 5 Customers</h3>
-<%= @merchant.top_5_custies%>
+<%= @merchant.top_5_custies.each do |custie| %>
+  <%= %>
+  require 'pry'; binding.pry
+<% end %>

@@ -8,7 +8,10 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   def top_5_custies
-    require 'pry'; binding.pry
+    # customers.joins(:transactions).select("customers.*, count(result) as most_success").group(:id).order(:most_success)
+    custies = customers.joins(:transactions).where(transactions: {result: "success"}).group(:id)
+    custies.sort_by{|k,v| -v}.take(5)
+    end
   end
 
   enum status: ["enabled", "disabled"] # enabled = 0, disabled = 1
@@ -21,4 +24,3 @@ class Merchant < ApplicationRecord
     Merchant.where(status: "disabled")
   end
 end
-# customers.joins(:transactions).select("customers.*, count(result) as most_success").group(:id).order(:most_success)
