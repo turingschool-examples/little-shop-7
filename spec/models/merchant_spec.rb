@@ -51,9 +51,7 @@ RSpec.describe Merchant, type: :model do
     @tran15 = Transaction.create!(invoice_id: @inv6.id, result: 0)
     @tran16 = Transaction.create!(invoice_id: @inv7.id, result: 1)
     @tran17 = Transaction.create!(invoice_id: @inv8.id, result: 0)
-
-    end
-
+  end
   describe 'relationships' do 
     it { should have_many(:items) }
     it { should have_many(:invoice_items).through(:items) }
@@ -79,4 +77,5 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant_1.items_ready_to_ship).to eq([ @item_3, @item_4])
     end
   end
+
 end
