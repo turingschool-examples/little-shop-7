@@ -8,7 +8,6 @@ class Item < ApplicationRecord
   end
 
   def order_invoices 
-    require 'pry'; binding.pry
     invoices.order(:created_at)
   end
 end

@@ -150,14 +150,15 @@ RSpec.describe 'Merchant Dashboard' do
       within('#items-ready-to-ship') do 
         expect(page).to have_content(@item_3.name)
         # within("#only-#{@item_3}") do 
-          expect(page).to have_content"#{@inv3.id}:" 
+          expect(page).to have_link("#{@inv3.id}:") 
           expect(page).to have_content("#{@inv3.format_date}")
         # end
 
-        expect(@inv3.id).to appear_before(@inv4.id)
-        expect(@inv4.id).to appear_before(@inv5.id)
-        expect(@inv5.id).to appear_before(@inv6.id)
-        expect(@inv6.id).to_not appear_before(@inv3.id)
+        expect("#{@inv3.id}").to appear_before("#{@inv4.id}")
+        expect("#{@inv4.id}").to appear_before("#{@inv5.id}")
+        expect("#{@inv5.id}").to appear_before("#{@inv6.id}")
+        expect("#{@inv6.id}").to_not appear_before("#{@inv3.id}")
+        save_and_open_page
       end
     end
   end
