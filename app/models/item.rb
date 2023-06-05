@@ -10,4 +10,13 @@ class Item < ApplicationRecord
   def order_invoices 
     invoices.order(:created_at)
   end
+  
+  def format_unit_price
+    explode = unit_price.to_s
+    if explode.last != '0'
+      "$#{sprintf("%g", unit_price.to_f/100)}" 
+    else
+      "$#{sprintf("%g", unit_price.to_f/100) << '0'}"
+    end
+  end
 end
