@@ -14,6 +14,7 @@ RSpec.describe "/merchants/:id/items/:id/edit" do
         fill_in("Name:", with: "The New Black")
         fill_in("Description:", with: "The Newer Black")
         fill_in("Unit Price:", with: 66666)
+        fill_in("Status:", with: "disabled")
 
         click_button "Update Item"
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
@@ -21,6 +22,7 @@ RSpec.describe "/merchants/:id/items/:id/edit" do
         expect(page).to have_content("Item Name: The New Black")
         expect(page).to have_content("Item Description: The Newer Black")
         expect(page).to have_content("Current Selling Price: $666.66")
+
         new_item = Item.find(item_1.id)
         expect(page).to have_content("Item #{new_item.name} Successfully Updated!")
 
