@@ -32,6 +32,13 @@ li a:hover:not(.active) {
 .active {
   background-color: #04AA6D;
 }
+
+.top_customers {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -43,4 +50,14 @@ li a:hover:not(.active) {
   </ul>
 </nav>
 
+<div class="top_customers">
+  <h2>Top Customers</h2>
+  <ol>
+    <% @customers.top_5_customers.each do |customer| %>
+      <li><%= customer.first_name %> <%=customer.last_name%> - <%=customer.customer_success_trans%> purchases</li><br>
+    <% end %>
+  </ol>
+</div>
+
 </body>
+
