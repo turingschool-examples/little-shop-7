@@ -24,6 +24,6 @@
 <h2>Top Merchants</h2>
 <% counter = 1 %>
 <% @merchants.top_5_by_revenue.each do |merchant| %>
-  <p><%= "#{counter}. "%> <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> <%=" - #{format_price(merchant.revenue)} in sales" %></p>
+  <p><%= "#{counter}. "%> <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> <%=" - #{number_to_currency(merchant.revenue / 100, unit: "$", separator: ".", delimiter: ",")} in sales" %></p>
   <% counter += 1 %>
 <% end %>

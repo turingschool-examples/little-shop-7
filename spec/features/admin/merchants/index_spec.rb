@@ -203,11 +203,11 @@ RSpec.describe "/admin/merchants" do
       visit "/admin/merchants"
       within ".admin_top_merchants_by_revenue" do
         expect(page).to have_content("Top Merchants")
-        expect(page).to have_content("#{merchant_1.name} - $3000.00 in sales")
-        expect(page).to have_content("#{merchant_2.name} - 6000.00 in sales")
-        expect(page).to have_content("#{merchant_4.name} - 9000.00 in sales")
-        expect(page).to have_content("#{merchant_5.name} - 12000.00 in sales")
-        expect(page).to have_content("#{merchant_6.name} - 15000.00 in sales")
+        expect(page).to have_content("#{merchant_1.name} - $3,000.00 in sales")
+        expect(page).to have_content("#{merchant_2.name} - $6,000.00 in sales")
+        expect(page).to have_content("#{merchant_4.name} - $9,000.00 in sales")
+        expect(page).to have_content("#{merchant_5.name} - $12,000.00 in sales")
+        expect(page).to have_content("#{merchant_6.name} - $15,000.00 in sales")
 
         expect(page).to_not have_content("#{merchant_3.name} - 30 in sales")
       end

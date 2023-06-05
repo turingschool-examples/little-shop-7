@@ -8,6 +8,38 @@ RSpec.describe "/merchants/:id/dashboard" do
 
       let!(:item_1) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_2) { create(:item, merchant_id: merchant_1.id) }
+      let!(:item_3) { create(:item, merchant_id: merchant_1.id) }
+      let!(:item_4) { create(:item, merchant_id: merchant_1.id) }
+      let!(:item_5) { create(:item, merchant_id: merchant_1.id) }
+      let!(:item_6) { create(:item, merchant_id: merchant_2.id) }
+
+      let!(:transaction_1) { create(:transaction, invoice_id: invoice_1.id, result: 0) }
+      let!(:transaction_2) { create(:transaction, invoice_id: invoice_2.id, result: 0) }
+      let!(:transaction_3) { create(:transaction, invoice_id: invoice_3.id, result: 0) }
+      let!(:transaction_4) { create(:transaction, invoice_id: invoice_4.id, result: 0) }
+      let!(:transaction_5) { create(:transaction, invoice_id: invoice_5.id, result: 0) }
+      let!(:transaction_6) { create(:transaction, invoice_id: invoice_5.id, result: 0) }
+      let!(:transaction_7) { create(:transaction, invoice_id: invoice_5.id, result: 1) }
+
+      let!(:invoice_1) { create(:invoice, customer_id: customer_1.id, status: 0)}
+      let!(:invoice_2) { create(:invoice, customer_id: customer_2.id, status: 0)}
+      let!(:invoice_3) { create(:invoice, customer_id: customer_3.id, status: 0)}
+      let!(:invoice_4) { create(:invoice, customer_id: customer_4.id, status: 0)}
+      let!(:invoice_5) { create(:invoice, customer_id: customer_5.id, status: 0)}
+
+      let!(:invoice_item_1) { create(:invoice_item, unit_price: 2000, invoice_id: invoice_1.id, item_id: item_1.id) }
+      let!(:invoice_item_2) { create(:invoice_item, unit_price: 3000, invoice_id: invoice_2.id, item_id: item_2.id) }
+      let!(:invoice_item_3) { create(:invoice_item, unit_price: 4000, invoice_id: invoice_3.id, item_id: item_3.id) }
+      let!(:invoice_item_4) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_4.id, item_id: item_4.id) }
+      let!(:invoice_item_5) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_5.id, item_id: item_5.id) }
+
+      let!(:customer_1) { create(:customer) }
+      let!(:customer_2) { create(:customer) }
+      let!(:customer_3) { create(:customer) }
+      let!(:customer_4) { create(:customer) }
+      let!(:customer_5) { create(:customer) }
+      let!(:customer_6) { create(:customer) }
+      let!(:customer_7) { create(:customer) }
 
       # User Story 1
 
@@ -35,7 +67,7 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).to have_content("#{merchant_2.name} Items")
       end
 
-      it "links to the merchants invoices index"do
+      it "links to the merchants invoices index" do
         visit "/merchants/#{merchant_1.id}/dashboard"
         click_link "My Invoices"
         expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices")
@@ -46,7 +78,19 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(current_path).to eq("/merchants/#{merchant_2.id}/invoices")
         expect(page).to have_content("#{merchant_2.name} Invoices")
       end
+      # 3. Merchant Dashboard Statistics - Favorite Customers
 
+      it "see top 5 customers on on dashboard" do
+        visit "/merchants/#{merchant_1.id}/dashboard"
+        expect(page).to have_content("Top 5 Customers")
+        expect(page).to have_content(customer_1.first_name)
+        expect(page).to have_content(customer_2.first_name)
+        expect(page).to have_content(customer_3.first_name)
+        expect(page).to have_content(customer_4.first_name)
+        expect(page).to have_content(customer_5.first_name)
+        expect(page).not_to have_content(customer_6.first_name)
+        expect(page).not_to have_content(customer_7.first_name)
+      end
     end
   end
 end
