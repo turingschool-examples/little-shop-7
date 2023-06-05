@@ -16,8 +16,8 @@ RSpec.describe "Admin Merchant" do
   end
   it "changes merchant status" do
     visit "/admin/merchants"
-    click_button "Disable Merchant"
-    expect(current_path).to eq("/admin/merchants")
+    click_button "Disable #{merchant1.name}"
+    expect(current_path).to eq("/admin/merchants/#{merchant1.id}")
     expect(merchant1.status).to eq("Disabled")
   end
   # As an admin,

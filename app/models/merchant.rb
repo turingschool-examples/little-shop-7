@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
-  enum result: {Disabled: 0, Enabled: 1}
+  enum status: {Disabled: 0, Enabled: 1}
 
   def top_five_customers
     customers.joins(:transactions)
@@ -20,11 +20,13 @@ class Merchant < ApplicationRecord
   end
 
   def disable
-    self.status = 0
+    self.update(status: 0)
+    self.save
   end
 
   def enable
-    self.status = 1
+    self.update(status: 1)
+    self.save
   end
 
   def current_status
