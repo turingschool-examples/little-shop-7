@@ -39,6 +39,28 @@ li a:hover:not(.active) {
   padding: 10px;
 }
 
+.incomplete_invoices {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.container{
+  display: flex;
+}
+
+.admin_dashboard_header {
+  display: flex;
+  align-items: center;
+}
+
+.admin_dashboard_nav_bar {
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+
 </style>
 </head>
 <body>
@@ -50,13 +72,22 @@ li a:hover:not(.active) {
   </ul>
 </nav>
 
-<div class="top_customers">
-  <h2>Top Customers</h2>
-  <ol>
-    <% @customers.top_5_customers.each do |customer| %>
-      <li><%= customer.first_name %> <%=customer.last_name%> - <%=customer.customer_success_trans%> purchases</li><br>
+<div class="container">
+  <div class="incomplete_invoices">
+    <h2>Incomplete Invoices</h2>
+    <% @invoices.incomp_invoices.each do |incomp_invoice| %>
+      <p>Invoice #<%= link_to "#{incomp_invoice.id}", "admin/invoices/#{incomp_invoice.id}"  %> - <%=incomp_invoice.created_at.to_datetime.strftime("%A, %B %d, %Y")%></p>
     <% end %>
-  </ol>
+  </div>
+  <div class="top_customers">
+    <h2>Top Customers</h2>
+    <ol>
+      <% @customers.top_customers(5).each do |customer| %>
+        <li><%= customer.first_name %> <%=customer.last_name%> - <%=customer.customer_success_trans%> purchases</li><br>
+      <% end %>
+    </ol>
+  </div>
+
 </div>
 
 </body>
