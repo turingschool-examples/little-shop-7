@@ -94,11 +94,14 @@ RSpec.describe "Merchant Items Index Page" do
   describe "Displays All Items" do
     it "can see list of the names of all the items" do
       visit "/merchants/#{merchant.id}/items"
-save_and_open_page
+
       expect(page).to have_content(item1.name)
       expect(page).to have_content(item2.name)
+      expect(page).to have_content(item3.name)
+      expect(page).to have_content(item4.name)
 
       expect(page).to_not have_content(item6.name)
+      expect(page).to_not have_content(item7.name)
     end
   end
 end
