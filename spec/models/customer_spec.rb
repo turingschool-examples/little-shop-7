@@ -95,10 +95,25 @@ RSpec.describe Customer, type: :model do
   end
 
   describe "class methods" do 
-    describe "#top_5_customers" do 
-      it "it lists the 5 customers with the most successfull transactions in descending order" do
-        expect(Customer.top_5_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
+    describe "#top_customers(limit)" do 
+      it "it lists the customers with the most successful transactions in descending order" do
+        expect(Customer.top_customers(5)).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
       end
+
+      it "excludes customers with less successful purchases than the requested limit" do
+        top_4_customers = Customer.top_customers(4)
+        expect(top_4_customers).not_to include(@customer_5, @customer_6)
+
+        expect(top_4_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4])
+      end
+
+      it "excludes customers with zero transactions" do 
+        top_6_customers = Customer.top_customers(6)
+        expect(top_6_customers).not_to include(@customer_6)
+
+        expect(top_6_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
+      end
+
     end
   end
 
