@@ -30,5 +30,12 @@ RSpec.describe Item, type: :model do
     it '#order_invoices' do 
       expect(@item.order_invoices).to eq([@invoice1, @invoice2, @invoice3])
     end
+
+    it 'format_unit_price' do 
+      item2 = create(:item, unit_price: 2345)
+      item3 = create(:item, unit_price: 2340)
+      expect(item2.format_unit_price).to eq('$23.45')
+      expect(item3.format_unit_price).to eq('$23.40')
+    end
   end
 end
