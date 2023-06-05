@@ -25,7 +25,6 @@ RSpec.describe "/admin", type: :feature do
     
     it "should display links to admin/merchants, admin/invoices, and admin/dashboard" do
       visit admin_path
-      require 'pry'; binding.pry
       
       expect(page).to have_link("Dashboard", :href => admin_path)
       expect(page).to have_link("Merchants", :href => admin_merchants_path)

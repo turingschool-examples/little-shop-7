@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get "/", to: "application#welcome"
   
   get "/merchants/:id/dashboard", to: "merchants#show"
+  
+  resources :merchants, except: [:index, :show, :edit, :destroy, :new, :create, :update] do 
+    resources :invoices, only: [:index, :show], controller: "merchant/invoices"
+  end
 
   get "/admin", to: "admin#index"
 

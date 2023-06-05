@@ -18,10 +18,10 @@ class Merchant < ApplicationRecord
 
   def not_shipped_items
     # require 'pry'; binding.pry
-    Item.joins(invoices: [:invoice_items])
-    .select("items.*, invoices.created_at as creation_date, invoice_items.status")
+    self.invoices.joins(:invoice_items)
     .where("invoice_items.status != 2")
-    .order("creation_date" )
+    .order(:created_at)
+    .group(:id)
   end
 
 end

@@ -14,8 +14,8 @@ RSpec.describe "Merchant Dashboard" do
     let!(:item6) { create(:item, id: 6, merchant_id: 1 )}
     let!(:item7) { create(:item, id: 7, merchant_id: 1 )}
 
-    let!(:item1) { create(:item, id: 1, merchant_id: 2 )}
-    let!(:item2) { create(:item, id: 2, merchant_id: 2 )}
+    let!(:item8) { create(:item, id: 8, merchant_id: 2 )}
+    let!(:item9) { create(:item, id: 9, merchant_id: 2 )}
 
     let!(:customer1) { create(:customer, id: 1, first_name: "Austin" )}
     let!(:customer2) { create(:customer, id: 2, first_name: "Jimmy" )}
@@ -151,19 +151,25 @@ RSpec.describe "Merchant Dashboard" do
       expect(page).to_not have_content(invoice_item12.item.name)
       expect(page).to_not have_content(invoice_item16.item.name)
 
-      # expect(page).to have_link("/merchants/#{merchant.id}/invoices/#{item1.invoice_items.first.invoice.id}")
       expect(page).to have_content("#{item1.invoice_items.first.invoice.id}")
       expect(page).to have_content("#{item2.invoice_items.first.invoice.id}")
       expect(page).to have_content("#{item3.invoice_items.first.invoice.id}")
       expect(page).to have_content("#{item5.invoice_items.first.invoice.id}")
-
-      # expect(page).to_not have_content("#{item7.invoice_items.first.invoice.id}")
+      # refactor within blocks so we can test not_have content
     end
 
     it "displays Invoices sorted by least recent with date next to ID " do
       visit "/merchants/#{merchant.id}/dashboard"
-
-      save_and_open_page
+      
+      expect("Wednesday, January 25, 2012").to appear_before("Sunday, March 25, 2012")
+      expect("Sunday, March 25, 2012").to appear_before("Wednesday, April 25, 2012")
+      expect("Wednesday, April 25, 2012").to appear_before("Friday, May 25, 2012")
+      expect("Friday, May 25, 2012").to appear_before("Wednesday, June 20, 2012")
+      expect("Wednesday, June 20, 2012").to appear_before("Wednesday, July 25, 2012")
+      expect("Wednesday, July 25, 2012").to appear_before("Saturday, August 25, 2012")
+      expect("Saturday, August 25, 2012").to appear_before("Sunday, November 25, 2012")
+      expect("Sunday, November 25, 2012").to appear_before("Monday, March 25, 2013")
+      expect("Monday, March 25, 2013").to appear_before("Wednesday, December 25, 2013")
     end
   end
 end
