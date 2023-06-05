@@ -197,7 +197,6 @@ RSpec.describe "/admin" do
 
           within ".incomplete_invoices" do
             expect(page).to have_content("Invoice ##{@invoice_16.id} - #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
-            save_and_open_page
             click_link "#{@invoice_16.id}"
           end
 
