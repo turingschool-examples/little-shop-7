@@ -94,5 +94,19 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant_4.unique_invoices.count).to eq(6)
       end
     end
+
+    describe "#total_revenue(item)" do
+      it "returns the total revenue for one item sold by the merchant" do
+        expect(@merchant_4.total_revenue(item_1)).to eq(20)
+      end
+    end
+
+    # describe "#sort_item_revenue" do
+    #   #amount of times it is sold by one merchant
+    #   #what counts as a purchase?
+    #   it "sorts a merchants items by total revenue" do
+    #     expect(Merchant.sort_item_revenue).to eq([])
+    #   end
+    # end
   end
 end
