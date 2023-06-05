@@ -15,6 +15,10 @@ class Invoice < ApplicationRecord
   end
 
   def self.order_by_created_at
-    
+    order(:created_at)
+  end
+
+  def self.retrieve_invoice(id)
+    find_by_id(id)
   end
 end
