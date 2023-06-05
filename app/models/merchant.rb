@@ -23,4 +23,6 @@ class Merchant < ApplicationRecord
   def self.filter_disabled
     Merchant.where(status: "disabled")
   end
+
+
 end
