@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/", to: "application#welcome"
 
   get "/merchants/:id/dashboard", to: "merchants#show"
-  
+
   get "/merchants/:id/items", to: "merchants/items#index"
   get "/merchants/:id/items/:id", to: "merchants/items#show"
 
@@ -23,4 +23,5 @@ Rails.application.routes.draw do
 
   get "/admin/invoices", to: "admin/invoices#index"
   get "/admin/invoices/:id", to: "admin/invoices#show"
+  patch "/admin/invoices/:id", to: "admin/invoices#update"
 end
