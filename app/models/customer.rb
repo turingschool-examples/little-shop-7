@@ -19,4 +19,3 @@ class Customer < ApplicationRecord
     transactions.where("transactions.result = 1").count
   end
 end
-
