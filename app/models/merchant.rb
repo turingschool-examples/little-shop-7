@@ -24,5 +24,7 @@ class Merchant < ApplicationRecord
     Merchant.where(status: "disabled")
   end
 
-
+  def unique_invoices
+    self.invoices.distinct
+  end
 end
