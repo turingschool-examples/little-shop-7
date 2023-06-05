@@ -27,7 +27,6 @@ RSpec.describe "/merchants/:id/items/:id/edit" do
         expect(page).to_not have_content("Item Name: #{item_1.name}")
         expect(page).to_not have_content("Item Description: #{item_1.description}")
         expect(page).to_not have_content("Current Selling Price: #{item_1.unit_price}")
-
       end
     end
   end

@@ -24,6 +24,14 @@ RSpec.describe "/merchants/:id/items/new" do
         expect(page).to have_content("Item Description: The Newer Black")
         expect(page).to have_content("Current Selling Price: $666.66")
       end
+
+      it "will flash an error message if the form fields are not filled out" do
+        visit "/merchants/#{merchant_1.id}/items/new"
+        click_button "Submit New Item"
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/new")
+        expect(page).to have_content("Please fill out all fields")
+      end
+      
     end
   end
 end
