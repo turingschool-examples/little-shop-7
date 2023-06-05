@@ -18,3 +18,12 @@
 <% end %>
 </div>
 
+<div class="top-five-items">
+  <h4>Top 5 Items</h4>
+  <ol>
+    <% @merchant.sort_item_by_revenue.each do |m_item| %>
+        <li><%= m_item.name %> - $<%= total_revenue(m_item) %> in sales</li>
+    <% end %>
+  </ol>
+</div>
+

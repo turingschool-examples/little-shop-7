@@ -27,4 +27,10 @@ class Merchant < ApplicationRecord
   def unique_invoices
     self.invoices.distinct
   end
+
+  def total_revenue(item)
+    require 'pry'; binding.pry
+    # give total in integer
+    # "dont have that item" if it doesn't exist
+  end
 end

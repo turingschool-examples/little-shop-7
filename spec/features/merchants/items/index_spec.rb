@@ -10,6 +10,8 @@ RSpec.describe "/merchants/:merchant_id/items" do
       let!(:item_2) { create(:item, merchant_id: merchant_1.id, status: 1)}
       let!(:item_3) { create(:item, merchant_id: merchant_1.id, status: 1)}
       let!(:item_5) { create(:item, merchant_id: merchant_1.id, status: 0)}
+      let!(:item_6) { create(:item, merchant_id: merchant_1.id, status: 0)}
+
       let!(:item_4) { create(:item, merchant_id: merchant_2.id, status: 0)}
 
       # User Story 6 - Merchant Items Index Page
@@ -91,6 +93,31 @@ RSpec.describe "/merchants/:merchant_id/items" do
         visit "/merchants/#{merchant_1.id}/items"
         click_link "Create New Item"
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items/new")
+      end
+
+    #  User Story 12 - Merchant Items Index: 5 most popular items
+    #   As a merchant
+    #   When I visit my items index page
+    #   Then I see the names of the top 5 most popular items ranked by total revenue generated
+    #   And I see that each item name links to my merchant item show page for that item
+    #   And I see the total revenue generated next to each item name
+
+    #   Notes on Revenue Calculation:
+
+    #   Only invoices with at least one successful transaction should count towards revenue
+    #   Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
+    #   Revenue for an invoice item should be calculated as the invoice item unit price multiplied
+    #   by the quantity (do not use the item unit price)
+
+      it "displays the top 5 most popular items ranked by total revenue for the one merchant" do
+        visit "/merchants/#{merchant_1.id}/items"
+        within ".top-five-items" do
+          expect(page).to have_content("Top 5 Items")
+          expect(page).to have_content("#{item_1.name} - $#{item_1.total_revenue} in sales")
+          expect(page).to have_content("#{item_2.name} - $#{item_2.total_revenue} in sales")
+          expect(page).to have_content("#{item_3.name} - $#{item_3.total_revenue} in sales")
+          expect(page).to have_content("#{item_4.name} - $#{item_4.total_revenue} in sales")
+        end
       end
     end
   end
