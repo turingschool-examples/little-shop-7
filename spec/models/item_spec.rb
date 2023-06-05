@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Item, type: :model do
+  before(:each) do 
+    
+  end
+
   describe "relationships" do
     it {should belong_to(:merchant)}
     it {should have_many(:invoice_items)}
@@ -15,5 +19,11 @@ RSpec.describe Item, type: :model do
         expect(item.format_date).to eq("Saturday, January 1, 2000")
       end
     end
+
+    it '#order_invoices' do 
+      expect()
+    end
   end
+
+  
 end

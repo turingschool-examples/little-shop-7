@@ -19,7 +19,7 @@
       <p>Invoice ID Links:</p> 
       <li><% item.invoice_ids.each do |id| %>
       <%= link_to "#{id}:", "/merchants/#{@merchant.id}/invoices/#{id}" %></li>
-      <%= %>
+      <%= Invoice.retrieve_invoice(id).format_date %>
       <br>
       <% end %>
     <% end %>

@@ -50,7 +50,7 @@ RSpec.describe "Admin Dashboard" do
     let!(:transaction14) {Transaction.create!( invoice_id: invoice14.id, result: 0)}
     let!(:transaction15) {Transaction.create!( invoice_id: invoice15.id, result: 0)}
     let!(:transaction16) {Transaction.create!( invoice_id: invoice16.id, result: 1)}
-   
+  
     let!(:invoice_item1) {InvoiceItem.create!( item_id: item1.id, invoice_id: invoice1.id, status: 0)}
     let!(:invoice_item2) {InvoiceItem.create!( item_id: item2.id, invoice_id: invoice1.id, status: 1)}
     let!(:invoice_item3) {InvoiceItem.create!( item_id: item3.id, invoice_id: invoice2.id, status: 0)}
@@ -101,14 +101,7 @@ RSpec.describe "Admin Dashboard" do
       expect("Sterling, Archer").to_not appear_before("Danger, Powers", only_text: true)
     end
 
-    # As an admin,
-    # When I visit the admin dashboard (/admin)
-    # Then I see a section for "Incomplete Invoices"
-    # In that section I see a list of the ids of all invoices
-    # That have items that have not yet been shipped
-    # And each invoice id links to that invoice's admin show page
     it "displays incomomplete invoices" do
-
       visit "/admin"
       within("#Incomplete_Invoices") do
         expect(page).to have_content("Incomplete Invoices")
@@ -118,6 +111,26 @@ RSpec.describe "Admin Dashboard" do
         expect(page).to_not have_content(invoice4.id)
       end
     end
+
+    it "next to each invoice, it displays the date invoice was recieved" do
+      visit "/admin"
+      within("#Incomplete_Invoices") do
+        expect(page).to have_content(invoice1.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(invoice2.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(invoice3.created_at.strftime("%A, %B %d, %Y"))
+      end
+    end
+  end
+
+  describe "date" do
+    it "should display oldest invoices first" do
+
+      visit "/admin"
+      within("#Incomplete_Invoices") do
+        expect(invoice1.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to appear_before(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
+        expect(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to appear_before(invoice3.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
+        expect(invoice3.created_at.strftime("%A, %B %d, %Y, %I:%M:%N")).to_not appear_before(invoice2.created_at.strftime("%A, %B %d, %Y, %I:%M:%N"), only_text: true)
+      end
+    end
   end
 end
-
