@@ -149,9 +149,8 @@ RSpec.describe 'Merchant Dashboard' do
 
       within('#items-ready-to-ship') do 
         expect(page).to have_content(@item_3.name)
-        # within("only-#{@item_3}") do 
+        # within("#only-#{@item_3}") do 
           expect(page).to have_content"#{@inv3.id}:" 
-          require 'pry'; binding.pry
           expect(page).to have_content("#{@inv3.format_date}")
         # end
 

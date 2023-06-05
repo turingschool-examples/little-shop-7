@@ -15,12 +15,13 @@
 <h3> Items Ready To Ship </h3>
   <ol>
     <% @merchant.items_ready_to_ship.each do |item|%>
-      <section id="specific-<%= item %>"><%= item.name %>
+      <%= item.name %>
       <p>Invoice ID Links:</p> 
       <li><% item.invoice_ids.each do |id| %>
-      <%= link_to "#{id}:", "/merchants/#{@merchant.id}/invoices/#{id}" %> </li><br>
+      <%= link_to "#{id}:", "/merchants/#{@merchant.id}/invoices/#{id}" %></li>
+      <%= %>
+      <br>
       <% end %>
-      </section>
     <% end %>
   </ol>
 </section>
