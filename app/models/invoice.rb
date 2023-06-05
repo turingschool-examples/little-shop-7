@@ -9,9 +9,9 @@ class Invoice < ApplicationRecord
 
   def self.sorted_incomplete_invoices
     Invoice.joins(:invoice_items)
-      .where("invoice_items.status !=2")
-      .group(:id)
-      .order(:created_at)
+    .where("invoice_items.status !=2")
+    .group(:id)
+    .order(:created_at)
   end
-  
+
 end
