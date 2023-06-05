@@ -2,7 +2,14 @@ require "rails_helper"
 
 RSpec.describe Item, type: :model do
   before(:each) do 
-    
+    @item = create(:item)
+    @invoice1 = create(:invoice)
+    @invoice2 = create(:invoice)
+    @invoice3 = create(:invoice)
+
+    InvoiceItem.create!(invoice_id: @invoice1.id, item_id: @item.id)
+    InvoiceItem.create!(invoice_id: @invoice2.id, item_id: @item.id)
+    InvoiceItem.create!(invoice_id: @invoice3.id, item_id: @item.id)
   end
 
   describe "relationships" do
@@ -21,9 +28,7 @@ RSpec.describe Item, type: :model do
     end
 
     it '#order_invoices' do 
-      expect()
+      expect(@item.order_invoices).to eq([@invoice1, @invoice2, @invoice3])
     end
   end
-
-  
 end

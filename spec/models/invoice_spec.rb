@@ -70,18 +70,12 @@ RSpec.describe Invoice, type: :model do
     it "#incomplete_orders" do
       expect(Invoice.incomplete_orders).to eq([invoice1, invoice2, invoice3])
     end
-    
-      
-      xit '#order_by_created_at' do 
-        expect(Invoice.order_by_created_at).to eq([invoice3, invoice4, invoice5, invoice6, invoice2, invoice1, invoice7, invoice8, invoice9, invoice10, invoice11])
-        expect(Invoice.order_by_created_at).to_not eq([invoice11, invoice10, invoice9, invoice8. invoice7, invoice6, invoice5, invoice4, invoice3, invoice2, invoice1])
-        expect(Invoice.order_by_created_at).to_not eq([invoice1, invoice2, invoice3, invoice4, invoice5, invoice6, invoice7, invoice8, invoice9, invoice10, invoice11])
-      end
 
-      it '#retrieve_invoice' do 
-        expect(Invoice.retrieve_invoice(invoice1.id)).to eq(invoice1)
-      end
+    it '#retrieve_invoice' do 
+      expect(Invoice.retrieve_invoice(invoice1.id)).to eq(invoice1)
+    end
   end
+  
   describe 'instance methods' do 
     it '#date_format' do 
       freeze_time do 
