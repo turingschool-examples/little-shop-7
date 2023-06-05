@@ -101,7 +101,7 @@ RSpec.describe "Admin Invoices Show Page" do
 
       it "updates the invoice status when a new status is selected" do
         visit "/admin/invoices/#{@invoice_1.id}"
-        save_and_open_page
+        
         within "#invoice-status" do
           select "cancelled", from: "status"
           click_button "Update Status"
@@ -110,7 +110,7 @@ RSpec.describe "Admin Invoices Show Page" do
         @invoice_1.reload
         expect(current_path).to eq("/admin/invoices/#{@invoice_1.id}")
         expect(@invoice_1.status).to eq("cancelled")
-        save_and_open_page
+        
       end
     end
   end
