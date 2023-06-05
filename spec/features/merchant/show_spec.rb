@@ -158,18 +158,7 @@ RSpec.describe 'Merchant Dashboard' do
         expect("#{@inv4.id}").to appear_before("#{@inv5.id}")
         expect("#{@inv5.id}").to appear_before("#{@inv6.id}")
         expect("#{@inv6.id}").to_not appear_before("#{@inv3.id}")
-        save_and_open_page
       end
     end
   end
 end
-
-# joins(:invoices).select(:id, :created_at).where(invoice_items: {status: [1,0]}).distinct
-
-# Merchant Dashboard Invoices sorted by least recent
-# As a merchant
-# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-# In the section for "Items Ready to Ship",
-# Next to each Item name I see the date that the invoice was created
-# And I see the date formatted like "Monday, July 18, 2019"
-# And I see that the list is ordered from oldest to newest
