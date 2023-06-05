@@ -28,6 +28,22 @@ class Merchants::ItemsController < ApplicationController
     end
   end
 
+  def new
+    @merchant = Merchant.find(params[:id])
+    @item = Item.new
+  end
+
+  def create
+    @merchant = Merchant.find(params[:id])
+    item = @merchant.items.new(item_params)
+    if item.save
+      redirect_to "/merchants/#{@merchant.id}/items"
+    else
+      redirect_to "/merchants/#{@merchant.id}/items/new"
+      flash[:alert] = "Please fill out all fields"
+    end
+  end
+
   private
 
   def item_params
