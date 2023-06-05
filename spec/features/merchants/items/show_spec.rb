@@ -38,7 +38,7 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
 
       # User Story 8 - Merchant Item Update (link)
 
-      it "has a button to update the item information" do
+      it "has a link to update the item information" do
         visit "/merchants/#{merchant_1.id}/items/#{item_1.id}"
         click_link "Edit #{item_1.name}"
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}/edit")
