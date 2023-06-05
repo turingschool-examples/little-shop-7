@@ -5,7 +5,6 @@ RSpec.describe "Merchant Dashboard" do
     let!(:merchant) { create(:merchant, id: 1, name:"Dealer of Death", status: 1 )}
     let!(:merchant2) { create(:merchant, id: 2, name:"Dealer of Life", status: 1 )}
 
-
     let!(:item1) { create(:item, id: 1, merchant_id: 1 )}
     let!(:item2) { create(:item, id: 2, merchant_id: 1 )}
     let!(:item3) { create(:item, id: 3, merchant_id: 1 )}
