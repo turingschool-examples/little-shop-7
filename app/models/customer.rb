@@ -7,11 +7,6 @@ class Customer < ApplicationRecord
 
   validates_presence_of :first_name, :last_name
 
-  def top_5
-    # joins(invoices: {invoice_items: { item: :merchant }, transactions: :invoice })
-    # require 'pry'; binding.pry
-  end
-
   #class methods
   def self.top_5_customers
     joins(invoices: :transactions).select("customers.*, COUNT(transactions.id) as transactions_count").where(transactions: { result:"success"}).group("customers.id").order("transactions_count DESC").limit(5)

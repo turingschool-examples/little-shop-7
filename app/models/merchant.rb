@@ -7,7 +7,7 @@ class Merchant < ApplicationRecord
 
   validates_presence_of :name
 
-  def top_5_custies
+  def top_5_customers
     # customers.joins(:transactions).select("customers.*, count(result) as most_success").group(:id).order(:most_success)
     # custies = customers.joins(:transactions).where(transactions: {result: "success"}).group(:id)
     # custies.sort_by{|k,v| v}.take(5)
