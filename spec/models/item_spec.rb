@@ -6,6 +6,7 @@ RSpec.describe Item, type: :model do
     it { should belong_to :merchant }
     it { should have_many :invoice_items }
     it { should have_many(:invoices).through(:invoice_items) }
+    it { should have_many(:transactions).through(:invoices) }
   end
 
   context "validations" do
@@ -24,13 +25,13 @@ RSpec.describe Item, type: :model do
   let!(:item_5) { create(:item, merchant_id: merchant_1.id, status: 1)}
 
   describe "class methods" do
-    describe "#sort_enabled" do
+    describe ".sort_enabled" do
       it "sorts the items by the enabled status" do
         expect(merchant_1.items.sort_enabled).to eq([item_2, item_3, item_5])
       end
     end
 
-    describe "#sort_disabled" do
+    describe ".sort_disabled" do
       it "sorts the items by disabled status" do
         expect(merchant_1.items.sort_disabled).to eq([item_1, item_4])
       end
