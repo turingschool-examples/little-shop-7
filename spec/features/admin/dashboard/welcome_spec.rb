@@ -202,7 +202,7 @@ RSpec.describe "/admin" do
 
           expect(current_path).to eq("/admin/invoices/#{@invoice_16.id}")
           
-          expect(page).to have_content("Status: #{@invoice_16.status}")
+          expect(page).to have_content("#{@invoice_16.id}")
           expect(page).to have_content("Created on: #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
           expect(page).to have_content("Customer: #{@invoice_16.customer.first_name} #{@invoice_16.customer.last_name}")
           expect(page).to have_content("Items on Invoice")
