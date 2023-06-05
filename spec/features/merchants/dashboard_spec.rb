@@ -115,8 +115,6 @@ RSpec.describe "Merchant Dashboard" do
       expect(customer1.first_name).to appear_before(customer3.first_name)
       expect(customer3.first_name).to appear_before(customer4.first_name)
       expect(customer4.first_name).to appear_before(customer5.first_name)
-      # expect(page).to_not have_content(customer6.first_name)
-      # expect(page).to_not have_content(customer7.first_name)
     end
 
     it "displays the number of successful transactions next to customer's name" do
