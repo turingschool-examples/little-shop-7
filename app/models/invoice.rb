@@ -10,6 +10,12 @@ class Invoice < ApplicationRecord
 
   enum status: ["cancelled", "completed", "in progress"] # can = 0 com = 1 in p = 2 need to remigrate and make integers
 
+  #class methods
+  def self.incomp_invoices
+    Invoice.joins(:invoice_items).where("invoice_items.status != ?", 1)
+  end
+  
+  #instance methods
   def revenue
     invoice_items.sum("unit_price * quantity")
   end
