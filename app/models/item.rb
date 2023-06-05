@@ -6,4 +6,9 @@ class Item < ApplicationRecord
   def format_date
     created_at.strftime("%A, %B %-d, %Y")
   end
+
+  def order_invoices 
+    require 'pry'; binding.pry
+    invoices.order(:created_at)
+  end
 end
