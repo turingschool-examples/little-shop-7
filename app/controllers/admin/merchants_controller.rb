@@ -21,19 +21,17 @@ class Admin::MerchantsController < ApplicationController
     if merchant.update(merchant_params)
       redirect_to "/admin/merchants/#{merchant.id}"
       flash[:alert] = "Sucessfully edited merchant"
-    else
-      redirect_to "/admin/merchants/#{merchant.id}/edit"
     end
   end
 
   def disable
-    @merchant = Merchant.find(params[:id])
-    @merchant.disable
+    merchant = Merchant.find(params[:id])
+    merchant.disable
     redirect_to "/admin/merchants"
   end
   def enable
-    @merchant = Merchant.find(params[:id])
-    @merchant.enable
+    merchant = Merchant.find(params[:id])
+    merchant.enable
     redirect_to "/admin/merchants"
   end
   
