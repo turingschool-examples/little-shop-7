@@ -2,7 +2,18 @@
 
 <%= @merchants.each do |merchant| %>
   <p>
-    Name: <%= merchant.name %><br>
-    <%= link_to "Name: #{merchant.name}", "merchants/#{merchant.id}" %><br>
+    Name: <%= link_to  "#{merchant.name}", "merchants/#{merchant.id}" %><br>
+    Status: <%= merchant.status %>
+
+    # <%= form_with url: "/admin/merchants/#{merchant.id}", method: :patch, local: true do |f| %>
+      <%= hidden_field_tag :status, "Disabled" %>
+      <%= f.submit "Disable #{merchant.name}" %>
+    <% end %><br>
+
+    <%= form_with url: "/admin/merchants/#{merchant.id}", method: :patch, local: true do |f| %>
+      <%= hidden_field_tag :status, "Enabled" %>
+      <%= f.submit "Enable #{merchant.name}" %>
+    <% end %>
+
   </p>
 <% end %>
