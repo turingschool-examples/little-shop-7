@@ -163,7 +163,7 @@ RSpec.describe 'Merchant Dashboard' do
   end
 end
 
-# joins(:invoices_items).select(:id, :created_at).where(invoice_items: {status: [1,0]}).distinct
+# joins(:invoices).select(:id, :created_at).where(invoice_items: {status: [1,0]}).distinct
 
 # Merchant Dashboard Invoices sorted by least recent
 # As a merchant
