@@ -1,6 +1,10 @@
 <center>Invoice <%= @invoice.id %></center>
 <section id="invoice_info">
-  <p>Status: <%= @invoice.status %></p>
+  <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, id: "invoice-status" do |form|  %>
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(["in progress", "completed", "cancelled"], @invoice.status ) %>
+    <%= form.submit "Update Status" %>
+  <% end %>
   <p>Created on: <%= @invoice.created_at.to_datetime.strftime("%A, %B %d, %Y") %></p>
   <p>Revenue: <%= format_price(@invoice.revenue) %></p>
   <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
