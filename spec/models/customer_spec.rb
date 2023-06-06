@@ -46,25 +46,25 @@ RSpec.describe Customer, type: :model do
     @customer_5 = create(:customer)
     @customer_6 = create(:customer)
 
-    @invoice_1 = create(:invoice, customer_id: @customer_1.id, status: 1)
-    @invoice_2 = create(:invoice, customer_id: @customer_1.id, status: 1)
-    @invoice_3 = create(:invoice, customer_id: @customer_1.id, status: 1)
-    @invoice_4 = create(:invoice, customer_id: @customer_1.id, status: 1)
-    @invoice_5 = create(:invoice, customer_id: @customer_1.id, status: 1)
+    @invoice_1 = create(:invoice, customer_id: @customer_3.id, status: 1)
+    @invoice_2 = create(:invoice, customer_id: @customer_3.id, status: 1)
+    @invoice_3 = create(:invoice, customer_id: @customer_3.id, status: 1)
+    @invoice_4 = create(:invoice, customer_id: @customer_3.id, status: 1)
+    @invoice_5 = create(:invoice, customer_id: @customer_3.id, status: 1)
 
-    @invoice_6 = create(:invoice, customer_id: @customer_2.id, status: 1)
-    @invoice_7 = create(:invoice, customer_id: @customer_2.id, status: 1)
-    @invoice_8 = create(:invoice, customer_id: @customer_2.id, status: 1)
-    @invoice_9 = create(:invoice, customer_id: @customer_2.id, status: 1)
+    @invoice_6 = create(:invoice, customer_id: @customer_1.id, status: 1)
+    @invoice_7 = create(:invoice, customer_id: @customer_1.id, status: 1)
+    @invoice_8 = create(:invoice, customer_id: @customer_1.id, status: 1)
+    @invoice_9 = create(:invoice, customer_id: @customer_1.id, status: 1)
 
-    @invoice_10 = create(:invoice, customer_id: @customer_3.id, status: 1)
-    @invoice_11 = create(:invoice, customer_id: @customer_3.id, status: 1)
-    @invoice_12 = create(:invoice, customer_id: @customer_3.id, status: 1)
+    @invoice_10 = create(:invoice, customer_id: @customer_5.id, status: 1)
+    @invoice_11 = create(:invoice, customer_id: @customer_5.id, status: 1)
+    @invoice_12 = create(:invoice, customer_id: @customer_5.id, status: 1)
 
     @invoice_13 = create(:invoice, customer_id: @customer_4.id, status: 1)
     @invoice_14 = create(:invoice, customer_id: @customer_4.id, status: 1)
 
-    @invoice_15 = create(:invoice, customer_id: @customer_5.id, status: 1)
+    @invoice_15 = create(:invoice, customer_id: @customer_2.id, status: 1)
 
 
     @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
@@ -97,21 +97,21 @@ RSpec.describe Customer, type: :model do
   describe "class methods" do 
     describe "#top_customers(limit)" do 
       it "it lists the customers with the most successful transactions in descending order" do
-        expect(Customer.top_customers(5)).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
+        expect(Customer.top_customers(5)).to eq([@customer_3, @customer_1, @customer_5, @customer_4, @customer_2])
       end
 
       it "excludes customers with less successful purchases than the requested limit" do
         top_4_customers = Customer.top_customers(4)
-        expect(top_4_customers).not_to include(@customer_5, @customer_6)
+        expect(top_4_customers).not_to include(@customer_2, @customer_6)
 
-        expect(top_4_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4])
+        expect(top_4_customers).to eq([@customer_3, @customer_1, @customer_5, @customer_4])
       end
 
       it "excludes customers with zero transactions" do 
         top_6_customers = Customer.top_customers(6)
         expect(top_6_customers).not_to include(@customer_6)
 
-        expect(top_6_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
+        expect(top_6_customers).to eq([@customer_3, @customer_1, @customer_5, @customer_4, @customer_2])
       end
 
     end
@@ -120,11 +120,11 @@ RSpec.describe Customer, type: :model do
   describe "instance methods" do 
     describe "#customer_success_trans" do 
       it "it calculates the number of successful transactions for a customer" do
-        expect(@customer_1.customer_success_trans).to eq(5)
-        expect(@customer_2.customer_success_trans).to eq(4)
-        expect(@customer_3.customer_success_trans).to eq(3)
+        expect(@customer_3.customer_success_trans).to eq(5)
+        expect(@customer_1.customer_success_trans).to eq(4)
+        expect(@customer_5.customer_success_trans).to eq(3)
         expect(@customer_4.customer_success_trans).to eq(2)
-        expect(@customer_5.customer_success_trans).to eq(1)        
+        expect(@customer_2.customer_success_trans).to eq(1)        
       end
     end
   end
