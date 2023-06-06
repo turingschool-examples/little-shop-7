@@ -213,7 +213,7 @@ RSpec.describe "/admin" do
           expect(page).to_not have_content(@invoice_1.customer.last_name)
         end
 
-        it "the sorts the listed incomplete invoices by oldest to new creation date" do 
+        it "sorts the listed incomplete invoices by oldest to new creation date" do 
           visit "/admin"
 
           within ".incomplete_invoices" do
