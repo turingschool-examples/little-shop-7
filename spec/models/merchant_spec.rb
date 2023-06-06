@@ -210,7 +210,7 @@ RSpec.describe Merchant, type: :model do
     describe "#top_5_customers" do
       it "merchant can find number of successfull customer transactions" do
         have = [customer_2, customer_4, customer_1, customer_3, customer_5]
-        not_have= ([customer_6, customer_7])
+        not_have= [customer_6, customer_7]
         expect(@merchant_4.top_5_customers).to eq(have)
       end
     end

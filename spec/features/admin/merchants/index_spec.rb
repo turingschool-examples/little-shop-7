@@ -242,7 +242,6 @@ RSpec.describe "/admin/merchants" do
         expect(page).to have_content("Top Day for #{merchant_5.name} was 2023-06-06")
         expect(page).to have_link("#{merchant_6.name}")
         expect(page).to have_content("Top Day for #{merchant_6.name} was 2023-06-06")
-        save_and_open_page
       end
     end
   end
