@@ -23,5 +23,8 @@ class Item < ApplicationRecord
     .order("total_revenue desc")
     .limit(5)
   end
-end
 
+  def self.pending_items
+    joins(:invoice_items).where(invoice_items: {status: "pending"}).distinct
+  end
+end
