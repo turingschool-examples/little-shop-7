@@ -184,11 +184,11 @@ RSpec.describe "/admin" do
 
           within ".incomplete_invoices" do
             expect(page).to have_content("Incomplete Invoices")
-            expect(page).to have_content("Invoice ##{@invoice_16.id} - #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
-            expect(page).to have_content("Invoice ##{@invoice_17.id} - #{@invoice_17.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
-            expect(page).to have_content("Invoice ##{@invoice_18.id} - #{@invoice_18.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
-            expect(page).to have_content("Invoice ##{@invoice_19.id} - #{@invoice_19.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
             expect(page).to have_content("Invoice ##{@invoice_20.id} - #{@invoice_20.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_19.id} - #{@invoice_19.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_18.id} - #{@invoice_18.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_17.id} - #{@invoice_17.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_16.id} - #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
           end
         end
 
@@ -211,10 +211,20 @@ RSpec.describe "/admin" do
           expect(page).to_not have_content(@invoice_1.id)
           expect(page).to_not have_content(@invoice_1.customer.first_name)
           expect(page).to_not have_content(@invoice_1.customer.last_name)
-          
+        end
+
+        it "the sorts the listed incomplete invoices by oldest to new creation date" do 
+          visit "/admin"
+
+          within ".incomplete_invoices" do
+            expect("#{@invoice_16.id}").to appear_before("#{@invoice_17.id}")
+            expect("#{@invoice_17.id}").to appear_before("#{@invoice_18.id}")
+            expect("#{@invoice_18.id}").to appear_before("#{@invoice_19.id}")
+            expect("#{@invoice_19.id}").to appear_before("#{@invoice_20.id}")
+          end
         end
       end
-
     end
+
   end
 end
