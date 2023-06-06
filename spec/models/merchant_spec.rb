@@ -97,9 +97,9 @@ RSpec.describe Merchant, type: :model do
       let!(:invoice_14) { create(:invoice, customer_id: customer_5.id, status: 1) }
       let!(:invoice_15) { create(:invoice, customer_id: customer_5.id, status: 1) }
 
-      let!(:invoice_16) { create(:invoice, customer_id: customer_6.id, status: 1) }
-      let!(:invoice_17) { create(:invoice, customer_id: customer_6.id, status: 1) }
-      let!(:invoice_18) { create(:invoice, customer_id: customer_6.id, status: 1) }
+      let!(:invoice_16) { create(:invoice, customer_id: customer_6.id, status: 1, created_at: "2023-05-20 07:45:12.82345") }
+      let!(:invoice_17) { create(:invoice, customer_id: customer_6.id, status: 1, created_at: "2023-03-06 01:49:45.21235") }
+      let!(:invoice_18) { create(:invoice, customer_id: customer_6.id, status: 1, created_at: "2023-01-05 21:16:07.11835") }
 
       let!(:invoice_item_1) { create(:invoice_item, invoice: invoice_1, item: item_1, unit_price: 100000, quantity: 1) }
       let!(:invoice_item_2) { create(:invoice_item, invoice: invoice_2, item: item_2, unit_price: 100000, quantity: 1) }
@@ -119,6 +119,7 @@ RSpec.describe Merchant, type: :model do
       let!(:invoice_item_16) { create(:invoice_item, invoice: invoice_16, item: item_16, unit_price: 500000, quantity: 1) }
       let!(:invoice_item_17) { create(:invoice_item, invoice: invoice_17, item: item_17, unit_price: 500000, quantity: 1) }
       let!(:invoice_item_18) { create(:invoice_item, invoice: invoice_18, item: item_18, unit_price: 500000, quantity: 1) }
+      let!(:invoice_item_19) { create(:invoice_item, invoice: invoice_18, item: item_18, unit_price: 500000, quantity: 1) }
 
       let!(:transaction_1) { create(:transaction, invoice: invoice_1, result: 0) }
       let!(:transaction_2) { create(:transaction, invoice: invoice_2, result: 0) }
@@ -145,6 +146,10 @@ RSpec.describe Merchant, type: :model do
 
         expect(Merchant.all).to eq(original)
         expect(Merchant.top_5_by_revenue).to eq(expected)
+      end
+
+      it "can return a single merchants best day in revenue" do
+        expect(merchant_6.best_day).to eq(invoice_18.created_at.to_datetime.strftime("%Y-%m-%d"))
       end
     end
   end
@@ -205,7 +210,7 @@ RSpec.describe Merchant, type: :model do
     describe "#top_5_customers" do
       it "merchant can find number of successfull customer transactions" do
         have = [customer_2, customer_4, customer_1, customer_3, customer_5]
-        not_have= ([customer_6, customer_7])
+        not_have= [customer_6, customer_7]
         expect(@merchant_4.top_5_customers).to eq(have)
       end
     end
