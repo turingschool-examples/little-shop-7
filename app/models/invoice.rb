@@ -12,7 +12,7 @@ class Invoice < ApplicationRecord
 
   #class methods
   def self.incomp_invoices
-    Invoice.joins(:invoice_items).where("invoice_items.status != ?", 1)
+    Invoice.joins(:invoice_items).where("invoice_items.status != ?", 1).order(created_at: :desc)
   end
   
   #instance methods
