@@ -34,5 +34,34 @@ RSpec.describe "Merchant Invoices Show Page" do
         expect(page).to have_content("Customer: #{@invoice_1.customer.first_name} #{@invoice_1.customer.last_name}")
       end
     end
+
+    it "displays all items on the invoice and their info" do
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+# save_and_open_page
+      within("#item_table") do
+        expect(page).to have_content("Items on Invoice")
+        expect(page).to have_content("#{@invoice_1.items[0].name}")
+        expect(page).to have_content("#{@invoice_1.items[1].name}")
+        expect(page).to have_content("#{@invoice_1.items[2].name}")
+
+        expect(page).to_not have_content("#{@invoice_2.items[0].name}")
+        expect(page).to_not have_content("#{@invoice_2.items[1].name}")
+
+        expect(page).to have_content("#{@invoice_item_1.quantity}")
+        expect(page).to have_content("#{@invoice_item_2.quantity}")
+        expect(page).to have_content("#{@invoice_item_3.quantity}")
+
+        expect(page).to have_content("$#{sprintf('%.2f', @invoice_item_1.unit_price)}")
+        expect(page).to have_content("$#{sprintf('%.2f', @invoice_item_2.unit_price)}")
+        expect(page).to have_content("$#{sprintf('%.2f', @invoice_item_3.unit_price)}")
+
+        expect(page).to_not have_content("$#{sprintf('%.2f', @invoice_item_4.unit_price)}")
+        expect(page).to_not have_content("$#{sprintf('%.2f', @invoice_item_5.unit_price)}")
+
+        expect(page).to have_content("#{@invoice_item_1.status}")
+        expect(page).to have_content("#{@invoice_item_2.status}")
+        expect(page).to have_content("#{@invoice_item_3.status}")
+      end
+    end
   end
 end
