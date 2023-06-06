@@ -8,3 +8,13 @@
     <li><%= customer.first_name %>: <%= customer.transaction_count %></li></br>
   <% end %>
 </ol>
+
+<h3>Items Ready to Ship</h3>
+    <div id="pending_items">
+      <% @merchant.items.each do |item| %>
+        <%= item.name %> Invoices: <% item.invoice_items.each do |invoice| %>
+          <a href="merchants/<% @merchant.id %>invoices/<% invoice.invoice_id %>" %>><%= invoice.invoice_id %></a>
+          <% end %>
+        <%=  %></br>
+      <% end %>
+    </div>
