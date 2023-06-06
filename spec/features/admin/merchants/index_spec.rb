@@ -226,5 +226,24 @@ RSpec.describe "/admin/merchants" do
         expect(page).to_not have_link("#{merchant_3.name}")
       end
     end
+
+    it "displays the top 5 merchants best day of revenue with a label" do
+
+      visit "/admin/merchants"
+
+      within ".admin_top_merchants_by_revenue" do
+        expect(page).to have_link("#{merchant_1.name}")
+        expect(page).to have_content("Top Day for #{merchant_1.name} was 2023-06-06")
+        expect(page).to have_link("#{merchant_2.name}")
+        expect(page).to have_content("Top Day for #{merchant_2.name} was 2023-06-06")
+        expect(page).to have_link("#{merchant_4.name}")
+        expect(page).to have_content("Top Day for #{merchant_4.name} was 2023-06-06")
+        expect(page).to have_link("#{merchant_5.name}")
+        expect(page).to have_content("Top Day for #{merchant_5.name} was 2023-06-06")
+        expect(page).to have_link("#{merchant_6.name}")
+        expect(page).to have_content("Top Day for #{merchant_6.name} was 2023-06-06")
+        save_and_open_page
+      end
+    end
   end
 end
