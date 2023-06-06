@@ -93,6 +93,15 @@ RSpec.describe Invoice, type: :model do
         expect(@invoice_4.items).to eq([])
         expect(Invoice.incomp_invoices).not_to include(@invoice_4)
       end
+
+      it "sorts invoices by creation date from oldest to newest" do
+        expect(Invoice.incomp_invoices).to eq([@invoice_5, @invoice_6, @invoice_9, @invoice_10])
+
+        @invoice_11 = create(:invoice, customer_id: @customer_2.id, status: 2)
+        @invoice_item_15 = create(:invoice_item, invoice_id: @invoice_11.id, item_id: @item_5.id, unit_price: 124, quantity: 1, status:0)
+
+        expect(Invoice.incomp_invoices).to eq([@invoice_5, @invoice_6, @invoice_9, @invoice_10, @invoice_11])
+      end
     end
   end
 end
