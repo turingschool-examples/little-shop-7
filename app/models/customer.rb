@@ -8,8 +8,8 @@ class Customer < ApplicationRecord
   validates_presence_of :first_name, :last_name
 
   #class methods
-  def self.top_5_customers
-    joins(invoices: :transactions).select("customers.*, COUNT(transactions.id) as transactions_count").where(transactions: { result:"success"}).group("customers.id").order("transactions_count DESC").limit(5)
+  def self.top_customers(limit)
+    joins(invoices: :transactions).select("customers.*, COUNT(transactions.id) as transactions_count").where(transactions: {result:0}).group("customers.id").order("transactions_count DESC").order(:last_name,:first_name).limit(limit)
   end
 
   #instance methods

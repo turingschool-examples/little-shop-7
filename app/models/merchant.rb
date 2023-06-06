@@ -8,9 +8,6 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   def top_5_customers
-    # customers.joins(:transactions).select("customers.*, count(result) as most_success").group(:id).order(:most_success)
-    # custies = customers.joins(:transactions).where(transactions: {result: "success"}).group(:id)
-    # custies.sort_by{|k,v| v}.take(5)
     customers.joins(:transactions).select("customers.*, COUNT(transactions.id) as transaction_count").where(transactions: {result: "success"}).group("customers.id").order("transaction_count DESC").limit(5)
   end
 
@@ -24,5 +21,16 @@ class Merchant < ApplicationRecord
     Merchant.where(status: "disabled")
   end
 
+  def self.top_5_by_revenue
+    top_5 = joins(items: [{invoice_items: { invoice: :transactions } }]).select('merchants.*, sum(invoice_items.quantity*invoice_items.unit_price) as revenue').where('transactions.result = 0').group(:id).order('revenue DESC').limit(5)
+  end
 
+  def unique_invoices
+    self.invoices.distinct
+  end
+
+  def best_day
+    day = invoice_items.joins(invoice: :transactions).select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue').where('transactions.result = 0').group('invoices.id').order('revenue desc').limit(1).first.created_at
+    day.to_datetime.strftime("%Y-%m-%d")
+  end
 end
