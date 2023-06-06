@@ -30,10 +30,10 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:transaction_3) { create(:transaction, invoice_id: invoice_3.id, result: 0) }
       let!(:transaction_4) { create(:transaction, invoice_id: invoice_4.id, result: 0) }
       let!(:transaction_5) { create(:transaction, invoice_id: invoice_5.id, result: 0) }
-      let!(:transaction_6) { create(:transaction, invoice_id: invoice_5.id, result: 0) }
-      let!(:transaction_7) { create(:transaction, invoice_id: invoice_5.id, result: 1) }
+      let!(:transaction_6) { create(:transaction, invoice_id: invoice_6.id, result: 0) }
+      let!(:transaction_7) { create(:transaction, invoice_id: invoice_6.id, result: 0) }
 
-      let!(:transaction_8) { create(:transaction, invoice_id: invoice_6.id, result: 0) }
+      let!(:transaction_8) { create(:transaction, invoice_id: invoice_7.id, result: 0) }
 
       let!(:invoice_1) { create(:invoice, customer_id: customer_1.id, status: 0)}
       let!(:invoice_2) { create(:invoice, customer_id: customer_2.id, status: 0)}
@@ -42,6 +42,7 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:invoice_5) { create(:invoice, customer_id: customer_5.id, status: 0)}
 
       let!(:invoice_6) { create(:invoice, customer_id: customer_8.id, status: 0)}
+      let!(:invoice_7) { create(:invoice, customer_id: customer_8.id, status: 0)}
 
       let!(:invoice_item_1) { create(:invoice_item, unit_price: 2000, invoice_id: invoice_1.id, item_id: item_1.id) }
       let!(:invoice_item_2) { create(:invoice_item, unit_price: 3000, invoice_id: invoice_2.id, item_id: item_2.id) }
@@ -49,7 +50,7 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:invoice_item_4) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_4.id, item_id: item_4.id) }
       let!(:invoice_item_5) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_5.id, item_id: item_5.id) }
 
-      let!(:invoice_item_5) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_6.id, item_id: item_6.id) }
+      let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_6.id, item_id: item_7.id) }
 
       # User Story 1
 
@@ -98,10 +99,9 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).to have_content(customer_2.first_name)
         expect(page).to have_content(customer_3.first_name)
         expect(page).to have_content(customer_4.first_name)
-        expect(page).to have_content(customer_8.first_name)
+        expect(page).to have_content(customer_5.first_name)
         expect(page).not_to have_content(customer_6.first_name)
         expect(page).not_to have_content(customer_7.first_name)
-        save_and_open_page
       end
       # 4. Merchant Dashboard Items Ready to Ship
 
@@ -120,7 +120,7 @@ RSpec.describe "/merchants/:id/dashboard" do
       it "shows list of names of all items ordered but not shipped in 'Items Ready to ship'" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         pending_items = [item_6.name]
-        expect(page).to have_content(pending_items)
+        expect(page).to have_content(item_6.name)
       end
       it "shows invoice id next to items not shipped with link to merchants invoice show page" do
         visit "/merchants/#{merchant_3.id}/dashboard"
