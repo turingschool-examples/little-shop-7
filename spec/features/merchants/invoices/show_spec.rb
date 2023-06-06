@@ -37,7 +37,7 @@ RSpec.describe "Merchant Invoices Show Page" do
 
     it "displays all items on the invoice and their info" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-# save_and_open_page
+
       within("#item_table") do
         expect(page).to have_content("Items on Invoice")
         expect(page).to have_content("#{@invoice_1.items[0].name}")
@@ -61,6 +61,19 @@ RSpec.describe "Merchant Invoices Show Page" do
         expect(page).to have_content("#{@invoice_item_1.status}")
         expect(page).to have_content("#{@invoice_item_2.status}")
         expect(page).to have_content("#{@invoice_item_3.status}")
+      end
+    end
+
+    it "displays the total revenue for an invoice" do
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+      within("#invoice_info") do
+        expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_1.revenue)}")
+      end
+
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}"
+
+      within("#invoice_info") do
+        expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_2.revenue)}")
       end
     end
   end
