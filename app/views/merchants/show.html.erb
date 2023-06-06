@@ -14,6 +14,6 @@
   <% @merchant.items.pending_items.each do |item| %>
     Item Name: <%= item.name %> </br>
     Pending Invoices: </br> <% item.invoices.each do |invoice| %>
-      <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %> </br>
+      <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %> <%= "#{invoice.created_at.to_datetime.strftime("%A, %B %d, %Y")}" %></br>
       <% end %>
   <% end %>
