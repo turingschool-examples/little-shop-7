@@ -46,8 +46,10 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:customer_8) { create(:customer) }
       let!(:item_7) { create(:item, merchant_id: merchant_3.id) }
       let!(:invoice_7) { create(:invoice, customer_id: customer_8.id, status: 0)}
+      let!(:invoice_8) { create(:invoice, created_at: "2022-06-06 21:33:44 UTC", customer_id: customer_8.id, status: 0)}
       let!(:transaction_8) { create(:transaction, invoice_id: invoice_7.id, result: 0) }
       let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_7.id, item_id: item_7.id) }
+      let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_8.id, item_id: item_7.id) }
 
       # User Story 1
 
@@ -100,15 +102,8 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).not_to have_content(customer_6.first_name)
         expect(page).not_to have_content(customer_7.first_name)
       end
-      # 4. Merchant Dashboard Items Ready to Ship
 
-      # As a merchant
-      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-      # Then I see a section for "Items Ready to Ship"
-      # In that section I see a list of the names of all of my items that
-      # have been ordered and have not yet been shipped,
-      # And next to each Item I see the id of the invoice that ordered my item
-      # And each invoice id is a link to my merchant's invoice show page
+      # 4. Merchant Dashboard Items Ready to Ship
 
       it "shows section for 'Items Ready to Ship'" do
         visit "/merchants/#{merchant_3.id}/dashboard"
@@ -122,9 +117,27 @@ RSpec.describe "/merchants/:id/dashboard" do
       it "shows invoice id next to items not shipped with link to merchants invoice show page" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect(page).to have_link("#{invoice_7.id}")
-        save_and_open_page
         click_on("#{invoice_7.id}")
         expect(current_path).to eq("/merchants/#{merchant_3.id}/invoices/#{invoice_7.id}")
+      end
+
+      # 5. Merchant Dashboard Invoices sorted by least recent.
+
+      # As a merchant
+      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+      # In the section for "Items Ready to Ship",
+      # Next to each Item name I see the date that the invoice was created
+      # And I see the date formatted like "Monday, July 18, 2019"
+      # And I see that the list is ordered from oldest to newest
+      it "shows invoice id with formatted date and time" do
+        visit "/merchants/#{merchant_3.id}/dashboard"
+        expect(page).to have_content("#{invoice_7.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+      end
+
+      it "shows invoice id with formatted date and time" do
+        visit "/merchants/#{merchant_3.id}/dashboard"
+        expect("#{invoice_8.id}").to appear_before("#{invoice_7.id}")
+        save_and_open_page
       end
     end
   end
