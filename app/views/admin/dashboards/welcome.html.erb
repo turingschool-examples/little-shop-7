@@ -74,13 +74,13 @@ li a:hover:not(.active) {
 
 <div class="container">
   <div class="incomplete_invoices">
-    <h2>Incomplete Invoices</h2>
+    <h3>Incomplete Invoices</h3>
     <% @invoices.incomp_invoices.each do |incomp_invoice| %>
       <p>Invoice #<%= link_to "#{incomp_invoice.id}", "admin/invoices/#{incomp_invoice.id}"  %> - <%=incomp_invoice.created_at.to_datetime.strftime("%A, %B %d, %Y")%></p>
     <% end %>
   </div>
   <div class="top_customers">
-    <h2>Top Customers</h2>
+    <h3>Top Customers</h3>
     <ol>
       <% @customers.top_customers(5).each do |customer| %>
         <li><%= customer.first_name %> <%=customer.last_name%> - <%=customer.customer_success_trans%> purchases</li><br>
