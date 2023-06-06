@@ -46,8 +46,10 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:customer_8) { create(:customer) }
       let!(:item_7) { create(:item, merchant_id: merchant_3.id) }
       let!(:invoice_7) { create(:invoice, customer_id: customer_8.id, status: 0)}
+      let!(:invoice_8) { create(:invoice, created_at: "2022-06-06 21:33:44 UTC", customer_id: customer_8.id, status: 0)}
       let!(:transaction_8) { create(:transaction, invoice_id: invoice_7.id, result: 0) }
       let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_7.id, item_id: item_7.id) }
+      let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_8.id, item_id: item_7.id) }
 
       # User Story 1
 
@@ -130,6 +132,11 @@ RSpec.describe "/merchants/:id/dashboard" do
       it "shows invoice id with formatted date and time" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect(page).to have_content("#{invoice_7.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+      end
+
+      it "shows invoice id with formatted date and time" do
+        visit "/merchants/#{merchant_3.id}/dashboard"
+        expect("#{invoice_8.id}").to appear_before("#{invoice_7.id}")
         save_and_open_page
       end
     end
