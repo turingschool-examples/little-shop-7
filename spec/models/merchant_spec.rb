@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  context "relationships" do 
+  context "relationships" do
     it { should have_many :items }
     it { should have_many(:invoice_items).through(:items) }
   end
@@ -38,69 +38,69 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.all).to eq(original)
       expect(Merchant.filter_disabled).to eq(expected)
     end
-    
+
     describe "#methods" do
       let!(:merchant_1) { create(:merchant, status: 0) }
       let!(:item_1) { create(:item, merchant_id: merchant_1.id)}
       let!(:item_2) { create(:item, merchant_id: merchant_1.id)}
       let!(:item_3) { create(:item, merchant_id: merchant_1.id)}
-    
+
       let!(:merchant_2) { create(:merchant, status: 0) }
       let!(:item_4) { create(:item, merchant_id: merchant_2.id)}
       let!(:item_5) { create(:item, merchant_id: merchant_2.id)}
       let!(:item_6) { create(:item, merchant_id: merchant_2.id)}
-    
+
       let!(:merchant_3) { create(:merchant, status: 0) }
       let!(:item_7) { create(:item, merchant_id: merchant_3.id)}
       let!(:item_8) { create(:item, merchant_id: merchant_3.id)}
       let!(:item_9) { create(:item, merchant_id: merchant_3.id)}
-    
+
       let!(:merchant_4) { create(:merchant, status: 1) }
       let!(:item_10) { create(:item, merchant_id: merchant_4.id)}
       let!(:item_11) { create(:item, merchant_id: merchant_4.id)}
       let!(:item_12) { create(:item, merchant_id: merchant_4.id)}
-    
+
       let!(:merchant_5) { create(:merchant, status: 1) }
       let!(:item_13) { create(:item, merchant_id: merchant_5.id)}
       let!(:item_14) { create(:item, merchant_id: merchant_5.id)}
       let!(:item_15) { create(:item, merchant_id: merchant_5.id)}
-    
+
       let!(:merchant_6) { create(:merchant, status: 1) }
       let!(:item_16) { create(:item, merchant_id: merchant_6.id)}
       let!(:item_17) { create(:item, merchant_id: merchant_6.id)}
       let!(:item_18) { create(:item, merchant_id: merchant_6.id)}
-    
+
       let!(:customer_1) { create(:customer) }
       let!(:customer_2) { create(:customer) }
       let!(:customer_3) { create(:customer) }
       let!(:customer_4) { create(:customer) }
       let!(:customer_5) { create(:customer) }
       let!(:customer_6) { create(:customer) }
-    
+
       let!(:invoice_1) { create(:invoice, customer_id: customer_1.id, status: 1) }
       let!(:invoice_2) { create(:invoice, customer_id: customer_1.id, status: 1) }
       let!(:invoice_3) { create(:invoice, customer_id: customer_1.id, status: 1) }
-    
+
       let!(:invoice_4) { create(:invoice, customer_id: customer_2.id, status: 1) }
       let!(:invoice_5) { create(:invoice, customer_id: customer_2.id, status: 1) }
       let!(:invoice_6) { create(:invoice, customer_id: customer_2.id, status: 1) }
-    
+
       let!(:invoice_7) { create(:invoice, customer_id: customer_3.id, status: 1) }
       let!(:invoice_8) { create(:invoice, customer_id: customer_3.id, status: 1) }
       let!(:invoice_9) { create(:invoice, customer_id: customer_3.id, status: 1) }
-    
+
       let!(:invoice_10) { create(:invoice, customer_id: customer_4.id, status: 1) }
       let!(:invoice_11) { create(:invoice, customer_id: customer_4.id, status: 1) }
       let!(:invoice_12) { create(:invoice, customer_id: customer_4.id, status: 1) }
-    
+
       let!(:invoice_13) { create(:invoice, customer_id: customer_5.id, status: 1) }
       let!(:invoice_14) { create(:invoice, customer_id: customer_5.id, status: 1) }
       let!(:invoice_15) { create(:invoice, customer_id: customer_5.id, status: 1) }
-    
+
       let!(:invoice_16) { create(:invoice, customer_id: customer_6.id, status: 1) }
       let!(:invoice_17) { create(:invoice, customer_id: customer_6.id, status: 1) }
       let!(:invoice_18) { create(:invoice, customer_id: customer_6.id, status: 1) }
-    
+
       let!(:invoice_item_1) { create(:invoice_item, invoice: invoice_1, item: item_1, unit_price: 100000, quantity: 1) }
       let!(:invoice_item_2) { create(:invoice_item, invoice: invoice_2, item: item_2, unit_price: 100000, quantity: 1) }
       let!(:invoice_item_3) { create(:invoice_item, invoice: invoice_3, item: item_3, unit_price: 100000, quantity: 1) }
@@ -119,7 +119,7 @@ RSpec.describe Merchant, type: :model do
       let!(:invoice_item_16) { create(:invoice_item, invoice: invoice_16, item: item_16, unit_price: 500000, quantity: 1) }
       let!(:invoice_item_17) { create(:invoice_item, invoice: invoice_17, item: item_17, unit_price: 500000, quantity: 1) }
       let!(:invoice_item_18) { create(:invoice_item, invoice: invoice_18, item: item_18, unit_price: 500000, quantity: 1) }
-    
+
       let!(:transaction_1) { create(:transaction, invoice: invoice_1, result: 0) }
       let!(:transaction_2) { create(:transaction, invoice: invoice_2, result: 0) }
       let!(:transaction_3) { create(:transaction, invoice: invoice_3, result: 0) }
@@ -157,10 +157,10 @@ RSpec.describe Merchant, type: :model do
       @merchant_4 = create(:merchant, status: 0)
       @merchant_5 = create(:merchant, status: 0)
     end
-  
+
     # let!(:merchant_4) { create(:merchant, status: 0) }
     # let!(:merchant_5) { create(:merchant, status: 0) }
-  
+
     let!(:customer_1) { create(:customer) }
     let!(:customer_2) { create(:customer) }
     let!(:customer_3) { create(:customer) }
@@ -168,13 +168,13 @@ RSpec.describe Merchant, type: :model do
     let!(:customer_5) { create(:customer) }
     let!(:customer_6) { create(:customer) }
     let!(:customer_7) { create(:customer) }
-  
+
     let!(:item_1) { create(:item, merchant_id: @merchant_4.id) }
     let!(:item_2) { create(:item, merchant_id: @merchant_4.id) }
     let!(:item_3) { create(:item, merchant_id: @merchant_4.id) }
     let!(:item_4) { create(:item, merchant_id: @merchant_4.id) }
     let!(:item_5) { create(:item, merchant_id: @merchant_5.id) }
-  
+
     let!(:invoice_item_1) { create(:invoice_item, unit_price: 2000, invoice_id: invoice_1.id, item_id: item_1.id) }
     let!(:invoice_item_2) { create(:invoice_item, unit_price: 3000, invoice_id: invoice_2.id, item_id: item_2.id) }
     let!(:invoice_item_3) { create(:invoice_item, unit_price: 4000, invoice_id: invoice_3.id, item_id: item_3.id) }
@@ -183,7 +183,7 @@ RSpec.describe Merchant, type: :model do
     let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_6.id, item_id: item_3.id) }
     let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_7.id, item_id: item_2.id) }
     let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_8.id, item_id: item_5.id) }
-  
+
     let!(:invoice_1) { create(:invoice, customer_id: customer_1.id, status: 0)}
     let!(:invoice_2) { create(:invoice, customer_id: customer_2.id, status: 0)}
     let!(:invoice_3) { create(:invoice, customer_id: customer_2.id, status: 0)}
@@ -192,7 +192,7 @@ RSpec.describe Merchant, type: :model do
     let!(:invoice_6) { create(:invoice, customer_id: customer_5.id, status: 0)}
     let!(:invoice_7) { create(:invoice, customer_id: customer_4.id, status: 0)}
     let!(:invoice_8) { create(:invoice, customer_id: customer_6.id, status: 0)}
-  
+
     let!(:transaction_1) { create(:transaction, invoice_id: invoice_1.id, result: 0) }
     let!(:transaction_2) { create(:transaction, invoice_id: invoice_2.id, result: 0) }
     let!(:transaction_3) { create(:transaction, invoice_id: invoice_3.id, result: 0) }
