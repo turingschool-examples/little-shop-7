@@ -5,7 +5,6 @@ RSpec.describe "/merchants/:id/dashboard" do
     describe "when I visit a merchants show page" do
       let!(:merchant_1) { create(:merchant) }
       let!(:merchant_2) { create(:merchant) }
-      let!(:merchant_3) { create(:merchant) }
 
       let!(:customer_1) { create(:customer) }
       let!(:customer_2) { create(:customer) }
@@ -15,15 +14,12 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:customer_6) { create(:customer) }
       let!(:customer_7) { create(:customer) }
 
-      let!(:customer_8) { create(:customer) }
-
       let!(:item_1) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_2) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_3) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_4) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_5) { create(:item, merchant_id: merchant_1.id) }
       let!(:item_6) { create(:item, merchant_id: merchant_1.id) }
-      let!(:item_7) { create(:item, merchant_id: merchant_3.id) }
 
       let!(:transaction_1) { create(:transaction, invoice_id: invoice_1.id, result: 0) }
       let!(:transaction_2) { create(:transaction, invoice_id: invoice_2.id, result: 0) }
@@ -33,16 +29,12 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:transaction_6) { create(:transaction, invoice_id: invoice_6.id, result: 0) }
       let!(:transaction_7) { create(:transaction, invoice_id: invoice_6.id, result: 0) }
 
-      let!(:transaction_8) { create(:transaction, invoice_id: invoice_7.id, result: 0) }
-
       let!(:invoice_1) { create(:invoice, customer_id: customer_1.id, status: 0)}
       let!(:invoice_2) { create(:invoice, customer_id: customer_2.id, status: 0)}
       let!(:invoice_3) { create(:invoice, customer_id: customer_3.id, status: 0)}
       let!(:invoice_4) { create(:invoice, customer_id: customer_4.id, status: 0)}
       let!(:invoice_5) { create(:invoice, customer_id: customer_5.id, status: 0)}
-
-      let!(:invoice_6) { create(:invoice, customer_id: customer_8.id, status: 0)}
-      let!(:invoice_7) { create(:invoice, customer_id: customer_8.id, status: 0)}
+      let!(:invoice_6) { create(:invoice, customer_id: customer_5.id, status: 0)}
 
       let!(:invoice_item_1) { create(:invoice_item, unit_price: 2000, invoice_id: invoice_1.id, item_id: item_1.id) }
       let!(:invoice_item_2) { create(:invoice_item, unit_price: 3000, invoice_id: invoice_2.id, item_id: item_2.id) }
@@ -50,7 +42,12 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:invoice_item_4) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_4.id, item_id: item_4.id) }
       let!(:invoice_item_5) { create(:invoice_item, unit_price: 5000, invoice_id: invoice_5.id, item_id: item_5.id) }
 
-      let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_6.id, item_id: item_7.id) }
+      let!(:merchant_3) { create(:merchant) }
+      let!(:customer_8) { create(:customer) }
+      let!(:item_7) { create(:item, merchant_id: merchant_3.id) }
+      let!(:invoice_7) { create(:invoice, customer_id: customer_8.id, status: 0)}
+      let!(:transaction_8) { create(:transaction, invoice_id: invoice_7.id, result: 0) }
+      let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_7.id, item_id: item_7.id) }
 
       # User Story 1
 
@@ -119,11 +116,15 @@ RSpec.describe "/merchants/:id/dashboard" do
       end
       it "shows list of names of all items ordered but not shipped in 'Items Ready to ship'" do
         visit "/merchants/#{merchant_3.id}/dashboard"
-        pending_items = [item_6.name]
-        expect(page).to have_content(item_6.name)
+        pending_items = item_7.name
+        expect(page).to have_content(pending_items)
       end
       it "shows invoice id next to items not shipped with link to merchants invoice show page" do
         visit "/merchants/#{merchant_3.id}/dashboard"
+        expect(page).to have_link("#{invoice_7.id}")
+        save_and_open_page
+        click_on("#{invoice_7.id}")
+        expect(current_path).to eq("/merchants/#{merchant_3.id}/invoices/#{invoice_7.id}")
       end
     end
   end

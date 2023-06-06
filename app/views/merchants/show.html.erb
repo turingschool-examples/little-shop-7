@@ -10,11 +10,10 @@
 </ol>
 
 <h3>Items Ready to Ship</h3>
-    <div id="pending_items">
-      <% @merchant.items.each do |item| %>
-        <%= item.name %> Invoices: <% item.pending_items.each do |invoice| %>
-          <a href="merchants/<% @merchant.id %>invoices/<% invoice.invoice_id %>" %>><%= invoice.invoice_id %></a>
-          <% end %>
-        <%=  %></br>
+
+  <% @merchant.items.pending_items.each do |item| %>
+    Item Name: <%= item.name %> </br>
+    Pending Invoices: </br> <% item.invoices.each do |invoice| %>
+      <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %> </br>
       <% end %>
-    </div>
+  <% end %>
