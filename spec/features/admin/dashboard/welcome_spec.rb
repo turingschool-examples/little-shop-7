@@ -27,6 +27,13 @@ RSpec.describe "/admin" do
     @item_14 = create(:item, merchant_id: @merchant_5.id)
     @item_15 = create(:item, merchant_id: @merchant_5.id)
 
+    @merchant_6 = create(:merchant)
+    @item_16 = create(:item, merchant_id: @merchant_6.id)
+    @item_17 = create(:item, merchant_id: @merchant_6.id)
+    @item_18 = create(:item, merchant_id: @merchant_6.id)
+    @item_19 = create(:item, merchant_id: @merchant_6.id)
+    @item_20 = create(:item, merchant_id: @merchant_6.id)
+
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
@@ -54,16 +61,33 @@ RSpec.describe "/admin" do
 
     @invoice_15 = create(:invoice, customer_id: @customer_5.id, status: 1)
 
+    @invoice_16 = create(:invoice, customer_id: @customer_6.id, status: 2)
+    @invoice_17 = create(:invoice, customer_id: @customer_6.id, status: 2)
+    @invoice_18 = create(:invoice, customer_id: @customer_6.id, status: 2)
+    @invoice_19 = create(:invoice, customer_id: @customer_6.id, status: 2)
+    @invoice_20 = create(:invoice, customer_id: @customer_6.id, status: 2)
+  
 
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
-    @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2)
-    @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
-    @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
-    @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5)
-    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6)
-    @invoice_item_7 = create(:invoice_item, invoice: @invoice_7, item: @item_7)
-    @invoice_item_8 = create(:invoice_item, invoice: @invoice_8, item: @item_8)
-    @invoice_item_9 = create(:invoice_item, invoice: @invoice_9, item: @item_9)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, status:1)
+    @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2, status:1)
+    @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3, status:1)
+    @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4, status:1)
+    @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5, status:1)
+    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6, status:1)
+    @invoice_item_7 = create(:invoice_item, invoice: @invoice_7, item: @item_7, status:1)
+    @invoice_item_8 = create(:invoice_item, invoice: @invoice_8, item: @item_8, status:1)
+    @invoice_item_9 = create(:invoice_item, invoice: @invoice_9, item: @item_9, status:1)
+    @invoice_item_10 = create(:invoice_item, invoice: @invoice_10, item: @item_10, status:1)
+    @invoice_item_11 = create(:invoice_item, invoice: @invoice_11, item: @item_11, status:1)
+    @invoice_item_12 = create(:invoice_item, invoice: @invoice_12, item: @item_12, status:1)
+    @invoice_item_13 = create(:invoice_item, invoice: @invoice_13, item: @item_13, status:1)
+    @invoice_item_14 = create(:invoice_item, invoice: @invoice_14, item: @item_14, status:1)
+    @invoice_item_15 = create(:invoice_item, invoice: @invoice_15, item: @item_15, status:1)
+    @invoice_item_16 = create(:invoice_item, invoice: @invoice_16, item: @item_16, status:2)
+    @invoice_item_17 = create(:invoice_item, invoice: @invoice_17, item: @item_17, status:2)
+    @invoice_item_18 = create(:invoice_item, invoice: @invoice_18, item: @item_18, status:2)
+    @invoice_item_19 = create(:invoice_item, invoice: @invoice_19, item: @item_19, status:0)
+    @invoice_item_20 = create(:invoice_item, invoice: @invoice_20, item: @item_20, status:0)
     
     @transaction_1 = create(:transaction, invoice: @invoice_1, result: 0)
     @transaction_2 = create(:transaction, invoice: @invoice_2, result: 0)
@@ -80,6 +104,11 @@ RSpec.describe "/admin" do
     @transaction_13 = create(:transaction, invoice: @invoice_13, result: 0)
     @transaction_14 = create(:transaction, invoice: @invoice_14, result: 0)
     @transaction_15 = create(:transaction, invoice: @invoice_15, result: 0)
+    @transaction_16 = create(:transaction, invoice: @invoice_15, result: 0)
+    @transaction_17 = create(:transaction, invoice: @invoice_15, result: 0)
+    @transaction_18 = create(:transaction, invoice: @invoice_15, result: 0)
+    @transaction_19 = create(:transaction, invoice: @invoice_15, result: 0)
+    @transaction_20 = create(:transaction, invoice: @invoice_15, result: 0)
   end
 
   describe "As an admin" do
@@ -134,7 +163,7 @@ RSpec.describe "/admin" do
         end
       end
 
-      context "statistics" do
+      context "top customers" do
         it "lists the names of the top 5 customers" do
           visit "/admin"
   
@@ -149,6 +178,53 @@ RSpec.describe "/admin" do
         end
       end
 
+      context "incomplete invoices" do 
+        it "list all of the ids of invoices for items that have not shipped" do 
+          visit "/admin"
+
+          within ".incomplete_invoices" do
+            expect(page).to have_content("Incomplete Invoices")
+            expect(page).to have_content("Invoice ##{@invoice_20.id} - #{@invoice_20.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_19.id} - #{@invoice_19.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_18.id} - #{@invoice_18.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_17.id} - #{@invoice_17.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice ##{@invoice_16.id} - #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+          end
+        end
+
+        it "the incomplete invoice id links to its admin indexes show page" do 
+          visit "/admin"
+
+          within ".incomplete_invoices" do
+            expect(page).to have_content("Invoice ##{@invoice_16.id} - #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+            click_link "#{@invoice_16.id}"
+          end
+
+          expect(current_path).to eq("/admin/invoices/#{@invoice_16.id}")
+          
+          expect(page).to have_content("#{@invoice_16.id}")
+          expect(page).to have_content("Created on: #{@invoice_16.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
+          expect(page).to have_content("Customer: #{@invoice_16.customer.first_name} #{@invoice_16.customer.last_name}")
+          expect(page).to have_content("Items on Invoice")
+          expect(page).to have_content("pending")
+
+          expect(page).to_not have_content(@invoice_1.id)
+          expect(page).to_not have_content(@invoice_1.customer.first_name)
+          expect(page).to_not have_content(@invoice_1.customer.last_name)
+        end
+
+        it "the sorts the listed incomplete invoices by oldest to new creation date" do 
+          visit "/admin"
+
+          within ".incomplete_invoices" do
+            expect("#{@invoice_16.id}").to appear_before("#{@invoice_17.id}")
+            expect("#{@invoice_17.id}").to appear_before("#{@invoice_18.id}")
+            expect("#{@invoice_18.id}").to appear_before("#{@invoice_19.id}")
+            expect("#{@invoice_19.id}").to appear_before("#{@invoice_20.id}")
+          end
+        end
+      end
     end
+
   end
 end
