@@ -51,8 +51,6 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:invoice_item_6) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_7.id, item_id: item_7.id) }
       let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_8.id, item_id: item_7.id) }
 
-      # User Story 1
-
       it "directs me to the merchants dashboard where I see the merchants name" do
         visit "/merchants/#{merchant_1.id}/dashboard"
         expect(page).to have_content(merchant_1.name)
@@ -62,8 +60,6 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).to have_content(merchant_2.name)
         expect(page).to_not have_content(merchant_1.name)
       end
-
-      # 2. Merchant Dashboard Links
 
       it "links to the merchants items index" do
         visit "/merchants/#{merchant_1.id}/dashboard"
@@ -89,8 +85,6 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).to have_content("#{merchant_2.name} Invoices")
       end
 
-      # 3. Merchant Dashboard Statistics - Favorite Customers
-
       it "see top 5 customers on on dashboard" do
         visit "/merchants/#{merchant_1.id}/dashboard"
         expect(page).to have_content("Top 5 Customers")
@@ -103,17 +97,17 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(page).not_to have_content(customer_7.first_name)
       end
 
-      # 4. Merchant Dashboard Items Ready to Ship
-
       it "shows section for 'Items Ready to Ship'" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect(page).to have_content("Items Ready to Ship")
       end
+
       it "shows list of names of all items ordered but not shipped in 'Items Ready to ship'" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         pending_items = item_7.name
         expect(page).to have_content(pending_items)
       end
+
       it "shows invoice id next to items not shipped with link to merchants invoice show page" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect(page).to have_link("#{invoice_7.id}")
@@ -121,14 +115,6 @@ RSpec.describe "/merchants/:id/dashboard" do
         expect(current_path).to eq("/merchants/#{merchant_3.id}/invoices/#{invoice_7.id}")
       end
 
-      # 5. Merchant Dashboard Invoices sorted by least recent.
-
-      # As a merchant
-      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-      # In the section for "Items Ready to Ship",
-      # Next to each Item name I see the date that the invoice was created
-      # And I see the date formatted like "Monday, July 18, 2019"
-      # And I see that the list is ordered from oldest to newest
       it "shows invoice id with formatted date and time" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect(page).to have_content("#{invoice_7.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
@@ -137,7 +123,6 @@ RSpec.describe "/merchants/:id/dashboard" do
       it "shows invoice id with formatted date and time" do
         visit "/merchants/#{merchant_3.id}/dashboard"
         expect("#{invoice_8.id}").to appear_before("#{invoice_7.id}")
-        save_and_open_page
       end
     end
   end
