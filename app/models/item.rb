@@ -24,6 +24,10 @@ class Item < ApplicationRecord
     .limit(5)
   end
 
+  def self.pending_items
+    joins(:invoice_items).where(invoice_items: {status: "pending"}).distinct
+  end
+
   def best_day
     x = invoices
     .select("invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
@@ -35,3 +39,7 @@ class Item < ApplicationRecord
   end
 end
 
+  def self.pending_items
+    joins(:invoice_items).where(invoice_items: {status: "pending"}).distinct
+  end
+end
