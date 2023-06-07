@@ -109,6 +109,12 @@ RSpec.describe Item, type: :model do
           invoice_12.update(created_at: "2020-09-12 14:11:11.85478")
           expect(item_6.best_day).to eq(invoice_12.created_at.to_datetime.strftime("%Y-%m-%d"))
         end
+
+        it "returns the most recent day if total revenue for two invoices are equal" do
+          invoice_9.update(created_at: "2023-05-20 07:45:12.82345")
+          invoice_10.update(created_at: "2020-09-12 14:11:11.85478")
+          expect(item_5.best_day).to eq(invoice_9.created_at.to_datetime.strftime("%Y-%m-%d"))
+        end
       end
     end
   end
