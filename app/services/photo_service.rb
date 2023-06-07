@@ -5,14 +5,14 @@ class PhotoService
   end
 
   def app_logo
-    get_url("https://api.unsplash.com/photos/e3-WdkIYZGM?client_id=YWSBl39E4sVAW0hXNpItxxkPNEKCC9MV9J7aAs7XxKA")
+    get_url("https://api.unsplash.com/photos/e3-WdkIYZGM?client_id=41FnloUJRwgHF3waPM704zSuS0VEAEtJDWpC1rvd8uQ")
   end
 
   def item(item_name)
-    get_url("https://api.unsplash.com/photos/random?client_id=YWSBl39E4sVAW0hXNpItxxkPNEKCC9MV9J7aAs7XxKA&query=#{item_name}")
+    get_url("https://api.unsplash.com/photos/random?client_id=41FnloUJRwgHF3waPM704zSuS0VEAEtJDWpC1rvd8uQ&query=#{item_name}")
   end
 
   def merchant(merchant_name)
-    get_url("https://api.unsplash.com/photos/random?client_id=YWSBl39E4sVAW0hXNpItxxkPNEKCC9MV9J7aAs7XxKA&query=#{merchant_name}")
+    get_url("https://api.unsplash.com/photos/random?client_id=41FnloUJRwgHF3waPM704zSuS0VEAEtJDWpC1rvd8uQ&query=#{merchant_name}")
   end
 end
