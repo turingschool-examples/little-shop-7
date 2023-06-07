@@ -1,5 +1,13 @@
 <h3><p><%= @merchant.name %> Items</p></h3>
 
+<nav>
+  <ul>
+    <li><%= link_to 'Dashboard', "/merchants/#{@merchant.id}" %></li>
+    <li><%= link_to 'My items', merchant_items_path((@merchant)) %></li>
+    <li><%= link_to 'My invoices', merchant_invoices_path((@merchant)) %></li>
+  </ul>
+</nav>
+
 <p><%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get %></p>
 
 <div class="enabled-items">

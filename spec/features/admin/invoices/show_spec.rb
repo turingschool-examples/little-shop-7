@@ -110,7 +110,6 @@ RSpec.describe "Admin Invoices Show Page" do
         @invoice_1.reload
         expect(current_path).to eq(admin_invoice_path(@invoice_1))
         expect(@invoice_1.status).to eq("cancelled")
-
       end
     end
   end
