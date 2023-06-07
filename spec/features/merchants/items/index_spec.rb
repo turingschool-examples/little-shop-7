@@ -81,6 +81,8 @@ RSpec.describe "/merchants/:merchant_id/items" do
           expect(page).to_not have_content(item_1.name)
           expect(page).to_not have_content(item_2.name)
           expect(page).to_not have_content(item_3.name)
+          expect(page).to_not have_content(item_4.name)
+          expect(page).to_not have_content(item_5.name)
         end
       end
 
@@ -172,6 +174,11 @@ RSpec.describe "/merchants/:merchant_id/items" do
         within ".top-five-items" do
           expect(page).to have_content("Top 5 Items")
 
+          expect(item_6.name).to appear_before(item_1.name)
+          expect(item_1.name).to appear_before(item_3.name)
+          expect(item_3.name).to appear_before(item_2.name)
+          expect(item_2.name).to appear_before(item_5.name)
+
           expect(page).to have_content("#{item_6.name} - $24,000.00 in sales")
           expect(page).to have_content("#{item_1.name} - $18,000.00 in sales")
           expect(page).to have_content("#{item_3.name} - $12,000.00 in sales")
@@ -181,7 +188,7 @@ RSpec.describe "/merchants/:merchant_id/items" do
         end
       end
 
-      it "displays a link with each name of the top merchants by revenue" do
+      it "displays each name as a link in the top 5 merchants by revenue" do
         visit "/merchants/#{merchant_1.id}/items"
 
         within ".top-five-items" do
@@ -197,6 +204,25 @@ RSpec.describe "/merchants/:merchant_id/items" do
         end
 
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
+      end
+
+      # 13. Merchant Items Index: Top Item's Best Day
+
+      # As a merchant
+      # When I visit my items index page
+      # Then next to each of the 5 most popular items I see the date with the most sales for each item.
+      # And I see a label “Top selling date for <item name> was <date with most sales>"
+
+      # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+      it "displays the date with most sales for each item next to each of the 5 most popular items" do
+        visit "/merchants/#{merchant_1.id}/items"
+        within ".top-five-items" do
+          expect(page).to have_content("Top selling date for #{item_6.name} was some date")
+          expect(page).to have_content("Top selling date for #{item_1.name} was some date")
+          expect(page).to have_content("Top selling date for #{item_3.name} was some date")
+          expect(page).to have_content("Top selling date for #{item_2.name} was some date")
+          expect(page).to have_content("Top selling date for #{item_5.name} was some date")
+        end
       end
     end
   end

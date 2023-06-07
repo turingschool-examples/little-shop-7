@@ -18,10 +18,22 @@ class Item < ApplicationRecord
   def self.top_5_items_by_revenue
     joins(:transactions)
     .select("items.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
-    .where('transactions.result = 0')
+    .where("transactions.result = 0")
     .group("items.id")
     .order("total_revenue desc")
     .limit(5)
+  end
+
+  def best_day
+    x = invoices
+    # .select("invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
+    # .where('invoice.status = 0') #what is success
+    # .group("invoice.id")
+    # .order("total_revenue")
+
+    # y = invoice_items.joins(:invoice)
+    # .where("created_at")
+    require 'pry'; binding.pry
   end
 end
 
