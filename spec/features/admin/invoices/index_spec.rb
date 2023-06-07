@@ -16,7 +16,7 @@ RSpec.describe "Admin Invoices Index Page" do
   end
   describe "As an admin" do
     it "I see all invoice ids in the system" do
-      visit "/admin/invoices"
+      visit admin_invoices_path
 
       expect(page).to have_content("Invoices")
       expect(page).to have_link("#{@invoice_1.id}")
