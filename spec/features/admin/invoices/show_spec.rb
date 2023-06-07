@@ -27,7 +27,7 @@ RSpec.describe "Admin Invoices Show Page" do
 
   describe "As an admin" do
     it "displays information for a single invoice" do
-      visit "/admin/invoices/#{@invoice_1.id}"
+      visit admin_invoice_path(@invoice_1)
 
       expect(page).to have_content("Invoice #{@invoice_1.id}")
 
@@ -48,7 +48,7 @@ RSpec.describe "Admin Invoices Show Page" do
     end
 
     it "displays all items on the invoice" do
-      visit "/admin/invoices/#{@invoice_1.id}"
+      visit admin_invoice_path(@invoice_1)
 
       within("#item_table") do
         expect(page).to have_content("Items on Invoice")
@@ -77,12 +77,12 @@ RSpec.describe "Admin Invoices Show Page" do
     end
 
     it "displays the total revenue for an invoice" do
-      visit "/admin/invoices/#{@invoice_1.id}"
+      visit admin_invoice_path(@invoice_1)
       within("#invoice_info") do
         expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_1.revenue)}")
       end
 
-      visit "/admin/invoices/#{@invoice_2.id}"
+      visit admin_invoice_path(@invoice_2)
 
       within("#invoice_info") do
         expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_2.revenue)}")
@@ -91,7 +91,7 @@ RSpec.describe "Admin Invoices Show Page" do
 
     describe "Admin Invoice Show Page - Update Invoice Status" do
       it "displays a select field to update the invoice status" do
-        visit "/admin/invoices/#{@invoice_1.id}"
+        visit admin_invoice_path(@invoice_1)
 
         within "#invoice_info" do
           expect(page).to have_select("status", selected: "#{@invoice_1[:status]}")
@@ -100,17 +100,17 @@ RSpec.describe "Admin Invoices Show Page" do
       end
 
       it "updates the invoice status when a new status is selected" do
-        visit "/admin/invoices/#{@invoice_1.id}"
-        
+        visit admin_invoice_path(@invoice_1)
+
         within "#invoice-status" do
           select "cancelled", from: "status"
           click_button "Update Status"
         end
 
         @invoice_1.reload
-        expect(current_path).to eq("/admin/invoices/#{@invoice_1.id}")
+        expect(current_path).to eq(admin_invoice_path(@invoice_1))
         expect(@invoice_1.status).to eq("cancelled")
-        
+
       end
     end
   end

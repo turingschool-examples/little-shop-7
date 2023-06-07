@@ -63,7 +63,8 @@ RSpec.describe "/merchants/:merchant_id/items" do
       # User Story 6 - Merchant Items Index Page
 
       it "displays a list of names of all that merchants items" do
-        visit "/merchants/#{merchant_1.id}/items"
+        # visit "/merchants/#{merchant_1.id}/items"
+        visit merchant_items_path(merchant_1)
 
         within ".enabled-items" do
           expect(page).to have_content(item_1.name)
@@ -75,7 +76,9 @@ RSpec.describe "/merchants/:merchant_id/items" do
           expect(page).to_not have_content(item_11.name)
         end
 
-        visit "/merchants/#{merchant_2.id}/items"
+        # visit "/merchants/#{merchant_2.id}/items"
+        visit merchant_items_path(merchant_2)
+      
         within ".disabled-items" do
           expect(page).to have_content(item_11.name)
           expect(page).to_not have_content(item_1.name)
@@ -89,24 +92,28 @@ RSpec.describe "/merchants/:merchant_id/items" do
       # User Story 7 - Merchant Items Show Page (links from index)
 
       it "links to the items show page when I click on the item name" do
-        visit "/merchants/#{merchant_1.id}/items"
+        visit merchant_items_path(merchant_1)
         within ".enabled-items" do
           click_link "#{item_1.name}"
         end
-          expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
-          expect(current_path).to_not eq("/merchants/#{merchant_1.id}/items/#{item_2.id}")
 
-        visit "/merchants/#{merchant_1.id}/items"
+          expect(current_path).to eq(merchant_item_path(merchant_1, item_1))
+
+          expect(current_path).to_not eq(merchant_item_path(merchant_1, item_2))
+
+        visit merchant_items_path(merchant_1)
+
         within ".disabled-items" do
           click_link "#{item_12.name}"
         end
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_12.id}")
+        expect(current_path).to eq(merchant_item_path(merchant_1, item_12))
       end
 
       # User Story 9/10 - Merchant Item Disable/Enable
 
       it "displays a button that will enable or disable each item" do
-        visit "/merchants/#{merchant_1.id}/items"
+        visit merchant_items_path(merchant_1)
+
         within ".enabled-items" do
           expect(page).to have_content("Enabled Items")
           expect(page).to have_link(item_1.name)
@@ -120,7 +127,7 @@ RSpec.describe "/merchants/:merchant_id/items" do
           click_button "Disable #{item_1.name}"
         end
 
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
+        expect(current_path).to eq(merchant_items_path(merchant_1))
 
         within ".disabled-items" do
           expect(page).to have_content("Disabled Items")
@@ -150,9 +157,11 @@ RSpec.describe "/merchants/:merchant_id/items" do
       # User Story 11 - Merchant Item Create (link)
 
       it "has a link to create a new item" do
-        visit "/merchants/#{merchant_1.id}/items"
+
+        visit merchant_items_path(merchant_1)
+
         click_link "Create New Item"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/new")
+        expect(current_path).to eq(new_merchant_item_path(merchant_1))
       end
 
     #  User Story 12 - Merchant Items Index: 5 most popular items
@@ -170,7 +179,8 @@ RSpec.describe "/merchants/:merchant_id/items" do
     #   by the quantity (do not use the item unit price)
 
       it "displays the top 5 most popular items ranked by total revenue for the one merchant" do
-        visit "/merchants/#{merchant_1.id}/items"
+        visit merchant_items_path(merchant_1)
+
         within ".top-five-items" do
           expect(page).to have_content("Top 5 Items")
 
@@ -189,7 +199,9 @@ RSpec.describe "/merchants/:merchant_id/items" do
       end
 
       it "displays each name as a link in the top 5 merchants by revenue" do
-        visit "/merchants/#{merchant_1.id}/items"
+
+        visit merchant_items_path(merchant_1)
+
 
         within ".top-five-items" do
           expect(page).to have_link("#{item_1.name}")
@@ -203,7 +215,7 @@ RSpec.describe "/merchants/:merchant_id/items" do
           click_link("#{item_1.name}")
         end
 
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
+        expect(current_path).to eq(merchant_item_path(merchant_1, item_1))
       end
 
       # 13. Merchant Items Index: Top Item's Best Day
@@ -215,7 +227,9 @@ RSpec.describe "/merchants/:merchant_id/items" do
 
       # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
       it "displays the date with most sales for each item next to each of the 5 most popular items" do
-        visit "/merchants/#{merchant_1.id}/items"
+
+        visit merchant_items_path(merchant_1)
+
         within ".top-five-items" do
           expect(page).to have_content("Top selling date for #{item_6.name} was #{invoice_12.created_at.to_datetime.strftime("%Y-%m-%d")}")
           expect(page).to have_content("Top selling date for #{item_1.name} was #{invoice_2.created_at.to_datetime.strftime("%Y-%m-%d")}")

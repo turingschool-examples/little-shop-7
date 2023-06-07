@@ -17,7 +17,8 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
         item_1.update(unit_price: 3378)
         item_2.update(unit_price: 42343)
 
-        visit "/merchants/#{merchant_1.id}/items/#{item_1.id}"
+        visit merchant_item_path(merchant_1, item_1)
+
         expect(page).to have_content("Item Name: #{item_1.name}")
         expect(page).to have_content("Item Description: #{item_1.description}")
         expect(page).to have_content("Current Selling Price: $33.78")
@@ -26,7 +27,7 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
         expect(page).to_not have_content("Item Description: #{item_2.description}")
         expect(page).to_not have_content("Current Selling Price: $423.43")
 
-        visit "/merchants/#{merchant_2.id}/items/#{item_2.id}"
+        visit merchant_item_path(merchant_2, item_2)
         expect(page).to have_content("Item Name: #{item_2.name}")
         expect(page).to have_content("Item Description: #{item_2.description}")
         expect(page).to have_content("Current Selling Price: $423.43")
@@ -39,9 +40,10 @@ RSpec.describe "/merchants/:merchant_id/items/:item_id" do
       # User Story 8 - Merchant Item Update (link)
 
       it "has a link to update the item information" do
-        visit "/merchants/#{merchant_1.id}/items/#{item_1.id}"
+        visit merchant_item_path(merchant_1, item_1)
         click_link "Edit #{item_1.name}"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}/edit")
+
+        expect(current_path).to eq(edit_merchant_item_path(merchant_1, item_1))
       end
     end
   end

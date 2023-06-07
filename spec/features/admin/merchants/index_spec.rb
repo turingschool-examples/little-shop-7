@@ -102,7 +102,7 @@ RSpec.describe "/admin/merchants" do
     let!(:transaction_18) { create(:transaction, invoice: invoice_18, result: 0) }
 
     it "displays the name of each merchant in the system" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".enabled_admin_merchants" do
         expect(page).to have_content("#{merchant_1.name}")
@@ -112,7 +112,7 @@ RSpec.describe "/admin/merchants" do
     end
 
     it "displays a link to each of the merchants on the admin merchants index page" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".enabled_admin_merchants" do
         expect(page).to have_link("#{merchant_1.name}")
@@ -122,11 +122,11 @@ RSpec.describe "/admin/merchants" do
         click_link("#{merchant_2.name}")
       end
 
-      expect(current_path).to eq("/admin/merchants/#{merchant_2.id}")
+      expect(current_path).to eq(admin_merchant_path(merchant_2))
     end
 
     it "displays a button next to each merchant to enable or disable the merchant" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".enabled_admin_merchants" do
         expect(page).to have_link("#{merchant_1.name}")
@@ -140,7 +140,7 @@ RSpec.describe "/admin/merchants" do
         click_button("Disable #{merchant_1.name}")
       end
 
-      expect(current_path).to eq("/admin/merchants")
+      expect(current_path).to eq(admin_merchants_path)
 
       within ".enabled_admin_merchants" do
         expect(page).to have_content("Enabled Merchants")
@@ -166,7 +166,7 @@ RSpec.describe "/admin/merchants" do
     end
 
     it "can update from enabled to disabled" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".disabled_admin_merchants" do
         expect(page).to have_link("#{merchant_4.name}")
@@ -186,21 +186,21 @@ RSpec.describe "/admin/merchants" do
     end
 
     it "displays a link to create a new merchant" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       expect(page).to have_link("Create New Merchant")
     end
 
     it "the link takes me to a new page to create a merchant" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       click_link("Create New Merchant")
 
-      expect(current_path).to eq("/admin/merchants/new")
+      expect(current_path).to eq(new_admin_merchant_path)
     end
 
     it "displays the top 5 merchants by total revenue" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
       within ".admin_top_merchants_by_revenue" do
         expect(page).to have_content("Top Merchants")
         expect(page).to have_content("#{merchant_1.name} - $3,000.00 in sales")
@@ -214,7 +214,7 @@ RSpec.describe "/admin/merchants" do
     end
 
     it "displays a link with each name of the top merchants by revenue" do
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".admin_top_merchants_by_revenue" do
         expect(page).to have_link("#{merchant_1.name}")
@@ -229,7 +229,7 @@ RSpec.describe "/admin/merchants" do
 
     it "displays the top 5 merchants best day of revenue with a label" do
 
-      visit "/admin/merchants"
+      visit admin_merchants_path
 
       within ".admin_top_merchants_by_revenue" do
         expect(page).to have_link("#{merchant_1.name}")
