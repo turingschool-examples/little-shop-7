@@ -29,17 +29,19 @@ class Item < ApplicationRecord
   end
 
   def best_day
+
     x = invoices
     .select("invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
     .where('invoices.status = 1')
     .group("invoices.id")
     .order("total_revenue desc, invoices.created_at desc")
-    .limit(1).first.created_at
-    .to_datetime.strftime("%Y-%m-%d")
+    .limit(1).first
+    if x != nil
+      x.created_at.to_datetime.strftime("%Y-%m-%d")
+    else
+      nil
+    end
+
   end
 end
 
-  def self.pending_items
-    joins(:invoice_items).where(invoice_items: {status: "pending"}).distinct
-  end
-end
