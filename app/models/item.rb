@@ -26,14 +26,12 @@ class Item < ApplicationRecord
 
   def best_day
     x = invoices
-    # .select("invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
-    # .where('invoice.status = 0') #what is success
-    # .group("invoice.id")
-    # .order("total_revenue")
-
-    # y = invoice_items.joins(:invoice)
-    # .where("created_at")
-    require 'pry'; binding.pry
+    .select("invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
+    .where('invoices.status = 1')
+    .group("invoices.id")
+    .order("total_revenue desc, invoices.created_at desc")
+    .limit(1).first.created_at
+    .to_datetime.strftime("%Y-%m-%d")
   end
 end
 
