@@ -1,7 +1,7 @@
-<h2><%= @merchant.name %>
+<h2><%= @merchant.name %></h2>
 
-<%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
-<%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
+<%= link_to "My Items", merchant_items_path(@merchant) %>
+<%= link_to "My Invoices", merchant_invoices_path(@merchant) %>
 <h3>Top 5 Customers</h3>
 <ol>
   <% @merchant.top_5_customers.each do |customer| %>
@@ -14,6 +14,6 @@
   <% @merchant.items.pending_items.each do |item| %>
     Item Name: <%= item.name %> </br>
     Pending Invoices: </br> <% item.invoices.order(created_at: :asc).each do |invoice| %>
-      <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %> <%= "#{invoice.created_at.to_datetime.strftime("%A, %B %d, %Y")}" %></br>
+      <%= link_to "#{invoice.id}", merchant_invoice_path(@merchant, invoice) %> <%= "#{invoice.created_at.to_datetime.strftime("%A, %B %d, %Y")}" %></br>
       <% end %>
   <% end %>

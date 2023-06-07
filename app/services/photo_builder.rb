@@ -13,4 +13,8 @@ class PhotoBuilder
   def self.item_photo_info(item_name)
     Photo.new(service.item(item_name))
   end
+
+  def self.merchant_photo_info(merchant_name)
+    Photo.new(service.merchant(merchant_name))
+  end
 end
