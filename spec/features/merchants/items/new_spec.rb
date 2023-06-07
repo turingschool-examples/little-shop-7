@@ -6,7 +6,8 @@ RSpec.describe "/merchants/:id/items/new" do
       let!(:merchant_1) { create(:merchant) }
 
       it "displays a form to create a new item" do
-        visit "/merchants/#{merchant_1.id}/items/new"
+        visit new_merchant_item_path(merchant_1)
+
         expect(page).to have_content("Create New Item")
         fill_in("Name:", with: "The New Black")
         fill_in("Description:", with: "The Newer Black")
@@ -15,7 +16,7 @@ RSpec.describe "/merchants/:id/items/new" do
 
         click_button "Submit New Item"
 
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
+        expect(current_path).to eq(merchant_items_path(merchant_1))
         within ".disabled-items" do
           expect(page).to have_content("The New Black")
         end
@@ -26,9 +27,10 @@ RSpec.describe "/merchants/:id/items/new" do
       end
 
       it "will flash an error message if the form fields are not filled out" do
-        visit "/merchants/#{merchant_1.id}/items/new"
+        visit new_merchant_item_path(merchant_1)
+
         click_button "Submit New Item"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/new")
+        expect(current_path).to eq(new_merchant_item_path(merchant_1))
         expect(page).to have_content("Please fill out all fields")
       end
       
