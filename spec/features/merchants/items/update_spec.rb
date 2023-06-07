@@ -9,7 +9,7 @@ RSpec.describe "/merchants/:id/items/:id/edit" do
       # User Story 8 - Merchant Item Update (display)
 
       it "displays a form to update the item, with the items existing information" do
-        visit "/merchants/#{merchant_1.id}/items/#{item_1.id}/edit"
+        visit edit_merchant_item_path(merchant_1, item_1)
 
         fill_in("Name:", with: "The New Black")
         fill_in("Description:", with: "The Newer Black")
@@ -17,7 +17,7 @@ RSpec.describe "/merchants/:id/items/:id/edit" do
         fill_in("Status:", with: "disabled")
 
         click_button "Update Item"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
+        expect(current_path).to eq(merchant_item_path(merchant_1, item_1))
 
         expect(page).to have_content("Item Name: The New Black")
         expect(page).to have_content("Item Description: The Newer Black")
