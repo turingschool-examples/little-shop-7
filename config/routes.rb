@@ -29,16 +29,66 @@ Rails.application.routes.draw do
 
   get "/admin", to: "admin/dashboards#welcome"
 
+  # get "/admin/merchants", to: "admin/merchants#index"
+  # get "/admin/merchants/new", to: "admin/merchants#new"
+  # post "/admin/merchants", to: "admin/merchants#create"
+  # get "/admin/merchants/:id", to: "admin/merchants#show"
+  # get "/admin/merchants/:id/edit", to: "admin/merchants#edit"
+  # patch "/admin/merchants/:id", to: "admin/merchants#update"
+
+  # get "/admin/invoices", to: "admin/invoices#index"
+  # get "/admin/invoices/:id", to: "admin/invoices#show"
+  # patch "/admin/invoices/:id", to: "admin/invoices#update"
 
 
-  get "/admin/merchants", to: "admin/merchants#index"
-  get "/admin/merchants/new", to: "admin/merchants#new"
-  post "/admin/merchants", to: "admin/merchants#create"
-  get "/admin/merchants/:id", to: "admin/merchants#show"
-  get "/admin/merchants/:id/edit", to: "admin/merchants#edit"
-  patch "/admin/merchants/:id", to: "admin/merchants#update"
 
-  get "/admin/invoices", to: "admin/invoices#index"
-  get "/admin/invoices/:id", to: "admin/invoices#show"
-  patch "/admin/invoices/:id", to: "admin/invoices#update"
+
+
+
+
+
+
+
+
+
+
+
+
+
+  namespace :admin do
+    resources :merchants, only: [:index, :new, :create, :show, :edit, :update]
+    resources :invoices, only: [:index, :show, :update]
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end

@@ -7,7 +7,7 @@ RSpec.describe "/admin/merchants/:id" do
     let!(:merchant_3) { create(:merchant) }
 
     it "displays the specific admin/merchants show page" do
-      visit "/admin/merchants/#{merchant_2.id}"
+      visit admin_merchant_path(merchant_2)
 
       expect(page).to have_content("#{merchant_2.name}")
 
@@ -16,14 +16,14 @@ RSpec.describe "/admin/merchants/:id" do
     end
 
     it "displays a link to that takes you to a page to edit the merchants information" do
-      visit "/admin/merchants/#{merchant_2.id}"
+      visit admin_merchant_path(merchant_2)
 
       expect(page).to_not have_content("Merchant #{merchant_1.id} has been successfully updated")
 
       expect(page).to have_link("Edit #{merchant_2.name}")
       click_link("Edit #{merchant_2.name}")
 
-      expect(current_path).to eq("/admin/merchants/#{merchant_2.id}/edit")
+      expect(current_path).to eq(edit_admin_merchant_path(merchant_2))
     end
   end
 end
