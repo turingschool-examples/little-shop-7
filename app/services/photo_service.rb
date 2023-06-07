@@ -9,4 +9,8 @@ class PhotoService
   def app_logo
     get_url("https://api.unsplash.com/photos/e3-WdkIYZGM?client_id=j8oWefxGCFshebJlQERPxc22eBQyhl1akC54iCZj6bI")
   end
+
+  def item(item_name)
+    get_url("https://api.unsplash.com/photos/random?client_id=j8oWefxGCFshebJlQERPxc22eBQyhl1akC54iCZj6bI&query=#{item_name}")
+  end
 end

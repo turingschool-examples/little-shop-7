@@ -16,7 +16,7 @@ namespace :csv_load do
     CSV.foreach("db/data/invoice_items.csv", headers: true) do |row|
       InvoiceItem.create!(row.to_hash)
     end
-    ActiveRecord::Base.connection.reset_pk_sequence!("invoice_item")
+    ActiveRecord::Base.connection.reset_pk_sequence!("invoice_items")
   end
 
   desc "Load invoices CSV data into the database"
@@ -34,7 +34,7 @@ namespace :csv_load do
     CSV.foreach("db/data/items.csv", headers: true) do |row|
       Item.create!(row.to_hash)
     end
-    ActiveRecord::Base.connection.reset_pk_sequence!("item")
+    ActiveRecord::Base.connection.reset_pk_sequence!("items")
   end
 
   desc "Load merchants CSV data into the database"
@@ -43,7 +43,7 @@ namespace :csv_load do
     CSV.foreach("db/data/merchants.csv", headers: true) do |row|
       Merchant.create!(row.to_hash)
     end
-    ActiveRecord::Base.connection.reset_pk_sequence!("merchant")
+    ActiveRecord::Base.connection.reset_pk_sequence!("merchants")
   end
 
   desc "Load transactions CSV data into the database"
@@ -52,7 +52,7 @@ namespace :csv_load do
     CSV.foreach("db/data/transactions.csv", headers: true) do |row|
       Transaction.create!(row.to_hash)
     end
-    ActiveRecord::Base.connection.reset_pk_sequence!("transaction")
+    ActiveRecord::Base.connection.reset_pk_sequence!("transactions")
   end
 
   desc "Load all CSV data into the database"

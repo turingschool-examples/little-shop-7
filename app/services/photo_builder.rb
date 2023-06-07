@@ -1,7 +1,5 @@
 require "./app/services/photo_service"
 require "./app/poros/photo"
-require "httparty"
-require "json"
 
 class PhotoBuilder
   def self.service
@@ -10,5 +8,9 @@ class PhotoBuilder
 
   def self.app_logo_info
     Photo.new(service.app_logo)
+  end
+
+  def self.item_photo_info(item_name)
+    Photo.new(service.item(item_name))
   end
 end
