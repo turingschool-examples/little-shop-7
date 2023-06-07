@@ -233,15 +233,15 @@ RSpec.describe "/admin/merchants" do
 
       within ".admin_top_merchants_by_revenue" do
         expect(page).to have_link("#{merchant_1.name}")
-        expect(page).to have_content("Top Day for #{merchant_1.name} was 2023-06-06")
+        expect(page).to have_content("Top Day for #{merchant_1.name} was #{merchant_1.best_day}")
         expect(page).to have_link("#{merchant_2.name}")
-        expect(page).to have_content("Top Day for #{merchant_2.name} was 2023-06-06")
+        expect(page).to have_content("Top Day for #{merchant_2.name} was #{merchant_2.best_day}")
         expect(page).to have_link("#{merchant_4.name}")
-        expect(page).to have_content("Top Day for #{merchant_4.name} was 2023-06-06")
+        expect(page).to have_content("Top Day for #{merchant_4.name} was #{merchant_4.best_day}")
         expect(page).to have_link("#{merchant_5.name}")
-        expect(page).to have_content("Top Day for #{merchant_5.name} was 2023-06-06")
+        expect(page).to have_content("Top Day for #{merchant_5.name} was #{merchant_5.best_day}")
         expect(page).to have_link("#{merchant_6.name}")
-        expect(page).to have_content("Top Day for #{merchant_6.name} was 2023-06-06")
+        expect(page).to have_content("Top Day for #{merchant_6.name} was #{merchant_6.best_day}")
       end
     end
   end

@@ -76,5 +76,30 @@ RSpec.describe "Merchant Invoices Show Page" do
         expect(page).to have_content("Revenue: $#{sprintf('%.2f', @invoice_2.revenue)}")
       end
     end
+
+    describe "Admin Invoice Show Page - Update Invoice Status" do
+      it "displays a select field to update the invoice status" do
+        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+        within "#item-#{@invoice_item_1.item.id}-Status" do
+          expect(page).to have_select("status", selected: "#{@invoice_item_1.status}")
+          expect(page).to have_button("Update Item Status")
+        end
+      end
+
+      it "updates the invoice status when a new status is selected" do
+        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+        within "#item-#{@invoice_item_1.item.id}-Status" do
+          select "shipped", from: "status"
+          click_button "Update Item Status"
+        end
+
+        @invoice_item_1.reload
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+        expect(@invoice_item_1.status).to eq("shipped")
+
+      end
+    end
   end
 end
