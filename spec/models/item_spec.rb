@@ -15,23 +15,31 @@ RSpec.describe Item, type: :model do
     it {should validate_presence_of :unit_price}
   end
 
-  let!(:merchant_1) { create(:merchant) }
-  let!(:merchant_2) { create(:merchant) }
-
-  let!(:item_1) { create(:item, merchant_id: merchant_1.id, status: 0)}
-  let!(:item_2) { create(:item, merchant_id: merchant_1.id, status: 1)}
-  let!(:item_3) { create(:item, merchant_id: merchant_1.id, status: 1)}
-  let!(:item_4) { create(:item, merchant_id: merchant_1.id, status: 0)}
-  let!(:item_5) { create(:item, merchant_id: merchant_1.id, status: 1)}
-
   describe "class methods" do
-    describe ".sort_enabled" do
-      it "sorts the items by the enabled status" do
-        expect(merchant_1.items.sort_enabled).to eq([item_2, item_3, item_5])
+    describe "sort enabled and disabled" do
+      let!(:merchant_1) { create(:merchant) }
+      let!(:merchant_2) { create(:merchant) }
+
+      let!(:item_1) { create(:item, merchant_id: merchant_1.id, status: 0)}
+      let!(:item_2) { create(:item, merchant_id: merchant_1.id, status: 1)}
+      let!(:item_3) { create(:item, merchant_id: merchant_1.id, status: 1)}
+      let!(:item_4) { create(:item, merchant_id: merchant_1.id, status: 0)}
+      let!(:item_5) { create(:item, merchant_id: merchant_1.id, status: 1)}
+
+      describe ".sort_enabled" do
+        it "sorts the items by the enabled status" do
+          expect(merchant_1.items.sort_enabled).to eq([item_2, item_3, item_5])
+        end
+      end
+
+      describe ".sort_disabled" do
+        it "sorts the items by disabled status" do
+          expect(merchant_1.items.sort_disabled).to eq([item_1, item_4])
+        end
       end
     end
 
-    describe ".top_5_items_by_revenue" do
+    describe "methods" do
 
       let!(:merchant_1) { create(:merchant) }
       let!(:merchant_2) { create(:merchant) }
@@ -98,11 +106,21 @@ RSpec.describe Item, type: :model do
         not_expected = [item_4]
         expect(Item.top_5_items_by_revenue).to eq(expected)
       end
-    end
 
-    describe ".sort_disabled" do
-      it "sorts the items by disabled status" do
-        expect(merchant_1.items.sort_disabled).to eq([item_1, item_4])
+      describe "instance methods" do
+        describe "#best_day" do
+          it "return the items best day for revenue" do
+            invoice_11.update(created_at: "2023-05-20 07:45:12.82345")
+            invoice_12.update(created_at: "2020-09-12 14:11:11.85478")
+            expect(item_6.best_day).to eq(invoice_11.created_at.to_datetime.strftime("%Y-%m-%d"))
+          end
+
+          it "returns the most recent day if total revenue for two invoices are equal" do
+            invoice_9.update(created_at: "2023-05-20 07:45:12.82345")
+            invoice_10.update(created_at: "2020-09-12 14:11:11.85478")
+            expect(item_5.best_day).to eq(invoice_9.created_at.to_datetime.strftime("%Y-%m-%d"))
+          end
+        end
       end
     end
   end
