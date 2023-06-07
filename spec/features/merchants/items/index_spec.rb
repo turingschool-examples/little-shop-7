@@ -216,12 +216,14 @@ RSpec.describe "/merchants/:merchant_id/items" do
       # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
       it "displays the date with most sales for each item next to each of the 5 most popular items" do
         visit "/merchants/#{merchant_1.id}/items"
+        invoice_11.update(created_at: "2023-05-20 07:45:12.82345")
+        invoice_12.update(created_at: "2020-09-12 14:11:11.85478")
         within ".top-five-items" do
-          expect(page).to have_content("Top selling date for #{item_6.name} was some date")
-          expect(page).to have_content("Top selling date for #{item_1.name} was some date")
-          expect(page).to have_content("Top selling date for #{item_3.name} was some date")
-          expect(page).to have_content("Top selling date for #{item_2.name} was some date")
-          expect(page).to have_content("Top selling date for #{item_5.name} was some date")
+          expect(page).to have_content("Top selling date for #{item_6.name} was #{item_6.created_at.to_datetime.strftime("%Y-%m-%d")}")
+          expect(page).to have_content("Top selling date for #{item_1.name} was #{item_1.created_at.to_datetime.strftime("%Y-%m-%d")}")
+          expect(page).to have_content("Top selling date for #{item_3.name} was #{item_3.created_at.to_datetime.strftime("%Y-%m-%d")}")
+          expect(page).to have_content("Top selling date for #{item_2.name} was #{item_2.created_at.to_datetime.strftime("%Y-%m-%d")}")
+          expect(page).to have_content("Top selling date for #{item_5.name} was #{item_5.created_at.to_datetime.strftime("%Y-%m-%d")}")
         end
       end
     end
