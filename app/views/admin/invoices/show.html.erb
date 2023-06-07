@@ -1,3 +1,14 @@
+<div class="admin_dashboard_header">
+  <h2>Admin Dashboard</h2>
+</div>
+<nav class="admin_dashboard_nav_bar">
+  <ul>
+    <li><%= link_to 'Dashboard', '/admin'%></li>
+    <li><%= link_to 'Merchants', '/admin/merchants' %></li>
+    <li><%= link_to 'Invoices', '/admin/invoices' %></li>
+  </ul>
+</nav>
+
 <center>Invoice <%= @invoice.id %></center>
 <section id="invoice_info">
   <%= form_with url: admin_invoice_path(@invoice), method: :patch, id: "invoice-status" do |form|  %>
