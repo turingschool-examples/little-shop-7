@@ -94,7 +94,7 @@ RSpec.describe "Merchant Invoices Show Page" do
           select "shipped", from: "status"
           click_button "Update Item Status"
         end
-save_and_open_page
+
         @invoice_item_1.reload
         expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
         expect(@invoice_item_1.status).to eq("shipped")
