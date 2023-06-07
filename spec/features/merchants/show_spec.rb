@@ -52,41 +52,55 @@ RSpec.describe "/merchants/:id/dashboard" do
       let!(:invoice_item_7) { create(:invoice_item, unit_price: 5000, status: 2, invoice_id: invoice_8.id, item_id: item_7.id) }
 
       it "directs me to the merchants dashboard where I see the merchants name" do
-        visit "/merchants/#{merchant_1.id}/dashboard"
+        # visit "/merchants/#{merchant_1.id}/dashboard"
+        visit merchant_path(merchant_1)
+
         expect(page).to have_content(merchant_1.name)
         expect(page).to_not have_content(merchant_2.name)
 
-        visit "/merchants/#{merchant_2.id}/dashboard"
+        # visit "/merchants/#{merchant_2.id}/dashboard"
+        visit merchant_path(merchant_2)
         expect(page).to have_content(merchant_2.name)
         expect(page).to_not have_content(merchant_1.name)
       end
 
       it "links to the merchants items index" do
-        visit "/merchants/#{merchant_1.id}/dashboard"
+        # visit "/merchants/#{merchant_1.id}/dashboard"
+        visit merchant_path(merchant_1)
         
         click_link "My Items"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
+        # expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
+        expect(current_path).to eq(merchant_items_path(merchant_1))
         expect(page).to have_content("#{merchant_1.name} Items")
-        visit "/merchants/#{merchant_2.id}/dashboard"
+        # visit "/merchants/#{merchant_2.id}/dashboard"
+        visit merchant_path(merchant_2)
+
         click_link "My Items"
-        expect(current_path).to eq("/merchants/#{merchant_2.id}/items")
+        # expect(current_path).to eq("/merchants/#{merchant_2.id}/items")
+        expect(current_path).to eq(merchant_items_path(merchant_2))
         expect(page).to have_content("#{merchant_2.name} Items")
       end
 
       it "links to the merchants invoices index" do
-        visit "/merchants/#{merchant_1.id}/dashboard"
+        # visit "/merchants/#{merchant_1.id}/dashboard"
+        visit merchant_path(merchant_1)
+
         click_link "My Invoices"
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices")
+        # expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices")
+        expect(current_path).to eq(merchant_invoices_path(merchant_1))
         expect(page).to have_content("#{merchant_1.name} Invoices")
 
-        visit "/merchants/#{merchant_2.id}/dashboard"
+        visit merchant_path(merchant_2)
+
         click_link "My Invoices"
-        expect(current_path).to eq("/merchants/#{merchant_2.id}/invoices")
+        expect(current_path).to eq(merchant_invoices_path(merchant_2))
+
         expect(page).to have_content("#{merchant_2.name} Invoices")
       end
 
       it "see top 5 customers on on dashboard" do
-        visit "/merchants/#{merchant_1.id}/dashboard"
+        visit merchant_path(merchant_1)
+
         expect(page).to have_content("Top 5 Customers")
         expect(page).to have_content(customer_1.first_name)
         expect(page).to have_content(customer_2.first_name)
@@ -98,30 +112,35 @@ RSpec.describe "/merchants/:id/dashboard" do
       end
 
       it "shows section for 'Items Ready to Ship'" do
-        visit "/merchants/#{merchant_3.id}/dashboard"
+        visit merchant_path(merchant_3)
+
         expect(page).to have_content("Items Ready to Ship")
       end
 
       it "shows list of names of all items ordered but not shipped in 'Items Ready to ship'" do
-        visit "/merchants/#{merchant_3.id}/dashboard"
+        visit merchant_path(merchant_3)
+
         pending_items = item_7.name
         expect(page).to have_content(pending_items)
       end
 
       it "shows invoice id next to items not shipped with link to merchants invoice show page" do
-        visit "/merchants/#{merchant_3.id}/dashboard"
+        visit merchant_path(merchant_3)
+
         expect(page).to have_link("#{invoice_7.id}")
         click_on("#{invoice_7.id}")
-        expect(current_path).to eq("/merchants/#{merchant_3.id}/invoices/#{invoice_7.id}")
+        expect(current_path).to eq(merchant_invoice_path(merchant_3, invoice_7))
       end
 
       it "shows invoice id with formatted date and time" do
-        visit "/merchants/#{merchant_3.id}/dashboard"
+        visit merchant_path(merchant_3)
+
         expect(page).to have_content("#{invoice_7.created_at.to_datetime.strftime("%A, %B %d, %Y")}")
       end
 
       it "shows invoice id with formatted date and time" do
-        visit "/merchants/#{merchant_3.id}/dashboard"
+        visit merchant_path(merchant_3)
+
         expect("#{invoice_8.id}").to appear_before("#{invoice_7.id}")
       end
     end

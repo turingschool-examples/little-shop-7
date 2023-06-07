@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   get "/", to: "application#welcome" # NEED HELP 1
 
-  get "/merchants/:id/dashboard", to: "merchants#show" # NEED HELP 2
-
 
   resources :merchants do 
     resources :items , only: [:index, :show, :new, :create, :edit, :update], controller: "merchants/items"

@@ -18,13 +18,13 @@ class Merchants::ItemsController < ApplicationController
     item = Item.find(params[:id])
     if params[:status] == "0"
       item.update(status: 0)
-      redirect_to "/merchants/#{item.merchant_id}/items"
+      redirect_to merchant_items_path(item.merchant_id)
     elsif params[:status] == "1"
       item.update(status: 1)
-      redirect_to "/merchants/#{item.merchant_id}/items"
+      redirect_to merchant_items_path(item.merchant_id)
     else
       item.update(item_params)
-      redirect_to "/merchants/#{item.merchant_id}/items/#{item.id}"
+      redirect_to merchant_item_path(item.merchant_id, item)
       flash[:notice] = "Item #{item.name} Successfully Updated!"
     end
   end
