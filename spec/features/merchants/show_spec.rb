@@ -63,7 +63,7 @@ RSpec.describe "/merchants/:id/dashboard" do
 
       it "links to the merchants items index" do
         visit "/merchants/#{merchant_1.id}/dashboard"
-        save_and_open_page
+
         click_link "My Items"
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
         expect(page).to have_content("#{merchant_1.name} Items")

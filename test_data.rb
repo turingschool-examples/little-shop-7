@@ -88,4 +88,39 @@
 # @transaction = create(:transaction, invoice_id: @invoice.id)
 
 
-# refactor routes to be path_helpers or whatever they're called...resources? 
+# refactor routes to be path_helpers or whatever they're called...resources?
+
+
+# <%= form_with model: @item, url: "/merchants/#{@merchant.id}/items/#{@item.id}", method: "patch", local: true do |f| %>
+#   <%= f.label :name, "Name:" %>
+#   <%= f.text_field :name %>
+
+#   <%= f.label :description, "Description:" %>
+#   <%= f.text_field :description %>
+
+#   <%= f.label :unit_price, "Unit Price:" %>
+#   <%= f.number_field :unit_price %>
+
+#   <%= f.label :status, "Status:" %>
+#   <%= f.text_field :status %>
+
+#   <%= f.submit %>
+# <% end %>
+
+# <%= form_with model: @item, url: "/merchants/#{@merchant.id}/items", method: :post, local: true do |f| %>
+#   <%= f.label :name, "Name:" %>
+#   <%= f.text_field :name %>
+
+#   <%= f.label :description, "Description:" %>
+#   <%= f.text_field :description %>
+
+#   <%= f.label :unit_price, "Unit Price:" %>
+#   <%= f.number_field :unit_price %>
+
+#   <%= f.label :status, "Status:" %>
+#   <%= f.text_field :status %>
+
+#   <%= f.hidden_field :merchant_id, value: @merchant.id %>
+
+#   <%= f.submit "Submit New Item" %>
+# <% end %>
