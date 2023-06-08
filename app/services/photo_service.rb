@@ -1,4 +1,4 @@
-require "httparty"
+# require "httparty"
 
 class PhotoService
   def get_url(url)
