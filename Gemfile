@@ -60,8 +60,9 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "factory_bot_rails"
   gem "faker"
-  gem "httparty"
 end
+
+gem "httparty"
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]

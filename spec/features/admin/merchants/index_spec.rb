@@ -165,7 +165,7 @@ RSpec.describe "/admin/merchants" do
       end
     end
 
-    it "can update from enabled to disabled" do
+    it "can update from disabled to enabled" do
       visit admin_merchants_path
 
       within ".disabled_admin_merchants" do
