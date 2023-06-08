@@ -1,5 +1,3 @@
-# require "httparty"
-
 class PhotoService
   def get_url(url)
     response = HTTParty.get(url)
