@@ -1,3 +1,10 @@
+#<!--<%= image_tag @merchant_photo.url %>--> goes to merchants/show.html.erb line 2
+# <!-- <%= image_tag ApplicationController.app_logo %>
+# <p><%= ApplicationController.app_logo_likes %> Likes!</p> --> 2 + 3 go to views/layouts/application.html.erb lines 20 21
+# <!--<%= image_tag @item_photo.url %>--> views/merchants/items/show.html.erb line 1
+
+
+
 # class CreateCustomer < ActiveRecord::Migration[7.0]
 #   def change
 #     create_table :customers do |t|
