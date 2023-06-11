@@ -4,6 +4,6 @@ FactoryBot.define do
     name { Faker::Commerce.promotion_code(digits: 2) }
     status { rand(0..1) }
     value { rand(0..100) }
-    type { rand(0..1) }
+    coupon_type { rand(0..1) }
   end
 end

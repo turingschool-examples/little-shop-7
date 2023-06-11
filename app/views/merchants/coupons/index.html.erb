@@ -1,5 +1,0 @@
-<section>
-<% @merchant.coupons.each do |coupon| %>
-  <p><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant.id, coupon.id) %>  $<%= coupon.value %> Off!</p>
-<% end %>
-</section>
