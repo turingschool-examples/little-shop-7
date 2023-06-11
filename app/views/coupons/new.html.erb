@@ -1,0 +1,16 @@
+<h2>Create New Coupon</h2>
+<%= form_with url: "/merchants/#{@merchant.id}/coupons", method: :post, local: true do |form| %>
+  <%= form.label :code %>
+  <%= form.text_field :code %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :value %>
+  <%= form.number_field :value %>
+
+  <%= form.select :coupon_type, options_for_select([["Percent Off", :percent], ["Dollar Off", :dollar]]) %>
+  <%= form.label :coupon_type, "Discount Type" %>
+
+  <%= form.submit "Create Coupon" %>
+<% end %>
