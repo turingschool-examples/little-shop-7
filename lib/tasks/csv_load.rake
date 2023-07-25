@@ -73,7 +73,7 @@ namespace :csv_load do
   end
 
   desc "load all from CSV data"
-  task all: do [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
+  task all: [:merchants, :customers, :items, :invoices, :invoice_items, :transactions] do
     puts "All data loaded from CSV"
   end
 end
