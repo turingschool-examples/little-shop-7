@@ -11,8 +11,6 @@ namespace :csv_load do
   task customers: :environment do
     csv_text = File.read("db/data/customers.csv")
     csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
-    # customer = Customer
-    # Customer.connection.execute("ALTER SEQUENCE #{Customer.customers}_id_seq RESTART WITH 1")
     csv.each do |row|
       Customer.create(row)
     end
@@ -26,6 +24,7 @@ namespace :csv_load do
     csv.each do |row|
       InvoiceItem.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
   end
 
   desc "TODO"
@@ -35,6 +34,7 @@ namespace :csv_load do
     csv.each do |row|
       Invoice.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
   end
 
   desc "TODO"
@@ -44,6 +44,7 @@ namespace :csv_load do
     csv.each do |row|
       Item.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 
   desc "TODO"
@@ -53,6 +54,7 @@ namespace :csv_load do
     csv.each do |row|
       Merchant.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
   end
 
   desc "TODO"
@@ -62,5 +64,6 @@ namespace :csv_load do
     csv.each do |row|
       Transaction.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
 end
