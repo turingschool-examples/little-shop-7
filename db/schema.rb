@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_180010) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_25_191753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_180010) do
     t.integer "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
     t.index ["items_id"], name: "index_invoice_items_on_items_id"
   end
@@ -36,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_180010) do
     t.bigint "customer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
   end
 
@@ -46,6 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_180010) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
