@@ -6,26 +6,15 @@ namespace :csv_load do
   task customers: :environment do 
     #access CSV file
     file = "db/data/customers.csv"
-
+    Customer.destroy_all
     #parse CSV file
     CSV.foreach(file, headers: true) do |row|
-      
+      #convert data into models for db
       Customer.create(row.to_hash)
     end
-      
-      
-      
-      # { 
-      #   id: row[0],
-      #   first_name: row[1],
-      #   last_name: row[2],
-      #   created_at: row[3],
-      #   updated_at: row[4]
-      # }
-    #convert data into models for db
     #reset pk sequence 
-    
-    # CSV.parse(File.read("db/data/customers.csv"), headers: true, header_converters: :symbol)
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+    puts "done"
   end
   
   desc "load invoice_items"
