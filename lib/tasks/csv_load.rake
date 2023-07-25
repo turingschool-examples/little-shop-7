@@ -41,24 +41,24 @@ namespace :csv_load do
 
   desc "load items from CSV data"
   task items: :environment do 
-      file = "db/data/items.csv"
-      Item.destroy_all
-        CSV.foreach(file, headers: true) do |row|
-          Item.create(row)
-      end
-        ActiveRecord::Base.connection.reset_pk_sequence!('items')
-      puts "Items loaded from CSV"
+    file = "db/data/items.csv"
+    Item.destroy_all
+    CSV.foreach(file, headers: true) do |row|
+      Item.create(row)
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+    puts "Items loaded from CSV"
   end
 
   desc "load merchants from CSV data"
   task merchants: :environment do 
-      file = "db/data/merchants.csv"
-      Merchant.destroy_all
-        CSV.foreach(file, headers: true) do |row|
-          Merchant.create(row)
-      end
-        ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
-      puts "Merchants loaded from CSV"
+    file = "db/data/merchants.csv"
+    Merchant.destroy_all
+    CSV.foreach(file, headers: true) do |row|
+      Merchant.create(row)
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
+    puts "Merchants loaded from CSV"
   end
   
   desc "load transactions from CSV data"
@@ -73,7 +73,7 @@ namespace :csv_load do
   end
 
   desc "load all from CSV data"
-  task all: do [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
+  task all: [:merchants, :customers, :items, :invoices, :invoice_items, :transactions] do
     puts "All data loaded from CSV"
   end
 end
