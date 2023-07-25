@@ -17,9 +17,10 @@ namespace :csv_load do
   end
 
   task invoice_items: :environment do
-    CSV.foreach("db/data/invoice_teams.csv", headers: true) do |invoice_item| 
+    CSV.foreach("db/data/invoice_items.csv", headers: true) do |invoice_item| 
       InvoiceItem.create!(
       id: invoice_item["id"],
+      item_id: invoice_item["item_id"], 
       invoice_id: invoice_item["invoice_id"], 
       quantity: invoice_item["quantity"], 
       unit_price: invoice_item["unit_price"],
@@ -36,7 +37,6 @@ namespace :csv_load do
       Invoice.create!(
       id: invoice["id"],
       customer_id: invoice["customer_id"], 
-      quantity: invoice["quantity"], 
       status: invoice["status"],
       created_at: invoice["created_at"],
       updated_at: invoice["updated_at"]

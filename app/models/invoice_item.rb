@@ -9,4 +9,6 @@ class InvoiceItem < ApplicationRecord
   validates_numericality_of :unit_price
   validates_presence_of :status
 
+  enum :status, ["shipped", "packaged", "pending"]
+
 end
