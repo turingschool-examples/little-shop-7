@@ -19,80 +19,61 @@ namespace :csv_load do
   
   desc "load invoice_items from CSV data"
   task invoice_items: :environment do 
-    #access CSV file
     file = "db/data/invoice_items.csv"
     InvoiceItem.destroy_all
-    #parse CSV file
     CSV.foreach(file, headers: true) do |row|
-      #convert data into models for db
       InvoiceItem.create(row)
     end
-    #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
     puts "Invoice Items loaded from CSV"
   end
 
   desc "load invoices from CSV data"
   task invoices: :environment do 
-    #access CSV file
     file = "db/data/invoices.csv"
     Invoice.destroy_all
-    #parse CSV file
     CSV.foreach(file, headers: true) do |row|
-      #convert data into models for db
       Invoice.create(row)
     end
-    #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
     puts "Invoices loaded from CSV"
   end
 
   desc "load items from CSV data"
   task items: :environment do 
-      #access CSV file
       file = "db/data/items.csv"
       Item.destroy_all
-      #parse CSV file
-      CSV.foreach(file, headers: true) do |row|
-        #convert data into models for db
-        Item.create(row)
+        CSV.foreach(file, headers: true) do |row|
+          Item.create(row)
       end
-      #reset pk sequence 
-      ActiveRecord::Base.connection.reset_pk_sequence!('items')
+        ActiveRecord::Base.connection.reset_pk_sequence!('items')
       puts "Items loaded from CSV"
   end
 
   desc "load merchants from CSV data"
   task merchants: :environment do 
-      #access CSV file
       file = "db/data/merchants.csv"
       Merchant.destroy_all
-      #parse CSV file
-      CSV.foreach(file, headers: true) do |row|
-        #convert data into models for db
-        Merchant.create(row)
+        CSV.foreach(file, headers: true) do |row|
+          Merchant.create(row)
       end
-      #reset pk sequence 
-      ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
+        ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
       puts "Merchants loaded from CSV"
   end
   
   desc "load transactions from CSV data"
   task transactions: :environment do 
-    #access CSV file
     file = "db/data/transactions.csv"
     Transaction.destroy_all
-    #parse CSV file
     CSV.foreach(file, headers: true) do |row|
-      #convert data into models for db
       Transaction.create(row)
     end
-    #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
     puts "Transactions loaded from CSV"
   end
 
-  desc "load all"
-    task all: do [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
+  desc "load all from CSV data"
+  task all: do [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
+    puts "All data loaded from CSV"
   end
 end
