@@ -4,15 +4,19 @@ namespace :csv_load do
 
   desc "All"
   task all: [:customers, :invoice_items, :invoices, :items, :merchants, :transactions] do
-
+    
   end
+
   desc "TODO"
   task customers: :environment do
     csv_text = File.read("db/data/customers.csv")
     csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+    # customer = Customer
+    # Customer.connection.execute("ALTER SEQUENCE #{Customer.customers}_id_seq RESTART WITH 1")
     csv.each do |row|
       Customer.create(row)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
   end
 
   desc "TODO"
