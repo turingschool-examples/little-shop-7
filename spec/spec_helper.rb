@@ -16,13 +16,13 @@ def test_data
   @customer_2 = Customer.create!(first_name: "Cecelia", last_name: "Osinski")
   @customer_3 = Customer.create!(first_name: "Mariah", last_name: "Toy")
 
-  @invoice_item_1 = InvoiceItem.create!(item_id: 539, invoice_id: 1, quantity: 5, unit_price: 13635, status: 1)
-  @invoice_item_2 = InvoiceItem.create!(item_id: 528, invoice_id: 1, quantity: 9, unit_price: 23324, status: 2)
-  @invoice_item_3 = InvoiceItem.create!(item_id: 523, invoice_id: 1, quantity: 8, unit_price: 34873, status: 1)
-  @invoice_item_4 = InvoiceItem.create!(item_id: 529, invoice_id: 1, quantity: 7, unit_price: 79140, status: 0)
+  # @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 13635, status: 2)
+  # @invoice_item_2 = InvoiceItem.create!(item_id: 528, invoice_id: 1, quantity: 9, unit_price: 23324, status: 2)
+  # @invoice_item_3 = InvoiceItem.create!(item_id: 523, invoice_id: 1, quantity: 8, unit_price: 34873, status: 1)
+  # @invoice_item_4 = InvoiceItem.create!(item_id: 529, invoice_id: 1, quantity: 7, unit_price: 79140, status: 0)
 
-  @invoice_1 = Invoice.create!(customer_id: 1, status: 2)
-  @invoice_2 = Invoice.create!(customer_id: 2, status: 1)
+  @invoice_1 = @customer_1.invoices.create!(customer_id: 1, status: 2)
+  @invoice_2 = @customer_2.invoices.create!(customer_id: 2, status: 1)
 
   @item_1 = Item.create!(name: "Item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, merchant_id: 1)
   @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, merchant_id: 1)
