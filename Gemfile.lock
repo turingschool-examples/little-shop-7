@@ -139,8 +139,11 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3-arm64-darwin)
       racc (~> 1.4)
+<<<<<<< HEAD
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
+=======
+>>>>>>> c27c89fc7f4efcbdd37ca1851c573e20c15aac6c
     orderly (0.1.1)
       capybara (>= 1.1)
       rspec (>= 2.14)
@@ -185,7 +188,11 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.8.1)
+<<<<<<< HEAD
     reline (0.3.6)
+=======
+    reline (0.3.5)
+>>>>>>> c27c89fc7f4efcbdd37ca1851c573e20c15aac6c
       io-console (~> 0.5)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
