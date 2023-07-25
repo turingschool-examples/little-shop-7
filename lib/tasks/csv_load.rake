@@ -99,11 +99,3 @@ namespace :csv_load do
   end
 
 end
-
-
-
-# desc "leafblower"
-# task csv_load: [:merchants, :customers, :items, :invoices, :invoice_items, :transactions] do 
-
-
-# end
