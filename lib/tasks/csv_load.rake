@@ -2,7 +2,7 @@ require 'csv'
 
 namespace :csv_load do 
 
-  desc "load customers"
+  desc "load customers from CSV data"
   task customers: :environment do 
     #access CSV file
     file = "db/data/customers.csv"
@@ -10,14 +10,14 @@ namespace :csv_load do
     #parse CSV file
     CSV.foreach(file, headers: true) do |row|
       #convert data into models for db
-      Customer.create(row.to_h)
+      Customer.create(row)
     end
     #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('customers')
-    puts "done"
+    puts "Customers loaded from CSV"
   end
   
-  desc "load invoice_items"
+  desc "load invoice_items from CSV data"
   task invoice_items: :environment do 
     #access CSV file
     file = "db/data/invoice_items.csv"
@@ -25,14 +25,14 @@ namespace :csv_load do
     #parse CSV file
     CSV.foreach(file, headers: true) do |row|
       #convert data into models for db
-      InvoiceItem.create(row.to_h)
+      InvoiceItem.create(row)
     end
     #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
-    puts "done"
+    puts "Invoice Items loaded from CSV"
   end
 
-  desc "load invoices"
+  desc "load invoices from CSV data"
   task invoices: :environment do 
     #access CSV file
     file = "db/data/invoices.csv"
@@ -40,14 +40,14 @@ namespace :csv_load do
     #parse CSV file
     CSV.foreach(file, headers: true) do |row|
       #convert data into models for db
-      Invoice.create(row.to_h)
+      Invoice.create(row)
     end
     #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
-    puts "done"
+    puts "Invoices loaded from CSV"
   end
 
-  desc "load items"
+  desc "load items from CSV data"
   task items: :environment do 
       #access CSV file
       file = "db/data/items.csv"
@@ -55,14 +55,14 @@ namespace :csv_load do
       #parse CSV file
       CSV.foreach(file, headers: true) do |row|
         #convert data into models for db
-        Item.create(row.to_h)
+        Item.create(row)
       end
       #reset pk sequence 
       ActiveRecord::Base.connection.reset_pk_sequence!('items')
-      puts "done"
+      puts "Items loaded from CSV"
   end
 
-  desc "load merchants"
+  desc "load merchants from CSV data"
   task merchants: :environment do 
       #access CSV file
       file = "db/data/merchants.csv"
@@ -70,14 +70,14 @@ namespace :csv_load do
       #parse CSV file
       CSV.foreach(file, headers: true) do |row|
         #convert data into models for db
-        Merchant.create(row.to_h)
+        Merchant.create(row)
       end
       #reset pk sequence 
       ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
-      puts "done"
+      puts "Merchants loaded from CSV"
   end
   
-  desc "load transactions"
+  desc "load transactions from CSV data"
   task transactions: :environment do 
     #access CSV file
     file = "db/data/transactions.csv"
@@ -85,19 +85,16 @@ namespace :csv_load do
     #parse CSV file
     CSV.foreach(file, headers: true) do |row|
       #convert data into models for db
-      Transaction.create(row.to_h)
+      Transaction.create(row)
     end
     #reset pk sequence 
     ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
-    puts "done"
+    puts "Transactions loaded from CSV"
   end
 
   desc "load all"
-  # task :all do 
-  #   Rake::Task
-    task all: [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
+    task all: do [:merchants, :customers, :items, :invoices, :invoice_items, :transactions]
   end
-
 end
 
 
