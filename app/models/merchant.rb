@@ -21,4 +21,8 @@ class Merchant < ApplicationRecord
     # customers(order: {customer.merch_transactions(self.id), desc}).limit(5) 
 Customer.join(transactions: :invoice)
   end
+
+  def transaction_count
+    transactions.count
+  end
 end
