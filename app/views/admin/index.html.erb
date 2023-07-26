@@ -9,3 +9,21 @@
       <%= link_to "Invoices", admin_invoices_path %>
     </nav>
 </div>
+
+<div class="incomplete-invoices">
+  <h2> Incomplete Invoices </h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Invoice ID</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @incomplete_invoices.each do |invoice| %>
+        <tr>
+          <td><%= link_to "invoice ##{invoice.id}", admin_invoice_path(invoice.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
