@@ -4,21 +4,10 @@ RSpec.describe Merchant, type: :model do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     
-    @customer_1 = Customer.create!(first_name: "Joey", last_name: "Ondricka")
-    @customer_2 = Customer.create!(first_name: "Sally", last_name: "Jones")
-    @customer_3 = Customer.create!(first_name: "Tim", last_name: "Tebo")
-    @customer_4 = Customer.create!(first_name: "Ronald", last_name: "McDonald")
-    @customer_5 = Customer.create!(first_name: "Ralph", last_name: "Hagen")
-    @customer_6 = Customer.create!(first_name: "Bill", last_name: "Salor")
-    @customer_7 = Customer.create!(first_name: "Nancy", last_name: "Raegan")
+    @customers = create_list(:customer, 10)
+    @completed_invoices = create_list(:completed_invoice, 10)
 
-    @invoice_1 = @customer_1.invoices.create!(status: "completed")
-    @invoice_2 = @customer_2.invoices.create!(status: "completed")
-    @invoice_3 = @customer_3.invoices.create!(status: "completed")
-    @invoice_4 = @customer_4.invoices.create!(status: "completed")
-    @invoice_5 = @customer_5.invoices.create!(status: "completed")
-    @invoice_6 = @customer_6.invoices.create!(status: "in progress")
-    @invoice_7 = @customer_7.invoices.create!(status: "cancelled")
+require 'pry';binding.pry
   end
   
   describe "relationships" do

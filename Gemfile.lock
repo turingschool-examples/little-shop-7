@@ -253,6 +253,8 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  factory_bot_rails
+  faker
   importmap-rails
   jbuilder
   launchy
