@@ -23,6 +23,10 @@ def test_data
   @invoice_1 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 2)
   @invoice_2 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 1)
 
+  @transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
+  @transaction_2 = Transaction.create!(invoice_id:  @invoice_1.id, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
+  @transaction_3 = Transaction.create!(invoice_id:  @invoice_2.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "failed")
+
   @item_1 = Item.create!(name: "Item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, merchant_id: @merchant_1.id)
   @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, merchant_id: @merchant_1.id)
   @item_3 = Item.create!(name: "Item Ea Voluptatum", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non. Atque eveniet sed. Illum excepturi praesentium reiciendis voluptatibus eveniet odit perspiciatis. Odio optio nisi rerum nihil ut", unit_price: 32301, merchant_id: @merchant_1.id)
@@ -33,9 +37,6 @@ def test_data
   @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 8, unit_price: 34873, status: 1)
   @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_1.id, quantity: 7, unit_price: 79140, status: 0)
 
-  @transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
-  @transaction_2 = Transaction.create!(invoice_id:  @invoice_1.id, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
-  @transaction_3 = Transaction.create!(invoice_id:  @invoice_2.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "failed")
 end
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
