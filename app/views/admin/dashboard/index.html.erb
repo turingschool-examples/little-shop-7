@@ -4,3 +4,18 @@
   <%= link_to "Merchants", "/admin/merchants" %><br>
   <%= link_to "Invoices", "/admin/invoices" %>
 </ul>
+<table>
+  <thead>
+    <tr>
+      <th>Top Customers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name %></td>
+        <td><%= customer.transaction_count %> Purchases</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
