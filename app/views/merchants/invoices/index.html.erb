@@ -2,6 +2,6 @@
 
 
 <% @merchant.distinct_invoices.each do |invoice| %>
-  <p> <%= link_to invoice.id, merchants_invoice_path(@merchant, invoice) %>: <%= invoice.status %></p>
+  <p> <%= link_to invoice.id, merchant_invoice_path(@merchant, invoice) %>: <%= invoice.status %></p>
   <p>----------------------------------------</p>
 <% end %>
