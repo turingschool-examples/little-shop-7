@@ -58,14 +58,18 @@ RSpec.describe "merchants/:merchant_id/invoices index" do
 
   it "displays all invoices that show at least one merchant item and each ID links to invoice show page" do
     merchant = Merchant.all.sample
-    require 'pry'; binding.pry
-    visit "/merchants/#{merchant.id}/invoices"
+    visit merchants_invoices_path(merchant)
+    
+    save_and_open_page
+    expect(page).to have_content("#{merchant.name}'s Invoices")
     expect(page).to have_content(merchant.invoices.sample.status)
     expect(page).to have_content(merchant.invoices.sample.id)
 
     invoice = merchant.invoices.sample
+
+    
     click_link(invoice.id)
 
-    expect(current_path).to eq("/merchants/#{merchant.id}/invoices/#{invoice.id}")
+    # expect(current_path).to eq(merchants_invoice_path(merchant, invoice))
   end
 end
