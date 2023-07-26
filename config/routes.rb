@@ -6,6 +6,13 @@ Rails.application.routes.draw do
 
   resources :admin, controller: 'admin/dashboard', only: [:index]
 
+  # Route for Merchants under Admin
+  namespace :admin, as: 'admin_merchants' do
+    resources :merchants, only: [:index]
+  end
+
+
+
 
 
 end
