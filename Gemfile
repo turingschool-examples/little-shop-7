@@ -58,7 +58,7 @@ group :development, :test do
   gem "launchy"
   gem "orderly"
   gem "simplecov"
-  
+
 end
 
 group :development do

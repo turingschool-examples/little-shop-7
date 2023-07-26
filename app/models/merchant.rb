@@ -4,4 +4,13 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
+
+  def top_5_customers
+    # what type of object do i need? customers
+    # model name Merchant
+    # need data from Customer invoices
+    # Status "completed"
+    # data should be formatted by max number of "completed" per customer
+    # limit 5 customers
+  end
 end
