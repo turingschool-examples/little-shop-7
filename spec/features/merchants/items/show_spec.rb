@@ -29,7 +29,7 @@ RSpec.describe "items show page", type: :feature do
 
     it "displays that items name, description and current selling price" do
       visit merchant_item_path(@merchant_1, @item_1)
-      save_and_open_page
+      
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.formatted_unit_price)
