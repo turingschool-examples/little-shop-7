@@ -14,5 +14,11 @@ class Merchant < ApplicationRecord
     # Status "completed"
     # data should be formatted by max number of "completed" per customer
     # limit 5 customers
+  def self.enabled_merchants
+    where(status: 0)
+  end
+
+  def self.disabled_merchants
+    where(status: 1)
   end
 end

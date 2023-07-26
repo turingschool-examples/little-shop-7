@@ -22,6 +22,24 @@ require 'pry';binding.pry
     describe "#top_5_customers" do
       it "can list the merchant's top 5 customers" do
         expect(@merchant_1.top_5_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
+  describe "class methods" do
+
+    let!(:little_kin_shop) { create(:merchant) }
+    let!(:red_roses) { create(:merchant) }
+    let!(:halloween_face) { create(:merchant) }
+    let!(:tall_boy) { create(:merchant, status: 1) }
+    let!(:arleen) { create(:merchant, status: 1) }
+    let!(:bust_it_big) { create(:merchant, status: 1) }
+
+    describe ".enabled_merchants" do
+      it "returns an array of enabled merchants" do
+        expect(Merchant.enabled_merchants).to eq([little_kin_shop, red_roses, halloween_face])
+      end
+    end
+
+    describe ".disabled_merchants" do
+      it "returns an array of disabled merchants" do
+        expect(Merchant.disabled_merchants).to eq([tall_boy, arleen, bust_it_big])
       end
     end
   end
