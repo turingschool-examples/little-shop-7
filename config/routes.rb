@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :merchants do
     resources :dashboards
+    resources :items
   end
 end
