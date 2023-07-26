@@ -6,8 +6,9 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
     it "I see a header indicating that I am on the admin dashboard" do
 
       visit admin_dashboard_index_path
-
-      expect(page).to have_content("Admin Dashboard")
+      within("#admin-dashboard-header") do
+        expect(page).to have_content("Admin Dashboard")
+      end
     end
   end
 
