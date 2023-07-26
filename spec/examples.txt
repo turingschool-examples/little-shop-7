@@ -1,6 +1,6 @@
 example_id                                            | status | run_time        |
 ----------------------------------------------------- | ------ | --------------- |
-./spec/features/merchants/invoices/index_spec.rb[1:1] | failed | 0.70459 seconds |
+./spec/features/merchants/invoices/index_spec.rb[1:1] | passed | 0.72066 seconds |
 ./spec/models/customer_spec.rb[1:1:1]                 | passed | 0.00054 seconds |
 ./spec/models/invoice_item_spec.rb[1:1:1]             | passed | 0.00087 seconds |
 ./spec/models/invoice_item_spec.rb[1:1:2]             | passed | 0.0015 seconds  |
