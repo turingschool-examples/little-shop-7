@@ -2,13 +2,12 @@ require "rails_helper"
 
 RSpec.describe "admin merchants index page" do
 
-  let!(:little_kin_shop) { create(:merchant) }
-  let!(:red_roses) { create(:merchant) }
-  let!(:halloween_face) { create(:merchant) }
+  let!(:little_kin_shop) { create(:merchant, name: "Dave Schools") }
+  let!(:red_roses) { create(:merchant, name: "Sunny") }
+  let!(:halloween_face) { create(:merchant, name: "JB") }
   let!(:tall_boy) { create(:merchant, status: 1) }
   let!(:arleen) { create(:merchant, status: 1) }
   let!(:bust_it_big) { create(:merchant, status: 1) }
-
 
   before do
     visit admin_merchants_path
@@ -35,8 +34,4 @@ RSpec.describe "admin merchants index page" do
       expect(page).to have_content(bust_it_big.name)
     end
   end
-
-  
-
-
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :merchant do 
-    name { Faker::Music::GratefulDead.player }
+    name { Faker::Name.name }
     status { 0 }
   end
 end
