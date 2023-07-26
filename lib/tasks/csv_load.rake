@@ -14,6 +14,37 @@ namespace :csv_load do
       )
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+    puts "Customer CSV loaded successfully."
+  end
+  
+  
+  task invoices: :environment do
+    CSV.foreach("db/data/invoices.csv", headers: true) do |invoice| 
+      Invoice.create!(
+        id: invoice["id"],
+        customer_id: invoice["customer_id"], 
+        status: invoice["status"],
+        created_at: invoice["created_at"],
+        updated_at: invoice["updated_at"]
+      )
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    puts "Invoice CSV loaded successfully."
+  end
+  
+  task items: :environment do
+    CSV.foreach("db/data/items.csv", headers: true) do |item| 
+      Item.create!(
+        id: item["id"],
+        name: item["name"], 
+        description: item["description"], 
+        unit_price: item["unit_price"],
+        merchant_id: item["merchant_id"],
+        created_at: item["created_at"],
+        updated_at: item["updated_at"]
+      )
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 
   task invoice_items: :environment do
@@ -30,34 +61,6 @@ namespace :csv_load do
       )
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
-  end
-
-  task invoices: :environment do
-    CSV.foreach("db/data/invoices.csv", headers: true) do |invoice| 
-      Invoice.create!(
-      id: invoice["id"],
-      customer_id: invoice["customer_id"], 
-      status: invoice["status"],
-      created_at: invoice["created_at"],
-      updated_at: invoice["updated_at"]
-      )
-    end
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
-  end
-
-  task items: :environment do
-    CSV.foreach("db/data/items.csv", headers: true) do |item| 
-      Item.create!(
-      id: item["id"],
-      name: item["name"], 
-      description: item["description"], 
-      unit_price: item["unit_price"],
-      merchant_id: item["merchant_id"],
-      created_at: item["created_at"],
-      updated_at: item["updated_at"]
-      )
-    end
-    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 
   task merchants: :environment do
@@ -86,7 +89,7 @@ namespace :csv_load do
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
-  task all: [:customers, :invoice_items, :invoices, :items, :merchants, :transactions] do
+  task all: [:customers, :invoices, :items, :invoice_items, :merchants, :transactions] do
     puts "All CSVs loaded successfully."
   end
 end
