@@ -19,3 +19,18 @@
     <% end %>
   </tbody>
 </table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Incomplete Invoices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @incomplete_invoices.each do |invoice| %>
+      <tr>
+        <td>Invoice #<%= invoice.id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
