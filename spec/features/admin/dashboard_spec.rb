@@ -12,12 +12,12 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
     end
   end
 # US 20
-  it "can see a link to the admin merchants index" do
+  it "can see a link to the admin merchants and invoices index" do
 
     visit admin_index_path
 
       expect(page).to have_link("Merchants")
       expect(page).to have_link("Invoices")
-      
+
   end
 end
