@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :dashboards
     resources :items
+    resources :invoices
   end
 end
