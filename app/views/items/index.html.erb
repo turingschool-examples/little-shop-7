@@ -4,6 +4,8 @@
 
 <ul>
   <% @merchant.items.each do |item| %>
-    <li><%= item.name %></li>
+    <li>
+      <%= link_to item.name, merchant_item_path(@merchant, item), class: "item-button" %>
+    </li>
   <% end %>
-</ul
+</ul>
