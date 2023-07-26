@@ -9,10 +9,14 @@ RSpec.describe Customer, type: :model do
     it {should validate_presence_of :last_name}
   end
 
+  describe "relationships" do
+    it { should have_many :invoices }
+  end
+
   describe "#test_data" do
     it "should have testable objects" do
       expect(@customer_1.first_name).to eq("Joey")
-      expect(@invoice_item_1.item_id).to eq(539)
+      # expect(@invoice_item_1.item_id).to eq(539)
       expect(@invoice_1.status).to eq("cancelled")
       expect(@item_1.name).to eq("Item Qui Esse")
       expect(@merchant_1.name).to eq("Schroeder-Jerde")

@@ -1,10 +1,14 @@
 require "rails_helper"
 
+
+
 RSpec.describe "Admin", type: :feature do
 
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
+        
+
         visit admins_path 
         within "#header" do 
          expect(page).to have_content("Admin Dashboard")

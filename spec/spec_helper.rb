@@ -14,28 +14,29 @@
 def test_data
   @customer_1 = Customer.create!(first_name: "Joey", last_name: "Ondricka")
   @customer_2 = Customer.create!(first_name: "Cecelia", last_name: "Osinski")
-  @customer_3 = Customer.create!(first_name: "Mariah", last_name: "Toy")
-
-  @invoice_item_1 = InvoiceItem.create!(item_id: 539, invoice_id: 1, quantity: 5, unit_price: 13635, status: 1)
-  @invoice_item_2 = InvoiceItem.create!(item_id: 528, invoice_id: 1, quantity: 9, unit_price: 23324, status: 2)
-  @invoice_item_3 = InvoiceItem.create!(item_id: 523, invoice_id: 1, quantity: 8, unit_price: 34873, status: 1)
-  @invoice_item_4 = InvoiceItem.create!(item_id: 529, invoice_id: 1, quantity: 7, unit_price: 79140, status: 0)
-
-  @invoice_1 = Invoice.create!(customer_id: 1, status: 2)
-  @invoice_2 = Invoice.create!(customer_id: 2, status: 1)
-
-  @item_1 = Item.create!(name: "Item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, merchant_id: 1)
-  @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, merchant_id: 1)
-  @item_3 = Item.create!(name: "Item Ea Voluptatum", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non. Atque eveniet sed. Illum excepturi praesentium reiciendis voluptatibus eveniet odit perspiciatis. Odio optio nisi rerum nihil ut", unit_price: 32301, merchant_id: 1)
-  @item_4 = Item.create!(name: "Item Nemo Facere", description: "Sunt eum id eius magni consequuntur delectus veritatis. Quisquam laborum illo ut ab. Ducimus in est id voluptas autem.", unit_price: 4291, merchant_id: 1)
+  @customer_3 = Customer.create!(first_name: "Mariah", last_name: "Toy").id
 
   @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
   @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
   @merchant_3 = Merchant.create!(name: "Willms and Sons")
 
-  @transaction_1 = Transaction.create!(invoice_id: 1, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
-  @transaction_2 = Transaction.create!(invoice_id: 2, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
-  @transaction_3 = Transaction.create!(invoice_id: 4, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "failed")
+  @invoice_1 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 2)
+  @invoice_2 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 1)
+
+  @transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
+  @transaction_2 = Transaction.create!(invoice_id:  @invoice_1.id, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
+  @transaction_3 = Transaction.create!(invoice_id:  @invoice_2.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "failed")
+
+  @item_1 = Item.create!(name: "Item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, merchant_id: @merchant_1.id)
+  @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, merchant_id: @merchant_1.id)
+  @item_3 = Item.create!(name: "Item Ea Voluptatum", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non. Atque eveniet sed. Illum excepturi praesentium reiciendis voluptatibus eveniet odit perspiciatis. Odio optio nisi rerum nihil ut", unit_price: 32301, merchant_id: @merchant_1.id)
+  @item_4 = Item.create!(name: "Item Nemo Facere", description: "Sunt eum id eius magni consequuntur delectus veritatis. Quisquam laborum illo ut ab. Ducimus in est id voluptas autem.", unit_price: 4291, merchant_id: @merchant_1.id)
+
+  @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 13635, status: 2)
+  @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 9, unit_price: 23324, status: 2)
+  @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 8, unit_price: 34873, status: 1)
+  @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_1.id, quantity: 7, unit_price: 79140, status: 0)
+
 end
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
