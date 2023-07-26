@@ -58,7 +58,8 @@ group :development, :test do
   gem "launchy"
   gem "orderly"
   gem "simplecov"
-
+  gem "faker"
+  gem "factory_bot_rails"
 end
 
 group :development do

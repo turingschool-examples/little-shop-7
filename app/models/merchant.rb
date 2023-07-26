@@ -5,6 +5,8 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
+  enum status: {"enable": 0, "disable": 1}
+  
   def top_5_customers
     # what type of object do i need? customers
     # model name Merchant
