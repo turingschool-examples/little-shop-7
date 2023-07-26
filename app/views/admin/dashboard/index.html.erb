@@ -13,8 +13,7 @@
   <tbody>
     <% @top_customers.each do |customer| %>
       <tr>
-        <td><%= customer.first_name %></td>
-        <td><%= customer.transaction_count %> Purchases</td>
+        <td><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</td>
       </tr>
     <% end %>
   </tbody>
@@ -29,7 +28,7 @@
   <tbody>
     <% @incomplete_invoices.each do |invoice| %>
       <tr>
-        <td>Invoice #<%= link_to invoice.id, "/admin/invoices/:id" %></td>
+        <td>Invoice #<%= link_to invoice.id, "/admin/invoices/:id" %> - <%= invoice.created_at.strftime("%A, %B %d, %Y") %></td>
       </tr>
     <% end %>
   </tbody>

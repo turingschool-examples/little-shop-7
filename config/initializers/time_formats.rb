@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:shop] = "%A, %B %d, %Y"
