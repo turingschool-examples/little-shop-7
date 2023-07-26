@@ -8,7 +8,6 @@ RSpec.describe "Admin", type: :feature do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
         
-        require 'pry'; binding.pry
 
         visit admins_path 
         within "#header" do 
