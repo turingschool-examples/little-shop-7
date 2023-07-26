@@ -1,10 +1,10 @@
 # lib/tasks/test_import_csv.rake
 
 require 'csv'
-require 'rspec/core/rake_task' # Add this line to use the RSpec Rake task
+require 'rspec/core/rake_task' 
 
-RSpec::Core::RakeTask.new(:csv_load_to_test) do |t| # Replace :csv_load_to_test with your actual task name
-  t.rspec_opts = "--require spec/rake_spec_helper.rb" # Load the rake_spec_helper.rb file
+RSpec::Core::RakeTask.new(csv_load_to_test:all) do |t| 
+  t.rspec_opts = "--require spec/rake_spec_helper.rb" 
 end
 
 namespace :csv_load_to_test do
