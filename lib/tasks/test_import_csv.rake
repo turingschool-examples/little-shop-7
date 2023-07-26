@@ -14,7 +14,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/customers.csv", headers: true) do |customer|
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
 
       Customer.create!(
         id: customer["id"],
@@ -31,7 +31,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/invoices.csv", headers: true) do |invoice| 
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
       
       Invoice.create!(
         id: invoice["id"],
@@ -48,7 +48,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/merchants.csv", headers: true) do |merchant| 
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
       
       Merchant.create!(
         id: merchant["id"],
@@ -64,7 +64,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/items.csv", headers: true) do |item| 
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
       
       Item.create!(
         id: item["id"],
@@ -83,7 +83,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/transactions.csv", headers: true) do |transaction| 
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
       
       Transaction.create!(
         id: transaction["id"],
@@ -102,7 +102,7 @@ namespace :csv_load_to_test do
     counter = 0
     CSV.foreach("db/data/invoice_items.csv", headers: true) do |invoice_item| 
       counter += 1
-      next if counter % 5 != 0
+      #next if counter % 5 != 0
   
       InvoiceItem.create!(
       id: invoice_item["id"],
@@ -117,7 +117,7 @@ namespace :csv_load_to_test do
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
   end
-  
+
   task all: [:customers, :invoice_items, :invoices, :items, :merchants, :transactions] do
     puts "All CSVs loaded successfully."
   end
