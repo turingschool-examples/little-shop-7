@@ -29,7 +29,7 @@
   <tbody>
     <% @incomplete_invoices.each do |invoice| %>
       <tr>
-        <td><%= invoice.invoice_id %></td>
+        <td>Invoice #<%= invoice.id %></td>
       </tr>
     <% end %>
   </tbody>

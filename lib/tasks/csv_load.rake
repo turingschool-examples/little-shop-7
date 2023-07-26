@@ -3,7 +3,7 @@ require 'csv'
 namespace :csv_load do
 
   desc "All"
-  task all: [:customers, :invoice_items, :invoices, :items, :merchants, :transactions] do
+  task all: [:customers, :merchants, :invoices, :items, :invoice_items, :transactions] do
     
   end
 
