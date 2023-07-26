@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :dashboards
   end
+
+  namespace :admin do
+    resources :merchants, only: [:index]
+  end
 end

@@ -1,0 +1,7 @@
+<h1>Admin Dashboard </h1>
+<div class="enabled_merchants">
+  <h3>Enabled Merchants:</h3>
+  <% @merchants.each do |merchant| %>
+    <%= merchant.name %>
+  <% end %>
+</div>

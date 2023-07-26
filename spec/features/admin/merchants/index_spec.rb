@@ -12,7 +12,7 @@ RSpec.describe "admin merchants index page" do
   end
 
   it "displays all merchants" do
-    within(".all_merchants") do
+    within(".enabled_merchants") do
       expect(page).to have_content(little_kin_shop.name)
       expect(page).to have_content(red_roses.name)
       expect(page).to have_content(halloween_face.name)
