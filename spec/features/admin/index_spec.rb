@@ -8,7 +8,6 @@ RSpec.describe "Admin", type: :feature do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
         
-
         visit admins_path 
         within "#header" do 
          expect(page).to have_content("Admin Dashboard")
@@ -29,7 +28,21 @@ RSpec.describe "Admin", type: :feature do
         end
       end
 
+      it "Then I see the names of the top 5 customers who have conducted the largest number of successful transactions" do
+        test_data
+        visit admins_path
+
+        
+      end
+
+      it "And next to each customer name I see the number of successful transactions they have
+      conducted" do
+      test_data
+      visit admins_path
+      end
+
     end
   end
 
 end
+
