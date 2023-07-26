@@ -7,8 +7,6 @@ RSpec.describe "merchant dashboard", type: :feature do
     @item_1 = Item.create!(name: "item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, status: nil, merchant_id: @merchant_1.id)
 
     @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, status: nil, merchant_id: @merchant_1.id)
-
-    
   end
 
   describe "as a merchant" do
@@ -30,6 +28,21 @@ RSpec.describe "merchant dashboard", type: :feature do
         visit merchant_dashboards_path(@merchant_1)
      
         expect(page).to have_link("My Invoices", href: merchant_invoices_path(@merchant_1))
+      end
+
+       # User Story 3
+      it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant" do
+        visit merchant_dashboards_path(@merchant_1)
+
+        # model: merchant has many customers through invoices - 
+        expect(page).to have_content(#top 5 customers)
+      end
+
+      it "and next to each customer name I see the number of successful transactions they have conducted with my merchant" do
+        visit merchant_dashboards_path(@merchant_1)
+      
+        # model: merchant customers number of successful transactions
+        expect(page).to have_content(#num of successful transactions)
       end
     end
   end
