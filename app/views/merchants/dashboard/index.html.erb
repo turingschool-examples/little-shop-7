@@ -1,3 +1,7 @@
 <section id="merchant_info">
 <%= @merchant.name %>
 </section>
+<section id="dashboard_nav">
+<%= link_to "My Items", "/merchants/:merchant_id/items" %>
+<%= link_to "My Invoices", "/merchants/:merchant_id/invoices" %>
+</section>
