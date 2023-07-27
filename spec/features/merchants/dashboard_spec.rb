@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe "merchant dashboard", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
-    
-    @item_1 = Item.create!(name: "item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", unit_price: 75107, status: nil, merchant_id: @merchant_1.id)
-
-    @item_2 = Item.create!(name: "Item Autem Minima", description: "Cumque consequuntur ad. Fuga tenetur illo molestias enim aut iste. Provident quo hic aut. Aut quidem voluptates dolores. Dolorem quae ab alias tempora.", unit_price: 67076, status: nil, merchant_id: @merchant_1.id)
+    @customers = create_list(:customer, 10)
+    @invoices = create_list(:invoice, 20)
+    @items = create_list(:item, 20)
+    @invoice_items = create_list(:invoice_item, 10)
+    @transactions = create_list(:transaction, 20)
   end
-
+  
   describe "as a merchant" do
     describe "when I visit my merchant dashboard" do
       it "displays the name of my merchant" do
@@ -32,9 +33,6 @@ RSpec.describe "merchant dashboard", type: :feature do
 
        # User Story 3
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant" do
-        customers = create_list(:customer, 10)
-        completed_invoices = create_list(:completed_invoice, 10)
-
         visit merchant_dashboards_path(@merchant_1)
 
         expect(page).to have_content("Favorite Customers")

@@ -1,16 +1,6 @@
 FactoryBot.define do
-  factory :completed_invoice, class: "Invoice" do 
-    status { 2 }
-    association :customer
-  end
-
-  factory :in_progress_invoice, class: "Invoice" do 
-    status { 1 }
-    association :customer
-  end
-
-  factory :cancelled_invoice, class: "Invoice" do 
-    status { 0 }
-    association :customer
+  factory :invoice, class: "Invoice" do 
+    status { Faker::Number.between(from: 0, to: 2) }
+    association :customer, factory: :customer
   end
 end
