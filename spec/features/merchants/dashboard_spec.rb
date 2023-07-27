@@ -87,6 +87,15 @@ RSpec.describe "merchant dashboard", type: :feature do
 
         expect(current_path).to eq(merchant_invoice_path(@merchant_1,invoice_link))
       end
+
+      # User Story 5
+      it "In the 'Items Ready To Ship' section, Next to each Item name I see the date that the invoice was created and I see the date formatted like 'Monday, July 18, 2019'" do
+        visit merchant_dashboards_path(@merchant_1)
+        
+        invoice = @invoices.first
+
+        expect(page).to have_content(invoice.format_created_at)
+      end
     end
   end
 end
