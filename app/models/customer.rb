@@ -3,7 +3,11 @@ class Customer < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :items, through: :invoices
   
-  def succesful_transaction_count
-    Customer.select(transactions.*).where("transaction.status = 'success'").count
+  # def self.succesful_transaction_count
+  #   joins(:transactions).where(transactions: {result: "success"}).count
+  # end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end
