@@ -33,13 +33,11 @@
     <tbody>
       <% @incomplete_invoices.each do |invoice| %>
         <tr>
-          <td><%= link_to "invoice ##{invoice.id}", admin_invoice_path(invoice.id) %></td>
+          <td><%= link_to "invoice ##{invoice.id} - #{invoice.created_at.strftime("%A, %B %d, %Y")}", admin_invoice_path(invoice.id) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> f585dc0895e933c0e52a17a6cab1b4f3c43b1200
+
+
