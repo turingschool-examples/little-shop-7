@@ -36,7 +36,7 @@ RSpec.describe "merchant dashboard", type: :feature do
         visit merchant_dashboards_path(@merchant_1)
 
         expect(page).to have_content("Favorite Customers")
-        expect(customers.count).to eq(5)
+        expect(@customers.count).to eq(5)
       end
 
       xit "and next to each customer name I see the number of successful transactions they have conducted with my merchant" do
