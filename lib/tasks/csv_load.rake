@@ -93,7 +93,7 @@ namespace :csv_load do
     puts "Transaction CSV loaded successfully."
   end
   
-  task all: [:customers, :invoices, :items, :invoice_items, :merchants, :transactions] do
+  task all: [:customers, :invoices, :merchants, :items, :invoice_items, :transactions] do
     #puts "All CSVs loaded successfully."
   end
 end
