@@ -13,9 +13,9 @@ RSpec.describe Customer, type: :model do
   describe "factory_bot" do
     it "exists" do
       factory_data
-      require 'pry'; binding.pry
-      expect(customer.first_name).to eq("Jimmy")
-      expect(customer.last_name).to eq("Pickles")
+
+      expect(@customer_1.first_name).to eq("Jimmy")
+      expect(@customer_1.last_name).to eq("Pickles")
     end
   end
 end
