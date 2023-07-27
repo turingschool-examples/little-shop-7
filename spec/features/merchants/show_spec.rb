@@ -57,7 +57,7 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
 
   # 3. Merchant Dashboard Statistics - Favorite Customers
   describe "favorite customers" do
-    xit "lists names of the 5 customers with the most success transactions" do
+    it "lists names of the 5 customers with the most success transactions" do
       visit merchant_dashboard_path(@merchant1)
 
       within("div#favorite-customers") do
@@ -66,6 +66,18 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
         expect(page).to have_content(@customer3.full_name).once
         expect(page).to have_content(@customer4.full_name).once
         expect(page).to have_content(@customer5.full_name).once
+        expect(page).to_not have_content(@customer8.full_name).once
+        expect(@customer1.full_name).to appear_before(@customer2.full_name)
+
+      end
+    end
+
+    it "lists the number of successful transactions for the favorite customers" do
+      visit merchant_dashboard_path(@merchant1)
+
+      within("div#favorite-customers") do
+        expect(page).to have_content("- 2 purchases")
+        expect(page).to have_content("- 1 purchases", count: 4)
       end
     end
   end
