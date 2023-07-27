@@ -46,5 +46,17 @@ RSpec.describe "merchant item update page" do
         expect(find_field("item_unit_price").value).to eq(@item.unit_price.to_s)
       end
     end
+
+    it "updates the item when user fills in form with new information and redirects back to the item show page" do
+        visit edit_merchant_item_path(@merchant, @item)
+
+        fill_in "Name", with: "Ball"
+        fill_in "Description", with: "Round"
+        fill_in "Unit price", with: "1000"
+        
+        click_button "Update Item"
+
+        expect(page).to have_current_path(merchant_item_path(@merchant, @item))
+    end
   end
 end
