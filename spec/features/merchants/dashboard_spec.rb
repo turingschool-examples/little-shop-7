@@ -5,7 +5,7 @@ RSpec.describe "merchant dashboard", type: :feature do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @items = create_list(:item, 20, merchant: @merchant_1)
   
-    # Create invoices with status = 2 and associate with items
+    # Create invoices and associate with items
     @invoices = create_list(:invoice, 20)
     @invoice_items = @invoices.map do |invoice|
       create(:invoice_item, item: @items.sample, invoice: invoice)
