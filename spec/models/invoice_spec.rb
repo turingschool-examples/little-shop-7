@@ -45,6 +45,7 @@ RSpec.describe Invoice, type: :model do
           invoice = customer.invoices.create!(
             status: ['pending', 'paid', 'cancelled'].sample
           )
+          @invoice_1 = customer.invoices.create!(status: :pending, created_at: "2012-03-25 09:54:09 UTC")
   
           Item.all.sample(5).each do |item|
             invoice.invoice_items.create!(
@@ -65,10 +66,7 @@ RSpec.describe Invoice, type: :model do
     end
 
     it "can format the created_at date of an invoice" do
-    invoice = Invoice.create!(status: :pending, created_at: "2012-03-25 09:54:09 UTC")
-    
-
-      expect(invoice.format_created_at).to eq("Sunday, March 25, 2015")
+      expect(@invoice_1.format_created_at).to eq("Sunday, March 25, 2012")
     end
   end
 end

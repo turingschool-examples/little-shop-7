@@ -64,7 +64,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     formatted_creation_date = invoice.format_created_at
     expect(page).to have_content("Invoice ID: #{invoice.id}")
     expect(page).to have_content("Invoice status: #{invoice.status}")
-    expect(page).to have_content("Created at: #{invoice.formatted_creation_date}")
+    expect(page).to have_content("Created at: #{invoice.format_created_at}")
     expect(page).to have_content("Customer name: #{invoice.customer.first_name} #{invoice.customer.last_name}")
   end
 end
