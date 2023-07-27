@@ -11,5 +11,11 @@
 
 <div class="fav-customers-divider">
   <h2>Favorite Customers</h2>
-    <%= @customers %>
+
+    <% @customers.each do |customer| %>
+      <div class="customer-info">
+        <p><%= customer.full_name %></p>
+        <p><%= customer.transaction_count %></p>
+      </div>
+    <% end %>
 </div>

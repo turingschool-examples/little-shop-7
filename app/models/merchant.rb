@@ -8,10 +8,10 @@ class Merchant < ApplicationRecord
   enum status: {"enable": 0, "disable": 1}
 
   def top_5_customers
-    result = transactions.joins(invoice: :customer)
+    transactions.joins(invoice: :customer)
       .where('transactions.result = ?', 0)
-      .select('CONCAT(customers.first_name, customers.last_name) AS "full_name", COUNT(transactions.id) AS transaction_count')
-      .group('"full_name"')
+      .select("CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, COUNT(transactions.id) AS transaction_count")
+      .group('full_name')
       .order('transaction_count DESC')
       .limit(5)
       .to_a

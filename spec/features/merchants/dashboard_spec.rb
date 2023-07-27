@@ -3,11 +3,23 @@ require 'rails_helper'
 RSpec.describe "merchant dashboard", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
-    @customers = create_list(:customer, 10)
+    @items = create_list(:item, 20, merchant: @merchant_1)
+  
+    # Create invoices with status = 2 and associate with items
     @invoices = create_list(:invoice, 20)
-    @items = create_list(:item, 20)
-    @invoice_items = create_list(:invoice_item, 10)
-    @transactions = create_list(:transaction, 20)
+    @invoice_items = @invoices.map do |invoice|
+      create(:invoice_item, item: @items.sample, invoice: invoice)
+    end
+  
+    # Create customers and associate them with random invoices
+    @customers = create_list(:customer, 10)
+    @invoices.each do |invoice|
+      invoice.update(customer: @customers.sample)
+    end
+  
+    @transactions = @invoices.map do |invoice|
+      create(:transaction, invoice: invoice, result: 0)
+    end
   end
   
   describe "as a merchant" do
@@ -35,15 +47,23 @@ RSpec.describe "merchant dashboard", type: :feature do
       it "I see the names of the top 5 customers who have conducted the largest number of successful transactions with my merchant" do
         visit merchant_dashboards_path(@merchant_1)
 
+        customers = @merchant_1.top_5_customers
+
         expect(page).to have_content("Favorite Customers")
-        expect(@customers.count).to eq(5)
+        customers.each do |customer|
+          expect(page).to have_content(customer.full_name)
+        end
       end
 
-      xit "and next to each customer name I see the number of successful transactions they have conducted with my merchant" do
+      it "and next to each customer name I see the number of successful transactions they have conducted with my merchant" do
         visit merchant_dashboards_path(@merchant_1)
       
-        # model: merchant customers number of successful transactions
-        # expect(page).to have_content(#num of successful transactions)
+        customers = @merchant_1.top_5_customers
+
+        expect(page).to have_content("Favorite Customers")
+        customers.each do |customer|
+          expect(page).to have_content(customer.transaction_count)
+        end
       end
     end
   end
