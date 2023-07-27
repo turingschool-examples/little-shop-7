@@ -59,12 +59,14 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
   it "shows invoice ID, invoice status, formatted created_at date, and customer first and last name" do
     merchant = Merchant.all.sample
     invoice = merchant.invoices.sample
-    merchant_invoice_path(merchant, invoice)
-
     formatted_creation_date = invoice.format_created_at
-    expect(page).to have_content("Invoice ID: #{invoice.id}")
-    expect(page).to have_content("Invoice status: #{invoice.status}")
-    expect(page).to have_content("Created at: #{invoice.format_created_at}")
-    expect(page).to have_content("Customer name: #{invoice.customer.first_name} #{invoice.customer.last_name}")
+    visit merchant_invoice_path(merchant, invoice)
+    save_and_open_page
+    within "#Facts" do
+      expect(page).to have_content("Invoice ID: #{invoice.id}")
+      expect(page).to have_content("Invoice status: #{invoice.status}")
+      expect(page).to have_content("Created at: #{invoice.format_created_at}")
+      expect(page).to have_content("Customer name: #{invoice.customer.first_name} #{invoice.customer.last_name}")
+    end 
   end
 end
