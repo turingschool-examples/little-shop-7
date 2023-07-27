@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   resources :admin, controller: 'admin/dashboard', only: [:index]
 
   # Route for Merchants under Admin
-  namespace :admin, as: 'admin_merchants' do
-    resources :merchants, only: [:index]
-  end
+  # namespace :admin, as: 'admin_merchants' do
+  #   resources :merchants, only: [:index]
+      
+  # end
 
   namespace :admin do
-    resources :merchants, only: [:show, :edit, :update]
+    resources :merchants, only: [:index, :show, :edit, :update]
+        patch :toggle_status, on: :member
   end
 
 

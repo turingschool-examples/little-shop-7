@@ -2,6 +2,7 @@
 
 <% @merchants.each do |merchant| %>
   
-  <li><%= link_to merchant.name , "/admin/merchants/#{merchant.id}"%></li>
-
+  <li><%= link_to merchant.name , "/admin/merchants/#{merchant.id}"%>
+  <% if @merchant.enabled? %>
+    <%= button_to "Disable", {controller: "admin/merchants", action: "disable", id: @merchant.id}, method: :put, class "button" %>
 <% end %>
