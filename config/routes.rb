@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   # end
 
   namespace :admin do
-    resources :merchants, only: [:index, :show, :edit, :update]
-        patch :toggle_status, on: :member
+    resources :merchants, only: [:index, :show, :edit, :update] do
+      member do
+        put :enable_status
+        put :disable_status
+      end
+    end
   end
 
 
