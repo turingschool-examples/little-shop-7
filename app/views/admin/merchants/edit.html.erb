@@ -1,0 +1,7 @@
+<%= form_for @merchant, url: admin_merchant_path(@merchant), method: :patch, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+  <%= f.label :status %>
+  <%= f.text_field :status %><br>
+  <%= f.submit %>
+<% end %>
