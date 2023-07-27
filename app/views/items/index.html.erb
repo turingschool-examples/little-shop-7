@@ -6,7 +6,7 @@
   <% @merchant.items.each do |item| %>
     <div class="item">
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
-      <%= button_to item.disabled? ? 'Enable' : 'Disable', merchant_item_path(@merchant, item), method: :patch %>
+      <%= button_to item.disabled? ? 'Enable' : 'Disable', merchant_item_path(@merchant, item), method: :patch, params: { disable: true } %>
     </div>
   <% end %>
 </div>

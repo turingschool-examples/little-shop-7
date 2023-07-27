@@ -4,9 +4,9 @@ RSpec.describe "items index page", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)
-    @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: nil)
-    @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: nil)
-    @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: nil)
+    @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: 1)
+    @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: 1)
+    @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: 1)
   end
 
 # As a merchant,
@@ -41,8 +41,20 @@ RSpec.describe "items index page", type: :feature do
   describe "when I visit my items index page" do
     it "displays a button next to each item to enable/disable that item" do
       visit merchant_items_path(@merchant_1)
+      
+      expect(page).to have_button("Disable", count: 2)
+    end
+    
+    it "redirects me back to my items index page and I see the status of that item has changed" do
+      visit merchant_items_path(@merchant_1)
 
-      expect(page).to have_button("Disable")
+      within(".item", text: @item_1.name) do
+        click_button "Disable"
+      end
+
+      expect(page).to have_current_path(merchant_items_path(@merchant_1))
+      expect(page).to have_button("Enable")
+      expect(page).to have_text("Item successfully disabled.")
     end
   end
 
