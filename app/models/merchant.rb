@@ -8,12 +8,14 @@ class Merchant < ApplicationRecord
   enum status: {"enable": 0, "disable": 1}
 
   def top_5_customers
-    # what type of object do i need? customers
-    # model name Merchant
-    # need data from Customer invoices
-    # Status "completed"
-    # data should be formatted by max number of "completed" per customer
-    # limit 5 customers
+    transactions.joins(invoice: :customer)
+      .where('transactions.result = ?', 'success')
+      .select('CONCAT(customers.first_name, customers.last_name) AS name, COUNT(transactions) AS total_transactions)')
+      .group('customers.name')
+      .order('total_transactions DESC')
+      .limit(5)
+  end
+    
   def self.enabled_merchants
     where(status: 0)
   end
