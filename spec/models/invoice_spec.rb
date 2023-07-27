@@ -12,8 +12,7 @@ RSpec.describe Invoice, type: :model do
     it { should validate_presence_of :status }
   end
 
-
-  describe "instance methods" do
+  describe "class methods" do
     it "can find incomplete invoices" do
       customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
       customer_2 = Customer.create!(first_name: "Cecilia", last_name: "Jones")

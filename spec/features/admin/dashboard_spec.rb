@@ -27,6 +27,11 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
     invoice_2 = Invoice.create!(status: 1, customer: customer_2)
     visit admin_index_path
 
-    expect(page).to have_content("Incomplete Invoices")
+    within("div.incomplete-invoices") do
+      expect(page).to have_content("Incomplete Invoices")
+      expect(page).to have_content(invoice_1.id)
+      expect(page).to_not have_content(invoice_2.id)
+      expect(page).to have_link("#{invoice_1.id}")
+    end
   end
 end
