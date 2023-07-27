@@ -1,0 +1,35 @@
+
+  <nav class="navbar">
+    <h3 class="navbar-header">Admin Dashboard</h3>
+    <ul class="navbar-directories">
+      <li><%= link_to 'Dashboard', admin_dashboard_index_path %></li>
+      <li><%= link_to 'Merchants', admin_merchants_path %></li>
+      <li><%= link_to 'Invoices', admin_invoices_path %></li>
+    </ul>
+  </nav>
+
+
+<div >
+  
+      <h3>Top 5 Customers</h3>
+
+  
+    <% @top_customers.each do|c| %>
+    <ol>
+    <li> Name: <%= c.first_name%> <%= c.last_name%>,  # Transactions: <%= c.number_of_transactions%></li> 
+     </ol>
+      <%end%>
+   
+  </div>
+
+ <div>
+      <h3>Incomplete Invoices</h3>
+    
+    <ul>
+      <% @invoices.each do |i| %>
+      <% if i.status == "in progress"%>
+        <li><%= link_to "Invoice # #{i.id}", admin_invoice_path(i.id) %></a> - <%= i.created_at.strftime("%A, %B %d, %Y") %>
+        <% end %>
+      <% end %>
+    </ul>
+</div>
