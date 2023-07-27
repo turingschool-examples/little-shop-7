@@ -100,9 +100,11 @@ def test_data
   @customer_4 = Customer.create!(first_name: "Tom", last_name: "Tomson")
   @customer_5 = Customer.create!(first_name: "Joan", last_name: "Jones")
   @customer_6 = Customer.create!(first_name: "Steve", last_name: "Steves")
+
   @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
   @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
   @merchant_3 = Merchant.create!(name: "Willms and Sons")
+  
   @invoice_1 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 2)
   @invoice_2 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 1)
   @invoice_3 = @customer_3.invoices.create!(customer_id: @customer_3.id, status: 2)
@@ -130,4 +132,8 @@ def test_data
   @transaction_9 = Transaction.create!(invoice_id: @invoice_9.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
   @transaction_10 = Transaction.create!(invoice_id: @invoice_10.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
   @transaction_11 = Transaction.create!(invoice_id: @invoice_11.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
+
+  @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "4354495077693037", credit_card_expiration_date: "05/27", result: "failed")
+  @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "06/27", result: "failed")
+  @transaction_14 = Transaction.create!(invoice_id: @invoice_14.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "07/27", result: "failed")
 end
