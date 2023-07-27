@@ -5,5 +5,13 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :merchants do
     resources :dashboards
+    resources :items
+    resources :invoices
+  end
+
+  namespace :admin do
+    resources :merchants, only: [:index, :show]
+    resources :dashboard, only: [:index]
+    resources :invoices, only: [:index]
   end
 end

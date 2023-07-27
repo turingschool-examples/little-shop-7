@@ -1,3 +1,21 @@
 <h1>Little Esty Shop</h1> 
-
 <p><%= @merchant.name %></p>
+
+<div class="items-divider">
+  <li><%= link_to "My Items", merchant_items_path %></li>
+</div>
+
+<div class="invoices-divider">
+  <li><%= link_to "My Invoices", merchant_invoices_path %></li>
+</div>
+
+<div class="fav-customers-divider">
+  <h2>Favorite Customers</h2>
+
+    <% @customers.each do |customer| %>
+      <div class="customer-info">
+        <p><%= customer.full_name %></p>
+        <p><%= customer.transaction_count %></p>
+      </div>
+    <% end %>
+</div>
