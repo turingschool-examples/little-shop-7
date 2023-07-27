@@ -129,7 +129,7 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
   it "displays a list of the top 5 customers" do 
 
     visit "/admin"
-    save_and_open_page
+    
     within ".top_customers" do 
       expect("Heber").to appear_before("Cecelia")
       expect("Cecelia").to appear_before("Mariah")
