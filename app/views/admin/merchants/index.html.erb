@@ -4,7 +4,7 @@
 <div class="merchants">
   <% @merchants.each do |merchant| %>
     <div class="merchant">
-      <%= merchant.name %>
+      <%= link_to merchant.name, admin_merchant_path(merchant) %>
     </div>
   <% end %>
 </div>
