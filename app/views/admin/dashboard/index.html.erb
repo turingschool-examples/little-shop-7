@@ -1,0 +1,35 @@
+<h1>Admin Dashboard</h1>
+<h3>Admin Links</h3>
+<ul>
+  <%= link_to "Merchants", "/admin/merchants" %><br>
+  <%= link_to "Invoices", "/admin/invoices" %>
+</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Top Customers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Incomplete Invoices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @incomplete_invoices.each do |invoice| %>
+      <tr>
+        <td>Invoice #<%= link_to invoice.id, "/admin/invoices/:id" %> - <%= invoice.created_at.strftime("%A, %B %d, %Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

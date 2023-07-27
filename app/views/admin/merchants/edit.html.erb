@@ -1,0 +1,16 @@
+<h1>Edit Merchant</h1>
+
+
+<%= form_for [:admin, @merchant] do |f| %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+
+  <%= f.submit 'Submit' %>
+
+
+
+<% end %>
