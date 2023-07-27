@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe "merchant item update page" do
   before(:each) do
-    @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
-    @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)
-    @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: nil)
-    @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: nil)
-    @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: nil)
+    # @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
+    # @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)
+    # @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: nil)
+    # @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: nil)
+    # @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: nil)
 
-    # merchant = FactoryBot.create(:merchant)
-    # item = FactoryBot.create(:item, merchant: merchant)
+    @merchant = FactoryBot.create(:merchant)
+    @item = FactoryBot.create(:item, merchant: @merchant)
   end
 
 # 8. Merchant Item Update
@@ -27,9 +27,24 @@ RSpec.describe "merchant item update page" do
 
   describe "when i visit the merchants item show page" do
     it "displays a link to update that items information" do
-      visit merchant_item_path(@merchant_1, @item_1)
+      visit merchant_item_path(@merchant, @item)
       
       expect(page).to have_link("Update Item")
+    end
+    
+    it "takes user to and edit page to edit that item when clicked, where it has the existing attributes filled out in the form " do
+      visit merchant_item_path(@merchant, @item)
+
+      click_link "Update Item"
+
+      expect(page).to have_current_path(edit_merchant_item_path(@merchant, @item))
+
+      within("form") do
+        
+        expect(find_field("item_name").value).to eq(@item.name)
+        expect(find_field("item_description").value).to eq(@item.description)
+        expect(find_field("item_unit_price").value).to eq(@item.unit_price.to_s)
+      end
     end
   end
 end
