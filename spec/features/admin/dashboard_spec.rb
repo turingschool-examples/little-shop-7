@@ -18,6 +18,18 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
 
       expect(page).to have_link("Merchants")
       expect(page).to have_link("Invoices")
-      
+  end
+  #US 21
+  it "displays a list of the top 5 customers" do 
+    visit "/admin"
+    save_and_open_page
+    within ".top_customers" do 
+      expect("Heber").to appear_before("Cecelia")
+      expect("Cecelia").to appear_before("Mariah")
+      expect("Mariah").to appear_before("Sylvester")
+      expect("Sylvester").to appear_before("Joey")
+      expect("Joey").to_not appear_before("Heber")
+      expect(page).to_not have_content("Leanna")
+    end
   end
 end

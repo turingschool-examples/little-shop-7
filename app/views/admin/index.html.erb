@@ -9,3 +9,12 @@
       <%= link_to "Invoices", admin_invoices_path %>
     </nav>
 </div>
+
+<section class="top_customers">
+  <h3>Top 5 Customers</h3>
+    <ol>
+      <% @top_5_customers.each do |customer| %>
+        <li><%="#{customer.first_name} #{customer.last_name} has made #{customer.result_count} purchases"%></li>
+      <% end %>
+    </ol>
+</section>
