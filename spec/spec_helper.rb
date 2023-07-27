@@ -117,9 +117,9 @@ def test_data
   @invoice_10 = @customer_4.invoices.create!(customer_id: @customer_4.id, status: 2)
   @invoice_11 = @customer_5.invoices.create!(customer_id: @customer_5.id, status: 2)
 
-  @invoice_12 = @customer_5.invoices.create!(customer_id: @customer_5.id, status: 0)
-  @invoice_13 = @customer_3.invoices.create!(customer_id: @customer_3.id, status: 0)
-  @invoice_14 = @customer_4.invoices.create!(customer_id: @customer_4.id, status: 0)
+  @invoice_12 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 0)
+  @invoice_13 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 0)
+  @invoice_14 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 0)
 
   @transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
   @transaction_2 = Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
@@ -133,7 +133,7 @@ def test_data
   @transaction_10 = Transaction.create!(invoice_id: @invoice_10.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
   @transaction_11 = Transaction.create!(invoice_id: @invoice_11.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
 
-  @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "4354495077693037", credit_card_expiration_date: "05/27", result: "failed")
-  @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "06/27", result: "failed")
+  @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "4354495077693037", credit_card_expiration_date: "05/27", result: "success")
+  @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "06/27", result: "success")
   @transaction_14 = Transaction.create!(invoice_id: @invoice_14.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "07/27", result: "failed")
 end

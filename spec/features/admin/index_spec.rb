@@ -32,6 +32,9 @@ RSpec.describe "Admin", type: :feature do
         test_data
         visit admins_path
 
+        save_and_open_page
+        require 'pry'; binding.pry
+
         within "#top_5_customers" do
           expect("#{@customer_1.last_name}").to appear_before("#{@customer_2.last_name}")
           expect("#{@customer_2.last_name}").to appear_before("#{@customer_3.last_name}")
@@ -42,19 +45,18 @@ RSpec.describe "Admin", type: :feature do
 
       it "And next to each customer name I see the number of successful transactions they have
       conducted" do
-      test_data
-      visit admins_path
+        test_data
+        visit admins_path
 
-      within "#top_5_customers" do
-        expect("5").to appear_after("#{@customer_1.last_name}")
-        expect("4").to appear_after("#{@customer_2.last_name}")
-        expect("3").to appear_after("#{@customer_3.last_name}")
-        expect("2").to appear_after("#{@customer_4.last_name}")
-        expect("1").to appear_after("#{@customer_5.last_name}")
+        within "#top_5_customers" do
+          expect("#{@customer_1.last_name}").to appear_before(" - 5")
+          expect("#{@customer_2.last_name}").to appear_before(" - 4")
+          expect("#{@customer_3.last_name}").to appear_before(" - 3")
+          expect("#{@customer_4.last_name}").to appear_before(" - 2")
+          expect("#{@customer_5.last_name}").to appear_before(" - 1")
+        end
       end
-
     end
   end
-
 end
 
