@@ -23,7 +23,7 @@
 <div id="ready-to-ship">
   <h2>Items Ready To Ship</h2>
     <p><% @items.each do |item| %></p>
-      <p><%= item.name %></p>
+      <p><%= item.name %> - <%= item.invoice.format_created_at %></p>
       <p><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant, item.invoice_id) %></p>
     <% end %>
 </div>
