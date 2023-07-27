@@ -7,16 +7,25 @@ class Merchant < ApplicationRecord
 
   enum status: {"enable": 0, "disable": 1}
 
+  # Instance Methods
   def top_5_customers
     transactions.joins(invoice: :customer)
       .where('transactions.result = ?', 0)
-      .select("CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, COUNT(transactions.id) AS transaction_count")
+      .select("CONCAT(customers.first_name,' ', customers.last_name) AS full_name, COUNT(transactions.id) AS transaction_count")
       .group('full_name')
       .order('transaction_count DESC')
       .limit(5)
       .to_a
   end
-    
+
+  def ready_to_ship
+    invoice_items.joins(:item)
+      .where(status: "pending")
+      .select("items.*, invoice_items.*")
+      .distinct
+  end
+
+  # Class methods
   def self.enabled_merchants
     where(status: 0)
   end
