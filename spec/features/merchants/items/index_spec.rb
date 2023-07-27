@@ -25,8 +25,25 @@ RSpec.describe "items index page", type: :feature do
     
     it "doesn't display items for any other merchant" do
       visit merchant_items_path(@merchant_1)
-
+      
       expect(page).to_not have_content("pants")
     end
   end
+  
+  # 9. Merchant Item Disable/Enable
+  # As a merchant
+  # When I visit my items index page (/merchants/:merchant_id/items)
+  # Next to each item name I see a button to disable or enable that item.
+  # When I click this button
+  # Then I am redirected back to the items index
+  # And I see that the items status has changed
+  
+  describe "when I visit my items index page" do
+    it "displays a button next to each item to enable/disable that item" do
+      visit merchant_items_path(@merchant_1)
+
+      expect(page).to have_button("Disable")
+    end
+  end
+
 end
