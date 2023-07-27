@@ -132,6 +132,9 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
       expect(page).to have_link("Invoices")
   end
 
+
+
+
   #US 21
   it "displays a list of the top 5 customers" do 
 
@@ -146,6 +149,7 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
       expect(page).to_not have_content("Leanna")
     end
   end
+
 
   # US 22  
   it "can see a section for 'Incomplete Invoices'" do
