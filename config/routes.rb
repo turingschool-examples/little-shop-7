@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   # Route for Merchants under Admin
   namespace :admin, as: 'admin_merchants' do
-    resources :merchants, only: [:index,:show]
+    resources :merchants, only: [:index]
+  end
+
+  namespace :admin do
+    resources :merchants, only: [:show, :edit, :update]
   end
 
 
