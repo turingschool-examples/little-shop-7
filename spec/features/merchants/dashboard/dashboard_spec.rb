@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Dashboard', type: :feature do
     before(:each) do
-        require 'pry', binding.pry;
+
     end
     describe 'As a Merchant' do
         describe 'When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)' do
