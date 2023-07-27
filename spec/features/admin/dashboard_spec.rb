@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Merchant, type: :model do 
+RSpec.describe "Admin Dashboard Page", type: :feature do
   before :each do
     @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
@@ -29,42 +29,31 @@ RSpec.describe Merchant, type: :model do
     @customer_10 = Customer.create!(first_name: 'Ramona', last_name: 'Reynolds')
 
     @invoice_1 = @customer_1.invoices.create!(status: 'cancelled')
-    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
     @invoice_2 = @customer_1.invoices.create!(status: 'cancelled')
-    InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
     @invoice_3 = @customer_2.invoices.create!(status: 'completed')
-    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_3.id, quantity: 12, unit_price: 34873, status: 'packaged')
     @invoice_4 = @customer_2.invoices.create!(status: 'in progress')
-    InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
 
     @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
-    InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
     @invoice_6 = @customer_3.invoices.create!(status: 'in progress')
-    InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    
-    @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
-    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
-    InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    
-    @invoice_9 = @customer_5.invoices.create!(status: 'completed')
-    InvoiceItem.create!(invoice_id: @invoice_9.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_10 = @customer_5.invoices.create!(status: 'completed')
-    InvoiceItem.create!(invoice_id: @invoice_10.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    
-    @invoice_11 = @customer_6.invoices.create!(status: 'in progress')
-    InvoiceItem.create!(invoice_id: @invoice_11.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_12 = @customer_6.invoices.create!(status: 'completed')
-    InvoiceItem.create!(invoice_id: @invoice_12.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
 
+    @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
+    @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
+
+    @invoice_9 = @customer_5.invoices.create!(status: 'completed')
+    @invoice_10 = @customer_5.invoices.create!(status: 'completed')
+
+    @invoice_11 = @customer_6.invoices.create!(status: 'in progress')
+    @invoice_12 = @customer_6.invoices.create!(status: 'completed')
+
+    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
+    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_2.id, quantity: 12, unit_price: 34873, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
+    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
     #Customer 1 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: '4654405418249632', credit_card_expiration_date: '04/22/20', result: 'success')
@@ -79,11 +68,11 @@ RSpec.describe Merchant, type: :model do
     @transaction_7 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'failed')
     @transaction_8 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'success')
     @transaction_9 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'success')
+
     @transaction_10 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     @transaction_11 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     @transaction_12 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     #Customer 2 - total successful transactions = 5
-
     #Customer 3
     @transaction_13 = @invoice_5.transactions.create!(credit_card_number: '4844518708741275', credit_card_expiration_date: '10/22/20', result: 'success')
     @transaction_14 = @invoice_5.transactions.create!(credit_card_number: '4844518708741275', credit_card_expiration_date: '10/22/20', result: 'success')
@@ -121,20 +110,61 @@ RSpec.describe Merchant, type: :model do
     @transaction_36 = @invoice_12.transactions.create!(credit_card_number: '4923661117104166', credit_card_expiration_date: '08/22/20', result: 'success')
     #Customer 6 - total successful transactions = 6
   end
-  describe "relationships" do
-    it {should have_many :items}
-    it {should have_many(:invoice_items).through(:items)}
-    it {should have_many(:invoices).through(:items)}
-    it {should have_many(:customers).through(:invoices)}
-    it {should have_many(:transactions).through(:invoices)}
+
+  # US 19
+  describe "When I visit the admin dashboard (/admin)" do
+    it "I see a header indicating that I am on the admin dashboard" do
+
+      visit admin_index_path
+
+      within("#admin-dashboard-header") do
+        expect(page).to have_content("Admin Dashboard")
+      end
+    end
   end
 
-  describe "instance methods" do 
-    describe "#favorite_customers" do
-      it "returns the top 5 customers with the most successful transactions for a merchant " do
-        expect(@merchant_1.favorite_customers_alt.first.num_transactions).to eq(6)
-        expect(@merchant_1.favorite_customers_alt.first).to eq(@customer_6)
-      end
+  # US 20
+  it "can see a link to the admin merchants and invoices index" do
+
+      visit admin_index_path
+
+      expect(page).to have_link("Merchants")
+      expect(page).to have_link("Invoices")
+  end
+
+
+
+
+  #US 21
+  it "displays a list of the top 5 customers" do 
+
+    visit "/admin"
+    
+    within ".top_customers" do 
+      expect("Heber").to appear_before("Cecelia")
+      expect("Cecelia").to appear_before("Mariah")
+      expect("Mariah").to appear_before("Sylvester")
+      expect("Sylvester").to appear_before("Joey")
+      expect("Joey").to_not appear_before("Heber")
+      expect(page).to_not have_content("Leanna")
+    end
+  end
+
+
+  # US 22  
+  it "can see a section for 'Incomplete Invoices'" do
+    customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
+    customer_2 = Customer.create!(first_name: "Cecilia", last_name: "Jones")
+    invoice_1 = Invoice.create!(status: 0, customer: customer_1)  
+    invoice_2 = Invoice.create!(status: 1, customer: customer_2)
+
+    visit admin_index_path
+
+    within("div.incomplete-invoices") do
+      expect(page).to have_content("Incomplete Invoices")
+      expect(page).to have_content(invoice_1.id)
+      expect(page).to_not have_content(invoice_2.id)
+      expect(page).to have_link("#{invoice_1.id}")
     end
   end
 end

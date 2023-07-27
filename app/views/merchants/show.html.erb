@@ -5,8 +5,8 @@
 <div id="favorite-customers">
 <h4> favorite Customers</h4>
 <ol>
-  <% @merchant.favorite_customers.each do |c| %>
-  <li><%= c.full_name %> - <%= c.result_count %> purchases</li>
+  <% @merchant.favorite_customers_alt.each do |c| %>
+  <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
   <% end %>
 </ol>
 
