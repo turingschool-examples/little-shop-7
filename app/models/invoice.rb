@@ -7,4 +7,8 @@ class Invoice < ApplicationRecord
 
   validates :status, presence: true
 
+  def self.incomplete_invoices
+    where(status: "in progress")
+  end
+
 end
