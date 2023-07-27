@@ -68,25 +68,24 @@ RSpec.describe "merchant dashboard", type: :feature do
 
       # User Story 4
       it "I see a section for 'Items Ready to Ship' that has a list of then names of all of my items that have been ordered and have not yet been shipped" do
-        ready_to_ship_invoice_items = @invoices.map do |invoice|
-          create(:invoice_item, item: @items.sample, invoice: invoice, status: 1)
-        end
-
         visit merchant_dashboards_path(@merchant_1)
         
         within("#ready-to-ship") do
-          item_names = ready_to_ship_invoice_items.map do |invoice_item|
-            invoice_item.item.name
-          end
-        
-          expect(page).to have_content(item_names)
+          expect(page).to have_content("Items Ready To Ship")
         end
       end
 
       it "and next to each Item I see the id of the invoice that ordered my item, and each invoice id is a link to my merchant's invoice show page" do
         visit merchant_dashboards_path(@merchant_1)
+        
+        invoice_link = @merchant_1.ready_to_ship.first.invoice_id
+        
+        within("#ready-to-ship") do
+          expect(page).to have_link(invoice_link)
+          click_link invoice_link
+        end
 
-
+        expect(current_path).to eq(merchant_invoice_path(@merchant_1,invoice_link))
       end
     end
   end

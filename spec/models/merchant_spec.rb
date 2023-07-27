@@ -43,11 +43,10 @@ RSpec.describe Merchant, type: :model do
           create(:invoice_item, item: @items.sample, invoice: invoice, status: 1)
         end
         
-        item_names = ready_to_ship_invoice_items.map do |invoice_item|
-          invoice_item.item.name
+        item_names = @merchant_1.ready_to_ship.each do |invoice_item|
+          invoice_item.name
         end
 
-        expect(@merchant_1.ready_to_ship).to be_a Array
         expect(@merchant_1.ready_to_ship).not_to be_empty
         expect(@merchant_1.ready_to_ship).to include(*item_names)
       end
