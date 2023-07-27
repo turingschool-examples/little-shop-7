@@ -1,0 +1,10 @@
+<div class="merchants-header">
+  <h2> Merchants </h2>
+</div>
+<div class="merchants">
+  <% @merchants.each do |merchant| %>
+    <div class="merchant">
+      <%= merchant.name %>
+    </div>
+  <% end %>
+</div>
