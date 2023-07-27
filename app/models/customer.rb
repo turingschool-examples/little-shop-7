@@ -8,7 +8,7 @@ class Customer < ApplicationRecord
   def self.top_5_customers
     joins(:transactions).where(transactions: {result: "success"}).select("customers.*, count(result) AS result_count").group(:id).order("result_count desc").limit(5)
   end
-
+  
   def successful_transaction_count
     transactions.where(result: :success).count
   end
