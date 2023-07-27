@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Merchant, type: :model do 
   describe "relationships" do
     it {should have_many :items}
-    it {should have_many(:invoices).through(:items)}
+    it {should have_many(:invoice_items).through(:items)}
+    it {should have_many(:invoices).through(:invoice_items)}
     it {should have_many(:customers).through(:invoices)}
+    it {should have_many(:transactions).through(:invoices)}
   end
-
-
 
   describe "instance methods" do 
     before(:each) do
@@ -46,8 +46,8 @@ RSpec.describe Merchant, type: :model do
 
     describe "#favorite_customers" do
       it "returns the top 5 customers with the most successful transactions for a merchant " do
-        expect(@merchant1.favorite_customers).to include(@customer1, @customer2, @customer3, @customer4, @customer5)
-        expect(@merchant1.favorite_customers).to_not include(@customer8)
+        expect(@merchant1.favorite_customers).to eq([@customer1, @customer2, @customer3, @customer4, @customer5])
+        expect(@merchant1.favorite_customers).to_not eq(@customer8)
       end
     end
   end
