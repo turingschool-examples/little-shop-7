@@ -11,4 +11,15 @@ RSpec.describe Transaction, type: :model do
   describe "relationships" do
     it { should belong_to :invoice}
   end
+
+  describe "factory_bot" do
+    it "exists" do
+      invoice = build(:invoice)
+      transaction = build(:transaction, invoice: invoice, credit_card_number: "11111111111111111", result: "success")
+      expect(transaction.invoice_id).to eq(invoice.id)
+      expect(transaction.credit_card_number).to eq("11111111111111111")
+      expect(transaction.credit_card_expiration_date).to eq("04/27")
+      expect(transaction.result).to eq("success")
+    end
+  end
 end
