@@ -11,7 +11,7 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#
+require 'csv'
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -93,3 +93,44 @@ RSpec.configure do |config|
   end
 end
 
+def test_csv_load
+
+  csv_text = File.read("spec/fixtures/customer_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Customer.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/merchant_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Merchant.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/invoice_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Invoice.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/item_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Item.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/invoice_item_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    InvoiceItem.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/transaction_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Transaction.create(row)
+  end
+  
+  
+  
+end
