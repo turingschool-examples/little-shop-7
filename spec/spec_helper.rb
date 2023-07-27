@@ -11,7 +11,55 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-# 
+def factory_data
+  @customer_1 = create(:customer)
+  @customer_2 = create(:customer)
+  @customer_3 = create(:customer)
+  @customer_4 = create(:customer)
+  @customer_5 = create(:customer)
+  @customer_6 = create(:customer)
+
+  @invoice_1 = create(:invoice)
+  @invoice_2 = create(:invoice)
+  @invoice_3 = create(:invoice)
+  @invoice_4 = create(:invoice)
+  @invoice_5 = create(:invoice)
+  @invoice_6 = create(:invoice)
+
+  @item_1 = create(:item)
+  @item_2 = create(:item)
+  @item_3 = create(:item)
+  @item_4 = create(:item)
+  @item_5 = create(:item)
+  @item_6 = create(:item)
+  @item_7 = create(:item)
+  @item_8 = create(:item)
+  @item_9 = create(:item)
+  @item_10 = create(:item)
+
+  @invoice_item_1 = create(:invoice_item)
+  @invoice_item_2 = create(:invoice_item)
+  @invoice_item_3 = create(:invoice_item)
+  @invoice_item_4 = create(:invoice_item)
+  @invoice_item_5 = create(:invoice_item)
+
+  @merchant_1 = create(:merchant)
+  @merchant_2 = create(:merchant)
+  @merchant_3 = create(:merchant)
+  @merchant_4 = create(:merchant)
+  @merchant_5 = create(:merchant)
+
+  @transaction_1 = create(:transaction)
+  @transaction_2 = create(:transaction)
+  @transaction_3 = create(:transaction)
+  @transaction_4 = create(:transaction)
+  @transaction_5 = create(:transaction)
+  @transaction_6 = create(:transaction)
+  @transaction_7 = create(:transaction)
+  @transaction_8 = create(:transaction)
+  @transaction_9 = create(:transaction)
+  @transaction_10 = create(:transaction)
+end
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
