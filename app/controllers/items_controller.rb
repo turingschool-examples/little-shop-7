@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
     else
       flash[:error] = "Failed to update item."
     end
-  
+
     redirect_to merchant_item_path(@merchant, @item)
   end
 
@@ -32,5 +32,5 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:name, :description, :unit_price)
     end
-    
+
 end

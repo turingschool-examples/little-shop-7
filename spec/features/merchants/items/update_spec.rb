@@ -57,6 +57,22 @@ RSpec.describe "merchant item update page" do
         click_button "Update Item"
 
         expect(page).to have_current_path(merchant_item_path(@merchant, @item))
+        expect(page).to have_content("Ball")
+        expect(page).to have_content("Round")
+        expect(page).to have_content("10.00")
+    end
+      
+    it "displays a flash message that says the user has succesfully update the item information" do
+      visit edit_merchant_item_path(@merchant, @item)
+      
+      fill_in "Name", with: "Ball"
+      fill_in "Description", with: "Round"
+      fill_in "Unit price", with: "1000"
+      
+      click_button "Update Item"
+      
+      expect(page).to have_current_path(merchant_item_path(@merchant, @item))
+      expect(page).to have_text("Item successfully updated.")
     end
   end
 end
