@@ -15,54 +15,41 @@ require 'rails/console/helpers'
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-def factory_data
-  @customer_1 = create(:customer, first_name: "Jimmy", last_name: "Pickles")
-  @customer_2 = create(:customer)
-  @customer_3 = create(:customer)
-  @customer_4 = create(:customer)
-  @customer_5 = create(:customer)
-  @customer_6 = create(:customer)
+def factory_data_factory(instance_num)
 
-  @invoice_1 = create(:invoice)
-  @invoice_2 = create(:invoice)
-  @invoice_3 = create(:invoice)
-  @invoice_4 = create(:invoice)
-  @invoice_5 = create(:invoice)
-  @invoice_6 = create(:invoice)
+  @customers = Array.new
+  @merchants = Array.new
+  @invoices = Array.new
+  @items = Array.new
+  @transactions = Array.new
+  @invoice_items = Array.new
 
-  @item_1 = create(:item)
-  @item_2 = create(:item)
-  @item_3 = create(:item)
-  @item_4 = create(:item)
-  @item_5 = create(:item)
-  @item_6 = create(:item)
-  @item_7 = create(:item)
-  @item_8 = create(:item)
-  @item_9 = create(:item)
-  @item_10 = create(:item)
+  instance_num.times do |n|
 
-  @invoice_item_1 = create(:invoice_item)
-  @invoice_item_2 = create(:invoice_item)
-  @invoice_item_3 = create(:invoice_item)
-  @invoice_item_4 = create(:invoice_item)
-  @invoice_item_5 = create(:invoice_item)
+    customer = create(:customer)
+    instance_variable_set("@customer_#{n + 1}", customer)
+    @customers << customer
+  
+    merchant = create(:merchant)
+    instance_variable_set("@merchant_#{n + 1}", merchant)
+    @merchants << merchant
+  
+    invoice = create(:invoice, customer: customer)
+    instance_variable_set("@invoice_#{n + 1}", invoice)
+    @invoices << invoice
+    
+    item = create(:item, merchant: merchant)
+    instance_variable_set("@item_#{n + 1}", item)
+    @items << item
+    
+    transaction = create(:transaction, invoice: invoice)
+    instance_variable_set("@transaction_#{n + 1}", transaction)
+    @transactions << transaction
 
-  @merchant_1 = create(:merchant)
-  @merchant_2 = create(:merchant)
-  @merchant_3 = create(:merchant)
-  @merchant_4 = create(:merchant)
-  @merchant_5 = create(:merchant)
-
-  @transaction_1 = create(:transaction)
-  @transaction_2 = create(:transaction)
-  @transaction_3 = create(:transaction)
-  @transaction_4 = create(:transaction)
-  @transaction_5 = create(:transaction)
-  @transaction_6 = create(:transaction)
-  @transaction_7 = create(:transaction)
-  @transaction_8 = create(:transaction)
-  @transaction_9 = create(:transaction)
-  @transaction_10 = create(:transaction)
+    invoice_item = create(:invoice_item, invoice: invoice, item: item)
+    instance_variable_set("@invoice_item_#{n + 1}", invoice_item)
+    @invoice_items << invoice_item
+  end
 end
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

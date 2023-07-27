@@ -12,10 +12,9 @@ RSpec.describe Customer, type: :model do
 
   describe "factory_bot" do
     it "exists" do
-      factory_data
-
-      expect(@customer_1.first_name).to eq("Jimmy")
-      expect(@customer_1.last_name).to eq("Pickles")
+      customer = build(:customer, first_name: "Jimmy", last_name: "Pickles")
+      expect(customer.first_name).to eq("Jimmy")
+      expect(customer.last_name).to eq("Pickles")
     end
   end
 end
