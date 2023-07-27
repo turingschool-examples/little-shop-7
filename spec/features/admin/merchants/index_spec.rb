@@ -34,4 +34,9 @@ RSpec.describe "admin merchants index page" do
       expect(page).to have_content(bust_it_big.name)
     end
   end
+
+  it "provides link to a merchant's show page" do
+    click_link little_kin_shop.name
+    expect(current_path).to eq(admin_merchant_path(little_kin_shop))
+  end
 end
