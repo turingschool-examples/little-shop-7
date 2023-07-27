@@ -10,6 +10,18 @@
     </nav>
 </div>
 
+
+<div class="column">
+  <section class="top_customers">
+    <h3>  Top 5 Customers</h3>
+      <ol>
+        <% @top_5_customers.each do |customer| %>
+          <li><%="#{customer.first_name} #{customer.last_name} has made #{customer.result_count} successful transactions"%></li><br>
+        <% end %>
+      </ol>
+  </section>
+  </div>
+
 <div class="incomplete-invoices">
   <h2> Incomplete Invoices </h2>
   <table>
@@ -26,4 +38,8 @@
       <% end %>
     </tbody>
   </table>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> f585dc0895e933c0e52a17a6cab1b4f3c43b1200
