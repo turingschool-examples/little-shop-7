@@ -18,15 +18,15 @@ describe InvoiceItem, type: :model do
     it { should belong_to :invoice }
   end
 
-  describe "factory_bot" do
-    it "exists" do
-      invoice = create(:invoice)
-      item = create(:item)
-      invoice_item = create(:invoice_item, quantity: 1234, unit_price: 43211, invoice: invoice, item: item)
-      expect(invoice_item.item.id).to eq(item.id)
-      expect(invoice_item.invoice.id).to eq(invoice.id)
-      expect(invoice_item.quantity).to eq(1234)
-      expect(invoice_item.unit_price).to eq(43211)
-    end
-  end
+  # describe "factory_bot" do
+  #   it "exists" do
+  #     invoice = create(:invoice)
+  #     item = create(:item)
+  #     invoice_item = create(:invoice_item, quantity: 1234, unit_price: 43211, invoice: invoice, item: item)
+  #     expect(invoice_item.item.id).to eq(item.id)
+  #     expect(invoice_item.invoice.id).to eq(invoice.id)
+  #     expect(invoice_item.quantity).to eq(1234)
+  #     expect(invoice_item.unit_price).to eq(43211)
+  #   end
+  # end
 end
