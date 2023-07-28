@@ -2,6 +2,8 @@ class Admin::MerchantsController < ApplicationController
 
   def index
     @merchants = Merchant.all
+    @enabled_merchants = Merchant.enabled
+    @disabled_merchants = Merchant.disabled
   end
 
   def show
@@ -22,6 +24,21 @@ class Admin::MerchantsController < ApplicationController
     end
   end
 
+  def new
+    @merchant = Merchant.new
+  end
+
+  def create
+    @merchant = Merchant.new(merchant_params)
+    @merchant.status = 'disabled'
+
+    if @merchant.save
+      redirect_to "/admin/merchants", notice: "Merchant created successfully."
+    else
+      render :new
+    end
+  end
+
   def enable_status
     @merchant = Merchant.find(params[:id])
     @merchant.update(status: :enabled)
@@ -33,13 +50,6 @@ class Admin::MerchantsController < ApplicationController
     @merchant.update(status: :disabled)
     redirect_to "/admin/merchants", notice: "Merchant status updated"
   end
-
-
-  # def toggle_status
-  #   @merchant = Merchant.find(params[:id])
-  #   @merchant.update(status: !@merchant.status)
-  #   redirect_to "/admin/merchants"
-  # end
 
   private
 

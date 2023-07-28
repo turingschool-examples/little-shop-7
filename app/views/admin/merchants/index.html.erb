@@ -1,12 +1,39 @@
 <h1>Merchants</h1>
 
-<% @merchants.each do |merchant| %>
-  
-  <ul<%= link_to merchant.name , "/admin/merchants/#{merchant.id}"%>
-  <% if merchant.enabled? %>
-    <%= button_to 'Disable', { controller: 'admin/merchants', action: 'disable_status', id: merchant.id }, method: :put, class: "button" %>
-  <% else %>
-    <%= button_to 'Enable', { controller: 'admin/merchants', action: 'enable_status', id: merchant.id }, method: :put, class: "button" %>
-  <% end %></ul>
+<%= link_to 'Create New Merchant', "/admin/merchants/new" %>
 
+<h2>Enabled Merchants</h2>
+<% if @enabled_merchants.any? %>
+  <table>
+    <tbody>
+      <% @enabled_merchants.each do |merchant| %>
+        <tr>
+          <td><%= merchant.name %></td>
+          <td>
+            <%= button_to 'Disable', disable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No enabled merchants found.</p>
+<% end %>
+
+<h2>Disabled Merchants</h2>
+<% if @disabled_merchants.any? %>
+  <table>
+    <tbody>
+      <% @disabled_merchants.each do |merchant| %>
+        <tr>
+          <td><%= merchant.name %></td>
+          <td>
+            <%= button_to 'Enable', enable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No disabled merchants found.</p>
 <% end %>
