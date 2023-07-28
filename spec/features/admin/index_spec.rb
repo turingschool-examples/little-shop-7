@@ -68,10 +68,6 @@ RSpec.describe "Admin", type: :feature do
       end
 
       it "In that section I see a list of all the invoice ids that have unshipped items" do
-        
-        customer_1 = Customer.create!(first_name: "test", last_name: "testtest")
-        customer_2 = Customer.create!(first_name: "test", last_name: "testtest")
-        
         customer_1 = create(:customer)
         customer_2 = create(:customer)
         merchant = create(:merchant)
