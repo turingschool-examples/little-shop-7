@@ -3,7 +3,9 @@ require "rails_helper"
 
 
 RSpec.describe "Admin", type: :feature do
-  
+  before (:each) do
+    #
+  end
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
@@ -30,7 +32,6 @@ RSpec.describe "Admin", type: :feature do
       it "Then I see the names of the top 5 customers who have conducted the largest number of successful transactions" do
         test_data
         visit admins_path
-        
 
         within "#top_5_customers" do
           expect("#{@customer_1.last_name}").to appear_before("#{@customer_2.last_name}")
@@ -44,7 +45,6 @@ RSpec.describe "Admin", type: :feature do
       conducted" do
         test_data
         visit admins_path
-        save_and_open_page
         
         within "#top_5_customers" do
           within "#top_five_#{@customer_1.first_name}#{@customer_1.last_name}" do
