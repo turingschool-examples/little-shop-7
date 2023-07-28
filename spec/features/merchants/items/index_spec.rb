@@ -21,8 +21,6 @@ RSpec.describe "items index page", type: :feature do
     @transaction_2 = FactoryBot.create(:transaction, invoice: @invoice_item_2.invoice, result: 0)
     @transaction_3 = FactoryBot.create(:transaction, invoice: @invoice_item_3.invoice, result: 0)
     @transaction_4 = FactoryBot.create(:transaction, invoice: @invoice_item_4.invoice, result: 0)
-      end
-    end
   end
 
 # As a merchant,
@@ -169,7 +167,15 @@ end
     it "displays the name of the top 5 most popular items ranked by total revenue generated" do
       visit merchant_items_path(@merchant_1)
 
+      top_items = Item.top_popular_items(@merchant_1.id)
 
+      within("#top_items") do
+        expect(page).to have_content(top_items[0].name)
+        expect(page).to have_content(top_items[1].name)
+        expect(page).to have_content(top_items[2].name)
+        expect(page).to have_content(top_items[3].name)
+        expect(page).to have_content(top_items[4].name)
+      end
     end
   end
 
