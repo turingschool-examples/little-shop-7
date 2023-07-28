@@ -8,6 +8,14 @@ RSpec.describe "items index page", type: :feature do
     @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: 1)
     @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: 1)
     @item_4 = @merchant_1.items.create!(name: "Stick", description: "long", unit_price: 30100, status: 0)
+
+    [@item_1, @item_2, @item_4].each do |item|
+      invoices = create_list(:invoice, 5, customer: create(:customer), status: 'completed')
+      invoices.each do |invoice|
+        create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: item.unit_price)
+        create(:transaction, invoice: invoice, result: 'success')
+      end
+    end
   end
 
 # As a merchant,
@@ -136,4 +144,22 @@ end
       end
     end
   end
+
+# 12. Merchant Items Index: 5 most popular items
+# As a merchant
+# When I visit my items index page
+# Then I see the names of the top 5 most popular items 
+# ranked by total revenue generated
+# And I see that each item name links to my merchant item show page for that item
+# And I see the total revenue generated next to each item name
+# Notes on Revenue Calculation:
+# - Only invoices with at least one successful transaction should count towards revenue
+# - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
+# - Revenue for an invoice item should be calculated as the 
+# - invoice item unit price multiplied by the quantity (do not use the item unit price)
+
+  describe "when i visit my items index page" do
+
+  end
+
 end
