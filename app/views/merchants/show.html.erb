@@ -15,7 +15,7 @@
   <h4>Items Ready to Ship</h4>
   <ul>
     <% @merchant.items_ready.each do |i| %>
-      <li><%= i.name %> - Invoice #<%= link_to "#{i.invoice_id}", merchant_invoice_path(@merchant, i.invoice_id) %></li>
+      <li><%= i.name %> - Invoice #<%= link_to "#{i.invoice_id}", merchant_invoice_path(@merchant, i.invoice_id) %> - <%= i.invoice_created_at %></li>
     <% end %>
   </ul>
 </div>

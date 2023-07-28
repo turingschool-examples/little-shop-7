@@ -11,14 +11,10 @@ class Merchant < ApplicationRecord
   
   def items_ready
     items.joins(:invoices)
-    .select("items.*, invoices.id as invoice_id")
+    .select("items.*, invoices.id AS invoice_id, invoices.created_at, TO_CHAR(invoices.created_at, 'FMDay, FMMonth FMDD, YYYY') AS invoice_created_at")
     .where.not("invoice_items.status = 2")
     .where.not("invoices.status = 2")
     .distinct
-    .order("created_at desc")
-  end
-
-  def invoice_id_item
-    invoice_items.invoice_id
+    .order("invoices.created_at desc")
   end
 end
