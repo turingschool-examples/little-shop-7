@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # end
   resources :admin, only: [:index]
   namespace :admin do
-    resources :merchants, only: [:index, :show, :update]
+    resources :merchants, only: [:index, :show, :update, :edit]
     resources :invoices, only: [:index, :show, :update]
   end
 end

@@ -1,23 +1,6 @@
-<h1>Edit Merchant Information</h1>
+<%= form_with model: @merchant, local: true do |f| %>
+  <p><%= f.label :name %></p>
+  <p><%= f.text_field :name %></p> <br>
 
-<%= form_with(model: @merchant, url: edit_admin_merchant_path(@merchant), method: :patch) do |form| %>
-  <% if @merchant.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@merchant.errors.count, 'error') %> prohibited this merchant from being saved:</h2>
-      <ul>
-        <% @merchant.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Submit" %>
-  </div>
-<% end %>
+  <p><%= f.submit %></p>
+<%end%>
