@@ -5,7 +5,7 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
-  enum status: { "enable": 0, "disable": 1 }
+  enum status: { "enable": 0, "disable": 1 }, _default: :disable
 
   # Instance Methods
   def top_5_customers
