@@ -6,13 +6,13 @@ RSpec.describe "merchant invoice show page" do
     @customer = FactoryBot.create(:customer)
     @invoice = FactoryBot.create(:invoice, customer: @customer)
     @item = FactoryBot.create(:item, merchant: @merchant)
-    @invoice_item = FactoryBot.create(:invoice_item, item: @item, invoice: @invoice)
+    @invoice_item = FactoryBot.create(:invoice_item, item: @item, invoice: @invoice, status: "packaged")
 
     @merchant_2 = FactoryBot.create(:merchant)
     @customer_2 = FactoryBot.create(:customer)
     @invoice_2 = FactoryBot.create(:invoice, customer: @customer_2)
     @item_2 = FactoryBot.create(:item, merchant: @merchant_2)
-    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2)
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, invoice: @invoice_2, status: "shipped")
   end
 
   describe "as a merchant" do
@@ -34,12 +34,19 @@ RSpec.describe "merchant invoice show page" do
 
         expect(page).to have_content(@item.name)
         expect(page).to have_content(@invoice_item.quantity)
-        expect(page).to have_content(@invoice_item.format_selling_price) 
+        expect(page).to have_content(@invoice_item.format_price) 
         expect(page).to have_content(@invoice_item.status)
 
         expect(page).to_not have_content(@item_2.name)
-        expect(page).to_not have_content(@invoice_item_2.format_selling_price)
+        expect(page).to_not have_content(@invoice_item_2.format_price)
         expect(page).to_not have_content(@invoice_item_2.status)
+      end
+
+      # User Story 17
+      it "then I see the total revenue that will be generated from all of my items on the invoice" do
+        visit merchant_invoice_path(@merchant, @invoice)
+
+        expect(page).to have_content(@invoice.total_revenue)
       end
     end
   end

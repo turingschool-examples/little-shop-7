@@ -18,5 +18,20 @@ RSpec.describe Invoice, type: :model do
         expect(invoice.format_created_at).to eq('Thursday, July 27, 2023')
       end
     end
+
+    describe "#total_revenue" do
+      it "can find sum of all invoice_items unit_prices" do
+        merchant = FactoryBot.create(:merchant)
+        customer = FactoryBot.create(:customer)
+        invoice = FactoryBot.create(:invoice, customer: customer)
+        item = FactoryBot.create(:item, merchant: merchant)
+        
+        invoice_item_1 = InvoiceItem.create!(quantity: 8, unit_price: 100, status: "pending", invoice_id: invoice.id, item_id: item.id)
+        invoice_item_2 = InvoiceItem.create!(quantity: 8, unit_price: 100, status: "pending", invoice_id: invoice.id, item_id: item.id)
+        invoice_item_3 = InvoiceItem.create!(quantity: 8, unit_price: 100, status: "pending", invoice_id: invoice.id, item_id: item.id)
+
+        expect(invoice.total_revenue).to eq(2400)
+      end
+    end
   end
 end
