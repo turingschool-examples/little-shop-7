@@ -7,6 +7,7 @@ RSpec.describe "items index page", type: :feature do
     @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: 1)
     @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: 1)
     @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: 1)
+    @item_4 = @merchant_1.items.create!(name: "Stick", description: "long", unit_price: 30100, status: 0)
   end
 
 # As a merchant,
@@ -58,4 +59,32 @@ RSpec.describe "items index page", type: :feature do
     end
   end
 
+# 10. Merchant Items Grouped by Status
+# As a merchant,
+# When I visit my merchant items index page
+# Then I see two sections, one for "Enabled Items" and
+# one for "Disabled Items"
+# And I see that each Item is listed in the appropriate section
+
+  describe "when i visit merchant items index page" do
+    it "displays an enabled and disabled item section" do
+      visit merchant_items_path(@merchant_1)
+      
+      expect(page).to have_selector("div#enabled_items")
+      expect(page).to have_selector("div#disabled_items")
+    end
+    
+    it "displays each item listed in that items appropriate section" do
+      visit merchant_items_path(@merchant_1)
+
+      within("div#enabled_items") do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_2.name)
+      end
+
+      within("div#disabled_items") do
+        expect(page).to have_content(@item_4.name)
+      end
+    end
+  end
 end

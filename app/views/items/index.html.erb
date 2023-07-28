@@ -1,12 +1,27 @@
-<h1>Little Esty Shop</h1> 
+<h1>Little Esty Shop</h1>
 
 <p><%= @merchant.name %></p>
 
-<div id="merchant_items">
+<div id="enabled_items">
+  <h2>Enabled Items</h2>
   <% @merchant.items.each do |item| %>
-    <div class="item">
-      <%= link_to item.name, merchant_item_path(@merchant, item) %>
-      <%= button_to item.disabled? ? 'Enable' : 'Disable', merchant_item_path(@merchant, item), method: :patch, params: { disable: true } %>
-    </div>
+    <% if item.enabled? %>
+      <div class="item">
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= button_to 'Disable', merchant_item_path(@merchant, item), method: :patch, params: { disable: true } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="disabled_items">
+  <h2>Disabled Items</h2>
+  <% @merchant.items.each do |item| %>
+    <% if item.disabled? %>
+      <div class="item">
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= button_to 'Enable', merchant_item_path(@merchant, item), method: :patch, params: { enable: true } %>
+      </div>
+    <% end %>
   <% end %>
 </div>
