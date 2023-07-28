@@ -69,7 +69,7 @@ RSpec.describe Merchant, type: :model do
           
           #An Array of packages that have the pending status only. 
           expect(pending_packages.length).to eq(2)
-          expect(pending_packages.second.invoice_items.first.status).to eq("pending")      
+          expect(pending_packages.second.invoice_items.first.status).to eq("pending")   
         end
 
       end
