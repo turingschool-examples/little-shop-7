@@ -57,7 +57,6 @@ RSpec.describe "merchant invoice show page" do
           expect(page).to have_select("invoice[status]")
           expect(page).to have_select("invoice[status]", selected: @invoice.status)
         end
-        save_and_open_page
       end
 
       it "when I click this select field, then I can select a new status for the item, and next to the select field I see a button to 'Update Item Status'," do
