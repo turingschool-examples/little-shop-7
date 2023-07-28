@@ -16,7 +16,7 @@ RSpec.describe Merchant, type: :model do
 
 
   describe "instance methods" do
-    describe "top_five_customers" do
+    describe "Merchant Dashboard" do
       let!(:merchant) {create(:merchant)}
       let!(:item) {create(:item, merchant: merchant)}
       let!(:customer_1) {create(:customer)}
@@ -41,13 +41,14 @@ RSpec.describe Merchant, type: :model do
       let!(:transaction_7) {create(:transaction, :success, invoice: invoice_1)}
 
 
-      let!(:invoice_item_1) {create(:invoice_item, item: item, invoice: invoice_1)}
-      let!(:invoice_item_2) {create(:invoice_item, item: item, invoice: invoice_2)}
-      let!(:invoice_item_3) {create(:invoice_item, item: item, invoice: invoice_3)}
-      let!(:invoice_item_4) {create(:invoice_item, item: item, invoice: invoice_4)}
-      let!(:invoice_item_5) {create(:invoice_item, item: item, invoice: invoice_5)}
-      let!(:invoice_item_6) {create(:invoice_item, item: item, invoice: invoice_6)}
+      let!(:invoice_item_1) {create(:invoice_item, :shipped, item: item, invoice: invoice_1)}
+      let!(:invoice_item_2) {create(:invoice_item, :shipped, item: item, invoice: invoice_2)}
+      let!(:invoice_item_3) {create(:invoice_item, :shipped, item: item, invoice: invoice_3)}
+      let!(:invoice_item_4) {create(:invoice_item, :shipped, item: item, invoice: invoice_4)}
+      let!(:invoice_item_5) {create(:invoice_item, :shipped, item: item, invoice: invoice_5)}
+      let!(:invoice_item_6) {create(:invoice_item, :shipped, item: item, invoice: invoice_6)}
 
+      #User Story 3
       it "creates an array of 5 customers" do
         top_customers = merchant.top_five_customers
 
@@ -56,6 +57,19 @@ RSpec.describe Merchant, type: :model do
         #Only customer that has 2 transactions is the top customer
         expect(top_customers.first).to eq(customer_1)
         
+      end
+
+      #User Story 4
+      describe "Items Ready to Ship" do
+        let!(:invoice_item_pending) {create(:invoice_item, :pending, item: item, invoice: invoice_1 )}
+        it "lists a name of all of all the merchants items that have status: packaged" do
+          listed_packages = merchant.items_to_ship
+          
+        require 'pry'; binding.pry
+          #A list of packages that h
+          expect()
+        end
+
       end
     end
   end
