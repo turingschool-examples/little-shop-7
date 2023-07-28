@@ -1,0 +1,6 @@
+<%= form_with model: @merchant, url: admin_merchant_path(@merchant) do |f| %>
+  <p><%= f.label :name %></p>
+  <p><%= f.text_field :name %></p> <br>
+
+  <p><%= f.submit %></p>
+<%end%>
