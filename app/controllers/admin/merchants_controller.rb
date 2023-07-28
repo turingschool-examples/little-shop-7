@@ -10,12 +10,12 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def edit
-    
+    @merchant = Merchant.find(params[:id])    
   end
   
   def update
     if @merchant.update(merchant_params)
-      redirect_to admin_merchant_path, flash: { success: "Merchant name updated successfully." }
+      redirect_to admin_merchant_path, flash: { success: "Merchant information updated successfully." }
     else
       render :edit_name
     end
