@@ -35,9 +35,9 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
     InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
     InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
-    @invoice_3 = @customer_2.invoices.create!(status: 'completed')
+    @invoice_3 = @customer_2.invoices.create!(status: 'completed', created_at: Time.new(2000))
     InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_3.id, quantity: 12, unit_price: 34873, status: 'packaged')
-    @invoice_4 = @customer_2.invoices.create!(status: 'in progress')
+    @invoice_4 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
 
     @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
@@ -215,6 +215,19 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
       within("div#items_to_be_shipped") do
         expect(page).to have_link("#{@invoice_3.id}", count: 1)
         expect(page).to have_link("#{@invoice_4.id}", count: 1)
+      end
+    end
+
+    it "Has the invoice created at date formatted and orders by oldest invoice date" do
+      visit merchant_dashboard_path(@merchant_1)
+
+      within("div#items_to_be_shipped") do
+        earlier = "#{@invoice_3.id}"
+        later = "#{@invoice_4.id}"
+
+        expect(page).to have_content("Saturday, January 1, 2000")
+        expect(page).to have_content("Sunday, January 1, 2023")
+        expect(earlier).to appear_before(later)
       end
     end
   end

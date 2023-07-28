@@ -11,10 +11,14 @@ class Merchant < ApplicationRecord
   
   def items_ready
     items.joins(:invoices)
-    .select("items.*, invoices.id AS invoice_id, invoices.created_at, TO_CHAR(invoices.created_at, 'FMDay, FMMonth FMDD, YYYY') AS invoice_created_at")
+    .select("items.*, 
+      invoices.id AS invoice_id, 
+      invoices.created_at AS created_at_time,
+      TO_CHAR(invoices.created_at, 'FMDay, FMMonth FMDD, YYYY') AS invoice_created_at")
+      # note: this formats the date with PostgresQL formatting. In the future, I think we should make a module that formats a date.
     .where.not("invoice_items.status = 2")
     .where.not("invoices.status = 2")
     .distinct
-    .order("invoices.created_at desc")
+    .order("invoices.created_at")
   end
 end

@@ -35,9 +35,9 @@ RSpec.describe Merchant, type: :model do
     InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
     InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
-    @invoice_3 = @customer_2.invoices.create!(status: 'completed')
+    @invoice_3 = @customer_2.invoices.create!(status: 'completed', created_at: Time.new(2000))
     InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_3.id, quantity: 12, unit_price: 34873, status: 'packaged')
-    @invoice_4 = @customer_2.invoices.create!(status: 'in progress')
+    @invoice_4 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
 
     @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
@@ -145,13 +145,27 @@ RSpec.describe Merchant, type: :model do
       it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
         expected_items = [@item_3, @item_4]
         result = @merchant_1.items_ready
+
         expect(result).to match_array(expected_items)
       end
 
       it "also returns the invoice_id for each associated item" do
         result = @merchant_1.items_ready
-        expect(result[0].invoice_id).to eq(@invoice_4.id)
-        expect(result[1].invoice_id).to eq(@invoice_3.id)
+        expect(result[0].invoice_id).to eq(@invoice_3.id)
+        expect(result[1].invoice_id).to eq(@invoice_4.id)
+      end
+
+      it "sorts by invoice creation date, oldest first" do
+        result = @merchant_1.items_ready
+        
+        expect(result.first.created_at_time < result.last.created_at_time).to be true
+      end
+
+      it "returns a formatted string of the invoice creation date" do
+        result = @merchant_1.items_ready
+
+        expect(result[0].invoice_created_at).to eq("Saturday, January 1, 2000")
+        expect(result[1].invoice_created_at).to eq("Sunday, January 1, 2023")
       end
     end
   end
