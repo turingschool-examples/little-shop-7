@@ -17,30 +17,46 @@ RSpec.describe Merchant, type: :model do
 
   describe "instance methods" do
     describe "top_five_customers" do
-      it "creates an array of 5 customers" do
-        
-        merchant = create(:merchant)
-        item = create(:item, merchant: merchant)
-        customers = create_list(:customer, 20)
+      let!(:merchant) {create(:merchant)}
+      let!(:item) {create(:item, merchant: merchant)}
+      let!(:customer_1) {create(:customer)}
+      let!(:customer_2) {create(:customer)}
+      let!(:customer_3) {create(:customer)}
+      let!(:customer_4) {create(:customer)}
+      let!(:customer_5) {create(:customer)}
+      let!(:customer_6) {create(:customer)}
+      let!(:invoice_1) {create(:invoice, customer: customer_1)}
+      let!(:invoice_2) {create(:invoice, customer: customer_2)}
+      let!(:invoice_3) {create(:invoice, customer: customer_3)}
+      let!(:invoice_4) {create(:invoice, customer: customer_4)}
+      let!(:invoice_5) {create(:invoice, customer: customer_5)}
+      let!(:invoice_6) {create(:invoice, customer: customer_6)}
       
-        customers.each do |customer|
-          rand(1..20).times do
-            invoice = create(:invoice, customer: customer)
-            invoice_item = create(:invoice_item, item: item, invoice: invoice)
-            transaction_results = ["success", "failed"]
-            result = transaction_results.sample
-            create(:transaction, result: result, invoice: invoice)
-          end
-        end
-        top_customers = merchant.top_five_customers
-      end
-    end
-  end
+      let!(:transaction_1) {create(:transaction, :success, invoice: invoice_1)}
+      let!(:transaction_2) {create(:transaction, :success, invoice: invoice_2)}
+      let!(:transaction_3) {create(:transaction, :success, invoice: invoice_3)}
+      let!(:transaction_4) {create(:transaction, :success, invoice: invoice_4)}
+      let!(:transaction_5) {create(:transaction, :success, invoice: invoice_5)}
+      let!(:transaction_6) {create(:transaction, :success, invoice: invoice_6)}
+      let!(:transaction_7) {create(:transaction, :success, invoice: invoice_1)}
 
-  describe "factory_bot" do
-    it "exists" do
-      merchant = build(:merchant, name: "Apple")
-      expect(merchant.name).to eq("Apple")
+
+      let!(:invoice_item_1) {create(:invoice_item, item: item, invoice: invoice_1)}
+      let!(:invoice_item_2) {create(:invoice_item, item: item, invoice: invoice_2)}
+      let!(:invoice_item_3) {create(:invoice_item, item: item, invoice: invoice_3)}
+      let!(:invoice_item_4) {create(:invoice_item, item: item, invoice: invoice_4)}
+      let!(:invoice_item_5) {create(:invoice_item, item: item, invoice: invoice_5)}
+      let!(:invoice_item_6) {create(:invoice_item, item: item, invoice: invoice_6)}
+
+      it "creates an array of 5 customers" do
+        top_customers = merchant.top_five_customers
+
+        #Method limits 5 customers
+        expect(top_customers.length).to eq(5)
+        #Only customer that has 2 transactions is the top customer
+        expect(top_customers.first).to eq(customer_1)
+        
+      end
     end
   end
 end
