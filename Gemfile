@@ -1,3 +1,7 @@
+require 'factory_bot_rails'
+require 'faker' # if you're also using faker gem
+require 'rails/console/helpers'
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
