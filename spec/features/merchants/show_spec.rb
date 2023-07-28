@@ -175,4 +175,56 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
       end
     end
   end
+
+  # 4. Merchant Dashboard Items Ready to Ship
+  describe "Items Ready to Ship" do
+    it "lists the names of all items that are ordered but not shipped" do
+      visit merchant_dashboard_path(@merchant1)
+
+      within("div#items_to_be_shipped") do
+        expect(page).to have_content(@item_1.name, count: 1)
+        expect(page).to have_content(@item_2.name, count: 1)
+        expect(page).to have_content(@item_3.name, count: 1)
+        expect(page).to have_content(@item_4.name, count: 1)
+        expect(page).to have_content(@item_5.name, count: 2)
+        expect(page).to have_content(@item_6.name, count: 0)
+        expect(page).to have_content(@item_7.name, count: 0)
+        expect(page).to have_content(@item_8.name, count: 1)
+        expect(page).to have_content(@item_9.name, count: 0)
+        expect(page).to have_content(@item_10.name, count: 0)
+      end
+    end
+
+    it "shows the invoice id next to each item to be shipped" do
+      visit merchant_dashboard_path(@merchant1)
+
+      within("div#items_to_be_shipped") do
+        expect(page).to have_content(@invoice1.id, count: 1)
+        expect(page).to have_content(@invoice2.id, count: 2)
+        expect(page).to have_content(@invoice3.id, count: 1)
+        expect(page).to have_content(@invoice4.id, count: 1)
+        expect(page).to have_content(@invoice5.id, count: 2)
+        expect(page).to have_content(@invoice6.id, count: 0)
+        expect(page).to have_content(@invoice7.id, count: 0)
+        expect(page).to have_content(@invoice8.id, count: 0)
+        expect(page).to have_content(@invoice9.id, count: 0)
+        expect(page).to have_content(@invoice10.id, count: 0)
+        expect(page).to have_content(@invoice11.id, count: 0)
+        expect(page).to have_content(@invoice12.id, count: 0)
+      end
+    end
+
+    it "the invoice id links to a merchant's invoice show page" do
+      visit merchant_dashboard_path(@merchant1)
+
+      # maybe add the direct path for more accurate testing? Maybe even the advanced route?
+      within("div#items_to_be_shipped") do
+        expect(page).to have_link("##{@invoice1.id}", count: 1)
+        expect(page).to have_link("##{@invoice2.id}", count: 2)
+        expect(page).to have_link("##{@invoice3.id}", count: 1)
+        expect(page).to have_link("##{@invoice4.id}", count: 1)
+        expect(page).to have_link("##{@invoice5.id}", count: 2)
+      end
+    end
+  end
 end
