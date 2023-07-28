@@ -41,6 +41,19 @@ class ItemsController < ApplicationController
     @item = @merchant.items.new
   end
   
+  def create
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new(item_params)
+    @item.status = 0
+
+    if @item.save
+      flash[:success] = "Item was created!"
+      redirect_to merchant_items_path(@merchant)
+    else
+      flash[:error] = "Failed to create item!"
+      render :new
+    end
+  end
 
   private
 
