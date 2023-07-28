@@ -26,18 +26,18 @@ RSpec.describe "merchant invoices index page" do
       end
 
       it "and each id links to the merchant invoice show page" do
-        customer_1 = FactoryBot.create(:customer)
-        invoice_1 = FactoryBot.create(:invoice, customer: customer_1)
-        item_1 = FactoryBot.create(:item, merchant: @merchant_1)
+        customer = FactoryBot.create(:customer)
+        invoice = FactoryBot.create(:invoice, customer: customer)
+        item = FactoryBot.create(:item, merchant: @merchant_1)
       
-        invoice_item_1 = FactoryBot.create(:invoice_item, item: item_1, invoice: invoice_1)
+        invoice_item = FactoryBot.create(:invoice_item, item: item, invoice: invoice)
       
         visit merchant_invoices_path(@merchant_1)
-        expect(page).to have_link(invoice_item_1.id)
+        expect(page).to have_link(invoice_item.id)
       
-        click_link invoice_item_1.id
+        click_link invoice_item.id
       
-        expect(current_path).to eq(merchant_invoice_path(@merchant_1, invoice_item_1.invoice_id))
+        expect(current_path).to eq(merchant_invoice_path(@merchant_1, invoice))
       end
     end
   end
