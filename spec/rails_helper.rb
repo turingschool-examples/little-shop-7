@@ -1,3 +1,8 @@
+require 'factory_bot_rails'
+require 'faker' 
+require 'rails/console/helpers'
+
+
 # require 'rake'
 
 # RSpec.configure do |config|
@@ -41,6 +46,9 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+
+  config.include FactoryBot::Syntax::Methods
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
