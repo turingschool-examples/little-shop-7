@@ -129,7 +129,7 @@ end
       fill_in "Unit price", with: 1000
 
       click_button "Submit"
-
+      save_and_open_page
       within("#disabled_items") do
         expect(page).to have_content("Goo")
         expect(Item.last.disabled?).to eq(true)

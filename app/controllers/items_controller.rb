@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
     @item.status = 0
 
     if @item.save
-      flash[:success] = "Item was created!"
+      flash[:success] = "Item was created with status set to disabled!"
       redirect_to merchant_items_path(@merchant)
     else
       flash[:error] = "Failed to create item!"
