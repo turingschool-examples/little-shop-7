@@ -3,13 +3,19 @@
 <%= render partial: "header", locals: {merchant: @merchant} %>
 
 <div id="favorite-customers">
-<h4> favorite Customers</h4>
-<ol>
-  <% @merchant.favorite_customers_alt.each do |c| %>
-  <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
-  <% end %>
-</ol>
+  <h4>Favorite Customers</h4>
+  <ol>
+    <% @merchant.favorite_customers_alt.each do |c| %>
+      <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
+    <% end %>
+  </ol>
+</div>
 
-
-
+<div id="items_to_be_shipped">
+  <h4>Items Ready to Ship</h4>
+  <ul>
+    <% @merchant.items_ready.each do |i| %>
+      <li><%= i.name %> - Invoice #<%= link_to "#{i.invoice_id}", merchant_invoice_path(@merchant, i.invoice_id) %></li>
+    <% end %>
+  </ul>
 </div>
