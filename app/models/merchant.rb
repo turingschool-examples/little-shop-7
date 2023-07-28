@@ -16,7 +16,7 @@ class Merchant < ApplicationRecord
                         .limit(5)
   end
 
-  def items_to_ship
-    
+  def pending_items
+    items.joins(:invoice_items).where("invoice_items.status = 2")
   end
 end

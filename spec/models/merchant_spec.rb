@@ -61,13 +61,15 @@ RSpec.describe Merchant, type: :model do
 
       #User Story 4
       describe "Items Ready to Ship" do
+        let!(:item_2) {create(:item, merchant: merchant)}
         let!(:invoice_item_pending) {create(:invoice_item, :pending, item: item, invoice: invoice_1 )}
+        let!(:invoice_item_pending_2) {create(:invoice_item, :pending, item: item_2, invoice: invoice_1 )}
         it "lists a name of all of all the merchants items that have status: packaged" do
-          listed_packages = merchant.items_to_ship
+          pending_packages = merchant.pending_items
           
-        require 'pry'; binding.pry
-          #A list of packages that h
-          expect()
+          #An Array of packages that have the pending status only. 
+          expect(pending_packages.length).to eq(2)
+          
         end
 
       end
