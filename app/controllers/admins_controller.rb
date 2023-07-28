@@ -1,7 +1,8 @@
 class AdminsController < ApplicationController 
 
   def index 
-    @top_five_customers = Customer.top_five
+    @top_customers = Customer.top_customers
+    
   end
   
 end

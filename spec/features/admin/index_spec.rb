@@ -36,7 +36,7 @@ RSpec.describe "Admin", type: :feature do
           expect("#{@customer_1.last_name}").to appear_before("#{@customer_2.last_name}")
           expect("#{@customer_2.last_name}").to appear_before("#{@customer_3.last_name}")
           expect("#{@customer_3.last_name}").to appear_before("#{@customer_4.last_name}")
-          expect("#{@customer_5.last_name}").to appear_before("#{@customer_4.last_name}")
+          expect("#{@customer_4.last_name}").to appear_before("#{@customer_5.last_name}")
         end
       end
 
@@ -45,21 +45,25 @@ RSpec.describe "Admin", type: :feature do
         test_data
         visit admins_path
         save_and_open_page
+        
         within "#top_5_customers" do
-          expect("#{@customer_1.last_name}").to appear_before(" - 16")
-          expect("#{@customer_2.last_name}").to appear_before(" - 6")
-          expect("#{@customer_3.last_name}").to appear_before("4 purchases")
-          expect("#{@customer_4.last_name}").to appear_before(" - 4")
-          expect("#{@customer_5.last_name}").to appear_before("4 purchases")
+          within "#top_five_#{@customer_1.first_name}#{@customer_1.last_name}" do
+            expect(page).to have_content("4 transactions")
+          end
+          within "#top_five_#{@customer_2.first_name}#{@customer_2.last_name}" do
+            expect(page).to have_content("2 transactions")
+          end
+          within "#top_five_#{@customer_3.first_name}#{@customer_3.last_name}" do
+            expect(page).to have_content("2 transactions")
+          end
+          within "#top_five_#{@customer_4.first_name}#{@customer_4.last_name}" do
+            expect(page).to have_content("2 transactions")
+          end
+          within "#top_five_#{@customer_5.first_name}#{@customer_5.last_name}" do
+            expect(page).to have_content("2 transactions")
+          end
         end
       end
     end
   end
 end
-
-customers.joins(:transactions)
-                        .where("transactions.result = 'success'") 
-                        .group('customers.id')
-                        .select("CONCAT(customers.first_name, ' ', customers.last_name) AS customer_name, customers.*, COUNT(customers.id) AS customer_count")
-                        .order('customer_count DESC')
-                        .limit(5)

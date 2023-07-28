@@ -13,10 +13,10 @@ RSpec.describe Customer, type: :model do
   describe "#top_five" do
     it "should return the top five customers and their transaction numbers" do
       test_data
-      top_customers = Customer.top_five
+      top_customers = Customer.top_customers
       expect(top_customers.length).to eq(5)
-      expect(top_customers.first.customer_name).to eq("Joey Ondricka")
-      expect(top_customers.first.transaction_count).to eq(16)
+      expect(top_customers.first.full_name).to eq("Joey Ondricka")
+      expect(top_customers.first.successful_transactions_count).to eq(4)
     end
   end
 end
