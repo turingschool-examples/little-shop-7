@@ -5,4 +5,7 @@ class Transaction < ApplicationRecord
   validates :result, presence: true
 
   belongs_to :invoice
+  has_many :customers, through: :invoice
+
+  
 end
