@@ -2,13 +2,22 @@
 
 <%= link_to 'Create New Merchant', "/admin/merchants/new" %>
 
+<h2>Top 5 Merchants by Revenue</h2>
+<ol>
+  <% @top_merchants.each do |merchant| %>
+    <li><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %> - <%= number_to_currency(merchant.revenue.to_f) %> in sales</li>
+  <% end %>
+</ol>
+
+
+
 <h2>Enabled Merchants</h2>
 <% if @enabled_merchants.any? %>
   <table>
     <tbody>
       <% @enabled_merchants.each do |merchant| %>
         <tr>
-          <td><%= merchant.name %></td>
+          <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
           <td>
             <%= button_to 'Disable', disable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
           </td>
