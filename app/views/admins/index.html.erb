@@ -7,6 +7,14 @@
   </nav>
 </section>
 <section id="content" style="clear:both">
+  <div id="incomplete_invoices" style="float:left; width:50%; padding:20px;">
+    <h4>Incomplete Invoices</h4>
+    <ol>
+      <% @incomplete_invoices.each_with_index do |invoice| %>
+        <li><%= link_to "Invoice # #{invoice.id}", "/admin/invoices/#{invoice.id}"%></li>
+      <% end %>
+    </ol>
+  </div>
   <div id="top_5_customers" style="float:right; width:50%; padding:20px;">
     <h4>Top 5 Customers</h4>
     <ol>

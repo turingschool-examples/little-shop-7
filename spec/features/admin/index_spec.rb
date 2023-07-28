@@ -1,11 +1,6 @@
 require "rails_helper"
 
-
-
 RSpec.describe "Admin", type: :feature do
-  before (:each) do
-    #
-  end
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
@@ -62,6 +57,42 @@ RSpec.describe "Admin", type: :feature do
           within "#top_five_#{@customer_5.first_name}#{@customer_5.last_name}" do
             expect(page).to have_content("2 transactions")
           end
+        end
+      end
+
+      it "Then I see a section for Incomplete Invoices" do
+        visit admins_path
+
+        expect(page).to have_css("#incomplete_invoices")
+
+      end
+
+      it "In that section I see a list of all the invoice ids that have unshipped items" do
+        
+        customer_1 = Customer.create!(first_name: "test", last_name: "testtest")
+        customer_2 = Customer.create!(first_name: "test", last_name: "testtest")
+        
+        customer_1 = create(:customer)
+        customer_2 = create(:customer)
+        merchant = create(:merchant)
+        invoices = Array.new
+        invoices.concat(create_list(:invoice, 3, status: "completed", customer: customer_1))
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
+        
+        invoices.each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item)
+        end
+        
+        visit admins_path
+        
+        within "#incomplete_invoices" do
+          expect(page).to_not have_content(invoices[0].id)
+          expect(page).to have_content(invoices[3].id)
+          expect(page).to have_content(invoices[4].id)
+          expect(page).to have_content(invoices[5].id)
+          # "And each invoice id links to that invoice's admin show page"
+          expect(page).to have_link("#{invoices[3].id}", href: "/admin/invoices/#{invoices[3].id}")
         end
       end
     end

@@ -8,4 +8,8 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items  
   has_many :transactions
+
+  def self.incomplete_invoices
+    where(status: "in progress")
+  end
 end
