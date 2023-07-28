@@ -123,22 +123,13 @@ RSpec.describe Invoice, type: :model do
   end
 
 
-  it "Can return all invoices with unshipped items ordered by oldest to newest" do
-    incomplete_invoices = Invoice.incomplete_invoices
-
-    expect(incomplete_invoices.count).to eq(6)
-    expect(incomplete_invoices.sample).to be_a(Invoice)
-    expect(incomplete_invoices).to eq([@invoice_8, @invoice_5, @invoice_3, @invoice_1, @invoice_2, @invoice_4])
+  describe 'instance methods' do 
+    it "Can return all invoices with unshipped items ordered by oldest to newest" do
+      incomplete_invoices = Invoice.incomplete_invoices
+  
+      expect(incomplete_invoices.count).to eq(6)
+      expect(incomplete_invoices.sample).to be_a(Invoice)
+      expect(incomplete_invoices).to eq([@invoice_8, @invoice_5, @invoice_3, @invoice_1, @invoice_2, @invoice_4])
+    end
   end
-
-  # describe "class methods" do
-  #   it "can find incomplete invoices" do
-  #     customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
-  #     customer_2 = Customer.create!(first_name: "Cecilia", last_name: "Jones")
-  #     invoice_1 = Invoice.create!(status: 0, customer: customer_1)  
-  #     invoice_2 = Invoice.create!(status: 1, customer: customer_2)
-
-  #     expect(Invoice.incomplete_invoices).to eq([invoice_1])
-  #   end
-  # end
 end

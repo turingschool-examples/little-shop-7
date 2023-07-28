@@ -13,17 +13,17 @@
 
 <div class="column">
   <section class="top_customers">
-    <h3>  Top 5 Customers </h3>
+    <h3>Top 5 Customers</h3>
       <ol>
         <% @top_5_customers.each do |customer| %>
-          <li><%="#{customer.first_name} #{customer.last_name} has made #{customer.result_count} successful transactions"%></li><br>
+          <li><%="#{customer.first_name} #{customer.last_name} has made #{customer.successful_transactions} successful transactions"%></li><br>
         <% end %>
       </ol>
   </section>
   </div>
 
 <div class="incomplete-invoices">
-  <h2> Incomplete Invoices </h2>
+  <h2>Incomplete Invoices</h2>
       <% @incomplete_invoices.each do |invoice| %><br>
           <div id="invoice-<%= invoice.id %>">
               <%= link_to "Invoice ##{invoice.id}", admin_invoice_path(invoice.id) %> - <%= invoice.formatted_date %>
