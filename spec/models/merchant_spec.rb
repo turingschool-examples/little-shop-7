@@ -62,12 +62,12 @@ RSpec.describe Merchant, type: :model do
     
   describe "class methods" do
 
-    let!(:little_kin_shop) { create(:merchant) }
-    let!(:red_roses) { create(:merchant) }
-    let!(:halloween_face) { create(:merchant) }
-    let!(:tall_boy) { create(:merchant, status: 1) }
-    let!(:arleen) { create(:merchant, status: 1) }
-    let!(:bust_it_big) { create(:merchant, status: 1) }
+    let!(:little_kin_shop) { create(:merchant, status: 0) }
+    let!(:red_roses) { create(:merchant, status: 0) }
+    let!(:halloween_face) { create(:merchant, status: 0) }
+    let!(:tall_boy) { create(:merchant) }
+    let!(:arleen) { create(:merchant) }
+    let!(:bust_it_big) { create(:merchant) }
     
     describe ".enabled_merchants" do
       it "returns an array of enabled merchants" do
