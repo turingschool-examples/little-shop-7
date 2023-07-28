@@ -18,10 +18,9 @@ RSpec.describe "admin merchants edit page" do
     expect(page).to_not have_content("JB")
     expect(page).to have_field("Status", with: "enable")
     fill_in "Name", with: "DAS"
-    click_button "Update Merchant"
+    click_button "Save"
     expect(current_path).to eq(admin_merchant_path(little_kin_shop))
     expect(page).to have_content("DAS")
     expect(:alert).to be_present
-
   end
 end
