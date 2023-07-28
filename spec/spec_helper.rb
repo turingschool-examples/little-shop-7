@@ -15,54 +15,41 @@ require 'rails/console/helpers'
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-def factory_data
-  @customer_1 = create(:customer, first_name: "Jimmy", last_name: "Pickles")
-  @customer_2 = create(:customer)
-  @customer_3 = create(:customer)
-  @customer_4 = create(:customer)
-  @customer_5 = create(:customer)
-  @customer_6 = create(:customer)
+def factory_data_factory(instance_num)
 
-  @invoice_1 = create(:invoice)
-  @invoice_2 = create(:invoice)
-  @invoice_3 = create(:invoice)
-  @invoice_4 = create(:invoice)
-  @invoice_5 = create(:invoice)
-  @invoice_6 = create(:invoice)
+  @customers = Array.new
+  @merchants = Array.new
+  @invoices = Array.new
+  @items = Array.new
+  @transactions = Array.new
+  @invoice_items = Array.new
 
-  @item_1 = create(:item)
-  @item_2 = create(:item)
-  @item_3 = create(:item)
-  @item_4 = create(:item)
-  @item_5 = create(:item)
-  @item_6 = create(:item)
-  @item_7 = create(:item)
-  @item_8 = create(:item)
-  @item_9 = create(:item)
-  @item_10 = create(:item)
+  instance_num.times do |n|
 
-  @invoice_item_1 = create(:invoice_item)
-  @invoice_item_2 = create(:invoice_item)
-  @invoice_item_3 = create(:invoice_item)
-  @invoice_item_4 = create(:invoice_item)
-  @invoice_item_5 = create(:invoice_item)
+    customer = create(:customer)
+    instance_variable_set("@customer_#{n + 1}", customer)
+    @customers << customer
+  
+    merchant = create(:merchant)
+    instance_variable_set("@merchant_#{n + 1}", merchant)
+    @merchants << merchant
+  
+    invoice = create(:invoice, customer: customer)
+    instance_variable_set("@invoice_#{n + 1}", invoice)
+    @invoices << invoice
+    
+    item = create(:item, merchant: merchant)
+    instance_variable_set("@item_#{n + 1}", item)
+    @items << item
+    
+    transaction = create(:transaction, invoice: invoice)
+    instance_variable_set("@transaction_#{n + 1}", transaction)
+    @transactions << transaction
 
-  @merchant_1 = create(:merchant)
-  @merchant_2 = create(:merchant)
-  @merchant_3 = create(:merchant)
-  @merchant_4 = create(:merchant)
-  @merchant_5 = create(:merchant)
-
-  @transaction_1 = create(:transaction)
-  @transaction_2 = create(:transaction)
-  @transaction_3 = create(:transaction)
-  @transaction_4 = create(:transaction)
-  @transaction_5 = create(:transaction)
-  @transaction_6 = create(:transaction)
-  @transaction_7 = create(:transaction)
-  @transaction_8 = create(:transaction)
-  @transaction_9 = create(:transaction)
-  @transaction_10 = create(:transaction)
+    invoice_item = create(:invoice_item, invoice: invoice, item: item)
+    instance_variable_set("@invoice_item_#{n + 1}", invoice_item)
+    @invoice_items << invoice_item
+  end
 end
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -169,9 +156,9 @@ def test_data
   @invoice_10 = @customer_4.invoices.create!(customer_id: @customer_4.id, status: 2)
   @invoice_11 = @customer_5.invoices.create!(customer_id: @customer_5.id, status: 2)
 
-  @invoice_12 = @customer_5.invoices.create!(customer_id: @customer_5.id, status: 0)
-  @invoice_13 = @customer_3.invoices.create!(customer_id: @customer_3.id, status: 0)
-  @invoice_14 = @customer_4.invoices.create!(customer_id: @customer_4.id, status: 0)
+  @invoice_12 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 0)
+  @invoice_13 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 0)
+  @invoice_14 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 0)
 
   @transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
   @transaction_2 = Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4580251236515201", credit_card_expiration_date: "04/27", result: "success")
@@ -185,7 +172,7 @@ def test_data
   @transaction_10 = Transaction.create!(invoice_id: @invoice_10.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
   @transaction_11 = Transaction.create!(invoice_id: @invoice_11.id, credit_card_number: "4354495077693036", credit_card_expiration_date: "04/27", result: "success")
 
-  @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "4354495077693037", credit_card_expiration_date: "05/27", result: "failed")
-  @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "06/27", result: "failed")
+  @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "4354495077693037", credit_card_expiration_date: "05/27", result: "success")
+  @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "06/27", result: "success")
   @transaction_14 = Transaction.create!(invoice_id: @invoice_14.id, credit_card_number: "4354495077693038", credit_card_expiration_date: "07/27", result: "failed")
 end

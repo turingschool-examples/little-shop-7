@@ -1,9 +1,18 @@
 <section id="header"> 
   <h1 style="text-align:center;">Little Esty Shop</h1>
-  <h3 style="float:left; width:50%; text-align:left">Admin Dashboard</h3>
+  <h3 style="float:left; width:50%; text-align:left;">Admin Dashboard</h3>
   <nav style="float:right; width:50%; text-align:right"> 
     <%= link_to("Merchants", "/admin/merchants") %> | 
     <%= link_to("Invoices", "/admin/invoices") %>
   </nav>
 </section>
-
+<section id="content" style="clear:both">
+  <div id="top_5_customers" style="float:right; width:50%; padding:20px;">
+    <h4>Top 5 Customers</h4>
+    <ol>
+      <% @top_customers.each_with_index do |customer| %>
+        <div id="top_five_<%=customer.first_name%><%=customer.last_name%>"><li><%= "#{customer.full_name} - #{customer.successful_transactions_count} transactions" %></li></div>
+      <% end %>
+    </ol>
+  </div>
+</section>

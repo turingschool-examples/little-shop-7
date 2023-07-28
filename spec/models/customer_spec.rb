@@ -11,28 +11,22 @@ RSpec.describe Customer, type: :model do
     it { should have_many(:transactions).through(:invoices) }
   end
 
-  describe "factory_bot" do
-    it "exists" do
-      factory_data
-
-      expect(@customer_1.first_name).to eq("Jimmy")
-      expect(@customer_1.last_name).to eq("Pickles")
+  describe "#top_five" do
+    it "should return the top five customers and their transaction numbers" do
+      test_data
+      top_customers = Customer.top_customers
+      expect(top_customers.length).to eq(5)
+      expect(top_customers.first.full_name).to eq("Joey Ondricka")
+      expect(top_customers.first.successful_transactions_count).to eq(4)
     end
   end
 
-  describe "instance methods" do
-    it "#count_transactions" do 
-      merchant = create(:merchant)
-      item = create(:item, merchant: merchant)
-      customers = create_list(:customer, 10, first_name: "pizza")
+  describe "factory_bot" do
+    it "exists" do
+      customer = build(:customer, first_name: "Jimmy", last_name: "Pickles")
+      expect(customer.first_name).to eq("Jimmy")
+      expect(customer.last_name).to eq("Pickles")
 
-      customers[0..2].each do |customer|
-        invoice = create(:invoice, customer: customer)
-        invoice_item = create(:invoice_item, item: item, invoice: invoice)
-        transaction = create_list(:transaction, 5, result: "success", invoice: invoice)
-      end
-
-      expect(customers.first.count_transactions).to eq(5)
     end
   end
 end

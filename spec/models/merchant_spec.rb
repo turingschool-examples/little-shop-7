@@ -19,12 +19,28 @@ RSpec.describe Merchant, type: :model do
     describe "top_five_customers" do
       it "creates an array of 5 customers" do
         
-        merchant = Merchant.first
-        
+        merchant = create(:merchant)
+        item = create(:item, merchant: merchant)
+        customers = create_list(:customer, 20)
+      
+        customers.each do |customer|
+          rand(1..20).times do
+            invoice = create(:invoice, customer: customer)
+            invoice_item = create(:invoice_item, item: item, invoice: invoice)
+            transaction_results = ["success", "failed"]
+            result = transaction_results.sample
+            create(:transaction, result: result, invoice: invoice)
+          end
+        end
         top_customers = merchant.top_five_customers
-        #customer_names = top_customers.pluck(:name)
-        require 'pry'; binding.pry
       end
+    end
+  end
+
+  describe "factory_bot" do
+    it "exists" do
+      merchant = build(:merchant, name: "Apple")
+      expect(merchant.name).to eq("Apple")
     end
   end
 end
