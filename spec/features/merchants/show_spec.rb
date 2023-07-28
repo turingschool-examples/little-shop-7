@@ -32,7 +32,7 @@ RSpec.describe "Merchant Show Page" do
       customers = create_list(:customer, 20)
     
       customers.each do |customer|
-        rand(1..4).times do
+        rand(1..20).times do
           invoice = create(:invoice, customer: customer)
           invoice_item = create(:invoice_item, item: item, invoice: invoice)
           transaction_results = ["success", "failed"]
