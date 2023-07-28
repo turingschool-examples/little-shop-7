@@ -120,5 +120,20 @@ end
 
       expect(page).to have_current_path(merchant_items_path(@merchant_1))
     end
+
+    it "displays the newly created item in the appropriate section with a default status of disabled" do
+      visit new_merchant_item_path(@merchant_1)
+
+      fill_in "Name", with: "Goo"
+      fill_in "Description", with: "Gooey"
+      fill_in "Unit price", with: 1000
+
+      click_button "Submit"
+
+      within("#disabled_items") do
+        expect(page).to have_content("Goo")
+        expect(Item.last.disabled?).to eq(true)
+      end
+    end
   end
 end
