@@ -2,6 +2,8 @@ class Admin::MerchantsController < ApplicationController
 
   def index
     @merchants = Merchant.all
+    @enabled_merchants = Merchant.enabled
+    @disabled_merchants = Merchant.disabled
   end
 
   def show
@@ -33,13 +35,6 @@ class Admin::MerchantsController < ApplicationController
     @merchant.update(status: :disabled)
     redirect_to "/admin/merchants", notice: "Merchant status updated"
   end
-
-
-  # def toggle_status
-  #   @merchant = Merchant.find(params[:id])
-  #   @merchant.update(status: !@merchant.status)
-  #   redirect_to "/admin/merchants"
-  # end
 
   private
 
