@@ -23,6 +23,7 @@ class Merchant < ApplicationRecord
       .where(status: "pending")
       .select("items.*, invoice_items.*")
       .distinct
+      .order('invoice_items.created_at')
   end
 
   # Class methods

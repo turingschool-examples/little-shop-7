@@ -38,7 +38,7 @@ RSpec.describe Merchant, type: :model do
     end 
 
     describe "#ready_to_ship" do
-      it "can list items that are ready to ship" do
+      it "can list items that are ready to ship and order items from oldest to newest" do
         ready_to_ship_invoice_items = @invoices.map do |invoice|
           create(:invoice_item, item: @items.sample, invoice: invoice, status: 1)
         end
@@ -49,6 +49,13 @@ RSpec.describe Merchant, type: :model do
 
         expect(@merchant_1.ready_to_ship).not_to be_empty
         expect(@merchant_1.ready_to_ship).to include(*item_names)
+        
+        # User Story 5
+        created_dates = @merchant_1.ready_to_ship.map do |item|
+          item.created_at
+        end
+        
+        expect(created_dates).to eq(created_dates.sort)
       end
     end
   end
