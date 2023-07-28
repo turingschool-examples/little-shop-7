@@ -198,11 +198,11 @@ RSpec.describe "Merchant Dashboard Page", type: :feature do
 
     it "shows the invoice id next to each item to be shipped" do
       visit merchant_dashboard_path(@merchant_1)
-      save_and_open_page
+
       within("div#items_to_be_shipped") do
         expect(page).to have_content(@invoice_3.id, count: 1)
         expect(page).to have_content(@invoice_4.id, count: 1)
-        
+
         expect(page).to_not have_content(@invoice_1.id)
         expect(page).to_not have_content(@invoice_2.id)
       end
