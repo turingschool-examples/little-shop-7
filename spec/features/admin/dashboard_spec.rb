@@ -28,14 +28,14 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
     @customer_9 = Customer.create!(first_name: 'Dejon', last_name: 'Fadel')
     @customer_10 = Customer.create!(first_name: 'Ramona', last_name: 'Reynolds')
 
-    @invoice_1 = @customer_1.invoices.create!(status: 'cancelled')
-    @invoice_2 = @customer_1.invoices.create!(status: 'cancelled')
+    @invoice_1 = @customer_1.invoices.create!(status: 'in progress')
+    @invoice_2 = @customer_1.invoices.create!(status: 'in progress', created_at: Time.new(2023))
 
-    @invoice_3 = @customer_2.invoices.create!(status: 'completed')
-    @invoice_4 = @customer_2.invoices.create!(status: 'in progress')
+    @invoice_3 = @customer_2.invoices.create!(status: 'in progress')
+    @invoice_4 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2022))
 
     @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
-    @invoice_6 = @customer_3.invoices.create!(status: 'in progress')
+    @invoice_6 = @customer_3.invoices.create!(status: 'in progress', created_at: Time.new(2020))
 
     @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
     @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
@@ -47,13 +47,10 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
     @invoice_12 = @customer_6.invoices.create!(status: 'completed')
 
     InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
     InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_2.id, quantity: 12, unit_price: 34873, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_9.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'shipped')
 
     #Customer 1 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: '4654405418249632', credit_card_expiration_date: '04/22/20', result: 'success')
@@ -153,18 +150,43 @@ RSpec.describe "Admin Dashboard Page", type: :feature do
 
   # US 22  
   it "can see a section for 'Incomplete Invoices'" do
-    customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
-    customer_2 = Customer.create!(first_name: "Cecilia", last_name: "Jones")
-    invoice_1 = Invoice.create!(status: 0, customer: customer_1)  
-    invoice_2 = Invoice.create!(status: 1, customer: customer_2)
 
     visit admin_index_path
 
-    within("div.incomplete-invoices") do
+    within(".incomplete-invoices") do
       expect(page).to have_content("Incomplete Invoices")
-      expect(page).to have_content(invoice_1.id)
-      expect(page).to_not have_content(invoice_2.id)
-      expect(page).to have_link("#{invoice_1.id}")
+      expect(page).to have_link("Invoice ##{@invoice_1.id}", href: "/admin/invoices/#{@invoice_1.id}")
+      expect(page).to have_link("Invoice ##{@invoice_2.id}", href: "/admin/invoices/#{@invoice_2.id}")
+      expect(page).to have_link("Invoice ##{@invoice_4.id}", href: "/admin/invoices/#{@invoice_4.id}")
+
+      expect(page).to_not have_link("Invoice ##{@invoice_5.id}")
     end
   end
+
+  # # US 23
+
+  it "displays each incomplete invoice, oldest to newest" do 
+
+    visit admin_index_path
+    
+    within ".incomplete-invoices" do 
+      expect(page).to_not have_content(@invoice_9.id)
+    end
+
+    within("#invoice-#{@invoice_1.id}") do
+      expect(page).to have_link("Invoice ##{@invoice_1.id}")
+      expect(page).to have_content(@invoice_1.formatted_date)
+    end
+  
+    within("#invoice-#{@invoice_2.id}") do
+      expect(page).to have_link("Invoice ##{@invoice_2.id}")
+      expect(page).to have_content(@invoice_2.formatted_date)
+    end
+
+    within("#invoice-#{@invoice_4.id}") do
+      expect(page).to have_link("Invoice ##{@invoice_4.id}")
+      expect(page).to have_content(@invoice_4.formatted_date)
+    end
+  end
+
 end

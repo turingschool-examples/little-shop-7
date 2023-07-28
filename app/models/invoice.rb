@@ -8,7 +8,11 @@ class Invoice < ApplicationRecord
   validates :status, presence: true
 
   def self.incomplete_invoices
-    where(status: "in progress")
+    joins(:invoice_items).where.not(invoice_items: {status: 2}).order(created_at: :desc)
+  end
+
+  def formatted_date
+    created_at.strftime("%A, %B %d, %Y")
   end
 
 end
