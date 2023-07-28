@@ -22,4 +22,14 @@ class Item < ApplicationRecord
   def enabled?
     status == "enabled"
   end
+
+  def self.top_popular_items(merchant_id)
+    joins(invoices: :transactions)
+      .where('invoices.merchant_id = ?', merchant_id)
+      .where(transactions: { result: 0 })
+      .select('items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .group(:id)
+      .order('total_revenue DESC')
+      .limit(5)
+  end
 end
