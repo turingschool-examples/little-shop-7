@@ -129,11 +129,29 @@ RSpec.describe Merchant, type: :model do
     it {should have_many(:transactions).through(:invoices)}
   end
 
+  describe "class methods" do
+
+  end
+
   describe "instance methods" do 
     describe "#favorite_customers" do
       it "returns the top 5 customers with the most successful transactions for a merchant " do
         expect(@merchant_1.favorite_customers_alt.first.num_transactions).to eq(6)
         expect(@merchant_1.favorite_customers_alt.first).to eq(@customer_6)
+      end
+    end
+    
+    describe "#items_ready" do
+      it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
+        expected_items = [@item_3, @item_4]
+        result = @merchant_1.items_ready
+        expect(result).to match_array(expected_items)
+      end
+
+      it "also returns the invoice_id for each associated item" do
+        result = @merchant_1.items_ready
+        expect(result[0].invoice_id).to eq(@invoice_4.id)
+        expect(result[1].invoice_id).to eq(@invoice_3.id)
       end
     end
   end
