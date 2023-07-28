@@ -185,7 +185,7 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.8.1)
-    reline (0.3.5)
+    reline (0.3.7)
       io-console (~> 0.5)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -277,4 +277,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.10
+   2.4.17
