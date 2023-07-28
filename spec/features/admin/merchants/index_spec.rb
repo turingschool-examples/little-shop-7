@@ -39,4 +39,26 @@ RSpec.describe "admin merchants index page" do
     click_link little_kin_shop.name
     expect(current_path).to eq(admin_merchant_path(little_kin_shop))
   end
+
+  it "provides button to disable merchant from index page" do
+    within(".merchant-#{little_kin_shop.id}") do
+      expect(page).to have_button("Disable")
+      click_button "Disable"
+      expect(current_path).to eq(admin_merchants_path)
+    end
+    within(".disabled_merchants") do
+      expect(page).to have_content(little_kin_shop.name)
+    end
+  end
+
+  it "provides button to enable merchant from index page" do
+    within(".merchant-#{tall_boy.id}") do
+      expect(page).to have_button("Enable")
+      click_button "Enable"
+      expect(current_path).to eq(admin_merchants_path)
+    end
+    within(".enabled_merchants") do
+      expect(page).to have_content(little_kin_shop.name)
+    end
+  end
 end

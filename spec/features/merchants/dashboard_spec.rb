@@ -65,6 +65,37 @@ RSpec.describe "merchant dashboard", type: :feature do
           expect(page).to have_content(customer.transaction_count)
         end
       end
+
+      # User Story 4
+      it "I see a section for 'Items Ready to Ship' that has a list of then names of all of my items that have been ordered and have not yet been shipped" do
+        visit merchant_dashboards_path(@merchant_1)
+        
+        within("#ready-to-ship") do
+          expect(page).to have_content("Items Ready To Ship")
+        end
+      end
+
+      it "and next to each Item I see the id of the invoice that ordered my item, and each invoice id is a link to my merchant's invoice show page" do
+        visit merchant_dashboards_path(@merchant_1)
+        
+        invoice_link = @merchant_1.ready_to_ship.first.invoice_id
+        
+        within("#ready-to-ship") do
+          expect(page).to have_link(invoice_link)
+          click_link invoice_link
+        end
+
+        expect(current_path).to eq(merchant_invoice_path(@merchant_1,invoice_link))
+      end
+
+      # User Story 5
+      it "In the 'Items Ready To Ship' section, Next to each Item name I see the date that the invoice was created and I see the date formatted like 'Monday, July 18, 2019'" do
+        visit merchant_dashboards_path(@merchant_1)
+        
+        invoice = @invoices.first
+
+        expect(page).to have_content(invoice.format_created_at)
+      end
     end
   end
 end

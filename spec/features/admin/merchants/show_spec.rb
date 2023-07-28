@@ -18,4 +18,9 @@ RSpec.describe "admin merchants show page" do
     expect(page).to_not have_content(red_roses.name)
   end
 
+  it "provides link to update merchant info" do
+    click_link "Update Merchant"
+    expect(current_path).to eq(edit_admin_merchant_path(little_kin_shop))
+  end
+
 end

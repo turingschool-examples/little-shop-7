@@ -2,10 +2,11 @@
 
 <p><%= @merchant.name %></p>
 
-<ul>
+<div id="merchant_items">
   <% @merchant.items.each do |item| %>
-    <li>
-      <%= link_to item.name, merchant_item_path(@merchant, item), class: "item-button" %>
-    </li>
+    <div class="item">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+      <%= button_to item.disabled? ? 'Enable' : 'Disable', merchant_item_path(@merchant, item), method: :patch, params: { disable: true } %>
+    </div>
   <% end %>
-</ul>
+</div>
