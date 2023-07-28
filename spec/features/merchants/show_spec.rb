@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Merchant, type: :model do 
+RSpec.describe "Merchant Dashboard Page", type: :feature do
   before :each do
     @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
@@ -121,19 +121,57 @@ RSpec.describe Merchant, type: :model do
     @transaction_36 = @invoice_12.transactions.create!(credit_card_number: '4923661117104166', credit_card_expiration_date: '08/22/20', result: 'success')
     #Customer 6 - total successful transactions = 6
   end
-  describe "relationships" do
-    it {should have_many :items}
-    it {should have_many(:invoice_items).through(:items)}
-    it {should have_many(:invoices).through(:items)}
-    it {should have_many(:customers).through(:invoices)}
-    it {should have_many(:transactions).through(:invoices)}
+
+  # 1. Merchant Dashboard
+  it "shows the merchant name" do
+    visit merchant_dashboard_path(@merchant_1)
+
+    within("div#merchant-header") do
+      expect(page).to have_content(@merchant_1.name).once
+    end
   end
 
-  describe "instance methods" do 
-    describe "#favorite_customers" do
-      it "returns the top 5 customers with the most successful transactions for a merchant " do
-        expect(@merchant_1.favorite_customers_alt.first.num_transactions).to eq(6)
-        expect(@merchant_1.favorite_customers_alt.first).to eq(@customer_6)
+  # 2. Merchant Dashboard Links
+  it "has links to the merchant items index and the invoice items index" do 
+    visit merchant_dashboard_path(@merchant_1)
+
+    within("div#merchant-header") do
+      expect(page).to have_link("My Items")
+      expect(page).to have_link("My Invoices")
+    end
+  end
+
+  # 3. Merchant Dashboard Statistics - Favorite Customers
+  describe "favorite customers" do
+    it "lists names of the 5 customers with the most success transactions" do
+      visit merchant_dashboard_path(@merchant_1)
+
+      within("div#favorite-customers") do
+        expect(page).to have_content(@customer_6.full_name).once
+        expect(page).to have_content(@customer_2.full_name).once
+        expect(page).to have_content(@customer_3.full_name).once
+        expect(page).to have_content(@customer_5.full_name).once
+        expect(page).to have_content(@customer_1.full_name).once
+        
+        expect(page).to_not have_content(@customer_4.full_name)
+        
+        expect(@customer_6.full_name).to appear_before(@customer_2.full_name)
+        expect(@customer_2.full_name).to appear_before(@customer_3.full_name)
+        expect(@customer_3.full_name).to appear_before(@customer_5.full_name)
+        expect(@customer_5.full_name).to appear_before(@customer_1.full_name)
+      end
+    end
+
+    it "lists the number of successful transactions for the favorite customers" do
+      visit merchant_dashboard_path(@merchant_1)
+
+      within("div#favorite-customers") do
+        expect(page).to have_content("- 6 purchases")
+        expect(page).to have_content("- 5 purchases")
+        expect(page).to have_content("- 4 purchases")
+        expect(page).to have_content("- 3 purchases")
+        expect(page).to have_content("- 2 purchases")
+        expect(page).to_not have_content("- 1 purchases")
       end
     end
   end

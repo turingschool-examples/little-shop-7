@@ -1,0 +1,15 @@
+<!-- https://backend.turing.edu/module2/lessons/partials -->
+
+<%= render partial: "header", locals: {merchant: @merchant} %>
+
+<div id="favorite-customers">
+<h4> favorite Customers</h4>
+<ol>
+  <% @merchant.favorite_customers_alt.each do |c| %>
+  <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
+  <% end %>
+</ol>
+
+
+
+</div>

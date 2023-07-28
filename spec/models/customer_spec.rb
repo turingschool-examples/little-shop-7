@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do 
- before :each do
+  before :each do
     @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
     @merchant_3 = Merchant.create!(name: 'Willms and Sons')
@@ -29,31 +29,42 @@ RSpec.describe Customer, type: :model do
     @customer_10 = Customer.create!(first_name: 'Ramona', last_name: 'Reynolds')
 
     @invoice_1 = @customer_1.invoices.create!(status: 'cancelled')
+    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
     @invoice_2 = @customer_1.invoices.create!(status: 'cancelled')
+    InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
+    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
     @invoice_3 = @customer_2.invoices.create!(status: 'completed')
+    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_3.id, quantity: 12, unit_price: 34873, status: 'packaged')
     @invoice_4 = @customer_2.invoices.create!(status: 'in progress')
+    InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
 
     @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
+    InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
     @invoice_6 = @customer_3.invoices.create!(status: 'in progress')
-
+    InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    
     @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
+    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
-
+    InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    
     @invoice_9 = @customer_5.invoices.create!(status: 'completed')
+    InvoiceItem.create!(invoice_id: @invoice_9.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     @invoice_10 = @customer_5.invoices.create!(status: 'completed')
-
+    InvoiceItem.create!(invoice_id: @invoice_10.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+    
     @invoice_11 = @customer_6.invoices.create!(status: 'in progress')
+    InvoiceItem.create!(invoice_id: @invoice_11.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     @invoice_12 = @customer_6.invoices.create!(status: 'completed')
+    InvoiceItem.create!(invoice_id: @invoice_12.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
 
-    InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'pending')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_2.id, quantity: 12, unit_price: 34873, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
-    InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
-    InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
     #Customer 1 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: '4654405418249632', credit_card_expiration_date: '04/22/20', result: 'success')
@@ -68,11 +79,11 @@ RSpec.describe Customer, type: :model do
     @transaction_7 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'failed')
     @transaction_8 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'success')
     @transaction_9 = @invoice_3.transactions.create!(credit_card_number: '4354495077693036', credit_card_expiration_date: '09/22/20', result: 'success')
-
     @transaction_10 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     @transaction_11 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     @transaction_12 = @invoice_4.transactions.create!(credit_card_number: '4515551623735607', credit_card_expiration_date: '08/22/20', result: 'success')
     #Customer 2 - total successful transactions = 5
+
     #Customer 3
     @transaction_13 = @invoice_5.transactions.create!(credit_card_number: '4844518708741275', credit_card_expiration_date: '10/22/20', result: 'success')
     @transaction_14 = @invoice_5.transactions.create!(credit_card_number: '4844518708741275', credit_card_expiration_date: '10/22/20', result: 'success')
@@ -115,33 +126,47 @@ RSpec.describe Customer, type: :model do
     it {should have_many :invoices}
     it {should have_many(:transactions).through(:invoices)}
     it {should have_many(:invoice_items).through(:invoices)}
-    it {should have_many(:items).through(:invoice_items)}
+    it {should have_many(:items).through(:invoices)}
     it {should have_many(:merchants).through(:items)}
   end
 
-  describe "Admin user story set up" do
-
-      #US_21
-
-    describe "class methods" do 
-      describe ".top_customers" do 
-        it 'displays the names of the top 5 customers by successful transactions' do 
-          expect(Customer.top_5_customers).to match([@customer_6, @customer_2, @customer_3, @customer_5, @customer_1])
-          expect(Customer.top_5_customers[0].first_name).to match("Heber")
-        end
+  #US_21
+  describe "class methods" do 
+    describe ".top_customers" do 
+      it 'displays the names of the top 5 customers by successful transactions' do 
+        expect(Customer.top_5_customers).to match([@customer_6, @customer_2, @customer_3, @customer_5, @customer_1])
+        expect(Customer.top_5_customers[0].first_name).to match("Heber")
       end
+    end
 
-      describe ".most_successful_transactions" do
-        it "displays the transaction count of the top 5 customers" do
-          expect(@customer_3.successful_transaction_count).to eq(4)
-          expect(@customer_2.successful_transaction_count).to eq(5)
-          expect(@customer_2.successful_transaction_count).to_not eq(4)
-          expect(@customer_4.successful_transaction_count).to eq(1)
-          expect(@customer_5.successful_transaction_count).to eq(3)
-          expect(@customer_6.successful_transaction_count).to eq(6)
-          expect(@customer_1.successful_transaction_count).to eq(2)
-        end
+    describe ".top_5_customers_by_transaction(merchant_id)" do 
+      it 'displays the names of the top 5 customers by successful transactions' do 
+        expect(Customer.top_5_customers_by_transaction(@merchant_1.id)).to match([@customer_6, @customer_2, @customer_3, @customer_5, @customer_1])
+        expect(Customer.top_5_customers_by_transaction(@merchant_1.id)[0].first_name).to match("Heber")
       end
     end
   end
+
+  describe "instance methods" do 
+    describe ".most_successful_transactions" do
+      it "displays the transaction count of the top 5 customers" do
+        expect(@customer_3.successful_transaction_count).to eq(4)
+        expect(@customer_2.successful_transaction_count).to eq(5)
+        expect(@customer_2.successful_transaction_count).to_not eq(4)
+        expect(@customer_4.successful_transaction_count).to eq(1)
+        expect(@customer_5.successful_transaction_count).to eq(3)
+        expect(@customer_6.successful_transaction_count).to eq(6)
+        expect(@customer_1.successful_transaction_count).to eq(2)
+      end
+    end
+
+    describe "#full_name" do 
+      it " give the first and last name" do 
+        customer1 = Customer.create!(first_name:"Paul", last_name: "McCartney")
+
+        expect(customer1.full_name).to eq("Paul McCartney")
+      end
+    end
+  end
+
 end
