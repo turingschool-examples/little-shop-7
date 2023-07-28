@@ -5,9 +5,9 @@ RSpec.describe "admin merchants show page" do
   let!(:little_kin_shop) { create(:merchant, name: "Dave Schools") }
   let!(:red_roses) { create(:merchant, name: "Sunny") }
   let!(:halloween_face) { create(:merchant, name: "JB") }
-  let!(:tall_boy) { create(:merchant, status: 1) }
-  let!(:arleen) { create(:merchant, status: 1) }
-  let!(:bust_it_big) { create(:merchant, status: 1) }
+  let!(:tall_boy) { create(:merchant) }
+  let!(:arleen) { create(:merchant) }
+  let!(:bust_it_big) { create(:merchant) }
 
   before do
     visit admin_merchant_path(little_kin_shop)

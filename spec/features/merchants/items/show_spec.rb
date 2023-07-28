@@ -4,9 +4,9 @@ RSpec.describe "items show page", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)
-    @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: nil)
-    @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: nil)
-    @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: nil)
+    @item_1 = @merchant_1.items.create!(name: "Ball", description: "round", unit_price: 75106, status: 1)
+    @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: 1)
+    @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: 1)
   end
 
 
