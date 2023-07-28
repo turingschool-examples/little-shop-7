@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do 
   before :each do
-    @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
-    @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
-    @merchant_3 = Merchant.create!(name: 'Willms and Sons')
+    @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde', status: :disabled)
+    @merchant_2 = Merchant.create!(name: 'Rempel and Jones', status: :enabled)
+    @merchant_3 = Merchant.create!(name: 'Willms and Sons', status: :disabled)
 
     @item_1 = @merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107)
     @item_2 = @merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076)
@@ -121,12 +121,24 @@ RSpec.describe Merchant, type: :model do
     @transaction_36 = @invoice_12.transactions.create!(credit_card_number: '4923661117104166', credit_card_expiration_date: '08/22/20', result: 'success')
     #Customer 6 - total successful transactions = 6
   end
+
   describe "relationships" do
     it {should have_many :items}
     it {should have_many(:invoice_items).through(:items)}
     it {should have_many(:invoices).through(:items)}
     it {should have_many(:customers).through(:invoices)}
     it {should have_many(:transactions).through(:invoices)}
+  end
+
+  describe "class methods" do
+
+    it ".find_by_status" do
+      enabled_merchants = Merchant.find_by_status('enabled')
+      expect(enabled_merchants.to_a).to eq([@merchant_2])
+
+      disabled_merchants = Merchant.find_by_status('disabled')
+      expect(disabled_merchants.to_a).to eq([@merchant_3, @merchant_1])
+    end
   end
 
   describe "instance methods" do 

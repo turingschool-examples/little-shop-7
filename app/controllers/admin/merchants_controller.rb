@@ -3,6 +3,8 @@ class Admin::MerchantsController < ApplicationController
   
   def index
     @merchants = Merchant.all
+    @enabled_merchants = Merchant.find_by_status('enabled')
+    @disabled_merchants = Merchant.find_by_status('disabled')
   end
 
   def show
