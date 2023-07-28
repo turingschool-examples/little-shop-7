@@ -35,7 +35,25 @@ class ItemsController < ApplicationController
       redirect_to merchant_item_path(@merchant, @item)
     end
   end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new
+  end
   
+  def create
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new(item_params)
+    @item.status = 0
+
+    if @item.save
+      flash[:success] = "Item was created with status set to disabled!"
+      redirect_to merchant_items_path(@merchant)
+    else
+      flash[:error] = "Failed to create item!"
+      render :new
+    end
+  end
 
   private
 

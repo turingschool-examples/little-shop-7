@@ -76,14 +76,63 @@ RSpec.describe "items index page", type: :feature do
     
     it "displays each item listed in that items appropriate section" do
       visit merchant_items_path(@merchant_1)
-
+      
       within("div#enabled_items") do
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_2.name)
-      end
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
+    end
+    
+    within("div#disabled_items") do
+    expect(page).to have_content(@item_4.name)
+  end
+end
+end
 
-      within("div#disabled_items") do
-        expect(page).to have_content(@item_4.name)
+# 11. Merchant Item Create
+# As a merchant
+# When I visit my items index page
+# I see a link to create a new item.
+# When I click on the link,
+# I am taken to a form that allows me to add item information.
+# When I fill out the form I click ‘Submit’
+# Then I am taken back to the items index page
+# And I see the item I just created displayed in the list of items.
+# And I see my item was created with a default status of disabled.
+
+  describe "when i visit my items index page" do
+    it "displays a link to create a new item and when clicked takes me to a form to add item info" do
+      visit merchant_items_path(@merchant_1)
+
+      click_link "Create New Item"
+
+      expect(page).to have_current_path(new_merchant_item_path(@merchant_1))
+      expect(page).to have_selector("form")
+    end
+
+    it "takes me back to the items index page after the form has been filled out and submit has been clicked" do
+      visit new_merchant_item_path(@merchant_1)
+
+      fill_in "Name", with: "Goo"
+      fill_in "Description", with: "Gooey"
+      fill_in "Unit price", with: 1000
+
+      click_button "Submit"
+
+      expect(page).to have_current_path(merchant_items_path(@merchant_1))
+    end
+
+    it "displays the newly created item in the appropriate section with a default status of disabled" do
+      visit new_merchant_item_path(@merchant_1)
+
+      fill_in "Name", with: "Goo"
+      fill_in "Description", with: "Gooey"
+      fill_in "Unit price", with: 1000
+
+      click_button "Submit"
+      
+      within("#disabled_items") do
+        expect(page).to have_content("Goo")
+        expect(Item.last.disabled?).to eq(true)
       end
     end
   end
