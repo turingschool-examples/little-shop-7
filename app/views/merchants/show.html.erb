@@ -1,4 +1,20 @@
 <h1><%= @merchant.name %></h1>
+<br>
+<hr>
 
-<%= button_to "#{@merchant.name} Items", "/merchants/#{@merchant.id}/items", method: :get %>
-<%= button_to "#{@merchant.name} Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %>
+<div style="display: flex;">
+  <%= button_to "#{@merchant.name} Items", "/merchants/#{@merchant.id}/items", method: :get %>
+  <%= button_to "#{@merchant.name} Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %>
+</div>
+<hr>
+
+<div id="top_five_customers">
+<ul>
+  <% @merchant.top_five_customers.each do |top| %>
+    <li>
+      <%= top.first_name %>
+      <span class="transaction-count">(<%= top.transaction_count %> Transactions)</span>
+    </li>
+  <% end %>
+</ul>
+</div>
