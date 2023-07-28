@@ -44,7 +44,7 @@ RSpec.describe "Merchant Show Page" do
       visit "/merchants/#{merchant.id}/dashboard"
       
       top_customers = merchant.top_five_customers
-      save_and_open_page
+      
         within "#top_five_customers" do 
           top_customers.each do |customer|  
             expect(page).to have_content(customer.first_name)
