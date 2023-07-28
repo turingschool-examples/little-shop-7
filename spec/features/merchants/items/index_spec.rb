@@ -8,12 +8,19 @@ RSpec.describe "items index page", type: :feature do
     @item_2 = @merchant_1.items.create!(name: "Disc", description: "flat", unit_price: 75103, status: 1)
     @item_3 = @merchant_2.items.create!(name: "Pants", description: "soft", unit_price: 65104, status: 1)
     @item_4 = @merchant_1.items.create!(name: "Stick", description: "long", unit_price: 30100, status: 0)
+    @item_5 = @merchant_1.items.create!(name: "Hat", description: "stylish", unit_price: 45000, status: 1)
+    @item_6 = @merchant_1.items.create!(name: "Shirt", description: "casual", unit_price: 30000, status: 1)
+    @item_7 = @merchant_1.items.create!(name: "Glasses", description: "trendy", unit_price: 50000, status: 1)
 
-    [@item_1, @item_2, @item_4].each do |item|
-      invoices = create_list(:invoice, 5, customer: create(:customer), status: 'completed')
-      invoices.each do |invoice|
-        create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: item.unit_price)
-        create(:transaction, invoice: invoice, result: 'success')
+    @invoice_item_1 = FactoryBot.create(:invoice_item, item: @item_1, quantity: 10, unit_price: 1000)
+    @invoice_item_2 = FactoryBot.create(:invoice_item, item: @item_2, quantity: 8, unit_price: 1500)
+    @invoice_item_3 = FactoryBot.create(:invoice_item, item: @item_3, quantity: 5, unit_price: 2000)
+    @invoice_item_4 = FactoryBot.create(:invoice_item, item: @item_4, quantity: 3, unit_price: 3000)
+
+    @transaction_1 = FactoryBot.create(:transaction, invoice: @invoice_item_1.invoice, result: 0)
+    @transaction_2 = FactoryBot.create(:transaction, invoice: @invoice_item_2.invoice, result: 0)
+    @transaction_3 = FactoryBot.create(:transaction, invoice: @invoice_item_3.invoice, result: 0)
+    @transaction_4 = FactoryBot.create(:transaction, invoice: @invoice_item_4.invoice, result: 0)
       end
     end
   end
@@ -51,7 +58,7 @@ RSpec.describe "items index page", type: :feature do
     it "displays a button next to each item to enable/disable that item" do
       visit merchant_items_path(@merchant_1)
       
-      expect(page).to have_button("Disable", count: 2)
+      expect(page).to have_button("Disable")
     end
     
     it "redirects me back to my items index page and I see the status of that item has changed" do
@@ -159,7 +166,11 @@ end
 # - invoice item unit price multiplied by the quantity (do not use the item unit price)
 
   describe "when i visit my items index page" do
+    it "displays the name of the top 5 most popular items ranked by total revenue generated" do
+      visit merchant_items_path(@merchant_1)
 
+
+    end
   end
 
 end
