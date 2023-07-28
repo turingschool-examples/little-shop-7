@@ -76,15 +76,37 @@ RSpec.describe "items index page", type: :feature do
     
     it "displays each item listed in that items appropriate section" do
       visit merchant_items_path(@merchant_1)
-
+      
       within("div#enabled_items") do
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_2.name)
-      end
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
+    end
+    
+    within("div#disabled_items") do
+    expect(page).to have_content(@item_4.name)
+  end
+end
+end
 
-      within("div#disabled_items") do
-        expect(page).to have_content(@item_4.name)
-      end
+# 11. Merchant Item Create
+# As a merchant
+# When I visit my items index page
+# I see a link to create a new item.
+# When I click on the link,
+# I am taken to a form that allows me to add item information.
+# When I fill out the form I click ‘Submit’
+# Then I am taken back to the items index page
+# And I see the item I just created displayed in the list of items.
+# And I see my item was created with a default status of disabled.
+
+describe "when i visit my items index page" do
+  it "displays a link to create a new item and when clicked takes me to a form to add item info" do
+    visit merchant_items_path(@merchant_1)
+
+    click_link "Create New Item"
+save_and_open_page
+    expect(page).to have_current_path(new_merchant_item_path(@merchant_1))
+    expect(page).to have_selector("form")
     end
   end
 end

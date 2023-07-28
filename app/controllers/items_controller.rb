@@ -35,6 +35,11 @@ class ItemsController < ApplicationController
       redirect_to merchant_item_path(@merchant, @item)
     end
   end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new
+  end
   
 
   private
