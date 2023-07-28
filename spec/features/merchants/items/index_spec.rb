@@ -69,10 +69,22 @@ RSpec.describe "items index page", type: :feature do
   describe "when i visit merchant items index page" do
     it "displays an enabled and disabled item section" do
       visit merchant_items_path(@merchant_1)
-
+      
       expect(page).to have_selector("div#enabled_items")
       expect(page).to have_selector("div#disabled_items")
     end
-  end
+    
+    it "displays each item listed in that items appropriate section" do
+      visit merchant_items_path(@merchant_1)
 
+      within("div#enabled_items") do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_2.name)
+      end
+
+      within("div#disabled_items") do
+        expect(page).to have_content(@item_4.name)
+      end
+    end
+  end
 end
