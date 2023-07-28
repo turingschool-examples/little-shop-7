@@ -52,9 +52,6 @@ RSpec.describe "Admin", type: :feature do
         expect("2").to appear_after("#{@customer_4.last_name}")
         expect("1").to appear_after("#{@customer_5.last_name}")
       end
-
     end
   end
-
 end
-
