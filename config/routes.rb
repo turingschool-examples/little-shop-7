@@ -6,14 +6,14 @@ Rails.application.routes.draw do
 
   resources :admin, only: [:index]
   namespace :admin do
-    resources :merchants, only: [:index, :show, :update, :edit]
+    resources :merchants, only: [:index, :show, :update, :edit, :new, :create]
     resources :invoices, only: [:index, :show, :update]
   end
 
   resources :merchants, only: :show do
     get "/dashboard", to: "merchants#show"
 
-    resources :items, only: [:index, :show], controller: "merchant_items"
+    resources :items, only: [:index, :show, :edit, :update], controller: "merchant_items"
 
     resources :invoices, only: [:index, :show], controller: "merchant_invoices"
 

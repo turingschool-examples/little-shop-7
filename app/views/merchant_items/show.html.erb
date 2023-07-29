@@ -4,8 +4,14 @@
   <h3><%= @item.name %></h3>
 </div>
 
-<div id="merchant-item-show">
+<div id="merchant-item-description">
   <p>Description: <%= @item.description %></p>
+</div>
+
+<div id="merchant-item-price">
   <p>Current Price: <%= "#{@item.current_price}" %></p>
-  
+</div>
+
+<div id="update-item">
+  <h5><%= link_to "Update Item", edit_merchant_item_path(@merchant, @item) %></h5>
 </div>
