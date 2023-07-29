@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def current_price
-    price = (unit_price * 0.001).round(2)
+    price = (unit_price * 0.01).round(3)
     "$#{price}"
   end
 end 

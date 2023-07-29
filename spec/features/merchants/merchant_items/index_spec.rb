@@ -154,4 +154,30 @@ RSpec.describe "Merchant Items index Page", type: :feature do
       expect(page).to_not have_content(@item_14.name)
     end
   end
+
+  it "Has a link for every Item" do
+    visit merchant_items_path(@merchant_1)
+
+    within("div#merchant-header") do
+      expect(page).to have_content(@merchant_1.name).once
+      expect(page).to_not have_content(@merchant_2.name)
+    end
+
+    within("div#merchant-items") do
+      expect(page).to have_link("#{@item_1.name}")
+      expect(page).to have_link("#{@item_2.name}")
+      expect(page).to have_link("#{@item_3.name}")
+      expect(page).to have_link("#{@item_4.name}")
+      expect(page).to have_link("#{@item_5.name}")
+      expect(page).to have_link("#{@item_6.name}")
+      expect(page).to have_link("#{@item_7.name}")
+      expect(page).to have_link("#{@item_8.name}")
+      expect(page).to have_link("#{@item_9.name}")
+      expect(page).to have_link("#{@item_10.name}")
+
+      click_link("#{@item_1.name}")
+
+      expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1.id))
+    end
+  end
 end
