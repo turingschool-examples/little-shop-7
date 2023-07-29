@@ -50,4 +50,6 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
       expect(page).to have_content('Merchant information updated successfully.')
     end
   end
+
+  
 end
