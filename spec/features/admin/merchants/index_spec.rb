@@ -1,18 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Admin Merchant Index Page", type: :feature do
-  before :each do
-    @merchant_1 = Merchant.create!(name: "Bob's Burgers", status: :disabled)
-    @merchant_2 = Merchant.create!(name: "Kwik-E-Mart", status: :enabled)
-    @merchant_3 = Merchant.create!(name: "Strickland Propane", status: :disabled)
-  end
-
   describe "When I visit the merchant index (/admin/merchants)" do
     # US 24
     it "I see a list of all the merchants" do
-      visit admin_merchants_path
-      expect(Merchant.all.count).to eq(3) # sanity check
+      admin_merchant_test
       
+      visit admin_merchants_path
+
+      expect(Merchant.all.count).to eq(3) # sanity check
+
       Merchant.all.each do |merchant|
         expect(page).to have_content(merchant.name)
       end
@@ -24,6 +21,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
   # US 25
   describe "When I visit the merchant index (/admin/merchants)" do
     it "I can click on a merchant name and be taken to the merchant show page" do
+      admin_merchant_test
 
       visit admin_merchants_path
 
@@ -37,7 +35,8 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
   describe "When I visit the admin merchants index" do 
     # US 27 & 28
     it "Then next to each merchant name I see a button to disable or enable that merchant." do 
-
+      admin_merchant_test
+      
       visit admin_merchants_path
 
       within "#disabled_merchants" do 
@@ -52,6 +51,8 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     
 
     it "When I click this button I am redirected back to the admin merchants index and I see the merchant's status has changed." do 
+      admin_merchant_test
+      
       visit admin_merchants_path
 
       within "#disabled_merchants" do 
@@ -82,6 +83,8 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     # US 29
     describe "I see a link to create a new merchant." do
       it "When I click on the link, I am taken to a form that allows me to add merchant information." do 
+        admin_merchant_test
+
         visit admin_merchants_path
 
         expect(page).to have_link("Create New Merchant")
@@ -105,11 +108,13 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     describe "Top 5 Merchants by Revenue" do
       describe "Then I see the names of the top 5 merchants by total revenue generated." do
         it "And next to each of the names I see the total revenue generated for that merchant." do
+          top_merchant_test_data 
+          
           visit admin_merchants_path
 
-          within "#top_merchants" do 
+          within ".top_merchants" do 
             expect(page).to have_content("Top 5 Merchants by Revenue")
-
+            expect(page).to have_content(@merchant_1.name)
           end
         end
       end
