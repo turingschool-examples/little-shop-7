@@ -62,8 +62,9 @@ RSpec.describe Merchant, type: :model do
       #User Story 4
       describe "Items Ready to Ship" do
         let!(:item_2) {create(:item, merchant: merchant)}
-        let!(:invoice_item_pending) {create(:invoice_item, :pending, item: item, invoice: invoice_1 )}
+        let!(:invoice_item_pending) {create(:invoice_item, :pending, item: item_2, invoice: invoice_1 )}
         let!(:invoice_item_pending_2) {create(:invoice_item, :pending, item: item_2, invoice: invoice_1 )}
+        
         it "lists a name of all of all the merchants items that have status: packaged" do
           pending_packages = merchant.pending_items
           
@@ -72,6 +73,15 @@ RSpec.describe Merchant, type: :model do
           expect(pending_packages.second.invoice_items.first.status).to eq("pending")   
         end
 
+        #User Story 5
+        describe "oldest_to_newest" do
+          it "displays items ready to ship and their invoice is oldest to newest" do
+            arranged_packages = merchant.incomplete_invoices
+            #This will check that the invoice on :65 happens before the invoice on :66
+            expect(arranged_packages.first).to eq(invoice_item_pending)
+            
+          end
+        end
       end
     end
   end
