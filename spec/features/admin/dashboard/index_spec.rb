@@ -89,17 +89,16 @@ RSpec.describe 'Admin Dashboard', type: :feature do
 
   it "lists each incomplete invoice from oldest to newest" do
     # For this one we will need to have a div tag for the incomplete invoices section so we can use
-    # within blocks for testing as that is expected of us. We also need to consider making the
-    # created_at.strftime("%A, %B %d, %Y") into a method to dry up the code.
+    # within blocks for testing as that is expected of us.
 
     # within("#invoice-#{@invoice12.id}") do
     #   expect(page).to have_link("Invoice ##{@invoice12.id}")
-    #   expect(page).to have_content(@invoice12.invoice.created_at.strftime("%A, %B %d, %Y")) 
+    #   expect(page).to have_content(@invoice12.invoice.format_created_at) 
     # end
 
     # within("#invoice-#{@invoice13.id}") do
     #   expect(page).to have_link("Invoice ##{@invoice13.id}")
-    #   expect(page).to have_content(@invoice13.invoice.created_at.strftime("%A, %B %d, %Y"))
+    #   expect(page).to have_content(@invoice13.invoice.format_created_at)
     # end
 
     # expect("Invoice ##{@invoice13.id}").to appear_before("Invoice ##{@invoice12.id}")
