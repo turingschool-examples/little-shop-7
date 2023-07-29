@@ -83,5 +83,18 @@ RSpec.describe "/admin /merchants", type: :feature do
         expect(page).to_not have_content(merchant_2.name)
       end
     end
+
+    it "creates new merchants" do
+      visit "/admin/merchants"
+
+      click_link("Create New Merchant")
+      fill_in 'Name', with: "Bob's Ross"
+
+      click_button("Submit")
+
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("Bob's Ross")
+      expect(page).to have_button("Enable")
+    end
   end
 end
