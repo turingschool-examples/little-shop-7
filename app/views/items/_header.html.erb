@@ -1,0 +1,9 @@
+<div id="merchant-header">
+  <h1>Little Esty Shop</h1>
+  <h2 class="title"><%= merchant.name %></h2>
+    <nav class="navigation-bar"> 
+    <%= link_to "Dashboard", merchant_dashboard_path(merchant) %>
+    <%= link_to "My Items", merchant_items_path(merchant) %>
+    <%= link_to "My Invoices", merchant_invoices_path(merchant) %>
+    </nav>
+</div>
