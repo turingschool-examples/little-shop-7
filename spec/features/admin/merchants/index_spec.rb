@@ -110,8 +110,29 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
             expect(page).to have_content("Total Revenue: $1,900.00")
             expect(page).to have_content(@merchant_6.name)
             expect(page).to have_content("Total Revenue: $1,600.00")
+            expect(@merchant_1.name).to appear_before(@merchant_6.name)
+            expect(@merchant_6.name).to appear_before(@merchant_2.name)
+            expect(@merchant_2.name).to appear_before(@merchant_4.name)
+
             expect("Total Revenue: $1,900.00").to appear_before("Total Revenue: $1,600.00")
           end
+        end
+      end
+    end
+
+    #US_31
+    describe "next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant" do 
+      it "And I see a label “Top selling date for <merchant name> was <date with most sales>”" do
+        top_merchant_test_data 
+
+        visit admin_merchants_path
+        
+        within ".top_merchants" do 
+          expect(page).to have_content("Top selling date for #{@merchant_1.name} was #{@merchant_1.best_day.strftime('%B %d, %Y')}")
+          expect(page).to have_content("Top selling date for #{@merchant_6.name} was #{@merchant_6.best_day.strftime('%B %d, %Y')}")
+          expect(page).to have_content("Top selling date for #{@merchant_2.name} was #{@merchant_2.best_day.strftime('%B %d, %Y')}")
+          expect(page).to have_content("Top selling date for #{@merchant_4.name} was #{@merchant_4.best_day.strftime('%B %d, %Y')}")
+          expect(page).to have_content("Top selling date for #{@merchant_5.name} was #{@merchant_5.best_day.strftime('%B %d, %Y')}")
         end
       end
     end
