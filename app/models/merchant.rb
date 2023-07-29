@@ -9,6 +9,12 @@ class Merchant < ApplicationRecord
     customers.top_5_customers_by_transaction(self.id)
   end
   
+
+  def distinct_invoices
+    invoices.distinct
+  end
+
+
   def items_ready
     items.joins(:invoices)
     .select("items.*, 
@@ -21,4 +27,5 @@ class Merchant < ApplicationRecord
     .distinct
     .order("invoices.created_at")
   end
+  
 end

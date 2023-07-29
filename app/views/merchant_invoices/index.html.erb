@@ -1,0 +1,8 @@
+<%= render partial: "merchants/header", locals: {merchant: @merchant} %>
+
+<div id="merchant_invoices">
+  <h1>My Invoices</h1>
+  <% @merchant.distinct_invoices.each do |invoice| %>
+    <p>Invoice #<%= link_to "#{invoice.id}", merchant_invoice_path(@merchant, invoice), id: "invoice#{invoice.id}_link" %></p>
+  <% end %>
+</div>
