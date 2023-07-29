@@ -177,16 +177,20 @@ end
       visit merchant_items_path(@merchant_1)
 
       top_items = Item.top_popular_items(@merchant_1.id)
-save_and_open_page
+
       within("#top_items") do
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(top_items[0].name)
-      expect(page).to have_content(top_items[1].name)
-      expect(page).to have_content(top_items[2].name)
-      expect(page).to have_content(top_items[3].name)
-      expect(page).to have_content(top_items[4].name)
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(top_items[0].name)
+        expect(page).to have_content(top_items[1].name)
+        expect(page).to have_content(top_items[2].name)
+        expect(page).to have_content(top_items[3].name)
+        expect(page).to have_content(top_items[4].name)
+        expect(page).to have_content(21600)
+        expect(page).to have_content(18000)
+        expect(page).to have_content(17600)
+        expect(page).to have_content(12000)
+        expect(page).to have_content(10000)
       end
     end
   end
-
 end
