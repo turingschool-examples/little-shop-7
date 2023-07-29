@@ -9,4 +9,8 @@ class Merchant < ApplicationRecord
     customers.top_5_customers_by_transaction(self.id)
   end
   
+  def distinct_invoices
+    invoices.distinct
+  end
+
 end
