@@ -16,4 +16,11 @@ class Merchant < ApplicationRecord
     Merchant.where(status: merchant_status).order(updated_at: :desc)
   end
 
+  def self.enabled_merchants
+    where('status = 1')
+  end
+
+  def self.disabled_merchants
+    where('status = 0')
+  end
 end
