@@ -161,6 +161,5 @@ RSpec.describe "Merchant Items show Page", type: :feature do
       expect(page).to have_content("Description: #{@item_1.description}")
       expect(page).to have_content("Current Price: $75.11")
     end
-    save_and_open_page
   end
 end
