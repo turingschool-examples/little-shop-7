@@ -51,4 +51,14 @@ class Merchant < ApplicationRecord
     .order("total_revenue DESC")
     .limit(5)
   end
+
+  def best_day
+    invoices.joins(:transactions, :invoice_items)
+            .where('transactions.result = ?', 'success')
+            .group("invoices.id")
+            .select("invoices.*, SUM(invoice_items.unit_price * invoice_items.quantity) As tot_revenue")
+            .order("tot_revenue DESC, invoices.created_at DESC")
+            .first
+            .created_at
+  end
 end
