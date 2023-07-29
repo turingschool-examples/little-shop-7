@@ -32,4 +32,12 @@ class Item < ApplicationRecord
       .order('total_revenue DESC')
       .limit(5)
   end
+
+  def most_sales_date
+    most_sales_date = invoices.joins(:transactions)
+                             .where(transactions: { result: 0 })
+                             .group(:id)
+                             .order('SUM(invoice_items.quantity) DESC, invoices.created_at DESC')
+                             .first&.created_at
+  end
 end

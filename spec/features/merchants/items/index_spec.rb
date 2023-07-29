@@ -175,22 +175,42 @@ end
   describe "when i visit my items index page" do
     it "displays the name of the top 5 most popular items ranked by total revenue generated" do
       visit merchant_items_path(@merchant_1)
-
+      
       top_items = Item.top_popular_items(@merchant_1.id)
-
+      
       within("#top_items") do
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(top_items[0].name)
-        expect(page).to have_content(top_items[1].name)
-        expect(page).to have_content(top_items[2].name)
-        expect(page).to have_content(top_items[3].name)
-        expect(page).to have_content(top_items[4].name)
-        expect(page).to have_content(21600)
-        expect(page).to have_content(18000)
-        expect(page).to have_content(17600)
-        expect(page).to have_content(12000)
-        expect(page).to have_content(10000)
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(top_items[0].name)
+      expect(page).to have_content(top_items[1].name)
+      expect(page).to have_content(top_items[2].name)
+      expect(page).to have_content(top_items[3].name)
+      expect(page).to have_content(top_items[4].name)
+      expect(page).to have_content(21600)
+      expect(page).to have_content(18000)
+      expect(page).to have_content(17600)
+      expect(page).to have_content(12000)
+      expect(page).to have_content(10000)
+    end
+  end
+end
+
+# 13. Merchant Items Index: Top Item's Best Day
+# As a merchant
+# When I visit my items index page
+# Then next to each of the 5 most popular items 
+# I see the date with the most sales for each item.
+# And I see a label “Top selling date for <item name> was <date with most sales>"
+# Note: use the invoice date. If there are multiple days with equal number of sales, 
+# return the most recent day.
+
+describe "when i visit my items index page" do
+  describe "date next to top 5 popular items" do
+    it "displays a label 'Top selling date for <item name> was <date with most sales>'" do
+      visit merchant_items_path(@merchant_1)
+save_and_open_page
+      
       end
     end
   end
+
 end
