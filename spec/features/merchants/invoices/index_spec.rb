@@ -35,4 +35,42 @@ RSpec.describe "Merchant Invoices Index page", type: :feature do
     @invoice_3 = @customer_3.invoices.create!(status: 'completed')
     @invoice_3.invoice_items << InvoiceItem.create!(item_id: @item_4.id, quantity: 12, unit_price: 34873, status: 'packaged')
   end
+
+  describe "When I visit a merchant's invoices index (/merchants/:merchant_id/invoices)" do
+    it "I see all of the invoices that include at least one of my merchant's items" do
+      visit merchant_invoices_path(@merchant_1)
+
+      within("div#merchant_invoices") do
+        expect(page).to have_content("Invoice ##{@invoice_1.id}")
+        expect(page).to have_content("Invoice ##{@invoice_2.id}")
+
+        expect(page).to_not have_content("Invoice ##{@invoice_3.id}")
+      end
+      
+      visit merchants_invoices_index(@merchant_2)
+
+      within("div#merchant_invoices") do
+        expect(page).to have_content("Invoice ##{@invoice_2.id}")
+        expect(page).to have_content("Invoice ##{@invoice_3.id}")
+
+        expect(page).to_not have_content("Invoice ##{@invoice_1.id}")
+      end
+    end
+
+    it "each invoice.id links to its merchant invoice show page" do
+      visit merchants_invoices_index(@merchant_1)
+
+      within("div#merchant_invoices") do
+        expect(page).to have_link("Invoice ##{@invoice_1.id}", href: merchant_invoice_path(@invoice_1))
+        expect(page).to have_link("Invoice ##{@invoice_2.id}", href: merchant_invoice_path(@invoice_2))
+      end
+      
+      visit merchants_invoices_index(@merchant_2)
+
+      within("div#merchant_invoices") do
+        expect(page).to have_link("Invoice ##{@invoice_2.id}", href: merchant_invoice_path(@invoice_2))
+        expect(page).to have_link("Invoice ##{@invoice_3.id}", href: merchant_invoice_path(@invoice_3))
+      end
+    end
+  end
 end
