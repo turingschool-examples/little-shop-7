@@ -11,8 +11,11 @@ class Customer < ApplicationRecord
  
 
   def number_of_transactions
-    transactions
-      .where('result = ?', 1)
-      .count
+    transactions.count
+
+  end
+
+  def list_transactions_results
+    transactions.pluck(:result)
   end
 end
