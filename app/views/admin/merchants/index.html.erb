@@ -15,8 +15,16 @@
   <h3>Disabled Merchants:</h3>
   <% @disabled_merchants.each do |merchant| %>
     <div class="merchant-<%= merchant.id %>">
-      <%= link_to merchant.name, admin_merchant_path(merchant)%>
+      <%= link_to merchant.name, admin_merchant_path(merchant) %>
       <%= button_to "Enable", admin_merchant_path(merchant), method: :patch, params: { status: "enable" } %>
     </div>
   <% end %>
+</div>
+<div class="top_5_merchants">
+  <h3> Top Merchants</h3>
+  <ol>
+    <% @top_5_merchants.each do |merchant| %>
+      <li><%= link_to merchant.name, admin_merchant_path(merchant) %> - <%= number_to_currency(merchant.total_revenue) %>
+    <% end %>
+  </ol>
 </div>
