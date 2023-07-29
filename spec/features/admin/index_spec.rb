@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Admin", type: :feature do
+  
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
@@ -72,23 +73,63 @@ RSpec.describe "Admin", type: :feature do
         customer_2 = create(:customer)
         merchant = create(:merchant)
         invoices = Array.new
-        invoices.concat(create_list(:invoice, 3, status: "completed", customer: customer_1))
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1))
         invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
         
-        invoices.each do |invoice|
+        invoices[0..1].each do |invoice|
           item = create(:item, merchant: merchant)
-          invoice_item = create(:invoice_item, invoice: invoice, item: item)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
         end
-        
+        invoices[2..3].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
+        end
+        invoices[4..5].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
+        end
         visit admins_path
-        
+
         within "#incomplete_invoices" do
           expect(page).to_not have_content(invoices[0].id)
+          expect(page).to_not have_content(invoices[1].id)
+          expect(page).to have_content(invoices[2].id)
           expect(page).to have_content(invoices[3].id)
           expect(page).to have_content(invoices[4].id)
           expect(page).to have_content(invoices[5].id)
           # "And each invoice id links to that invoice's admin show page"
-          expect(page).to have_link("#{invoices[3].id}", href: "/admin/invoices/#{invoices[3].id}")
+          expect(page).to have_link("#{invoices[2].id}", href: "/admin/invoices/#{invoices[2].id}")
+          expect(page).to have_link("#{invoices[4].id}", href: "/admin/invoices/#{invoices[4].id}")
+        end
+      end
+
+      it "Next to each invoice id I see the date that the invoice was created And I see the date formatted like 'Monday, July 18, 2019' And I see that the list is ordered from oldest to newest" do
+        customer_1 = create(:customer)
+        customer_2 = create(:customer)
+        merchant = create(:merchant)
+        invoices = Array.new
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1, created_at: Time.new(2023, 6, 5)))
+        invoices.concat(create_list(:invoice, 2, status: "in progress", customer: customer_2, created_at: Time.new(2023, 6 ,13)))
+        invoices.concat(create_list(:invoice, 1, status: "in progress", customer: customer_1, created_at: Time.new(2023, 7 ,5)))
+        invoices.concat(create_list(:invoice, 2, status: "in progress", customer: customer_2, created_at: Time.new(2023, 7 ,20)))
+        invoices.concat(create_list(:invoice, 1, status: "in progress", customer: customer_1, created_at: Time.new(2023, 7 ,23)))
+        
+        invoices[0..2].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
+        end
+        invoices[3..5].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
+        end
+        invoices[6..8].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
+        end
+        visit admins_path
+
+        within "#incomplete_invoices" do
+          expect(page).to_not have_content(invoices[0].id)
         end
       end
     end

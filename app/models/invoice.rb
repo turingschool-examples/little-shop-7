@@ -10,6 +10,9 @@ class Invoice < ApplicationRecord
   has_many :transactions
 
   def self.incomplete_invoices
-    where(status: "in progress")
+    joins(:invoice_items)
+      .where(invoice_items: { status: [1, 2] })
+      .distinct
+      .order(created_at: :asc)
   end
 end
