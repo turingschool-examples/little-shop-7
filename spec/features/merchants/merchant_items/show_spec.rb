@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Merchant Items index Page", type: :feature do
+RSpec.describe "Merchant Items show Page", type: :feature do
   before :each do
     @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
@@ -127,7 +127,8 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     #Customer 6 - total successful transactions = 6
   end
 
-  it "shows a list of items name" do
+  #6. Merchant Items show Page
+  it "Has a link for every Item" do
     visit merchant_items_path(@merchant_1)
 
     within("div#merchant-header") do
@@ -136,21 +137,30 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     end
 
     within("div#merchant-items") do
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_2.name)
-      expect(page).to have_content(@item_3.name)
-      expect(page).to have_content(@item_4.name)
-      expect(page).to have_content(@item_5.name)
-      expect(page).to have_content(@item_6.name)
-      expect(page).to have_content(@item_7.name)
-      expect(page).to have_content(@item_8.name)
-      expect(page).to have_content(@item_9.name)
-      expect(page).to have_content(@item_10.name)
-
-      expect(page).to_not have_content(@item_11.name)
-      expect(page).to_not have_content(@item_12.name)
-      expect(page).to_not have_content(@item_13.name)
-      expect(page).to_not have_content(@item_14.name)
+      expect(page).to have_link("#{@item_1.name}")
+      expect(page).to have_link("#{@item_2.name}")
+      expect(page).to have_link("#{@item_3.name}")
+      expect(page).to have_link("#{@item_4.name}")
+      expect(page).to have_link("#{@item_5.name}")
+      expect(page).to have_link("#{@item_6.name}")
+      expect(page).to have_link("#{@item_7.name}")
+      expect(page).to have_link("#{@item_8.name}")
+      expect(page).to have_link("#{@item_9.name}")
+      expect(page).to have_link("#{@item_10.name}")
     end
+  end
+
+  it "After clicking on a item name I am taken to the item show page" do
+    visit merchant_item_path(@merchant_1, @item_1.id)
+
+    within("div#merchant-item-header") do
+      expect(page).to have_content("#{@item_1.name}")
+    end
+
+    within("div#merchant-item-show") do
+      expect(page).to have_content("Description: #{@item_1.description}")
+      expect(page).to have_content("Current Price: $75.11")
+    end
+    save_and_open_page
   end
 end

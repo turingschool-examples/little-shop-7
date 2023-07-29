@@ -1,0 +1,8 @@
+<%= render partial: "merchants/header", locals: {merchant: @merchant} %>
+
+<h3> My Items </h3>
+<div id="merchant-items">
+  <% @items.each do |item| %>
+    <h5><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></h5>
+  <% end %>
+</div>

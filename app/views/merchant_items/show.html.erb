@@ -1,0 +1,10 @@
+<%= render partial: "merchants/header", locals: {merchant: @merchant} %>
+
+<div id="merchant-item-header">
+  <h3><%= @item.name %></h3>
+</div>
+
+<div id="merchant-item-show">
+  <p>Description: <%= @item.description %></p>
+  <p>Current Price: <%= "#{@item.current_price}" %></p>
+</div>
