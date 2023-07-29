@@ -86,6 +86,7 @@ RSpec.describe "Merchant Show Page" do
             invoice = item.invoices.first
             expect(page).to have_content(item.name)
             expect(page).to have_content(invoice.id)
+            expect(page).to have_link("Invoice #{item.invoices.first.id}")
           end
         end
       end
