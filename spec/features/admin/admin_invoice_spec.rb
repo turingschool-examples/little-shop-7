@@ -30,5 +30,30 @@ RSpec.describe "Admin Invoice Page", type: :feature do
         expect(page).to have_link("#{invoice.id}")
       end
     end
+
+#     As an admin,
+# When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+# Then I see information related to that invoice including:
+
+# Invoice id
+# Invoice status
+# Invoice created_at date in the format "Monday, July 18, 2019"
+# Customer first and last name
+
+    it "I can see each invoice id links to the admin invoice show page" do
+
+      visit admin_invoices_path
+      click_link(@invoice_1.id)
+      
+      expect(current_path).to eq(admin_invoice_path(@invoice_1))
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@invoice_1.status)
+      expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %d, %Y"))
+      expect(page).to have_content(@customer_1.first_name)
+      expect(page).to have_content(@customer_1.last_name)
+      expect(page).not_to have_content(@customer_2.first_name)
+
+
+    end
   end
 end

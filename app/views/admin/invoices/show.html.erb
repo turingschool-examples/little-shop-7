@@ -1,2 +1,11 @@
-I made this show page for story 22 but we do not fill this page 
-out until 33
+<head>
+  <title>Admin Invoice - <%= @invoice.id %></title>
+</head>
+<body>
+  <h1>Admin Invoice - <%= @invoice.id %></h1>
+  <p>Status: <%= @invoice.status %></p>
+  <p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+  <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+
+</body>
+</html>
