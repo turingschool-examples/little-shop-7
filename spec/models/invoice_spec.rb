@@ -68,5 +68,9 @@ RSpec.describe Invoice, type: :model do
     it "can format the created_at date of an invoice" do
       expect(@invoice_1.format_created_at).to eq("Sunday, March 25, 2012")
     end
+
+    it "can return all incomplete invoices" do
+      expect(Invoice.unshipped_invoices.none? { |invoice| invoice.status == "shipped" }).to be true
+    end
   end
 end
