@@ -127,7 +127,6 @@ RSpec.describe "Admin", type: :feature do
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
         visit admins_path
-        save_and_open_page
 
         within "#incomplete_invoices" do
           expect(page).to_not have_content(invoices[0].id)
