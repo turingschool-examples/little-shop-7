@@ -88,26 +88,26 @@ RSpec.describe "items index page", type: :feature do
 # one for "Disabled Items"
 # And I see that each Item is listed in the appropriate section
 
-  describe "when i visit merchant items index page" do
-    it "displays an enabled and disabled item section" do
-      visit merchant_items_path(@merchant_1)
+    describe "when i visit merchant items index page" do
+      it "displays an enabled and disabled item section" do
+        visit merchant_items_path(@merchant_1)
       
-      expect(page).to have_selector("div#enabled_items")
-      expect(page).to have_selector("div#disabled_items")
-    end
+        expect(page).to have_selector("div#enabled_items")
+        expect(page).to have_selector("div#disabled_items")
+      end
     
-    it "displays each item listed in that items appropriate section" do
-      visit merchant_items_path(@merchant_1)
+      it "displays each item listed in that items appropriate section" do
+        visit merchant_items_path(@merchant_1)
       
-      within("div#enabled_items") do
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_2.name)
-    end
+        within("div#enabled_items") do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_2.name)
+      end
     
-    within("div#disabled_items") do
-    expect(page).to have_content(@item_4.name)
+      within("div#disabled_items") do
+      expect(page).to have_content(@item_4.name)
+    end
   end
-end
 end
 
 # 11. Merchant Item Create
@@ -203,14 +203,17 @@ end
 # Note: use the invoice date. If there are multiple days with equal number of sales, 
 # return the most recent day.
 
-describe "when i visit my items index page" do
-  describe "date next to top 5 popular items" do
-    it "displays a label 'Top selling date for <item name> was <date with most sales>'" do
-      visit merchant_items_path(@merchant_1)
-save_and_open_page
-      
+  describe "when i visit my items index page" do
+    describe "date next to top 5 popular items" do
+      it "displays a label 'Top selling date for <item name> was <date with most sales>'" do
+        visit merchant_items_path(@merchant_1)
+
+        expect(page).to have_content("Top selling date for Shirt was 2023-07-29")
+        expect(page).to have_content("Top selling date for Hat was 2023-07-29")
+        expect(page).to have_content("Top selling date for Glasses was 2023-07-29")
+        expect(page).to have_content("Top selling date for Disc was 2023-07-29")
+        expect(page).to have_content("Top selling date for Ball was 2023-07-29")
       end
     end
   end
-
 end
