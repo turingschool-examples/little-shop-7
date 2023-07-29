@@ -24,7 +24,7 @@ RSpec.describe "Admin Invoice Page", type: :feature do
 
       visit admin_invoices_path
 
-      expect(Invoice.all.count).to eq(6) # 6 invoices created in before :each block
+      expect(Invoice.all.count).to eq(6) 
       
       Invoice.all.each do |invoice|
         expect(page).to have_link("#{invoice.id}")
