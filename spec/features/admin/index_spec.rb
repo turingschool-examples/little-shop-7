@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Admin", type: :feature do
+  
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
@@ -88,7 +89,7 @@ RSpec.describe "Admin", type: :feature do
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
         visit admins_path
-        save_and_open_page
+
         within "#incomplete_invoices" do
           expect(page).to_not have_content(invoices[0].id)
           expect(page).to_not have_content(invoices[1].id)
@@ -99,6 +100,33 @@ RSpec.describe "Admin", type: :feature do
           # "And each invoice id links to that invoice's admin show page"
           expect(page).to have_link("#{invoices[2].id}", href: "/admin/invoices/#{invoices[2].id}")
           expect(page).to have_link("#{invoices[4].id}", href: "/admin/invoices/#{invoices[4].id}")
+        end
+      end
+
+      it "Next to each invoice id I see the date that the invoice was created And I see the date formatted like 'Monday, July 18, 2019' And I see that the list is ordered from oldest to newest" do
+        customer_1 = create(:customer)
+        customer_2 = create(:customer)
+        merchant = create(:merchant)
+        invoices = Array.new
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1))
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
+        
+        invoices[0..1].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
+        end
+        invoices[2..3].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
+        end
+        invoices[4..5].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
+        end
+        visit admins_path
+
+        within "#incomplete_invoices" do
+          expect(page).to_not have_content(invoices[0].id)
         end
       end
     end
