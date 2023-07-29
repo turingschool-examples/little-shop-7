@@ -27,7 +27,7 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
     InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 10, unit_price: 66747, status: 'shipped')
     
     # @invoice_2 has one item from @merchant_1 and one item from @merchant_2
-    @invoice_2 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2001))
+    @invoice_2 = @customer_2.invoices.create!(status: 'completed', created_at: Time.new(2001))
     InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_3.id, quantity: 9, unit_price: 23324, status: 'pending')
     InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_4.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
@@ -41,13 +41,13 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
       visit merchant_invoice_path(@merchant_1, @invoice_1)
       within("div#merchant_invoice_info") do
         expect(page).to have_content("Invoice ##{@invoice_1.id}")
-        expect(page).to have_content("Status: #{@invoice_1.status_formatted}")
+        expect(page).to have_content("Status: In Progress")
       end
 
       visit merchant_invoice_path(@merchant_1, @invoice_2)
       within("div#merchant_invoice_info") do
         expect(page).to have_content("Invoice ##{@invoice_2.id}")
-        expect(page).to have_content("Status: #{@invoice_2.status_formatted}")
+        expect(page).to have_content("Status: Completed")
       end
     end
     
@@ -59,7 +59,7 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
 
       visit merchant_invoice_path(@merchant_1, @invoice_2)
       within("div#merchant_invoice_info") do
-        expect(page).to have_content("Created on: Monday, January 1, 2000")
+        expect(page).to have_content("Created on: Monday, January 1, 2001")
       end
     end
 
