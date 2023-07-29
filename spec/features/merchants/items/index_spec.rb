@@ -208,11 +208,15 @@ end
       it "displays a label 'Top selling date for <item name> was <date with most sales>'" do
         visit merchant_items_path(@merchant_1)
 
-        expect(page).to have_content("Top selling date for Shirt was 2023-07-29")
-        expect(page).to have_content("Top selling date for Hat was 2023-07-29")
-        expect(page).to have_content("Top selling date for Glasses was 2023-07-29")
-        expect(page).to have_content("Top selling date for Disc was 2023-07-29")
-        expect(page).to have_content("Top selling date for Ball was 2023-07-29")
+        top_items = Item.top_popular_items(@merchant_1.id)
+
+        item_dates = top_items.map { |item| item.most_sales_date }.sort.reverse
+        #will this test work when the dates changes because items and invoices get created again?
+        expect(page).to have_content("Top selling date for #{top_items[0].name} was #{item_dates[0].strftime('%Y-%m-%d')}")
+        expect(page).to have_content("Top selling date for #{top_items[1].name} was #{item_dates[1].strftime('%Y-%m-%d')}")
+        expect(page).to have_content("Top selling date for #{top_items[2].name} was #{item_dates[2].strftime('%Y-%m-%d')}")
+        expect(page).to have_content("Top selling date for #{top_items[3].name} was #{item_dates[3].strftime('%Y-%m-%d')}")
+        expect(page).to have_content("Top selling date for #{top_items[4].name} was #{item_dates[4].strftime('%Y-%m-%d')}")
       end
     end
   end
