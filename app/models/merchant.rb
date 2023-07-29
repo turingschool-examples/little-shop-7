@@ -4,13 +4,17 @@ class Merchant < ApplicationRecord
   enum status: {enabled: "Enabled", disabled: "Disabled"}
 
   def self.top_merchants_by_revenue
-    Merchant
-      .joins(invoices: [:transactions, :invoice_items])
-      .joins('INNER JOIN items ON invoice_items.item_id = items.id')
-      .where(transactions: { result: 'success' })
-      .group('merchants.id, merchants.name').select('merchants.id, merchants.name, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue')
-      .order('revenue DESC').
-      limit(5)
+    Merchant.joins(invoices: [:transactions, :invoice_items])
+            .where(transactions: { result: 'success' })
+            .group(:id, :name)
+            .select('merchants.id, merchants.name, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue')
+            .order('revenue DESC')
+            .limit(5)
+  end
+
+  def top_selling_date
+    successful_invoice = invoices.joins(:transactions).find_by(transactions: { result: 'success' })
+    successful_invoice&.created_at
   end
 
   def distinct_invoices
