@@ -154,7 +154,8 @@ RSpec.describe Merchant, type: :model do
 
         expect(@merchant_1.distinct_invoices).to match_array(merch_1_distinct_invoices)
       end
-      
+    end
+
     describe "#items_ready" do
       it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
         expected_items = [@item_3, @item_4]
@@ -162,7 +163,7 @@ RSpec.describe Merchant, type: :model do
 
         expect(result).to match_array(expected_items)
       end
-
+    
       it "also returns the invoice_id for each associated item" do
         result = @merchant_1.items_ready
         expect(result[0].invoice_id).to eq(@invoice_3.id)

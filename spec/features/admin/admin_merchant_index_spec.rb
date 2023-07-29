@@ -52,17 +52,17 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     
 
       it "When I click this button I am redirected back to the admin merchants index and I see the merchant's status has changed." do 
-        visit '/admin/merchants'
+        visit admin_merchants_path
 
         within "#disabled_merchants" do 
           click_button("Enable #{@merchant_3.name}")
-          expect(current_path).to eq('/admin/merchants')
+          expect(current_path).to eq(admin_merchants_path)
         end
 
         within "#enabled_merchants" do
           expect(page).to have_button("Disable #{@merchant_3.name}")
           click_button("Disable #{@merchant_2.name}")
-          expect(current_path).to eq('/admin/merchants')
+          expect(current_path).to eq(admin_merchants_path)
         end
 
         within "#disabled_merchants" do 
