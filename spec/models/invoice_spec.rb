@@ -15,17 +15,25 @@ RSpec.describe Invoice, type: :model do
   describe "class methods" do
     it "#incomplete_invoices" do
       customer_1 = create(:customer)
-      customer_2 = create(:customer)
-      merchant = create(:merchant)
-      invoices = Array.new
-      invoices.concat(create_list(:invoice, 3, status: "completed", customer: customer_1))
-      invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
-      
-      invoices.each do |invoice|
-        item = create(:item, merchant: merchant)
-        invoice_item = create(:invoice_item, invoice: invoice, item: item)
-      end
-      expect(Invoice.incomplete_invoices).to eq([invoices[3],invoices[4],invoices[5]])
+        customer_2 = create(:customer)
+        merchant = create(:merchant)
+        invoices = Array.new
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1))
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
+        
+        invoices[0..1].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
+        end
+        invoices[2..3].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
+        end
+        invoices[4..5].each do |invoice|
+          item = create(:item, merchant: merchant)
+          invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
+        end
+      expect(Invoice.incomplete_invoices).to eq([invoices[2],invoices[3],invoices[4],invoices[5]])
     end
   end
 end
