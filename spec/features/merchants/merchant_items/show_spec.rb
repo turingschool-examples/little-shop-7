@@ -161,7 +161,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
       expect(page).to have_field("Name")
       expect(page).to have_field("Description")
       expect(page).to have_field("Unit price")
-  end
+    end
 
     expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
   end
