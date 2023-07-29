@@ -8,6 +8,8 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
+  validates :name, presence: true
+
   def favorite_customers_alt
     customers.top_5_customers_by_transaction(self.id)
   end
@@ -41,4 +43,12 @@ class Merchant < ApplicationRecord
     .order("invoices.created_at")
   end
   
+  def self.top_five_merchants_by_revenue 
+    joins(:transactions)
+    .where("transactions.result = ?", "success")
+    .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue")
+    .group("merchants.id")
+    .order("total_revenue DESC")
+    .limit(5)
+  end
 end
