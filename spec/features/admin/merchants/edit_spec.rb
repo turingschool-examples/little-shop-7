@@ -1,15 +1,15 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe '/admin/merchants/:merchant_id/edit', type: :feature do
-  describe 'admin merchants edit page' do
-    it 'I see a form with the existing attributes filled in' do
-      merchant_1 = Merchant.create!(name: 'Merchant 1')
+RSpec.describe "/admin/merchants/:merchant_id/edit", type: :feature do
+  describe "admin merchants edit page" do
+    it "I see a form with the existing attributes filled in" do
+      merchant_1 = Merchant.create!(name: "Merchant 1")
       visit "/admin/merchants/#{merchant_1.id}/edit"
       expect(page).to have_field("Name", with: "Merchant 1")
     end
 
-    it 'when I update the information and click submit I am taken back to show and see the updated info' do
-      merchant_1 = Merchant.create!(name: 'merchant_1')
+    it "when I update the information and click submit I am taken back to show and see the updated info" do
+      merchant_1 = Merchant.create!(name: "merchant_1")
       visit "/admin/merchants/#{merchant_1.id}/edit"
 
       fill_in("Name", with: "Merchant #1")
