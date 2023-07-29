@@ -61,7 +61,7 @@ RSpec.describe "merchant item update page" do
         expect(page).to have_content("Round")
         expect(page).to have_content("10.00")
     end
-      
+
     it "displays a flash message that says the user has succesfully update the item information" do
       visit edit_merchant_item_path(@merchant, @item)
       

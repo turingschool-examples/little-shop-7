@@ -7,6 +7,8 @@ class Merchant < ApplicationRecord
 
   enum status: { "enable": 0, "disable": 1 }, _default: :disable
 
+  validates :name, presence: true
+
   # Instance Methods
   def top_5_customers
     transactions.joins(invoice: :customer)

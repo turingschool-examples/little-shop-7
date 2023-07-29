@@ -7,6 +7,10 @@ class Item < ApplicationRecord
 
   enum status: { disabled: 0, enabled: 1 }
 
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :unit_price, presence: true, numericality: true
+  
   # write method to convert string to integer for unit_price
   def formatted_unit_price
     unit_price_in_cents = self.unit_price

@@ -30,6 +30,10 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:transactions).through(:invoices) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+  end
+
   describe "#instance_methods" do
     describe "#top_5_customers" do
       it "can list the merchant's top 5 customers" do
