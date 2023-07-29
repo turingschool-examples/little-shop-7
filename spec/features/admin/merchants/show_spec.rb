@@ -14,6 +14,7 @@ RSpec.describe '/admin/merchants/:merchant_id', type: :feature do
 
     it 'I see a link to update the merchants information' do
       merchant_1 = Merchant.create!(name: 'Merchant 1')
+      
       visit "/admin/merchants/#{merchant_1.id}" 
 
       expect(page).to have_link("Update info")

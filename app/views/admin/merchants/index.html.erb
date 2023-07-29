@@ -7,7 +7,7 @@
   <table>
     <tbody>
       <% @enabled_merchants.each do |merchant| %>
-        <tr>
+        <tr id="em-<%= merchant.id %>">
           <td><%= merchant.name %></td>
           <td>
             <%= button_to 'Disable', disable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
@@ -25,7 +25,7 @@
   <table>
     <tbody>
       <% @disabled_merchants.each do |merchant| %>
-        <tr>
+        <tr id="dm-<%= merchant.id %>">
           <td><%= merchant.name %></td>
           <td>
             <%= button_to 'Enable', enable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
