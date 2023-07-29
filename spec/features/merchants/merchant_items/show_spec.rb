@@ -202,7 +202,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("$751.07")
   end
 
-  it "There a form when You clear name box it give you an error" do
+  it "There a form when you put nothing in the name box it give you an error saying it cant be blank" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "")
@@ -215,7 +215,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("Name can't be blank")
   end
 
-  it "There a form when You clear description box it give you an error" do
+  it "There a form when put nothing in the description box it give you an error saying it cant be blank" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "Place Holder")
