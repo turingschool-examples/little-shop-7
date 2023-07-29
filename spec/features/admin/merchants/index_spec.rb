@@ -12,7 +12,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     it "I see a list of all the merchants" do
       visit admin_merchants_path
       expect(Merchant.all.count).to eq(3) # sanity check
-
+      
       Merchant.all.each do |merchant|
         expect(page).to have_content(merchant.name)
       end
@@ -98,6 +98,19 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
         within "#disabled_merchants" do
           expect(page).to have_content("Yak's R Us")
           expect(page).to have_button("Enable Yak's R Us")
+        end
+      end
+    end
+
+    describe "Top 5 Merchants by Revenue" do
+      describe "Then I see the names of the top 5 merchants by total revenue generated." do
+        it "And next to each of the names I see the total revenue generated for that merchant." do
+          visit admin_merchants_path
+
+          within "#top_merchants" do 
+            expect(page).to have_content("Top 5 Merchants by Revenue")
+
+          end
         end
       end
     end
