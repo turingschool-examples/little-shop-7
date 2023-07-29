@@ -4,7 +4,12 @@ class Admin::MerchantsController < ApplicationController
     @merchants = Merchant.all
     @enabled_merchants = Merchant.enabled
     @disabled_merchants = Merchant.disabled
-    @top_merchants = Merchant.top_merchants_by_revenue
+    @top_merchants_with_dates = Merchant.top_merchants_by_revenue.map do |merchant|
+      {
+        merchant: merchant,
+        top_selling_date: merchant.top_selling_date
+      }
+    end
   end
 
   def show
