@@ -6,6 +6,13 @@ RSpec.describe InvoiceItem, type: :model do
     it { should belong_to(:item) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:quantity) }
+    it { should validate_presence_of(:unit_price) }
+    it { should validate_presence_of(:status) }
+    it { should define_enum_for(:status) }
+  end
+
   describe "#instance_methods" do
     describe "#format_price" do
       it "converts unit_price in cents to dollars" do

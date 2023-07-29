@@ -9,6 +9,11 @@ RSpec.describe Invoice, type: :model do
     it { should have_many(:merchants).through(:items) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:status) }
+    it { should define_enum_for(:status) }
+  end
+
   describe "#instance_methods" do
     describe "#format_created_at" do
       it "can format the created_at timestampt to resemble 'Monday, July 18, 2019'" do

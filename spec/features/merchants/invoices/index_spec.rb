@@ -34,7 +34,7 @@ RSpec.describe "merchant invoices index page" do
       
         visit merchant_invoices_path(@merchant_1)
         expect(page).to have_link(invoice_item.id)
-      
+    
         click_link invoice_item.id
       
         expect(current_path).to eq(merchant_invoice_path(@merchant_1, invoice))

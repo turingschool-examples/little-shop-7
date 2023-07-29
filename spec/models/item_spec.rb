@@ -9,6 +9,13 @@ RSpec.describe Item, type: :model do
     it { should have_many(:transactions).through(:invoices) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:description) }
+    it { should validate_numericality_of(:unit_price) }
+    it { should define_enum_for(:status) }
+  end
+
   describe "#instance_methods" do
     describe "#formatted_unit_prce" do
       it "converts unit_price in cents to dollars" do
