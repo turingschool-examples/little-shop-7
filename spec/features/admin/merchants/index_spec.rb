@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '/admin /merchants' type: :feature do
+RSpec.describe '/admin /merchants', type: :feature do
   describe 'admin merchants index page' do
     it "has the name of each merchant in the system" do
       merchant_1 = Merchant.create!(name: 'Merchant_1')

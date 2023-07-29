@@ -17,7 +17,7 @@ RSpec.describe '/admin/merchants/:merchant_id', type: :feature do
       visit "/admin/merchants/#{merchant_1.id}" 
 
       expect(page).to have_link("Update info")
-      
+
       click_link("Update info")
 
       expect(current_path).to eq("/admin/merchants/#{merchant_1.id}/edit")
