@@ -7,6 +7,33 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
     @merchant_3 = Merchant.create!(name: "Strickland Propane")
   end
   
+
+  describe "When I visit the merchant index (/admin/merchants)" do
+    # US 24
+    it "I see a list of all the merchants" do
+      visit admin_merchants_path
+      expect(Merchant.all.count).to eq(3) # sanity check
+
+      Merchant.all.each do |merchant|
+        expect(page).to have_content(merchant.name)
+      end
+      
+      expect(page).not_to have_link("The Android's Dungeon & Baseball Card Shop")
+    end
+  # US 25
+    it "I can click on a merchant name and be taken to the merchant show page" do
+ 
+      visit admin_merchants_path
+    
+      click_link("Bob's Burgers")
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
+    end
+
+    it "Has two sections, one for enabled merchants and one for disabled merchants" do
+      
+    end
+  end
+
   describe "When I visit the merchant show page (/admin/merchants/:merchant_id)" do
     it "I see a link to update the merchant's information" do
     
@@ -27,5 +54,4 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
       expect(page).to have_content('Merchant information updated successfully.')
     end
   end
-
 end

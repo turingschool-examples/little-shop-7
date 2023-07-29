@@ -1,0 +1,11 @@
+<div class="invoices-header">
+  <h2> Invoices </h2>
+</div>
+<div class="invoices">
+  <% @invoices.each do |invoice| %>
+    <div class="invoice">
+      <%= link_to invoice.id, admin_invoice_path(invoice) %>
+    </div>
+  <% end %>
+</div>
+
