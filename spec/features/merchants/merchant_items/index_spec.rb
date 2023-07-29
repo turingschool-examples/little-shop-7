@@ -154,26 +154,4 @@ RSpec.describe "Merchant Items index Page", type: :feature do
       expect(page).to_not have_content(@item_14.name)
     end
   end
-
-  it "has a link to the items show page for each item" do 
-    visit merchant_items_path(@merchant_1)
-
-    within("div#merchant-items") do
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_2.name)
-      expect(page).to have_content(@item_3.name)
-      expect(page).to have_content(@item_4.name)
-      expect(page).to have_content(@item_5.name)
-      expect(page).to have_content(@item_6.name)
-      expect(page).to have_content(@item_7.name)
-      expect(page).to have_content(@item_8.name)
-      expect(page).to have_content(@item_9.name)
-      expect(page).to have_content(@item_10.name)
-
-      expect(page).to_not have_content(@item_11.name)
-      expect(page).to_not have_content(@item_12.name)
-      expect(page).to_not have_content(@item_13.name)
-      expect(page).to_not have_content(@item_14.name)
-    end
-  end
 end
