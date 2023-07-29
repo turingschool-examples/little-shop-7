@@ -33,4 +33,8 @@ class Merchant < ApplicationRecord
     invoice_items.where(invoice_items: { status: [1, 2] })
     .order(created_at: :asc)
   end
+
+  def item_list
+    items.pluck(:name)
+  end
 end
