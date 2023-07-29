@@ -241,7 +241,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("Unit price is not a number")
   end
 
-  it "There a form when You clear Unit price box it give you an error" do
+  it "There a form when put in a non interger Unit price it give you an error" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "Place holder")
