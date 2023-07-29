@@ -10,7 +10,7 @@
     <h4>Incomplete Invoices</h4>
     <ol>
       <% @incomplete_invoices.each_with_index do |invoice| %>
-        <li><%= link_to "Invoice ##{invoice.id}", "/admin/invoices/#{invoice.id}"%></li>
+        <li><%= link_to "Invoice ##{invoice.id}", "/admin/invoices/#{invoice.id}"%> - <%= invoice.created_at.strftime("%A, %B %e, %Y") %></li>
       <% end %>
     </ol>
   </div>

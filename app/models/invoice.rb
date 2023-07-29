@@ -13,5 +13,6 @@ class Invoice < ApplicationRecord
     joins(:invoice_items)
       .where(invoice_items: { status: [1, 2] })
       .distinct
+      .order(created_at: :asc)
   end
 end

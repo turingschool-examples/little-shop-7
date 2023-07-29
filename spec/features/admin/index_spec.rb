@@ -108,22 +108,26 @@ RSpec.describe "Admin", type: :feature do
         customer_2 = create(:customer)
         merchant = create(:merchant)
         invoices = Array.new
-        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1))
-        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
+        invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1, created_at: Time.new(2023, 6, 5)))
+        invoices.concat(create_list(:invoice, 2, status: "in progress", customer: customer_2, created_at: Time.new(2023, 6 ,13)))
+        invoices.concat(create_list(:invoice, 1, status: "in progress", customer: customer_1, created_at: Time.new(2023, 7 ,5)))
+        invoices.concat(create_list(:invoice, 2, status: "in progress", customer: customer_2, created_at: Time.new(2023, 7 ,20)))
+        invoices.concat(create_list(:invoice, 1, status: "in progress", customer: customer_1, created_at: Time.new(2023, 7 ,23)))
         
-        invoices[0..1].each do |invoice|
+        invoices[0..2].each do |invoice|
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
         end
-        invoices[2..3].each do |invoice|
+        invoices[3..5].each do |invoice|
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
         end
-        invoices[4..5].each do |invoice|
+        invoices[6..8].each do |invoice|
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
         visit admins_path
+        save_and_open_page
 
         within "#incomplete_invoices" do
           expect(page).to_not have_content(invoices[0].id)
