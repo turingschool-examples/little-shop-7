@@ -10,6 +10,10 @@ RSpec.describe Merchant, type: :model do
     it {should have_many(:transactions).through(:invoices)}
   end
 
+  describe "validations" do
+    it {should validate_presence_of :name}
+  end
+  
   describe "class methods" do
     it ".find_by_status" do
       original_test_data
