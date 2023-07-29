@@ -28,12 +28,12 @@ RSpec.describe "Merchant Invoices Index page", type: :feature do
     
     # @invoice_2 has one item from @merchant_1 and one item from @merchant_2
     @invoice_2 = @customer_2.invoices.create!(status: 'cancelled')
-    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_3.id, quantity: 9, unit_price: 23324, status: 'pending')
-    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_4.id, quantity: 9, unit_price: 76941, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_3.id, quantity: 9, unit_price: 23324, status: 'pending')
+    InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_4.id, quantity: 9, unit_price: 76941, status: 'packaged')
 
     # @invoice 3 has one item from @merchant_2
     @invoice_3 = @customer_3.invoices.create!(status: 'completed')
-    InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_4.id, quantity: 12, unit_price: 34873, status: 'packaged')
+    InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_4.id, quantity: 12, unit_price: 34873, status: 'packaged')
   end
 
   describe "When I visit a merchant's invoices index (/merchants/:merchant_id/invoices)" do
@@ -41,8 +41,8 @@ RSpec.describe "Merchant Invoices Index page", type: :feature do
       visit merchant_invoices_path(@merchant_1)
 
       within("div#merchant_invoices") do
-        expect(page).to have_content("Invoice ##{@invoice_1.id}")
-        expect(page).to have_content("Invoice ##{@invoice_2.id}")
+        expect(page).to have_content("Invoice ##{@invoice_1.id}").once
+        expect(page).to have_content("Invoice ##{@invoice_2.id}").once
 
         expect(page).to_not have_content("Invoice ##{@invoice_3.id}")
       end
@@ -50,8 +50,8 @@ RSpec.describe "Merchant Invoices Index page", type: :feature do
       visit merchant_invoices_path(@merchant_2)
 
       within("div#merchant_invoices") do
-        expect(page).to have_content("Invoice ##{@invoice_2.id}")
-        expect(page).to have_content("Invoice ##{@invoice_3.id}")
+        expect(page).to have_content("Invoice ##{@invoice_2.id}").once
+        expect(page).to have_content("Invoice ##{@invoice_3.id}").once
 
         expect(page).to_not have_content("Invoice ##{@invoice_1.id}")
       end
@@ -59,17 +59,18 @@ RSpec.describe "Merchant Invoices Index page", type: :feature do
 
     it "each invoice.id links to its merchant invoice show page" do
       visit merchant_invoices_path(@merchant_1)
+      save_and_open_page
 
       within("div#merchant_invoices") do
-        expect(page).to have_link("Invoice ##{@invoice_1.id}", href: merchant_invoice_path(@invoice_1))
-        expect(page).to have_link("Invoice ##{@invoice_2.id}", href: merchant_invoice_path(@invoice_2))
+        expect(page).to have_link("#{@invoice_1.id}", href: merchant_invoice_path(@merchant_1, @invoice_1))
+        expect(page).to have_link("#{@invoice_2.id}", href: merchant_invoice_path(@merchant_1, @invoice_2))
       end
-      
+
       visit merchant_invoices_path(@merchant_2)
 
       within("div#merchant_invoices") do
-        expect(page).to have_link("Invoice ##{@invoice_2.id}", href: merchant_invoice_path(@invoice_2))
-        expect(page).to have_link("Invoice ##{@invoice_3.id}", href: merchant_invoice_path(@invoice_3))
+        expect(page).to have_link("#{@invoice_2.id}", href: merchant_invoice_path(@merchant_2, @invoice_2))
+        expect(page).to have_link("#{@invoice_3.id}", href: merchant_invoice_path(@merchant_2, @invoice_3))
       end
     end
   end
