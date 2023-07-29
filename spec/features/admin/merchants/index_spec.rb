@@ -106,15 +106,20 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     end
 
     describe "Top 5 Merchants by Revenue" do
+      #US_30
       describe "Then I see the names of the top 5 merchants by total revenue generated." do
         it "And next to each of the names I see the total revenue generated for that merchant." do
           top_merchant_test_data 
-          
+
           visit admin_merchants_path
 
           within ".top_merchants" do 
             expect(page).to have_content("Top 5 Merchants by Revenue")
             expect(page).to have_content(@merchant_1.name)
+            expect(page).to have_content("Total Revenue: $1,900.00")
+            expect(page).to have_content(@merchant_6.name)
+            expect(page).to have_content("Total Revenue: $1,600.00")
+            expect("Total Revenue: $1,900.00").to appear_before("Total Revenue: $1,600.00")
           end
         end
       end
