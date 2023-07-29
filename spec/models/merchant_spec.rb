@@ -97,6 +97,7 @@ RSpec.describe Merchant, type: :model do
         it "creates a list of all items associated to a specific merchant" do 
           #Creates a list of only 2 items that belong to the first merchant
           expect(merchant.item_list.length).to eq(2)
+          expect(merchant.item_list.first).to eq(item.name)
         end
       end
     end
