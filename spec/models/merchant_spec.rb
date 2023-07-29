@@ -147,7 +147,8 @@ RSpec.describe Merchant, type: :model do
         merch_1_distinct_invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5, @invoice_6, @invoice_7, @invoice_8, @invoice_9, @invoice_10, @invoice_11, @invoice_12]
 
         expect(@merchant_1.distinct_invoices).to match_array(merch_1_distinct_invoices)
-
+      end
+    end
     
     describe "#items_ready" do
       it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
