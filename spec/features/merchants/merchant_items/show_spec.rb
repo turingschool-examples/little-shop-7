@@ -139,8 +139,11 @@ RSpec.describe "Merchant Items show Page", type: :feature do
       expect(page).to have_content("#{@item_1.name}")
     end
 
-    within("div#merchant-item-show") do
+    within("div#merchant-item-description") do
       expect(page).to have_content("Description: #{@item_1.description}")
+    end
+
+    within("div#merchant-item-price") do
       expect(page).to have_content("Current Price: $751.07")
     end
   end
@@ -154,6 +157,12 @@ RSpec.describe "Merchant Items show Page", type: :feature do
 
     click_link("Update Item")
 
+    within("div#edit_item_form") do
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Unit price")
+  end
+
     expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
   end
 
@@ -165,14 +174,21 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     fill_in("Name", with: "Something")
     fill_in("Description", with: "It is very cool!")
     fill_in("Unit price", with: "90004")
-    
     click_button("Update Item")
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1.id))
-    
-    expect(page).to have_content("Something")
-    expect(page).to have_content("$900.04")
-    expect(page).to have_content("It is very cool!")
+
+    within("div#merchant-item-header") do
+      expect(page).to have_content("Something")
+    end
+
+    within("div#merchant-item-description") do
+      expect(page).to have_content("It is very cool!")
+    end
+
+    within("div#merchant-item-price") do
+      expect(page).to have_content("$900.04")
+    end
   end
 
   it "There a form that auto populates orignal info for the item" do
@@ -186,7 +202,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("$751.07")
   end
 
-  it "There a form when You clear a box it give you an error" do
+  it "There a form when You clear name box it give you an error" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "")
@@ -197,5 +213,44 @@ RSpec.describe "Merchant Items show Page", type: :feature do
 
     expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
     expect(page).to have_content("Name can't be blank")
+  end
+
+  it "There a form when You clear description box it give you an error" do
+    visit edit_merchant_item_path(@merchant_1, @item_1.id)
+
+    fill_in("Name", with: "Place Holder")
+    fill_in("Description", with: "")
+    fill_in("Unit price", with: "10000")
+
+    click_button("Update Item")
+
+    expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
+    expect(page).to have_content("Description can't be blank")
+  end
+
+  it "There a form when You clear Unit price box it give you an error" do
+    visit edit_merchant_item_path(@merchant_1, @item_1.id)
+
+    fill_in("Name", with: "Place holder")
+    fill_in("Description", with: "Place holder")
+    fill_in("Unit price", with: "")
+
+    click_button("Update Item")
+
+    expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
+    expect(page).to have_content("Unit price is not a number")
+  end
+
+  it "There a form when You clear Unit price box it give you an error" do
+    visit edit_merchant_item_path(@merchant_1, @item_1.id)
+
+    fill_in("Name", with: "Place holder")
+    fill_in("Description", with: "Place holder")
+    fill_in("Unit price", with: "Hello")
+
+    click_button("Update Item")
+
+    expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1.id))
+    expect(page).to have_content("Unit price is not a number")
   end
 end

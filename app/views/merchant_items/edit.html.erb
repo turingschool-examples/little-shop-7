@@ -1,5 +1,6 @@
 <h3>Update Item Form</h3>
 
+<div id="edit_item_form">
 <%= form_with model: @item, url: merchant_item_path(@merchant, @item) do |f| %>
   <p><%= f.label :name %></p>
   <p><%= f.text_field :name %></p>
@@ -12,3 +13,4 @@
 
   <p><%= f.submit %></p>
 <%end%>
+</div>
