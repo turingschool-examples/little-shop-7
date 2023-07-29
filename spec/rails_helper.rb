@@ -1,3 +1,9 @@
+def admin_merchant_test
+  @merchant_1 = Merchant.create!(name: "Bob's Burgers", status: :disabled)
+  @merchant_2 = Merchant.create!(name: "Kwik-E-Mart", status: :enabled)
+  @merchant_3 = Merchant.create!(name: "Strickland Propane", status: :disabled)
+end
+
 def original_test_data 
     @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde', status: :disabled)
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones', status: :enabled)
