@@ -19,16 +19,17 @@ RSpec.describe "Admin Merchant Page", type: :feature do
       
       expect(page).not_to have_link("The Android's Dungeon & Baseball Card Shop")
     end
-  end
-
-  describe "When I visit the merchant index (/admin/merchants)" do
   # US 25
-  it "I can click on a merchant name and be taken to the merchant show page" do
+    it "I can click on a merchant name and be taken to the merchant show page" do
  
-    visit admin_merchants_path
-  
-    click_link("Bob's Burgers")
-    expect(current_path).to eq(admin_merchant_path(@merchant_1))
+      visit admin_merchants_path
+    
+      click_link("Bob's Burgers")
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
+    end
+
+    it "Has two sections, one for enabled merchants and one for disabled merchants" do
+      
     end
   end
 
@@ -51,4 +52,6 @@ RSpec.describe "Admin Merchant Page", type: :feature do
       expect(page).to have_content('Merchant information updated successfully.')
     end
   end
+
+  
 end
