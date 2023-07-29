@@ -191,7 +191,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     end
   end
 
-  it "There a form that auto populates orignal info for the item" do
+  it "There is a form that auto populates orignal info for the item" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
     click_button("Update Item")
 
@@ -202,7 +202,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("$751.07")
   end
 
-  it "There a form when you put nothing in the name box it give you an error saying it cant be blank" do
+  it "There is a form when you put nothing in the name box it give you an error saying it cant be blank" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "")
@@ -215,7 +215,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("Name can't be blank")
   end
 
-  it "There a form when put nothing in the description box it give you an error saying it cant be blank" do
+  it "There is a form when you put nothing in the description box it give you an error saying it cant be blank" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "Place Holder")
@@ -228,7 +228,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("Description can't be blank")
   end
 
-  it "There a form when You clear Unit price box it give you an error" do
+  it "There is a form when you put nothing in the Unit price box it give you an error saying it was not a number" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "Place holder")
@@ -241,7 +241,7 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     expect(page).to have_content("Unit price is not a number")
   end
 
-  it "There a form when put in a non interger Unit price it give you an error" do
+  it "There is a form when put in a non interger Unit price it give you an error saying it was not a number" do
     visit edit_merchant_item_path(@merchant_1, @item_1.id)
 
     fill_in("Name", with: "Place holder")
