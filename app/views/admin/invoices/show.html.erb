@@ -1,3 +1,4 @@
+<html>
 <head>
   <title>Admin Invoice - <%= @invoice.id %></title>
 </head>
@@ -7,5 +8,26 @@
   <p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
   <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
-</body>
+  <h2>Items on Invoice:</h2>
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Invoice Item Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice_items.each do |invoice_item| %>
+        <tr>
+          <td><%= invoice_item.item.name %></td>
+          <td><%= invoice_item.quantity %></td>
+          <td><%= number_to_currency(invoice_item.unit_price) %></td>
+          <td><%= invoice_item.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+ </body>
 </html>
