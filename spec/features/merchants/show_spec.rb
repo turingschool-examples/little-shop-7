@@ -79,8 +79,10 @@ RSpec.describe "Merchant Show Page" do
 
         visit "/merchants/#{merchant.id}/dashboard"
         
+        merchant_pending_items = merchant.pending_items
+        
         within "#item" do
-          merchant.pending_items.each do |item|
+            merchant_pending_items.each do |item|
             invoice = item.invoices.first
             expect(page).to have_content(item.name)
             expect(page).to have_content(invoice.id)
