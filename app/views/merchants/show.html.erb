@@ -18,3 +18,19 @@
   <% end %>
 </ul>
 </div>
+
+<h2>Items Ready To Ship</h2>
+<% if @merchant.pending_items.present? %>
+  <div id="item">
+  <ul>
+      <% @merchant.pending_items.each do |item| %>
+      <li>
+          <%= link_to item.name, "/merchants/#{@merchant.id}/invoices/#{item.invoices.first.id}" %>
+          <span class="Invoice-ID">(<%= item.invoices.first.id %> Related Invoice)</span>
+      </li>
+  <% end %>
+  </ul>
+  <% else %>
+    <p>No items</p>
+  </div>
+<% end %>

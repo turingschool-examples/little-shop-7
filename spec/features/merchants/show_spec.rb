@@ -53,5 +53,41 @@ RSpec.describe "Merchant Show Page" do
         end
       end
     end
+      #     4. Merchant Dashboard Items Ready to Ship
+
+    # As a merchant
+    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+    # Then I see a section for "Items Ready to Ship"
+    # In that section I see a list of the names of all of my items that
+
+    # have been ordered and have not yet been shipped,
+    # And next to each Item I see the id of the invoice that ordered my item
+    # And each invoice id is a link to my merchant's invoice show page
+    describe "ready to ship section" do
+      it "shows a list of items ready to ship" do
+        merchant = create(:merchant)
+        item = create(:item, merchant: merchant)
+        customers = create_list(:customer, 20)
+      
+        customers.each do |customer|
+            invoice = create(:invoice, customer: customer)
+            invoice_item = create(:invoice_item, :pending, item: item, invoice: invoice)
+            transaction_results = ["success"]
+            result = transaction_results
+            create(:transaction, result: result, invoice: invoice)
+        end
+
+        visit "/merchants/#{merchant.id}/dashboard"
+        save_and_open_page
+        require 'pry'; binding.pry
+        within "#item" do
+          merchant.pending_items.each do |item|
+            invoice = item.invoices.first
+            expect(page).to have_content(item.name)
+            expect(page).to have_content(invoice.id)
+          end
+        end
+      end
+    end
   end
 end

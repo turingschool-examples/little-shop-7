@@ -17,6 +17,10 @@ class Merchant < ApplicationRecord
   end
 
   def pending_items
-    items.joins(:invoice_items).where("invoice_items.status >= 1")
+    items.joins(:invoice_items)
+    .joins(:invoices)
+    .where("invoice_items.status >= 1")
+    .order(:id)
+    .distinct
   end
 end
