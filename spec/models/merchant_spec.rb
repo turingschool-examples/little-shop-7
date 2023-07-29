@@ -147,33 +147,34 @@ RSpec.describe Merchant, type: :model do
         merch_1_distinct_invoices = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5, @invoice_6, @invoice_7, @invoice_8, @invoice_9, @invoice_10, @invoice_11, @invoice_12]
 
         expect(@merchant_1.distinct_invoices).to match_array(merch_1_distinct_invoices)
-
+      end
     
-    describe "#items_ready" do
-      it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
-        expected_items = [@item_3, @item_4]
-        result = @merchant_1.items_ready
+      describe "#items_ready" do
+        it "returns all items that have been ordered, not shipped, and from an uncancelled invoice" do
+          expected_items = [@item_3, @item_4]
+          result = @merchant_1.items_ready
 
-        expect(result).to match_array(expected_items)
-      end
+          expect(result).to match_array(expected_items)
+        end
 
-      it "also returns the invoice_id for each associated item" do
-        result = @merchant_1.items_ready
-        expect(result[0].invoice_id).to eq(@invoice_3.id)
-        expect(result[1].invoice_id).to eq(@invoice_4.id)
-      end
+        it "also returns the invoice_id for each associated item" do
+          result = @merchant_1.items_ready
+          expect(result[0].invoice_id).to eq(@invoice_3.id)
+          expect(result[1].invoice_id).to eq(@invoice_4.id)
+        end
 
-      it "sorts by invoice creation date, oldest first" do
-        result = @merchant_1.items_ready
-        
-        expect(result.first.created_at_time < result.last.created_at_time).to be true
-      end
+        it "sorts by invoice creation date, oldest first" do
+          result = @merchant_1.items_ready
+          
+          expect(result.first.created_at_time < result.last.created_at_time).to be true
+        end
 
-      it "returns a formatted string of the invoice creation date" do
-        result = @merchant_1.items_ready
+        it "returns a formatted string of the invoice creation date" do
+          result = @merchant_1.items_ready
 
-        expect(result[0].invoice_created_at).to eq("Saturday, January 1, 2000")
-        expect(result[1].invoice_created_at).to eq("Sunday, January 1, 2023")
+          expect(result[0].invoice_created_at).to eq("Saturday, January 1, 2000")
+          expect(result[1].invoice_created_at).to eq("Sunday, January 1, 2023")
+        end
       end
     end
   end

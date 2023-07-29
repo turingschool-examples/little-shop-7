@@ -122,7 +122,6 @@ RSpec.describe Invoice, type: :model do
     it { should validate_presence_of :status }
   end
 
-
   describe 'instance methods' do 
     it "Can return all invoices with unshipped items ordered by oldest to newest" do
       incomplete_invoices = Invoice.incomplete_invoices
