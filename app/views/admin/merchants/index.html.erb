@@ -25,10 +25,7 @@
     <tbody>
       <% @enabled_merchants.each do |merchant| %>
         <tr id="em-<%= merchant.id %>">
-          <td><%= merchant.name %></td>
-        <tr>
           <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
-
           <td>
             <%= button_to 'Disable', disable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
           </td>
