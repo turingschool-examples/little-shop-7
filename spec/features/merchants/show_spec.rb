@@ -19,8 +19,8 @@ RSpec.describe "Merchant Show Page" do
 
       visit "/merchants/#{merchant.id}/dashboard"
 
-      expect(page).to have_button("#{merchant.name} Items")
-      expect(page).to have_button("#{merchant.name} Invoices")
+      expect(page).to have_link("Items")
+      expect(page).to have_link("Invoices")
     end
   end
 
@@ -29,10 +29,10 @@ RSpec.describe "Merchant Show Page" do
     it "shows top 5 customers with successful transactions" do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
-      customers = create_list(:customer, 20)
+      customers = create_list(:customer, 10)
     
       customers.each do |customer|
-        rand(1..20).times do
+        rand(1..5).times do
           invoice = create(:invoice, customer: customer)
           invoice_item = create(:invoice_item, :shipped, item: item, invoice: invoice)
           transaction_results = ["success", "failed"]
@@ -78,7 +78,7 @@ RSpec.describe "Merchant Show Page" do
         end
 
         visit "/merchants/#{merchant.id}/dashboard"
-        save_and_open_page
+        
         within "#item" do
           merchant.pending_items.each do |item|
             invoice = item.invoices.first

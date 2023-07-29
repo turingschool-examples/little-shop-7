@@ -1,12 +1,12 @@
 <section id="header"> 
-  <h3 style="float:left; width:50%; text-align:left;">Merchant Dashboard</h3>
+  <h3 style="float:left; width:50%; text-align:left;"><%= "#{@merchant.name}" %> Dashboard</h3>
   <nav style="float:right; width:50%; text-align:right"> 
     <%= link_to("Items", "/merchants/#{@merchant.id}/items") %> | 
     <%= link_to("Invoices", "/merchants/#{@merchant.id}/invoices") %>
   </nav>
 </section>
 
-<div id="top_5_customers" style="float:right; width:50%; padding:20px;">
+<div id="top_five_customers" style="float:right; width:50%; padding:20px;">
   <h2>Top 5 Customers</h2>
 <ul>
   <% @merchant.top_five_customers.each do |top| %>
