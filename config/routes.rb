@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         put :disable_status
       end
     end
-    resources :invoices, only: [:index]
+    resources :invoices, only: [:index, :show]
   end
 
 
