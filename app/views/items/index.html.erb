@@ -2,6 +2,18 @@
 
 <p><%= @merchant.name %></p>
 
+<div id="top_items">
+  <h2>Top 5 Most Popular Items</h2>
+  <% @top_items.each do |item| %>
+    <div class="item">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+      <%= content_tag(:span, "Total Revenue: #{item.total_revenue}") %>
+      <% most_sales_date = item.most_sales_date %>
+      <%= content_tag(:span, "Top selling date for #{item.name} was #{most_sales_date.strftime('%Y-%m-%d')}") %>
+    </div>
+  <% end %>
+</div>
+
 <div id="enabled_items">
   <h2>Enabled Items</h2>
   <% @merchant.items.each do |item| %>
@@ -27,3 +39,4 @@
 
   <%= link_to "Create New Item", new_merchant_item_path(@merchant) %>
 </div>
+

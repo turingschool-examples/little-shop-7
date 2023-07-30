@@ -7,6 +7,8 @@ class Merchant < ApplicationRecord
 
   enum status: { "enable": 0, "disable": 1 }, _default: :disable
 
+  validates :name, presence: true
+
   # Instance Methods
   def top_5_customers
     transactions.joins(invoice: :customer)
@@ -34,4 +36,13 @@ class Merchant < ApplicationRecord
   def self.disabled_merchants
     where(status: 1)
   end
-end
+
+  def self.top_5_merchants_by_revenue
+    joins(invoices: :transactions)
+      .where(transactions: { result: 0 })
+      .select("merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) as total_revenue")
+      .group(:id)
+      .order(total_revenue: :desc)
+      .limit(5)
+  end
+end    
