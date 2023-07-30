@@ -6,10 +6,8 @@
     <h4>Merchant List</h4>
     <ol>
       <% @merchants.each do |merchant| %>
-        <li><%= link_to "#{merchant.name}", admins_merchant_path(merchant.id) %> 
-         <%= button_to merchant.status ? "Enabled" : "Disabled", toggle_status_admins_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
+        <li><%= link_to "#{merchant.name}", admins_merchant_path(merchant.id) %><%= button_to merchant.status ? "Disable" : "Enable", toggle_status_admins_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
         </li>
-        
       <% end %>
     </ol>
   </div>

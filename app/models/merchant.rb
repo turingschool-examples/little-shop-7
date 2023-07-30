@@ -23,9 +23,8 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
   end
 
-  def self.toggle_status
-    if self.status
-      self.status = false
-    end
+  def toggle_status
+    self.status = !self.status
+    save
   end
 end

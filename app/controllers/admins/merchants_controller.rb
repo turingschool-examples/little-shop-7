@@ -22,9 +22,7 @@ class Admins::MerchantsController < ApplicationController
   def toggle_status
     @merchant = Merchant.find(params[:id])
     @merchant.toggle_status
-    @merchant.save
-    require 'pry'; binding.pry
-    redirect_to admins_merchants_path(@merchant)
+    redirect_to admins_merchants_path
   end
 
   private

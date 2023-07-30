@@ -20,21 +20,23 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         visit admins_merchants_path
 
         within "#merchant_list" do
-          save_and_open_page
           merchants.each do |merchant|
             expect(page).to have_css("##{merchant.id}_button")
           end
         end
       end
-
+      
       it "When I click this button, Then I am redirected back to the admin merchants index and see status changed" do
         merchants = create_list(:merchant, 8)
         visit admins_merchants_path
-        within "#merchant_list" do
-          button = find("##{merchants.first.id}_button")
-          button.click
-          
-        end
+        require 'pry'; binding.pry
+        expect(page).to have_button("Disable", id: "#{merchants.first.id}_button")
+        find("##{merchants.first.id}_button").click
+        require 'pry'; binding.pry
+        expect(current_path).to eq(admins_merchants_path)
+        save_and_open_page
+        expect(page).to_not have_button("Disable", id: "#{merchants.first.id}_button")
+        expect(page).to have_button("Enable", id: "#{merchants.first.id}_button")
       end
     end
   end
