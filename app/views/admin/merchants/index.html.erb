@@ -13,6 +13,17 @@
 
 <p> <%= link_to 'Create New Merchant', new_admin_merchant_path %></p>
 
+<div class="top_merchants">
+  <h3>Top 5 Merchants by Revenue</h3>
+    <ol>
+        <% @merchants.top_five_merchants_by_revenue.each do |merchant| %>
+        <li> <%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= "Total Revenue: #{number_to_currency(merchant.total_revenue&./100)}"  %>
+        <%= "Top selling date for #{merchant.name} was #{merchant.best_day.strftime('%B %d, %Y')}" %>
+        <% end %>
+    </ol>
+</div>
+
 <section id="enabled_merchants">
   <ul>
     <h4>Enabled Merchants</h4>

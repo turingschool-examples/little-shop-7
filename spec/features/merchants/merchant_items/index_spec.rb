@@ -6,21 +6,21 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
     @merchant_3 = Merchant.create!(name: 'Willms and Sons')
 
-    @item_1 = @merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107)
-    @item_2 = @merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076)
-    @item_3 = @merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301)
-    @item_4 = @merchant_1.items.create!(name: 'Nemo Facere', description: 'Sunt eum id eius magni consequuntur delectus veritatis', unit_price: 4291)
-    @item_5 = @merchant_1.items.create!(name: 'Expedita Aliquam', description: 'Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum', unit_price: 68723)
-    @item_6 = @merchant_1.items.create!(name: 'Provident At', description: 'Numquam officiis reprehenderit eum ratione neque tenetur', unit_price: 15925)
-    @item_7 = @merchant_1.items.create!(name: 'Expedita Fuga', description: 'Fuga assumenda occaecati hic dolorem tenetur dolores nisi', unit_price: 31163)
-    @item_8 = @merchant_1.items.create!(name: 'Est Consequuntur', description: 'Reprehenderit est officiis cupiditate quia eos', unit_price: 34355)
-    @item_9 = @merchant_1.items.create!(name: 'Quo Magnam', description: 'Culpa deleniti adipisci voluptates aut. Sed eum quisquam nisi', unit_price: 22582)
-    @item_10 = @merchant_1.items.create!(name: 'Quidem Suscipit', description: 'Reiciendis sed aperiam culpa animi laudantium', unit_price: 34018)
+    @item_1 = @merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107, status: 1)
+    @item_2 = @merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076, status: 1)
+    @item_3 = @merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301, status: 1)
+    @item_4 = @merchant_1.items.create!(name: 'Nemo Facere', description: 'Sunt eum id eius magni consequuntur delectus veritatis', unit_price: 4291, status: 1)
+    @item_5 = @merchant_1.items.create!(name: 'Expedita Aliquam', description: 'Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum', unit_price: 68723, status: 0)
+    @item_6 = @merchant_1.items.create!(name: 'Provident At', description: 'Numquam officiis reprehenderit eum ratione neque tenetur', unit_price: 15925, status: 0)
+    @item_7 = @merchant_1.items.create!(name: 'Expedita Fuga', description: 'Fuga assumenda occaecati hic dolorem tenetur dolores nisi', unit_price: 31163, status: 1)
+    @item_8 = @merchant_1.items.create!(name: 'Est Consequuntur', description: 'Reprehenderit est officiis cupiditate quia eos', unit_price: 34355, status: 0)
+    @item_9 = @merchant_1.items.create!(name: 'Quo Magnam', description: 'Culpa deleniti adipisci voluptates aut. Sed eum quisquam nisi', unit_price: 22582, status: 1)
+    @item_10 = @merchant_1.items.create!(name: 'Quidem Suscipit', description: 'Reiciendis sed aperiam culpa animi laudantium', unit_price: 34018, status: 0)
     
-    @item_11 = @merchant_2.items.create!(name: 'Gold Ring', description: 'Fuga assumenda occaecati hic dolorem tenetur dolores nisi', unit_price: 31163)
-    @item_12 = @merchant_2.items.create!(name: 'Silver Ring', description: 'Reprehenderit est officiis cupiditate quia eos', unit_price: 34355)
-    @item_13 = @merchant_3.items.create!(name: 'Gold Necklace', description: 'Culpa deleniti adipisci voluptates aut. Sed eum quisquam nisi', unit_price: 22582)
-    @item_14 = @merchant_3.items.create!(name: 'Silver Necklace', description: 'Reiciendis sed aperiam culpa animi laudantium', unit_price: 34018)
+    @item_11 = @merchant_2.items.create!(name: 'Gold Ring', description: 'Fuga assumenda occaecati hic dolorem tenetur dolores nisi', unit_price: 31163, status: 1)
+    @item_12 = @merchant_2.items.create!(name: 'Silver Ring', description: 'Reprehenderit est officiis cupiditate quia eos', unit_price: 34355, status: 0)
+    @item_13 = @merchant_3.items.create!(name: 'Gold Necklace', description: 'Culpa deleniti adipisci voluptates aut. Sed eum quisquam nisi', unit_price: 22582, status: 1)
+    @item_14 = @merchant_3.items.create!(name: 'Silver Necklace', description: 'Reiciendis sed aperiam culpa animi laudantium', unit_price: 34018, status: 0)
 
     @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
     @customer_2 = Customer.create!(first_name: 'Cecelia', last_name: 'Osinski')
@@ -180,4 +180,80 @@ RSpec.describe "Merchant Items index Page", type: :feature do
       expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1.id))
     end
   end
+
+  it "Has a button to enable or disable the Item" do
+    visit merchant_items_path(@merchant_1)
+
+    within("div#enabled-items") do
+      expect(page).to have_button("Disable", count: 6)
+      expect(page).to have_button("Disable #{@item_1.name}")
+      expect(page).to have_button("Disable #{@item_2.name}")
+      expect(page).to have_button("Disable #{@item_3.name}")
+      expect(page).to have_button("Disable #{@item_4.name}")
+      expect(page).to have_button("Disable #{@item_7.name}")
+      expect(page).to have_button("Disable #{@item_9.name}")
+    end
+
+    within("div#disabled-items") do
+      expect(page).to have_button("Enable", count: 4)
+      expect(page).to have_button("Enable #{@item_5.name}")
+      expect(page).to have_button("Enable #{@item_6.name}")
+      expect(page).to have_button("Enable #{@item_8.name}")
+      expect(page).to have_button("Enable #{@item_10.name}")
+    end
+
+    expect(@item_1.status).to eq("enabled")
+    expect(@item_2.status).to eq("enabled")
+    expect(@item_3.status).to eq("enabled")
+    expect(@item_4.status).to eq("enabled")
+    expect(@item_5.status).to eq("disabled")
+    expect(@item_6.status).to eq("disabled")
+    expect(@item_7.status).to eq("enabled")
+    expect(@item_8.status).to eq("disabled")
+    expect(@item_9.status).to eq("enabled")
+    expect(@item_10.status).to eq("disabled")
+  end
+
+  it "Has a button to enable or disable the item when clicked I am redirect to the merchant index page, and the status of the item changes" do
+    visit merchant_items_path(@merchant_1)
+
+    within("div#enabled-items") do
+      expect(page).to have_content(@item_1.name)
+    
+      click_button("Disable #{@item_1.name}")
+      expect(current_path).to eq(merchant_items_path(@merchant_1))
+    end
+
+    within("div#disabled-items") do
+      expect(page).to have_content(@item_1.name)
+    
+      click_button("Enable #{@item_1.name}")
+      expect(current_path).to eq(merchant_items_path(@merchant_1))
+    end
+
+    within("div#enabled-items") do
+      expect(page).to have_content(@item_1.name)
+    end
+  end
+
+  it "The items are organized by enabled and diabled" do
+    visit merchant_items_path(@merchant_1)
+
+    within("div#enabled-items") do
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_3.name)
+      expect(page).to have_content(@item_4.name)
+      expect(page).to have_content(@item_7.name)
+      expect(page).to have_content(@item_9.name)
+    end
+    
+    within("div#disabled-items") do
+      expect(page).to have_content(@item_5.name)
+      expect(page).to have_content(@item_6.name)
+      expect(page).to have_content(@item_8.name)
+      expect(page).to have_content(@item_10.name)
+    end
+  end
+
 end

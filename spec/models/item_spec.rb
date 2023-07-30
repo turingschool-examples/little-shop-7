@@ -13,6 +13,30 @@ RSpec.describe Item, type: :model do
     it { should validate_numericality_of :unit_price }
   end
 
+  describe "class methods" do
+    describe ".enabled_items" do
+      it "returns the unit price as $xx.xx " do
+        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
+        item_1 = merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107, status: 1)
+        item_2 = merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076, status: 1)
+        item_3 = merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301, status: 0)
+
+        expect(merchant_1.items.enabled_items.to_a).to eq([item_1, item_2])
+      end
+    end
+
+    describe ".disabled_items" do
+      it "returns the unit price as $xx.xx " do
+        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
+        item_1 = merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107, status: 1)
+        item_2 = merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076, status: 1)
+        item_3 = merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301, status: 0)
+
+        expect(merchant_1.items.disabled_items.to_a).to eq([item_3])
+      end
+    end
+  end
+
   describe "instance methods" do 
     describe "#currrent_price" do
       it "returns the unit price as $xx.xx " do
