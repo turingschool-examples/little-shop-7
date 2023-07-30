@@ -32,10 +32,10 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         click_link("Update Merchant")
         save_and_open_page
 
-        expect(current_path).to eq("/admins/merchants/#{@merchants[0].id}/edit")
-        expect(page).to have_css("edit_merchant_form")
-        within "edit_merchant_form" do
-          expect(page).to have_content(@merchants[0].name)
+        expect(current_path).to eq(edit_admins_merchant_path(@merchants[0].id))
+        expect(page).to have_css("#merchant_edit_form")
+        within "#merchant_edit_form" do
+          expect(page).to have_field("merchant[name]", with: @merchants[0].name)
         end
       end
     end

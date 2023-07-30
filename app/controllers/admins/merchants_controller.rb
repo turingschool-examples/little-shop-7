@@ -5,4 +5,7 @@ class Admins::MerchantsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:id])
   end
+  def edit
+    @edit_admins_merchant = Merchant.find(params[:id])
+  end
 end
