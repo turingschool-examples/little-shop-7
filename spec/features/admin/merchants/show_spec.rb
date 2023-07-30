@@ -44,7 +44,6 @@ RSpec.describe "Admin/merchants index page", type: :feature do
           click_button type: "submit"
         end
         
-        save_and_open_page
         expect(current_path).to eq("/admins/merchants/#{@merchants[0].id}")
         expect(page).to have_content("Updated Merchant Name Garfield")
         expect(page).to have_content("Merchant information was successfully updated.")
