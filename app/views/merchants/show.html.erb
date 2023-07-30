@@ -11,8 +11,7 @@
 <ul>
   <% @merchant.top_five_customers.each do |top| %>
     <li>
-      <%= top.first_name %>
-      <span class="transaction-count">(<%= top.transaction_count %> Transactions)</span>
+      <%= top.first_name %>(<%= top.transaction_count %> Transactions)
     </li>
   <% end %>
 </ul>
@@ -26,7 +25,7 @@
       <% @merchant.pending_items.each do |item| %>
       <li>
           <%= item.name %>
-          <%= link_to "Invoice #{item.invoices.first.id}", "/merchants/#{@merchant.id}/invoices/#{item.invoices.first.id}" %>
+          <%= link_to "Invoice #{item.invoices.first.id}", "/merchants/#{@merchant.id}/invoices/#{item.invoices.first.id}" %>(<%= item.invoices.first.created_at.strftime("%A, %B %d, %Y") %>)
       </li>
   <% end %>
   </ul>

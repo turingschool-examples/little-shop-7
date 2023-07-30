@@ -16,9 +16,9 @@ RSpec.describe "Merchant Show Page" do
     it "I see a link to my merchant items index" do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
-
+      
       visit "/merchants/#{merchant.id}/dashboard"
-
+      
       expect(page).to have_link("Items")
       expect(page).to have_link("Invoices")
     end
@@ -54,9 +54,9 @@ RSpec.describe "Merchant Show Page" do
       end
     end
 
-      #US_4
+      #US_4 & 5
     describe "ready to ship section" do
-      it "shows a list of items ready to ship" do
+      it "shows a list of items ready to ship from oldest to newest" do
         customer_1 = create(:customer)
         customer_2 = create(:customer)
         merchant = create(:merchant)
@@ -76,7 +76,7 @@ RSpec.describe "Merchant Show Page" do
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
-
+        
         visit "/merchants/#{merchant.id}/dashboard"
         
         merchant_pending_items = merchant.pending_items
@@ -87,6 +87,7 @@ RSpec.describe "Merchant Show Page" do
             expect(page).to have_content(item.name)
             expect(page).to have_content(invoice.id)
             expect(page).to have_link("Invoice #{item.invoices.first.id}")
+            expect(page).to have_content(invoice.created_at.strftime("%A, %B %d, %Y"))
           end
         end
       end
