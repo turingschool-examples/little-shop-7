@@ -30,13 +30,24 @@ RSpec.describe "Admin/merchants index page", type: :feature do
       it "When I click the link Then I am taken to a page to edit this merchant And I see a form filled in with the existing merchant attribute information" do
         visit admins_merchant_path(@merchants[0].id)
         click_link("Update Merchant")
-        save_and_open_page
-
+        
         expect(current_path).to eq(edit_admins_merchant_path(@merchants[0].id))
         expect(page).to have_css("#merchant_edit_form")
         within "#merchant_edit_form" do
           expect(page).to have_field("merchant[name]", with: @merchants[0].name)
         end
+      end
+      it "When I update the information in the form and I click 'submit' Then I am redirected back to the merchant's admin show page where I see the updated information And I see a flash message stating that the information has been successfully updated." do
+        visit edit_admins_merchant_path(@merchants[0].id)
+        within "#merchant_edit_form" do
+          fill_in("merchant[name]", with: "Updated Merchant Name Garfield")
+          click_button type: "submit"
+        end
+        
+        save_and_open_page
+        expect(current_path).to eq("/admins/merchants/#{@merchants[0].id}")
+        expect(page).to have_content("Updated Merchant Name Garfield")
+        expect(page).to have_content("Merchant information was successfully updated.")
       end
     end
   end

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :merchant_dashboard, only: [:show]
 
   namespace :admins do
-    resources :merchants, only: [:index, :show, :edit]
+    resources :merchants
   end
 
 end
