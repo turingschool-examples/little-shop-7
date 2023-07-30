@@ -1,6 +1,6 @@
 class Merchant < ApplicationRecord 
   validates :name, presence: true
-  validates :status, presence: true
+  validates :status, inclusion: { in: [true, false] }
 
   has_many :items
   has_many :invoice_items, through: :items

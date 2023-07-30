@@ -34,27 +34,12 @@ RSpec.describe "Admin/merchants index page", type: :feature do
 
         expect(page).to have_button("Disable", id: "#{merchants.first.id}_button")
         find("##{merchants.first.id}_button").click
+        
         expect(current_path).to eq(admins_merchants_path)
         expect(page).to have_no_button("Disable", id: "#{merchants.first.id}_button")
         expect(page).to have_button("Enable", id: "#{merchants.first.id}_button")
         save_and_open_page
       end
-      
-      xit "TEST WITHOUT FACTORYBOT" do
-        merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: true)
-        merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones", status: true)
-        merchant_3 = Merchant.create!(name: "Willms and Sons", status: false)
-        visit admins_merchants_path
-        save_and_open_page
-
-        expect(page).to have_button("Disable", id: "#{merchant_1.id}_button")
-        find("##{merchant_1.id.id}_button").click
-        expect(current_path).to eq(admins_merchants_path)
-        expect(page).to have_no_button("Disable", id: "#{merchants.first.id}_button")
-        expect(page).to have_button("Enable", id: "#{merchants.first.id}_button")
-        save_and_open_page
-      end
-
     end
   end
 end

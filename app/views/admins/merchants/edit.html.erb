@@ -4,7 +4,7 @@
 <section id="content" style="clear:both">
   <div id="merchant_info" style="width:100%; padding:20px;">
     <h4 style="text-align: center; background-color: #eee; padding: 10px; height: 100%"><%= @edit_admins_merchant.name %></h4>
-    <%= form_with model: @edit_admins_merchant, url: admins_merchant_path(@edit_admins_merchant), id: "merchant_edit_form" do |form| %>
+    <%= form_with model: @edit_admins_merchant, url: admins_merchant_path(@edit_admins_merchant), id: "merchant_edit_form", local: true do |form| %>
       <p>
         <%= form.label :name %>
         <%= form.text_field :name %>
