@@ -1,4 +1,4 @@
-<%= form_with model: @item, url: merchants_item_path(@item), method: :patch, local: true do |form| %>
+<%= form_with model: @item, url: "/merchants/#{@item.merchant.id}/items/#{@item.id}", method: :patch, local: true do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
 
