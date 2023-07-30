@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord 
   validates :name, presence: true
+  validates :status, presence: true
 
   has_many :items
   has_many :invoice_items, through: :items
@@ -20,11 +21,11 @@ class Merchant < ApplicationRecord
     items.joins(:invoice_items)
     .where("invoice_items.status >= 1")
     .order(created_at: :asc)
-    # .distinct
   end
 
-  # def oldest_to_newest_invoices
-  #   item.invoice_items.where(invoice_items: { status: [1, 2] })
-  #   .order(created_at: :asc)
-  # end
+  def self.toggle_status
+    if self.status
+      self.status = false
+    end
+  end
 end

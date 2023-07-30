@@ -140,9 +140,9 @@ def test_data
   @customer_5 = Customer.create!(first_name: "Joan", last_name: "Jones")
   @customer_6 = Customer.create!(first_name: "Steve", last_name: "Steves")
 
-  @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
-  @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
-  @merchant_3 = Merchant.create!(name: "Willms and Sons")
+  @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: true)
+  @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones", status: true)
+  @merchant_3 = Merchant.create!(name: "Willms and Sons", status: true)
   
   @invoice_1 = @customer_1.invoices.create!(customer_id: @customer_1.id, status: 2)
   @invoice_2 = @customer_2.invoices.create!(customer_id: @customer_2.id, status: 1)
