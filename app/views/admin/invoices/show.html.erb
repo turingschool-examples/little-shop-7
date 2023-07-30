@@ -1,7 +1,16 @@
 <h1>Admin Invoice - <%= @invoice.id %></h1>
-<p>Status: <%= @invoice.status %></p>
-<p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
-<p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+
+  <%= form_with(model: @invoice, url: admin_invoice_path(@invoice), method: :patch) do |form| %>
+    <div>
+      <label for="invoice_status">Invoice Status:</label>
+      <%= form.select :status, options_for_select(Invoice.statuses.keys.map { |status| [status.titleize, status]}, @invoice.status) %>
+      <%= form.submit 'Update Invoice Status' %>
+    </div>
+  <% end %>
+
+  <p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+  <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+  <p>Total Revenue: <%= @invoice.total_revenue_to_currency %>
 
 <h2>Items on Invoice:</h2>
 <table class="invoice-table">
@@ -23,4 +32,3 @@
       </tr>
     <% end %>
 </table>
-Total Revenue: <%= @invoice.total_revenue_to_currency %>
