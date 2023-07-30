@@ -15,4 +15,16 @@ class Merchant < ApplicationRecord
                         .order('transaction_count DESC')
                         .limit(5)
   end
+
+  def pending_items
+    items.joins(:invoice_items)
+    .where("invoice_items.status >= 1")
+    .order(created_at: :asc)
+    # .distinct
+  end
+
+  # def oldest_to_newest_invoices
+  #   item.invoice_items.where(invoice_items: { status: [1, 2] })
+  #   .order(created_at: :asc)
+  # end
 end

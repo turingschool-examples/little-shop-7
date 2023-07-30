@@ -1,20 +1,37 @@
-<h1><%= @merchant.name %></h1>
-<br>
-<hr>
+<section id="header"> 
+  <h3 style="float:left; width:50%; text-align:left;"><%= "#{@merchant.name}" %> Dashboard</h3>
+  <nav style="float:right; width:50%; text-align:right"> 
+    <%= link_to("Items", "/merchants/#{@merchant.id}/items") %> | 
+    <%= link_to("Invoices", "/merchants/#{@merchant.id}/invoices") %>
+  </nav>
+</section>
 
-<div style="display: flex;">
-  <%= button_to "#{@merchant.name} Items", "/merchants/#{@merchant.id}/items", method: :get %>
-  <%= button_to "#{@merchant.name} Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %>
-</div>
-<hr>
-
-<div id="top_five_customers">
+<div id="top_five_customers" style="float:right; width:50%; padding:20px;">
+  <h2>Top 5 Customers</h2>
 <ul>
   <% @merchant.top_five_customers.each do |top| %>
     <li>
-      <%= top.first_name %>
-      <span class="transaction-count">(<%= top.transaction_count %> Transactions)</span>
+      <%= top.first_name %>(<%= top.transaction_count %> Transactions)
     </li>
   <% end %>
 </ul>
 </div>
+
+<div id="items_ready_to_ship" style="float:left; width:50%; padding:20px;">
+  <h2>Items Ready To Ship</h2>
+<% if @merchant.pending_items.present? %>
+  <div id="item">
+  <ul>
+      <% @merchant.pending_items.each do |item| %>
+      <li>
+          <%= item.name %>
+          <%= link_to "Invoice #{item.invoices.first.id}", "/merchants/#{@merchant.id}/invoices/#{item.invoices.first.id}" %>(<%= item.invoices.first.created_at.strftime("%A, %B %d, %Y") %>)
+      </li>
+  <% end %>
+  </ul>
+  <% else %>
+    <p>No items</p>
+  </div>
+<% end %>
+</div>
+
