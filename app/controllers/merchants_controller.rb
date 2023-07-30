@@ -4,7 +4,7 @@ class MerchantsController < ApplicationController
   end
 
   def index 
-    require 'pry'; binding.pry
-    @merchant_items = self.item_list
+    @merchant = Merchant.find(params[:merchant_id])
+    @items = @merchant.items
   end
 end

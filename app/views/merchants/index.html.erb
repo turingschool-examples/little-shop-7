@@ -1,9 +1,9 @@
 <div id="merchant_item_list" style="float:right; width:50%; padding:20px;">
-  <h2>Item List</h2>
+  <h2><%= "#{@merchant.name}" %>'s Item List</h2>
 <ul>
-  <% @merchant_items.each do |item| %>
+  <% @items.each do |item| %>
     <li>
-      <%= item %>
+      <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
     </li>
   <% end %>
 </ul>

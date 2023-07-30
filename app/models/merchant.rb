@@ -34,7 +34,7 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
   end
 
-  def item_list
-    items.pluck(:name)
-  end
+  # def item_list
+  #   items.pluck(:name)
+  # end
 end
