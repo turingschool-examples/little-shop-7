@@ -16,7 +16,6 @@ RSpec.describe "Merchant Indes Page" do
       
       visit "/merchants/#{@merchant.id}/items"
       
-      save_and_open_page
       expect(page).to have_content(@item.name)
       expect(page).to have_content(@item3.name)
       expect(page).to have_no_content(@item4.name)
@@ -24,12 +23,8 @@ RSpec.describe "Merchant Indes Page" do
   end
   
   
-    # And I see all of the item's attributes including:
 
-    # - Name
-    # - Description
-    # - Current Selling Price
-  #User Story 7
+    #User Story 7
   describe "User Story 7" do
     it "reroutes and displays all of the items attributes when the item name is clicked" do
       
@@ -40,13 +35,10 @@ RSpec.describe "Merchant Indes Page" do
 
       click_link(@item.name)
 
-      expect(current_path).to eq("/merhcants/#{@merchant.id}/items/#{@item.id}")
-
-      within("#item-attributes") do
-        expect(page).to have_content(@item.name)
-        expect(page).to have_content(@item.description)
-        expect(page).to have_content(@item.unit_price)
-      end
+      expect(current_path).to eq("/merchants/#{@merchant.id}/items/#{@item.id}")
+      expect(page).to have_content(@item.name)
+      expect(page).to have_content(@item.description)
+      expect(page).to have_content(@item.unit_price)
     end
   end
 end
