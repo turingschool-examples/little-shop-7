@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   resources :admins, only: :index
   resources :merchant_dashboard, only: [:show]
-  
+
+  namespace :admins do
+    resources :merchants, only: [:index]
+  end
 
 end
