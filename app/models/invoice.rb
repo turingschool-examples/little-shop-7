@@ -20,6 +20,6 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue_to_currency
-    sprintf('$%.2f', total_revenue.to_f / 100)
+    ActiveSupport::NumberHelper::number_to_currency(total_revenue.to_f / 100)
   end
 end
