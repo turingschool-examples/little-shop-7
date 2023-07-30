@@ -314,7 +314,6 @@ RSpec.describe "Merchant Items index Page", type: :feature do
 
     expect(current_path).to eq(new_merchant_item_path(@merchant_1))
     expect(page).to have_content("Name can't be blank")
-
   end
 
   it "There is a form when you put nothing in the description box it give you an error saying it cant be blank" do
