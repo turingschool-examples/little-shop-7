@@ -3,6 +3,8 @@ class Admin::MerchantsController < ApplicationController
   
   def index
     @merchants = Merchant.all
+    @enabled_merchants = Merchant.enabled_merchants
+    @disabled_merchants = Merchant.disabled_merchants
   end
 
   def show
@@ -14,13 +16,35 @@ class Admin::MerchantsController < ApplicationController
   end
   
   def update
+    @merchant = Merchant.find(params[:id])
     if @merchant.update(merchant_params)
-      redirect_to admin_merchant_path, flash: { success: "Merchant information updated successfully." }
+      if !params[:merchant][:status].nil?
+        redirect_to admin_merchants_path
+      else 
+        flash[:success] = 'Merchant information updated successfully.'
+        redirect_to admin_merchant_path(@merchant)
+      end
     else
-      render :edit_name
+      flash[:error] = "Merchant must have a name."
+      redirect_to edit_admin_merchant_path(@merchant)
     end
   end
 
+  def new 
+    @merchant = Merchant.new
+  end
+
+  def create 
+    merchant = Merchant.new(merchant_params)
+    if merchant.save
+      flash[:success] = "Merchant created successfully."
+      redirect_to admin_merchants_path
+    else 
+      flash[:error] = "Merchant must have a name."
+      redirect_to new_admin_merchant_path
+    end
+  end
+  
   private
 
   def set_merchant
@@ -28,6 +52,6 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def merchant_params
-    params.require(:merchant).permit(:name) 
+    params.require(:merchant).permit(:name, :status) 
   end
 end
