@@ -1,8 +1,5 @@
-<html>
-<head>
-  <title>Admin Invoice - <%= @invoice.id %></title>
-</head>
-<body>
+<title>Admin Invoice - <%= @invoice.id %></title>
+
   <h1>Admin Invoice - <%= @invoice.id %></h1>
   <p>Status: <%= @invoice.status %></p>
   <p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
@@ -18,7 +15,7 @@
         <th>Invoice Item Status</th>
       </tr>
     </thead>
-    <tbody>
+    
       <% @invoice_items.each do |invoice_item| %>
         <tr>
           <td><%= invoice_item.item.name %></td>
@@ -27,7 +24,6 @@
           <td><%= invoice_item.status %></td>
         </tr>
       <% end %>
-    </tbody>
+  
   </table>
- </body>
-</html>
+ 
