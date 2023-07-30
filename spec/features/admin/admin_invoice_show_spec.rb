@@ -24,7 +24,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
     @item_6 = Item.create!(name: "Cheese", description: "It goes well with winr", unit_price: 1375, merchant_id: @merchant_2.id)
 
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 10, unit_price: 450, status: 1)
-    @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 250, status: 1)
+    @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 250000, status: 1)
     @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_2.id, quantity: 1, unit_price: 150, status: 1)
     @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, quantity: 2, unit_price: 300, status: 1)
     @invoice_item_5 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_3.id, quantity: 3, unit_price: 2000, status: 1)
@@ -53,11 +53,11 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@invoice_item_1.quantity)
-    expect(page).to have_content(@invoice_item_1.unit_price)
+    expect(page).to have_content(@invoice_item_1.price_to_currency)
     expect(page).to have_content(@invoice_item_1.status)
     expect(page).to have_content(@item_2.name)
     expect(page).to have_content(@invoice_item_2.quantity)
-    expect(page).to have_content(@invoice_item_2.unit_price)
+    expect(page).to have_content(@invoice_item_2.price_to_currency)
     expect(page).to have_content(@invoice_item_2.status)
     expect(page).not_to have_content(@item_3.name)
   end
@@ -66,9 +66,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
   it "I can see the total revenue that will be generated from all of the items on the invoice" do
     visit admin_invoice_path(@invoice_1)
 
-    expected_total = (@invoice_item_1.quantity * @invoice_item_1.unit_price) + (@invoice_item_2.quantity * @invoice_item_2.unit_price)
-    expected_total = expected_total / 100.0
-    expected_total = sprintf("$%.2f", expected_total)
+    expected_total = @invoice_1.total_revenue_to_currency
     expect(page).to have_content("Total Revenue: #{expected_total}")
   end
 end

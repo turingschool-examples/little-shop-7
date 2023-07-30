@@ -4,6 +4,6 @@ class InvoiceItem < ApplicationRecord
   belongs_to :invoice
 
   def price_to_currency
-    sprintf('$%.2f', unit_price.to_f / 100)
+    ActiveSupport::NumberHelper::number_to_currency(unit_price.to_f / 100)
   end
 end
