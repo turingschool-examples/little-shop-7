@@ -175,6 +175,95 @@ def top_merchant_test_data
 @transaction_3 = Transaction.create!(invoice: @invoice_3, result: "success")
 end
 
+def invoice_spec_test_data
+  @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
+  @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
+  @merchant_3 = Merchant.create!(name: 'Willms and Sons')
+
+  @item_1 = @merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107)
+  @item_2 = @merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076)
+  @item_3 = @merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301)
+  @item_4 = @merchant_1.items.create!(name: 'Nemo Facere', description: 'Sunt eum id eius magni consequuntur delectus veritatis', unit_price: 4291)
+  @item_5 = @merchant_1.items.create!(name: 'Expedita Aliquam', description: 'Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum', unit_price: 68723)
+  @item_6 = @merchant_1.items.create!(name: 'Provident At', description: 'Numquam officiis reprehenderit eum ratione neque tenetur', unit_price: 15925)
+  @item_7 = @merchant_1.items.create!(name: 'Expedita Fuga', description: 'Fuga assumenda occaecati hic dolorem tenetur dolores nisi', unit_price: 31163)
+  @item_8 = @merchant_1.items.create!(name: 'Est Consequuntur', description: 'Reprehenderit est officiis cupiditate quia eos', unit_price: 34355)
+
+  @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
+  @customer_2 = Customer.create!(first_name: 'Cecelia', last_name: 'Osinski')
+  @customer_3 = Customer.create!(first_name: 'Mariah', last_name: 'Toy')
+  @customer_4 = Customer.create!(first_name: 'Leanna', last_name: 'Braun')
+  @customer_5 = Customer.create!(first_name: 'Sylvester', last_name: 'Nader')
+  @customer_6 = Customer.create!(first_name: 'Heber', last_name: 'Kuhn')
+  @customer_7 = Customer.create!(first_name: 'Parker', last_name: 'Daugherty')
+  @customer_8 = Customer.create!(first_name: 'Loyal', last_name: 'Considine')
+  @customer_9 = Customer.create!(first_name: 'Dejon', last_name: 'Fadel')
+  @customer_10 = Customer.create!(first_name: 'Ramona', last_name: 'Reynolds')
+
+  @invoice_1 = @customer_1.invoices.create!(status: 'cancelled')
+  @invoice_2 = @customer_1.invoices.create!(status: 'in progress', created_at: Time.new(2023))
+
+  @invoice_3 = @customer_2.invoices.create!(status: 'in progress')
+  @invoice_4 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2022))
+
+  @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
+  @invoice_6 = @customer_3.invoices.create!(status: 'in progress', created_at: Time.new(2020))
+
+  @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
+  @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
+
+  @invoice_9 = @customer_5.invoices.create!(status: 'completed')
+  @invoice_10 = @customer_5.invoices.create!(status: 'completed')
+
+  @invoice_11 = @customer_6.invoices.create!(status: 'in progress')
+  @invoice_12 = @customer_6.invoices.create!(status: 'completed')
+
+  @invoice_item1 = InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
+  @invoice_item2 = InvoiceItem.create!(invoice_id: @invoice_2.id,  item_id: @item_2.id, quantity: 9, unit_price: 23324, status: 'packaged')
+  @invoice_item3 = InvoiceItem.create!(invoice_id: @invoice_3.id,  item_id: @item_2.id, quantity: 12, unit_price: 34873, status: 'pending')
+  @invoice_item4 = InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
+  @invoice_item5 = InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
+  @invoice_item6 = InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
+  @invoice_item7 = InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
+  @invoice_item8 = InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_8.id, quantity: 9, unit_price: 76941, status: 'packaged')
+end
+
+def merchant_invoice_test_data
+  # Customers
+  @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
+  @customer_2 = Customer.create!(first_name: 'Cecelia', last_name: 'Osinski')
+  @customer_3 = Customer.create!(first_name: 'Mariah', last_name: 'Toy')
+  @customer_4 = Customer.create!(first_name: 'Leanna', last_name: 'Braun')
+
+  # Merchants
+  @merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
+  @merchant_2 = Merchant.create!(name: 'Rempel and Jones')
+
+  # Items
+  # @merchant_1's items
+  @item_1 = @merchant_1.items.create!(name: 'Qui Esse', description: 'Nihil autem sit odio inventore deleniti', unit_price: 75107)
+  @item_2 = @merchant_1.items.create!(name: 'Autem Minima', description: 'Cumque consequuntur ad', unit_price: 67076)
+  @item_3 = @merchant_1.items.create!(name: 'Ea Voluptatum', description: 'Sunt officia eum qui molestiae', unit_price: 32301)
+  # @merchant_2's item
+  @item_4 = @merchant_2.items.create!(name: 'Nemo Facere', description: 'Sunt eum id eius magni consequuntur delectus veritatis', unit_price: 4291)
+
+  # Invoices
+  # @invoice_1 has two items from @merchant_1
+  @invoice_1 = @customer_1.invoices.create!(status: 'in progress', created_at: Time.new(2000))
+  @invoice1_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
+  @invoice1_item_2 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 10, unit_price: 66747, status: 'shipped')
+  
+  # @invoice_2 has one item from @merchant_1 and one item from @merchant_2
+  @invoice_2 = @customer_2.invoices.create!(status: 'completed', created_at: Time.new(2001))
+  @invoice2_item_3 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_3.id, quantity: 9, unit_price: 23324, status: 'pending')
+  @invoice2_item_4 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_4.id, quantity: 9, unit_price: 76941, status: 'packaged')
+
+  # @invoice 3 has one item from @merchant_2
+  @invoice_3 = @customer_3.invoices.create!(status: 'cancelled', created_at: Time.new(2003))
+  @invoice3_item_4 = InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_4.id, quantity: 12, unit_price: 34873, status: 'packaged')
+end
+
+
 
 
 
