@@ -1,0 +1,26 @@
+<h3>Invoice #<%= @invoice.id %></h3>
+
+<h3>Status: <%= @invoice.status %></h3>
+<section id="status-update-<%= @invoice.id %>">
+  <%= form_with model: @invoice, url: merchant_invoice_path(@merchant, @invoice), method: :patch do |form| %>
+    <%= form.select :status, Invoice.statuses.keys, selected: "#{@invoice.status}" %>
+    <%= form.submit 'Update Invoice' %>
+  <% end %>
+</section>
+
+<p>Created on: <%= @invoice.format_created_at %></p>
+<h4>Customer:</h4>
+<%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %>
+<br>
+<br>
+<h4>Items on Invoice:</h4>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <p>Item Name: <%= invoice_item.item.name %></p>
+    <p>Quantity: <%= invoice_item.quantity %></p>
+    <p>Unit Price: <%= invoice_item.format_price %></p>
+    <p>Status: <%= invoice_item.status %>
+  <% end %>
+
+  <p>Total Revenue: <%= @invoice.total_revenue %>
+    
+

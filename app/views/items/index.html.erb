@@ -1,9 +1,42 @@
-<h1>Little Esty Shop</h1> 
+<h1>Little Esty Shop</h1>
 
 <p><%= @merchant.name %></p>
 
-<ul>
-  <% @merchant.items.each do |item| %>
-    <li><%= item.name %></li>
+<div id="top_items">
+  <h2>Top 5 Most Popular Items</h2>
+  <% @top_items.each do |item| %>
+    <div class="item">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+      <%= content_tag(:span, "Total Revenue: #{item.total_revenue}") %>
+      <% most_sales_date = item.most_sales_date %>
+      <%= content_tag(:span, "Top selling date for #{item.name} was #{most_sales_date.strftime('%Y-%m-%d')}") %>
+    </div>
   <% end %>
-</ul
+</div>
+
+<div id="enabled_items">
+  <h2>Enabled Items</h2>
+  <% @merchant.items.each do |item| %>
+    <% if item.enabled? %>
+      <div class="item">
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= button_to 'Disable', merchant_item_path(@merchant, item), method: :patch, params: { disable: true } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="disabled_items">
+  <h2>Disabled Items</h2>
+  <% @merchant.items.each do |item| %>
+    <% if item.disabled? %>
+      <div class="item">
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= button_to 'Enable', merchant_item_path(@merchant, item), method: :patch, params: { enable: true } %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to "Create New Item", new_merchant_item_path(@merchant) %>
+</div>
+

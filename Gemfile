@@ -58,9 +58,8 @@ group :development, :test do
   gem "launchy"
   gem "orderly"
   gem "simplecov"
- gem 'factory_bot_rails'
- gem 'faker'
- gem 'rails-controller-testing'
+  
+  
 end
 
 group :development do

@@ -1,6 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
+require "spec_helper"
 require "simplecov"
+require "orderly"
 SimpleCov.start
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -70,6 +71,14 @@ RSpec.configure do |config|
     config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
+    end
+  end
+
+  RSpec.configure do |config|
+    config.include FactoryBot::Syntax::Methods
+    
+    config.before(:each) do
+      FactoryBot.reload
     end
   end
 end
