@@ -1,3 +1,59 @@
+<header>
+  <h1 class="main-title">Little Esty Shop</h1>
+
+  <div class="sub-header">
+    <h2 class="page-title">Admin Dashboard</h2>
+      <nav class="navigation">
+      <%= link_to "Dashboard", admin_index_path %>
+      <%= link_to "Merchants", admin_merchants_path %>
+      <%= link_to "Invoices", admin_invoices_path %>
+    </nav>
+  </div>
+</header>
+
+<p> <%= link_to 'Create New Merchant', new_admin_merchant_path %></p>
+
+<div class="top_merchants">
+  <h3>Top 5 Merchants by Revenue</h3>
+    <ol>
+        <% @merchants.top_five_merchants_by_revenue.each do |merchant| %>
+        <li> <%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= "Total Revenue: #{number_to_currency(merchant.total_revenue&./100)}"  %>
+        <%= "Top selling date for #{merchant.name} was #{merchant.best_day.strftime('%B %d, %Y')}" %>
+        <% end %>
+    </ol>
+</div>
+
+<section id="enabled_merchants">
+  <ul>
+    <h4>Enabled Merchants</h4>
+    <% @enabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: merchant, url: admin_merchant_path(merchant), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "disabled" %>
+          <%= form.submit "Disable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section id="disabled_merchants">
+  <ul>
+    <h4>Disabled Merchants</h4>
+    <% @disabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: merchant, url: admin_merchant_path(merchant), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "enabled" %>
+          <%= form.submit "Enable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
 <div class="merchants-header">
   <h2> Merchants </h2>
 </div>
