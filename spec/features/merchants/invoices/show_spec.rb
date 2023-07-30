@@ -87,12 +87,12 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
         # Item 1
         expect(page).to have_content(@item_1.name).once
         expect(page).to have_content(@invoice1_item_1.quantity)
-        expect(page).to have_content(@invoice1_item_1.display_price)
+        expect(page).to have_content("$136.35")
         expect(page).to have_content(@invoice1_item_1.status.titleize)
         # Item 2
         expect(page).to have_content(@item_2.name).once
         expect(page).to have_content(@invoice1_item_2.quantity)
-        expect(page).to have_content(@invoice1_item_2.display_price)
+        expect(page).to have_content("$667.47")
         expect(page).to have_content(@invoice1_item_2.status.titleize)
       end
 
@@ -102,7 +102,7 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
         # Item 4
         expect(page).to have_content(@item_4.name).once
         expect(page).to have_content(@invoice3_item_4.quantity)
-        expect(page).to have_content(@invoice3_item_4.display_price)
+        expect(page).to have_content("$348.73")
         expect(page).to have_content(@invoice3_item_4.status.titleize)
       end
     end
@@ -111,12 +111,12 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
       # @invoice_2 has one @item_3, belonging to @merchant_1, and @item_4, one belonging to @merchant_2
       
       visit merchant_invoice_path(@merchant_1, @invoice_2)
-      
+
       within("div#merchant_invoice_items") do
         # Item 3 belongs to @merchant_1
         expect(page).to have_content(@item_3.name).once
         expect(page).to have_content(@invoice2_item_3.quantity)
-        expect(page).to have_content(@invoice2_item_3.display_price)
+        expect(page).to have_content("$233.24")
         expect(page).to have_content(@invoice2_item_3.status.titleize)
         
         expect(page).to_not have_content(@item_4.name)
@@ -128,11 +128,12 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
         # Item 4 belongs to @merchant_2
         expect(page).to have_content(@item_4.name).once
         expect(page).to have_content(@invoice2_item_4.quantity)
-        expect(page).to have_content(@invoice2_item_4.display_price)
+        expect(page).to have_content("$769.41")
         expect(page).to have_content(@invoice2_item_4.status.titleize)
         
         expect(page).to_not have_content(@item_3.name)
       end
     end
+    # ======= END STORY 16 TESTS =======
   end
 end
