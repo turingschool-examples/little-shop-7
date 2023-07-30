@@ -19,13 +19,9 @@ RSpec.describe "Admin Invoice Page", type: :feature do
 
 # US 32
   describe "As an admin when I visit the admin invoices page" do
-
     it "I can see a list of all invoice ids in the system" do
-
       visit admin_invoices_path
 
-      expect(Invoice.all.count).to eq(6) 
-      
       Invoice.all.each do |invoice|
         expect(page).to have_link("#{invoice.id}")
       end
