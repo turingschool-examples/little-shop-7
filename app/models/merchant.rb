@@ -22,9 +22,4 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
     # .distinct
   end
-
-  # def oldest_to_newest_invoices
-  #   item.invoice_items.where(invoice_items: { status: [1, 2] })
-  #   .order(created_at: :asc)
-  # end
 end
