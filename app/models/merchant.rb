@@ -19,22 +19,7 @@ class Merchant < ApplicationRecord
   def pending_items
     items.joins(:invoice_items)
     .where("invoice_items.status >= 1")
-    #.distinct
-  end
-
-  def oldest_to_newest
-    items.joins(:invoice_items)
-      .where(invoice_items: { status: [1, 2] })
-      #.distinct
-      .order(created_at: :DESC)
-  end
-
-  def incomplete_invoices
-    invoice_items.where(invoice_items: { status: [1, 2] })
     .order(created_at: :asc)
+    # .distinct
   end
-
-  # def item_list
-  #   items.pluck(:name)
-  # end
 end
