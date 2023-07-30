@@ -135,5 +135,28 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
       end
     end
     # ======= END STORY 16 TESTS =======
+
+    # ======= START STORY 16 TESTS =======
+    it "i see the total revenue that will be generated from all of a merchant's items on the invoice" do
+      # @invoice_1 has 2 invoice_items on the invoice from @merchant_1
+      visit merchant_invoice_path(@merchant_1, @invoice_1)
+      within("div#invoice_merchant_revenue") do
+        expect(page).to have_content ("Total Revenue: #{@invoice_1.merchant_revenue(@merchant_1)}")
+      end
+      
+      # @invoice_1 has 2 invoice_items on the invoice (one from @merchant_1 and another from @merchant_2)
+      # This makes sure that it only shows the total revenue of the invoice_items from @merchant_1
+      visit merchant_invoice_path(@merchant_1, @invoice_2)
+      within("div#invoice_merchant_revenue") do
+        expect(page).to have_content ("Total Revenue: #{@invoice_2.merchant_revenue(@merchant_1)}")
+      end
+      
+      # @invoice_1 has 2 invoice_items on the invoice (one from @merchant_1 and another from @merchant_2)
+      # This makes sure that it only shows the total revenue of the invoice_items from @merchant_2
+      visit merchant_invoice_path(@merchant_2, @invoice_2)
+      within("div#invoice_merchant_revenue") do
+        expect(page).to have_content ("Total Revenue: #{@invoice_2.merchant_revenue(@merchant_2)}")
+      end
+    end
   end
 end
