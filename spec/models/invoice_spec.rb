@@ -130,5 +130,25 @@ RSpec.describe Invoice, type: :model do
       expect(incomplete_invoices.sample).to be_a(Invoice)
       expect(incomplete_invoices).to eq([@invoice_8, @invoice_5, @invoice_3, @invoice_1, @invoice_2, @invoice_4])
     end
+# US 35
+    describe 'total revenue helpers' do
+      it 'returns the total revenue for an invoice in cents' do
+        expect(@invoice_1.total_revenue).to eq(68175)
+        expect(@invoice_2.total_revenue).to eq(209916)
+      end
+
+      it 'returns the total revenue for an invoice in dollars' do
+        expect(@invoice_1.total_revenue_to_currency).to eq("$681.75")
+        expect(@invoice_2.total_revenue_to_currency).to eq("$2,099.16")
+      end
+
+      it "returns an integer for total revenue" do
+        expect(@invoice_1.total_revenue).to be_a(Integer)
+      end
+
+      it "returns a string for total revenue to currency" do
+        expect(@invoice_1.total_revenue_to_currency).to be_a(String)
+      end
+    end
   end
 end

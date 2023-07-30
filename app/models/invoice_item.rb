@@ -3,6 +3,10 @@ class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
 
+  def price_to_currency
+    ActiveSupport::NumberHelper::number_to_currency(unit_price.to_f / 100)
+  end
+
   def dollar_price
     unit_price * 0.01
   end
