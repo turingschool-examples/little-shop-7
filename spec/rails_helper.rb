@@ -139,12 +139,12 @@ def top_merchant_test_data
 @customer_3 = Customer.create!(first_name: "John", last_name: "Doe")
 
 #item numbers correspond to merchant number
-@item_1 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_1.id)
-@item_2 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_2.id)
-@item_3 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_3.id)
-@item_4 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_4.id)
-@item_5 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_5.id)
-@item_6 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_6.id)
+@item_1 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_1.id, description: "This is a description")
+@item_2 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_2.id, description: "This is a description")
+@item_3 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_3.id, description: "This is a description")
+@item_4 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_4.id, description: "This is a description")
+@item_5 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_5.id, description: "This is a description")
+@item_6 = Item.create!(name: "Items", unit_price: 1000, merchant_id: @merchant_6.id, description: "This is a description")
 
 @invoice_1 = Invoice.create!(status: "completed", customer_id: @customer_1.id)
 @invoice_2 = Invoice.create!(status: "completed", customer_id: @customer_2.id)
