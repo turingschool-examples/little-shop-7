@@ -6,7 +6,7 @@
     <h4>Merchant List</h4>
     <ol>
       <% @merchants.each do |merchant| %>
-        <li><%= merchant.name %></li>
+        <li><%= link_to "#{merchant.name}", admins_merchant_path(merchant.id) %></li>
       <% end %>
     </ol>
   </div>
