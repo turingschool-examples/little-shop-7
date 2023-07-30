@@ -64,6 +64,22 @@ RSpec.describe Merchant, type: :model do
         expect(created_dates).to eq(created_dates.sort)
       end
     end
+
+    describe "#best_day" do
+
+      let!(:little_kin_shop) { create(:merchant, name: "jam threads") }
+      let!(:jimmy) { create(:customer) }
+      let!(:item_1) { create(:item, merchant_id: little_kin_shop.id) }
+      let!(:invoice_1) { create(:invoice, customer_id: jimmy.id, created_at: '2022-01-15 23:48:56 UTC') }
+      let!(:invoice_11) { create(:invoice, customer_id: jimmy.id, created_at: '2023-07-29 23:48:56 UTC') }
+      let!(:transaction_1) { create(:transaction, result: 0, invoice_id: invoice_1.id) }
+      let!(:invoice_item_1) { create(:invoice_item, invoice_id: invoice_1.id, item_id: item_1.id, unit_price: 1000, quantity: 1000) }
+      let!(:invoice_item_11) { create(:invoice_item, invoice_id: invoice_11.id, item_id: item_1.id, unit_price: 1000, quantity: 500) }
+
+      it "displays the best day for a merchant" do
+        expect(little_kin_shop.best_day).to eq(invoice_1.created_at)
+      end
+    end
   end
   
   

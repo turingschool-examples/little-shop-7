@@ -24,7 +24,7 @@
   <h3> Top Merchants</h3>
   <ol>
     <% @top_5_merchants.each do |merchant| %>
-      <li><%= link_to merchant.name, admin_merchant_path(merchant) %> - <%= number_to_currency(merchant.total_revenue) %>
+      <li><%= link_to merchant.name, admin_merchant_path(merchant) %> - <%= number_to_currency(merchant.total_revenue) %> - Top Day: <%= merchant.best_day %></li>
     <% end %>
   </ol>
 </div>
