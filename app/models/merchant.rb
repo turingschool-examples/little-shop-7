@@ -28,6 +28,15 @@ class Merchant < ApplicationRecord
       .order('invoice_items.created_at')
   end
 
+  def best_day
+    invoices.joins(:transactions, :invoice_items)
+      .where(transactions: { result: 0 })
+      .select("invoices.created_at, sum(invoice_items.unit_price * invoice_items.quantity) as total_revenue")
+      .group(:id)
+      .order(total_revenue: :desc)
+      .first.created_at
+  end
+
   # Class methods
   def self.enabled_merchants
     where(status: 0)
