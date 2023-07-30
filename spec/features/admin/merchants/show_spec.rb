@@ -2,11 +2,34 @@ require 'rails_helper'
 
 RSpec.describe "Admin Merchant Show Page", type: :feature do 
   before :each do
-    @merchant_1 = Merchant.create!(name: "Bob's Burgers")
-    @merchant_2 = Merchant.create!(name: "Kwik-E-Mart")
-    @merchant_3 = Merchant.create!(name: "Strickland Propane")
+    @merchant_1 = Merchant.create!(name: "Bob's Burgers", status: :enabled)
+    @merchant_2 = Merchant.create!(name: "Kwik-E-Mart", status: :enabled)
+    @merchant_3 = Merchant.create!(name: "Strickland Propane", status: :disabled)
   end
   
+
+  describe "When I visit the merchant index (/admin/merchants)" do
+    # US 24
+    it "I see a list of all the merchants" do
+      visit admin_merchants_path
+      expect(Merchant.all.count).to eq(3) # sanity check
+
+      Merchant.all.each do |merchant|
+        expect(page).to have_content(merchant.name)
+      end
+      
+      expect(page).not_to have_link("The Android's Dungeon & Baseball Card Shop")
+    end
+  # US 25
+    it "I can click on a merchant name and be taken to the merchant show page" do
+ 
+      visit admin_merchants_path
+    
+      click_link("Bob's Burgers")
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
+    end
+  end
+
   describe "When I visit the merchant show page (/admin/merchants/:merchant_id)" do
     it "I see a link to update the merchant's information" do
     
@@ -28,4 +51,5 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
     end
   end
 
+  
 end
