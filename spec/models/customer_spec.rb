@@ -25,11 +25,9 @@ RSpec.describe Customer, type: :model do
 
     expect(customer.list_transactions_results).to contain_exactly('success', 'success', 'success', 'failed', 'failed')
   end
-end
+
   describe "validations" do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
   end
-
-  
 end

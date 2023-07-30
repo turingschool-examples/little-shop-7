@@ -6,6 +6,12 @@ class Invoice < ApplicationRecord
   has_many :merchants, through: :items
 
   validates :status, presence: true
+
+  enum status: {
+    'cancelled': 0,
+    'in progress': 1,
+    'completed': 2
+  }
     
   # scope :top_customers, -> {
   #   joins(customer: :transactions)
@@ -26,13 +32,6 @@ class Invoice < ApplicationRecord
   }
 
 
-
-  enum status: {
-    'cancelled': 0,
-    'in progress': 1,
-    'completed': 2
-  }
-
   def format_created_at
     created_at.strftime("%A, %B %d, %Y")
   end
@@ -40,9 +39,5 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum("unit_price * quantity")
   end
-  
-  def total_revenue
-    invoice_items.sum("unit_price * quantity")
-                  end
 
 end
