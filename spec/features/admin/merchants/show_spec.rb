@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Admin Merchant Show Page", type: :feature do 
   before :each do
-    @merchant_1 = Merchant.create!(name: "Bob's Burgers")
-    @merchant_2 = Merchant.create!(name: "Kwik-E-Mart")
-    @merchant_3 = Merchant.create!(name: "Strickland Propane")
+    @merchant_1 = Merchant.create!(name: "Bob's Burgers", status: :enabled)
+    @merchant_2 = Merchant.create!(name: "Kwik-E-Mart", status: :enabled)
+    @merchant_3 = Merchant.create!(name: "Strickland Propane", status: :disabled)
   end
   
 
@@ -27,10 +27,6 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
     
       click_link("Bob's Burgers")
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
-    end
-
-    it "Has two sections, one for enabled merchants and one for disabled merchants" do
-      
     end
   end
 

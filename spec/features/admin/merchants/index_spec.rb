@@ -27,7 +27,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
 
       visit admin_merchants_path
 
-      within ".merchants" do
+      within "#disabled_merchants" do
         click_link("Bob's Burgers")
         expect(current_path).to eq(admin_merchant_path(@merchant_1))
       end
