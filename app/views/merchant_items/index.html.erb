@@ -1,8 +1,33 @@
 <%= render partial: "merchants/header", locals: {merchant: @merchant} %>
 
 <h3> My Items </h3>
+
 <div id="merchant-items">
-  <% @items.each do |item| %>
-    <h5><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></h5>
-  <% end %>
+  <div id="enabled-items">
+    <h3> Enabled Items </h3>
+    <% @items.enabled_items.each do |item| %>
+      <h4><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+        <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "disabled" %>
+          <%= form.submit "Disable #{item.name}" %>
+        <% end %>
+      </h4>
+    <% end %>
+  </div>
+
+  <div id="disabled-items">
+    <h3> Disabled Items </h3>
+    <% @items.disabled_items.each do |item| %>
+      <h4><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+        <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "enabled" %>
+          <%= form.submit "Enable #{item.name}" %>
+        <% end %>
+      </h4>
+    <% end %>
+  </div>
 </div>
+  
+  
