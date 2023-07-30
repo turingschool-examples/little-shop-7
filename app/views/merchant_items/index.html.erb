@@ -2,7 +2,9 @@
 
 <h3> My Items </h3>
 
-<h4><%= link_to "Create Item", new_merchant_item_path(@merchant, @item) %>
+<div id="create-item">
+  <h4><%= link_to "Create Item", new_merchant_item_path(@merchant, @item) %>
+</div>
 
 <div id="merchant-items">
   <div id="enabled-items">
