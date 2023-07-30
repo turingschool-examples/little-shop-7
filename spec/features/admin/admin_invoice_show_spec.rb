@@ -61,4 +61,14 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
     expect(page).to have_content(@invoice_item_2.status)
     expect(page).not_to have_content(@item_3.name)
   end
+
+  # US 35
+  it "I can see the total revenue that will be generated from all of the items on the invoice" do
+    visit admin_invoice_path(@invoice_1)
+
+    expected_total = (@invoice_item_1.quantity * @invoice_item_1.unit_price) + (@invoice_item_2.quantity * @invoice_item_2.unit_price)
+    expected_total = expected_total / 100.0
+    expected_total = sprintf("$%.2f", expected_total)
+    expect(page).to have_content("Total Revenue: #{expected_total}")
+  end
 end
