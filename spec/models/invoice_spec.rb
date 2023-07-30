@@ -43,9 +43,9 @@ RSpec.describe Invoice, type: :model do
       Customer.all.each do |customer|
         5.times do
           invoice = customer.invoices.create!(
-            status: ['pending', 'paid', 'cancelled'].sample
+            status: ['cancelled', 'completed', 'in_progress'].sample
           )
-          @invoice_1 = customer.invoices.create!(status: :pending, created_at: "2012-03-25 09:54:09 UTC")
+          @invoice_1 = customer.invoices.create!(status: :in_progress, created_at: "2012-03-25 09:54:09 UTC")
   
           Item.all.sample(5).each do |item|
             invoice.invoice_items.create!(
