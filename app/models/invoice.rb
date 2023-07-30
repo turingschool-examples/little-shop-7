@@ -14,4 +14,12 @@ class Invoice < ApplicationRecord
   def formatted_date
     created_at.strftime("%A, %B %-e, %Y")
   end
+  
+  def total_revenue
+    invoice_items.sum("unit_price * quantity")
+  end
+
+  def total_revenue_to_currency
+    ActiveSupport::NumberHelper::number_to_currency(total_revenue.to_f / 100)
+  end
 end
