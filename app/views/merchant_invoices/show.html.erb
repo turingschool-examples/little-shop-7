@@ -5,7 +5,7 @@
 
   <p><b>Status: </b><%= @invoice.status.titleize %></p>
   <p><b>Created on: </b><%= @invoice.formatted_date %></p>
-
+  <p id="merchant_invoice_revenue"><b>Total Revenue: </b><%= @invoice.merchant_revenue_to_currency(@merchant.id) %></p>
   <div id="merchant_invoice_customer_info">
     <h2>Customer:</h2>
     <p><%= @invoice.customer.full_name %></p>
@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @merchant_invoice_items.each do |invoice_item| %>
+        <% @invoice.merchant_invoice_items(@merchant.id).each do |invoice_item| %>
           <tr>
             <td><%= invoice_item.item.name %></td>
             <td><%= invoice_item.quantity %></td>
@@ -35,5 +35,4 @@
       </tbody>
     </table>
   </div>
-
 </div>
