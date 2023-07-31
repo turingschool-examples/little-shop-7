@@ -227,7 +227,6 @@ RSpec.describe "/admin /merchants", type: :feature do
       transaction_13 = Transaction.create!(invoice_id: invoice_13.id, credit_card_number: "2079801981307339", credit_card_expiration_date: "07/01", result: "failed")
     
       visit "/admin/merchants"
-      save_and_open_page
 
       expect(page).to have_content("Top day for #{merchant_1.name} was #{merchant_1.top_selling_date.strftime('%m/%d/%y')}")
       expect(page).to have_content("Top day for #{merchant_2.name} was #{merchant_2.top_selling_date.strftime('%m/%d/%y')}")
