@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   describe "validations" do
     it { should validate_presence_of(:name) }
+    it { should allow_value(%w(true false)).for(:status) }
   end
 
   describe "relationships" do
@@ -86,5 +87,22 @@ RSpec.describe Merchant, type: :model do
         # end
       end
     end
+    
+    # describe "Merchant Items" do
+    #   describe "Merchant Item List" do
+    #     let!(:merchant) {create(:merchant)}
+    #     let!(:merchant_2) {create(:merchant)}
+    #     let!(:item) {create(:item, merchant: merchant)}
+    #     let!(:item_2) {create(:item, merchant: merchant)}
+    #     let!(:item_3) {create(:item, merchant: merchant_2)}
+    #     let!(:item_4) {create(:item, merchant: merchant_2)}
+    #     #User Story 6 
+    #     it "creates a list of all items associated to a specific merchant" do 
+    #       #Creates a list of only 2 items that belong to the first merchant
+    #       expect(merchant.item_list.length).to eq(2)
+    #       expect(merchant.item_list.first).to eq(item.name)
+    #     end
+    #   end
+    # end
   end
 end
