@@ -1,6 +1,6 @@
-require 'rails_helper' 
+require "rails_helper"
 
-RSpec.describe "merchant dashboard", type: :feature do
+RSpec.describe "merchant dashboards index", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @items = create_list(:item, 20, merchant: @merchant_1)
@@ -34,13 +34,13 @@ RSpec.describe "merchant dashboard", type: :feature do
       it "I see a link to my merchant items index (/merchants/:merchant_id/items)" do
         visit merchant_dashboards_path(@merchant_1)
        
-        expect(page).to have_link("My Items", href: merchant_items_path(@merchant_1))
+        expect(page).to have_link("My Items", href: merchant_items_path(@merchant_1.id))
       end
 
       it "And I see a link to my merchant invoices index (/merchants/:merchant_id/invoices)" do
         visit merchant_dashboards_path(@merchant_1)
      
-        expect(page).to have_link("My Invoices", href: merchant_invoices_path(@merchant_1))
+        expect(page).to have_link("My Invoices", href: merchant_invoices_path(@merchant_1.id))
       end
 
        # User Story 3
@@ -56,7 +56,7 @@ RSpec.describe "merchant dashboard", type: :feature do
       end
 
       it "and next to each customer name I see the number of successful transactions they have conducted with my merchant" do
-        visit merchant_dashboards_path(@merchant_1)
+        visit merchant_dashboards_path(@merchant_1) 
       
         customers = @merchant_1.top_5_customers
 

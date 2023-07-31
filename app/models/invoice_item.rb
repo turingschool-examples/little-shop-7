@@ -1,6 +1,12 @@
 class InvoiceItem < ApplicationRecord
-  belongs_to :invoice
-  belongs_to :item
+  validates_presence_of :invoice_id,
+  :item_id,
+  :quantity,
+  :unit_price,
+  :status
+
+belongs_to :invoice
+belongs_to :item
 
   validates :quantity, presence: true, numericality: true
   validates :unit_price, presence: true, numericality: true
@@ -11,6 +17,12 @@ class InvoiceItem < ApplicationRecord
                 'pending': 1,
                 'shipped': 2
                 }
+
+
+def self.incomplete_invoices
+  invoice_ids = InvoiceItem.where("status = 0 OR status = 1").pluck(:invoice_id)
+  Invoice.order(created_at: :asc).find(invoice_ids)
+  end
          
   def format_price
     unit_price_in_cents = self.unit_price
@@ -19,3 +31,4 @@ class InvoiceItem < ApplicationRecord
     sprintf("$%d.%02d", dollars, cents)
   end  
 end
+  
