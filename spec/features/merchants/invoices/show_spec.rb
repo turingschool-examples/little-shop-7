@@ -159,5 +159,33 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
         expect(page).to have_content ("Total Revenue: #{@invoice_2.merchant_revenue_to_currency(@merchant_2.id)}")
       end
     end
+    # ======= END STORY 17 TESTS =======
+    
+    # ======= START STORY 18 TESTS =======
+    it "I see that each invoice item status is a select field" do
+      visit merchant_invoice_path(@merchant_1, @invoice_1)
+
+      within("td#invoice_item_status_#{@invoice1_item_1.id}") do
+        expect(page).to have_field("Status", with: "Packaged", type: option)
+      end
+    end
+
+    it "I see that the invoice item's current status is selected" do
+
+    end
+
+    it "I can select a new status for the item when I click the select field" do
+
+    end
+
+    it "I can update the item's status when I click the 'Update Item Status' button next to the select field" do
+
+    end
+
+    it "I am takan back to the merchant invoice show page and see the updated status when I click the 'Update' button" do
+
+    end
+    # ======= END STORY 18 TESTS =======
+
   end
 end
