@@ -28,10 +28,9 @@ RSpec.describe "Admin/merchants index page", type: :feature do
       
       it "When I click this button, Then I am redirected back to the admin merchants index and see status changed" do
         merchants = create_list(:merchant, 4)
-        merchants << create_list(:merchant, 4, status: :false)
+        merchants << create_list(:merchant, 4, :false)
         visit admins_merchants_path
         save_and_open_page
-
         expect(page).to have_button("Disable", id: "#{merchants.first.id}_button")
         find("##{merchants.first.id}_button").click
         

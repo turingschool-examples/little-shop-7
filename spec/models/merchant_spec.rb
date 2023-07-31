@@ -3,19 +3,7 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   describe "validations" do
     it { should validate_presence_of(:name) }
-    #it {should validate_inclusion_of(:status).in_array([true, false])}
-
-    it "allows only true or false for status attribute" do
-      merchant = Merchant.create!(name: "Test Merchant", status: true)
-      merchant.status = true
-      expect(merchant).to be_valid
-
-      merchant.status = false
-      expect(merchant).to be_valid
-
-      merchant.status = nil
-      expect(merchant).not_to be_valid
-    end
+    it { should allow_value(%w(true false)).for(:status) }
   end
 
   describe "relationships" do
