@@ -30,7 +30,7 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         merchants = create_list(:merchant, 4)
         merchants << create_list(:merchant, 4, status: :false)
         visit admins_merchants_path
-        save_and_open_page
+        
 
         expect(page).to have_button("Disable", id: "#{merchants.first.id}_button")
         find("##{merchants.first.id}_button").click
@@ -38,7 +38,27 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         expect(current_path).to eq(admins_merchants_path)
         expect(page).to have_no_button("Disable", id: "#{merchants.first.id}_button")
         expect(page).to have_button("Enable", id: "#{merchants.first.id}_button")
-        save_and_open_page
+        
+      end
+
+      describe "story 28" do
+        it "I see two sections, one for Enabled Merchants and one for Disabled Merchants" do
+          merchants = create_list(:merchant, 3)
+          merchants.concat(create_list(:merchant, 3, status: :false))
+          visit admins_merchants_path
+          within "#enabled_merchants" do
+            expect(page).to have_content(merchants[0].name)
+            expect(page).to have_content(merchants[1].name)
+            expect(page).to have_content(merchants[2].name)
+          end
+
+          within "#disabled_merchants" do
+            expect(page).to have_content(merchants[3].name)
+            expect(page).to have_content(merchants[4].name)
+            expect(page).to have_content(merchants[5].name)
+          end
+        end
+
       end
     end
   end
