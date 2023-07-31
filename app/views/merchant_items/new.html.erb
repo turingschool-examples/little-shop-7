@@ -1,3 +1,5 @@
+<%= render partial: "merchants/header", locals: {merchant: @merchant} %>
+
 <h2>New Item Form</h2>
 
 <%= form_with model: @item, url: merchant_items_path(@merchant, @item) do |f| %>
