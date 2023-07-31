@@ -13,10 +13,10 @@ class Item < ApplicationRecord
   end
 
   def self.enabled_items
-    where('status = 1')
+    where(status: 1)
   end
 
   def self.disabled_items
-    where('status = 0')
+    where(status: 0)
   end
 end 
