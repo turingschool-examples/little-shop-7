@@ -15,6 +15,12 @@ RSpec.describe "/admin/invoices/:invoice_id" do
 
     it "has all items on an invoice with the invoice id, status, created at, and customer name" do
       visit "admin/invoices/#{@invoice_1.id}"
+      
+      expect(page).to have_content("Invoice ##{@invoice_1.id}")
+      expect(page).to have_content("Invoice Status:")
+      expect(page).to have_select("invoice_status", selected: @invoice_1.status.titleize)
+      expect(page).to have_content("Created On: #{@invoice_1.format_created_at}")
+      expect(page).to have_content("Customer Name: Dan Smith")
     end
   end
 end
