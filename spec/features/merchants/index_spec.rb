@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Merchant Indes Page" do
+RSpec.describe "Merchant Index Page" do
   before :each do
     @merchant = create(:merchant)
     @merchant2 = create(:merchant)
