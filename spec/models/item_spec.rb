@@ -35,6 +35,14 @@ RSpec.describe Item, type: :model do
         expect(merchant_1.items.disabled_items.to_a).to eq([item_3])
       end
     end
+
+    describe ".top_5_items" do 
+      it "returns the top 5 items by total revenue generated" do
+        original_test_data
+        
+        expect(@merchant_1.items.top_5_items).to eq([@item_1, @item_5, @item_7, @item_3, @item_4])
+      end
+    end
   end
 
   describe "instance methods" do 

@@ -354,4 +354,39 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     expect(current_path).to eq(new_merchant_item_path(@merchant_1))
     expect(page).to have_content("Unit price is not a number")
   end
+
+  it "has a sections displaying the top 5 most popular items by revenue with a link tot he items show page and its total revenue" do 
+    visit merchant_items_path(@merchant_1)
+
+    within("div#top-5-items") do 
+      expect(page).to have_content("#{@item_1.name} - $6,232,050.00 in sales")
+      expect(page).to have_content("#{@item_5.name} - $1,424,520.00 in sales")
+      expect(page).to have_content("#{@item_7.name} - $1,334,940.00 in sales")
+      expect(page).to have_content("#{@item_3.name} - $836,952.00 in sales")
+      expect(page).to have_content("#{@item_4.name} - $52,704.00 in sales")
+
+      expect(@item_1.name).to appear_before(@item_5.name)
+      expect(@item_5.name).to appear_before(@item_7.name)
+      expect(@item_7.name).to appear_before(@item_3.name)
+      expect(@item_3.name).to appear_before(@item_4.name)
+
+      expect(page).to have_link("#{@item_1.name}")
+      expect(page).to have_link("#{@item_5.name}")
+      expect(page).to have_link("#{@item_7.name}")
+      expect(page).to have_link("#{@item_3.name}")
+      expect(page).to have_link("#{@item_4.name}")
+    end
+  end
+
+  it "has next to the 5 most popular items I see the date with the most sales for each item" do 
+    visit merchant_items_path(@merchant_1)
+    
+    within("div#top-5-items") do
+      expect(page).to have_content("Top selling date for #{@item_1.name}")
+      expect(page).to have_content("Top selling date for #{@item_2.name}")
+      expect(page).to have_content("Top selling date for #{@item_3.name}")
+      expect(page).to have_content("Top selling date for #{@item_4.name}")
+      expect(page).to have_content("Top selling date for #{@item_5.name}")
+    end
+  end
 end
