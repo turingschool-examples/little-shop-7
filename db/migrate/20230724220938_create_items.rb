@@ -4,6 +4,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :description
       t.integer :unit_price
       t.integer :merchant_id
+      t.boolean :status, default: true
 
       t.timestamps
     end
