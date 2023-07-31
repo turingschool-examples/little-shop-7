@@ -164,26 +164,44 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
     # ======= START STORY 18 TESTS =======
     it "I see that each invoice item status is a select field" do
       visit merchant_invoice_path(@merchant_1, @invoice_1)
-
+      save_and_open_page
       within("td#invoice_item_status_#{@invoice1_item_1.id}") do
-        expect(page).to have_field("Status", with: "Packaged", type: option)
+        expect(page).to have_select("invoice_item[status]", options: ["Pending", "Packaged", "Shipped"])
+      end
+    
+      within("td#invoice_item_status_#{@invoice1_item_2.id}") do
+        expect(page).to have_select("invoice_item[status]", options: ["Pending", "Packaged", "Shipped"])
       end
     end
 
     it "I see that the invoice item's current status is selected" do
+      visit merchant_invoice_path(@merchant_1, @invoice_1)
 
+      within("td#invoice_item_status_#{@invoice1_item_1.id}") do
+        expect(page).to have_select("invoice_item[status]", selected: "Packaged")
+      end
+    
+      within("td#invoice_item_status_#{@invoice1_item_2.id}") do
+        expect(page).to have_select("invoice_item[status]", selected: "Shipped")
+      end
     end
 
-    it "I can select a new status for the item when I click the select field" do
+    describe "When I select a new status and click the 'Update Item Status' button next to the select field" do
+      it "I am taken back to the merchant invoice show page and see the item's updated status" do
+        visit merchant_invoice_path(@merchant_1, @invoice_1)
+        
+        within("td#invoice_item_status_#{@invoice1_item_1.id}") do
+          expect(page).to have_select("invoice_item[status]", selected: "Packaged")
+          select("Shipped", from: "invoice_item[status]")
+          click_button "Update Item Status"
+        end
 
-    end
+        expect(current_path).to eq(merchant_invoice_path(@merchant_1, @invoice_1))
 
-    it "I can update the item's status when I click the 'Update Item Status' button next to the select field" do
-
-    end
-
-    it "I am takan back to the merchant invoice show page and see the updated status when I click the 'Update' button" do
-
+        within("td#invoice_item_status_#{@invoice1_item_1.id}") do
+          expect(page).to have_select("invoice_item[status]", selected: "Shipped")
+        end
+      end
     end
     # ======= END STORY 18 TESTS =======
 
