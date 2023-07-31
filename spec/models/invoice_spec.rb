@@ -73,13 +73,55 @@ RSpec.describe Invoice, type: :model do
         expect(merch1_inv1_result).to eq(merch1_inv1_expected)
 
         # invoice_2 has one invoice_item from merchant_1 and one invoice_item from merchant_2
+        # invoice_2 for merchant_1
         merch1_inv2_expected = [@invoice2_item_3]
         merch1_inv2_result = @invoice_2.merchant_invoice_items(@merchant_1.id)
         expect(merch1_inv2_result).to eq(merch1_inv2_expected)
         
+        # invoice_2 for merchant_2
         merch2_inv2_expected = [@invoice2_item_4]
         merch2_inv2_result = @invoice_2.merchant_invoice_items(@merchant_2.id)
         expect(merch2_inv2_result).to eq(merch2_inv2_expected)
+      end
+    end
+
+    describe "#merchant_revenue(merchant_id)" do
+      before :each do
+        merchant_invoice_test_data
+      end
+
+      it "returns the total revenue from a specific merchant's items" do
+        # invoice_1 has two invoice_items from merchant_1
+        merch1_inv1_item_1_rev = @invoice1_item_1.unit_price * @invoice1_item_1.quantity  # =>  68175
+        merch1_inv1_item_2_rev = @invoice1_item_2.unit_price * @invoice1_item_2.quantity  # => 667470
+        merch1_inv1_total_rev = merch1_inv1_item_2_rev + merch1_inv1_item_1_rev           # => 735645
+
+        expect(@invoice_1.merchant_revenue(@merchant_1.id)).to eq(merch1_inv1_total_rev)
+
+        # invoice_2 has one invoice_item from merchant_1 and one invoice_item from merchant_2
+        # invoice_2 for merchant_1
+        merch1_inv2_item_3_rev = @invoice2_item_3.unit_price * @invoice2_item_3.quantity
+        
+        expect(@invoice_2.merchant_revenue(@merchant_1.id)).to eq(merch1_inv2_item_3_rev) # => 209916
+        
+        # invoice_2 for merchant_2
+        merch2_inv2_item_4_rev = @invoice2_item_4.unit_price * @invoice2_item_4.quantity
+        
+        expect(@invoice_2.merchant_revenue(@merchant_2.id)).to eq(merch2_inv2_item_4_rev) # => 692469
+      end
+    end
+    
+    describe "#merchant_revenue_to_currency(merchant_id)" do
+      before :each do
+        merchant_invoice_test_data
+      end
+
+      it "returns the total revenue from a specific merchant's items as a formatted string" do
+        expect(@invoice_1.merchant_revenue_to_currency(@merchant_1.id)).to eq("$7,356.45")
+        
+        expect(@invoice_2.merchant_revenue_to_currency(@merchant_1.id)).to eq("$2,099.16")
+        
+        expect(@invoice_2.merchant_revenue_to_currency(@merchant_2.id)).to eq("$6,924.69")
       end
     end
   end

@@ -22,4 +22,19 @@ class Invoice < ApplicationRecord
   def total_revenue_to_currency
     ActiveSupport::NumberHelper::number_to_currency(total_revenue.to_f / 100)
   end
+
+  def merchant_invoice_items(merchant_id)
+    invoice_items.joins(:item).where("items.merchant_id = #{merchant_id}")
+  end
+
+  def merchant_revenue(merchant_id)
+    invoice_items
+    .joins(:item)
+    .where("items.merchant_id = #{merchant_id}")
+    .sum("invoice_items.unit_price * quantity")
+  end
+
+  def merchant_revenue_to_currency(merchant_id)
+    ActiveSupport::NumberHelper::number_to_currency(merchant_revenue(merchant_id).to_f / 100)
+  end
 end
