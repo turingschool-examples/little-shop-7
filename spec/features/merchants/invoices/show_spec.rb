@@ -164,7 +164,6 @@ RSpec.describe "Merchant Invoice Show Page", type: :feature do
     # ======= START STORY 18 TESTS =======
     it "I see that each invoice item status is a select field" do
       visit merchant_invoice_path(@merchant_1, @invoice_1)
-      save_and_open_page
       within("td#invoice_item_status_#{@invoice1_item_1.id}") do
         expect(page).to have_select("invoice_item[status]", options: ["Pending", "Packaged", "Shipped"])
       end
