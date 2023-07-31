@@ -181,6 +181,7 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     end
   end
 
+  #Story #9 + #10 Merchant Item Disable/Enable; Merchant Items Grouped by Status
   it "Has a button to enable or disable the Item" do
     visit merchant_items_path(@merchant_1)
 
@@ -256,4 +257,101 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     end
   end
 
+  #11. Merchant Item Create
+
+  it "has a link to create a new item and when click it directs me to a create item form" do 
+    visit merchant_items_path(@merchant_1)
+
+    within("div#create-item") do 
+      expect(page).to have_link("Create Item")
+      click_link("Create Item")
+    end
+
+    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+  end
+
+  it "clicks the link to create a new item and I see a form" do 
+    visit merchant_items_path(@merchant_1)
+
+    within("div#create-item") do 
+      click_link("Create Item")
+    end
+
+    expect(page).to have_content("New Item Form")
+    expect(page).to have_field("Name")
+    expect(page).to have_field("Description")
+    expect(page).to have_field("Unit price")
+    expect(page).to have_button("Create Item")
+  end
+
+  it "fills in the form, clicks create, redirect to index page, and I see my item in the disabled item section of the page" do 
+    visit merchant_items_path(@merchant_1)
+
+    within("div#create-item") do 
+      click_link("Create Item")
+    end
+
+    fill_in("Name", with: "TEST ITEM")
+    fill_in("Description", with: "It is very cool!")
+    fill_in("Unit price", with: "90004")
+    click_button("Create Item")
+
+    expect(current_path).to eq(merchant_items_path(@merchant_1))
+
+    within("div#disabled-items") do 
+      expect(page).to have_content("TEST ITEM")
+    end
+  end
+
+  it "fills in the name section of the form with nothing it gives error saying Name Cant be blank" do 
+    visit new_merchant_item_path(@merchant_1)
+    
+    fill_in("Name", with: "")
+    fill_in("Description", with: "Place holder")
+    fill_in("Unit price", with: "10000")
+
+    click_button("Create Item")
+
+    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+    expect(page).to have_content("Name can't be blank")
+  end
+
+  it "There is a form when you put nothing in the description box it give you an error saying it cant be blank" do
+    visit new_merchant_item_path(@merchant_1)
+    
+    fill_in("Name", with: "TEST")
+    fill_in("Description", with: "")
+    fill_in("Unit price", with: "10000")
+
+    click_button("Create Item")
+
+    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+    expect(page).to have_content("Description can't be blank")
+  end
+
+  it "There is a form when you put nothing in the Unit price box it give you an error saying it was not a number" do
+    visit new_merchant_item_path(@merchant_1)
+    
+    fill_in("Name", with: "TEST")
+    fill_in("Description", with: "Place holder")
+    fill_in("Unit price", with: "")
+
+    click_button("Create Item")
+
+    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+    expect(page).to have_content("Unit price is not a number")
+  end
+
+  it "There is a form when put in a non interger Unit price it give you an error saying it was not a number" do
+    visit new_merchant_item_path(@merchant_1)
+    
+    fill_in("Name", with: "TEST")
+    fill_in("Description", with: "Place holder")
+    fill_in("Unit price", with: "HELLO")
+
+    click_button("Create Item")
+
+    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+    expect(page).to have_content("Unit price is not a number")
+  end
 end
