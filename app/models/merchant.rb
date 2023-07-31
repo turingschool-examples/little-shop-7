@@ -1,6 +1,6 @@
 class Merchant < ApplicationRecord 
   validates :name, presence: true
-  validates :status, inclusion: { in: [true, false] }
+  validates :status, inclusion: { in: [true, false] }, exclusion: nil
 
   has_many :items
   has_many :invoice_items, through: :items
@@ -23,8 +23,13 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
   end
 
+
   def toggle_status
-    self.status = !self.status
-    save
+    if self.status
+      self.update_attribute(:status, false)
+    else
+      self.update_attribute(:status, true)
+    end
   end
 end
+
