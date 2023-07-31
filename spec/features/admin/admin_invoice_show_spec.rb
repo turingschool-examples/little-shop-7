@@ -39,7 +39,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
     expect(current_path).to eq(admin_invoice_path(@invoice_1))
     expect(page).to have_content(@invoice_1.id)
-    expect(page).to have_content(@invoice_1.status.to_s.capitalize)
+    expect(page).to have_content(@invoice_1.status.capitalize)
     expect(page).to have_content(@invoice_1.formatted_date)
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
