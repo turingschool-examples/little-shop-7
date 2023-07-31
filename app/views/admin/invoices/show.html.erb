@@ -3,7 +3,7 @@
   <%= form_with(model: @invoice, url: admin_invoice_path(@invoice), method: :patch) do |form| %>
     <div>
       <label for="invoice_status">Invoice Status:</label>
-      <%= form.select :status, options_for_select(Invoice.statuses.keys.map { |status| [status.titleize, status]}, @invoice.status) %>
+      <%= form.select :status, options_for_select(Invoice.status_list_for_select_menu, @invoice.status) %>
       <%= form.submit 'Update Invoice Status' %>
     </div>
   <% end %>
