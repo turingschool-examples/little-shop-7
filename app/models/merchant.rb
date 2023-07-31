@@ -23,6 +23,7 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
   end
 
+
   def toggle_status
     if self.status
       self.update_attribute(:status, false)
@@ -31,5 +32,4 @@ class Merchant < ApplicationRecord
     end
   end
 end
-
 
