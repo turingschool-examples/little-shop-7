@@ -15,4 +15,6 @@ class Invoice < ApplicationRecord
       .distinct
       .order(created_at: :asc)
   end
+
+  
 end
