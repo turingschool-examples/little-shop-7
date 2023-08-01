@@ -104,33 +104,7 @@ RSpec.describe Merchant, type: :model do
             expect(@merchant.disabled_items.last).to eq(@item_8)
           end
         end
-        # #User Story 5
-        # describe "oldest_to_newest" do
-        #   it "displays items ready to ship and their invoice is oldest to newest" do
-        #     oldest_to_newest_invoices = merchant.pending_items
-        #     #This will check that the invoice on :65 happens before the invoice on :66
-        #     expect(oldest_to_newest_invoices.first).to eq(invoice_item_pending)
-            
-        #   end
-        # end
       end
     end
-    
-    # describe "Merchant Items" do
-    #   describe "Merchant Item List" do
-    #     let!(:merchant) {create(:merchant)}
-    #     let!(:merchant_2) {create(:merchant)}
-    #     let!(:item) {create(:item, merchant: merchant)}
-    #     let!(:item_2) {create(:item, merchant: merchant)}
-    #     let!(:item_3) {create(:item, merchant: merchant_2)}
-    #     let!(:item_4) {create(:item, merchant: merchant_2)}
-    #     #User Story 6 
-    #     it "creates a list of all items associated to a specific merchant" do 
-    #       #Creates a list of only 2 items that belong to the first merchant
-    #       expect(merchant.item_list.length).to eq(2)
-    #       expect(merchant.item_list.first).to eq(item.name)
-    #     end
-    #   end
-    # end
   end
 end
