@@ -4,6 +4,7 @@ class Admin::MerchantsController < ApplicationController
     @enabled_merchants = Merchant.enabled_merchants
     @disabled_merchants = Merchant.disabled_merchants
     @top_5_merchants = Merchant.top_5_merchants_by_revenue
+    @logo_image = get_logo
   end
 
   def show
