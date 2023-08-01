@@ -66,7 +66,7 @@ RSpec.describe "As a merchant" do
     # Then I am taken back to the items index page
     # And I see the item I just created displayed in the list of items.
     # And I see my item was created with a default status of disabled.
-
+    #US 11
     it "I see a link to create a new item, When I click on this link and I see a form that allows me to add item info" do
       merchant = create(:merchant)  
       items = create_list(:item, 4, merchant: merchant)
@@ -77,8 +77,8 @@ RSpec.describe "As a merchant" do
       expect(page).to have_link("Create New Item", href: "#{new_merchant_item_path(merchant)}")
 
       click_link("Create New Item")
-
-      expect(current_path).to eq("#{new_merchant_item_path}")
+        
+      expect(current_path).to eq("#{new_merchant_item_path(merchant)}")
       expect(page).to have_css("#new_item_form")
     end
 
@@ -86,7 +86,7 @@ RSpec.describe "As a merchant" do
       visit new_merchant_item_path
 
       # fill_in(:name, with: "African Bullfrog", :description, with: "A furious father", :unit_price, with: 50000000)
-      fill_in(:name => "African Bullfrog", :with => "A furious father", :unit_price => 50000000)
+      fill_in(:name => "African Bullfrog", :description => "A furious father", :unit_price => 50000000)
 
       click_button("Create Item")
 

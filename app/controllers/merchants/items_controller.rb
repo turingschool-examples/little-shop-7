@@ -1,5 +1,6 @@
 class Merchants::ItemsController < ApplicationController
   
+
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @items = @merchant.items
@@ -32,6 +33,11 @@ class Merchants::ItemsController < ApplicationController
   #   @item = Item.find(params[:item_id])
   #   @item.update_status
   #   redirect_to “/merchants/#{params[:merchant_id]}/items”
+  # end
+
+  # def create
+  #   Item.create(name: params[:name], status: false)
+  #   redirect_to merchant_items_path
   # end
   private
   def item_params
