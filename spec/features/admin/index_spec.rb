@@ -5,21 +5,21 @@ RSpec.describe "Admin", type: :feature do
   describe "as an admin" do
     describe "When I visit the admin dashboard (/admin)" do
       it "Then I see a header indicating that I am on the admin dashboard" do
-        visit admins_path 
+        visit admin_index_path 
         within "#header" do 
           expect(page).to have_content("Admin Dashboard")
         end
       end
       
       it "Then I see a link to the admin merchants index (/admin/merchants)" do
-        visit admins_path 
+        visit admin_index_path 
         within "#header" do 
           expect(page).to have_link("Merchants", href: "/admin/merchants")
         end
       end
       
       it "And I see a link to the admin invoices index (/admin/invoices)" do
-        visit admins_path 
+        visit admin_index_path 
         within "#header" do 
           expect(page).to have_link("Invoices", href: "/admin/invoices")
         end
@@ -27,7 +27,7 @@ RSpec.describe "Admin", type: :feature do
       
       it "Then I see the names of the top 5 customers who have conducted the largest number of successful transactions" do
         test_data
-        visit admins_path
+        visit admin_index_path
 
         within "#top_5_customers" do
           expect("#{@customer_1.last_name}").to appear_before("#{@customer_2.last_name}")
@@ -40,7 +40,7 @@ RSpec.describe "Admin", type: :feature do
       it "And next to each customer name I see the number of successful transactions they have
       conducted" do
         test_data
-        visit admins_path
+        visit admin_index_path
         
         within "#top_5_customers" do
           within "#top_five_#{@customer_1.first_name}#{@customer_1.last_name}" do
@@ -62,7 +62,7 @@ RSpec.describe "Admin", type: :feature do
       end
 
       it "Then I see a section for Incomplete Invoices" do
-        visit admins_path
+        visit admin_index_path
 
         expect(page).to have_css("#incomplete_invoices")
 
@@ -88,7 +88,7 @@ RSpec.describe "Admin", type: :feature do
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
-        visit admins_path
+        visit admin_index_path
         within "#incomplete_invoices" do
           expect(page).to_not have_content("Invoice ##{invoices[0].id}")
           expect(page).to_not have_content("Invoice ##{invoices[1].id}")
@@ -125,7 +125,7 @@ RSpec.describe "Admin", type: :feature do
           item = create(:item, merchant: merchant)
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
-        visit admins_path
+        visit admin_index_path
 
         within "#incomplete_invoices" do
           expect(page).to_not have_content(invoices[0].id)
