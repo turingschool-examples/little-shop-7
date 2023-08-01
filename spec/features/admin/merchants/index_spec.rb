@@ -222,12 +222,12 @@ RSpec.describe "admin merchants index page" do
     end
     
     # User Story 37
-    it "has photo from unsplash on each page" do
-      expect(page).to have_css("img[src*='https://plus.unsplash.com/premium_photo-1661964421770-6b60b1678d62?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0ODI4Mjh8MHwxfGFsbHx8fHx8fHx8fDE2OTA4NDMzNTZ8&ixlib=rb-4.0.3&q=85&utm_source=little-etsy-shop-7&utm_medium=referral&utm_campaign=api-credit']")
+    it "has photo from unsplash on each page", :vcr do
+      expect(page).to have_css("img[src*='https://plus.unsplash.com/premium_photo-1661964421770-6b60b1678d62?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0ODI4NjF8MHwxfGFsbHx8fHx8fHx8fDE2OTA4OTc0ODJ8&ixlib=rb-4.0.3&q=85&utm_source=little-etsy-shop-7&utm_medium=referral&utm_campaign=api-credit']")
     end
     
     # User Story 40
-    it "displays the 'like history' next to the logo image" do
+    it "displays the 'like history' next to the logo image", :vcr do
       expect(page).to have_content("Photo Likes: ")
     end
   end

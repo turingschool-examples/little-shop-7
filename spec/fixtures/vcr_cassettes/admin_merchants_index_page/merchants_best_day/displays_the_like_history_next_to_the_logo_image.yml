@@ -65,13 +65,13 @@ http_interactions:
       Age:
       - '2066'
       X-Served-By:
-      - cache-iad-kjyo7100065-IAD, cache-den8259-DEN
+      - cache-iad-kjyo7100065-IAD, cache-den8237-DEN
       X-Cache:
       - MISS, HIT
       X-Cache-Hits:
-      - 0, 1
+      - 0, 2
       X-Timer:
-      - S1690899548.353551,VS0,VE1
+      - S1690899549.672668,VS0,VE0
       Vary:
       - Accept-Encoding,Authorization,Accept-Language,Accept
     body:
@@ -144,13 +144,13 @@ http_interactions:
       Age:
       - '2066'
       X-Served-By:
-      - cache-iad-kjyo7100065-IAD, cache-den8228-DEN
+      - cache-iad-kjyo7100065-IAD, cache-den8249-DEN
       X-Cache:
       - MISS, HIT
       X-Cache-Hits:
-      - 0, 5
+      - 0, 2
       X-Timer:
-      - S1690899548.439208,VS0,VE0
+      - S1690899549.762556,VS0,VE0
       Vary:
       - Accept-Encoding,Authorization,Accept-Language,Accept
     body:
