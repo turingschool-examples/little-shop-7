@@ -359,11 +359,11 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     visit merchant_items_path(@merchant_1)
 
     within("div#top-5-items") do 
-      expect(page).to have_content("#{@item_1.name} - $6,232,050.00 in sales")
-      expect(page).to have_content("#{@item_5.name} - $1,424,520.00 in sales")
-      expect(page).to have_content("#{@item_7.name} - $1,334,940.00 in sales")
-      expect(page).to have_content("#{@item_3.name} - $836,952.00 in sales")
-      expect(page).to have_content("#{@item_4.name} - $52,704.00 in sales")
+      expect(page).to have_content("#{@item_1.name} - $62,320.00 in sales")
+      expect(page).to have_content("#{@item_5.name} - $14,245.00 in sales")
+      expect(page).to have_content("#{@item_7.name} - $13,349.00")
+      expect(page).to have_content("#{@item_3.name} - $8,369.00 in sales")
+      expect(page).to have_content("#{@item_4.name} - $527.00 in sales")
 
       expect(page).to_not have_content("#{@item_2.name}")
       expect(page).to_not have_content("#{@item_6.name}")
