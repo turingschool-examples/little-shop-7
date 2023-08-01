@@ -17,5 +17,14 @@ RSpec.describe "Invoices show page", type: :feature do
       expect(page).to have_content("#{@invoice_1.customer.first_name}")
       expect(page).to have_content("#{@invoice_1.customer.last_name}")
     end
+
+    it "Then I see all of the items on the invoice including:
+
+    Item name
+    The quantity of the item ordered
+    The price the Item sold for
+    The Invoice Item status" do
+      
+    end
   end
 end
