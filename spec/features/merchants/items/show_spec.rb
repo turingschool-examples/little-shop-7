@@ -23,7 +23,7 @@ RSpec.describe "Merchant Items Show Page" do
       click_on 'Update Item' 
       
       expect(current_path).to eq("/merchants/#{@item.merchant.id}/items/#{@item.id}")
-      save_and_open_page
+      
       expect(page).to have_content('Fancy Shirt')
       expect(page).to have_content('This is a fancy shirt')
       expect(page).to have_content('Item information was successfully updated.')
