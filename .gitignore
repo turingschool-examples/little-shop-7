@@ -33,3 +33,6 @@
 coverage
 
 .DS_Store
+
+# Ignore assess keys and secrets
+/config/initializers/configs.rb
