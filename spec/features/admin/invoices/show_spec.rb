@@ -24,7 +24,27 @@ RSpec.describe "Invoices show page", type: :feature do
     The quantity of the item ordered
     The price the Item sold for
     The Invoice Item status" do
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      merchant = create(:merchant)
+      invoices = Array.new
+      invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_1))
+      invoices.concat(create_list(:invoice, 3, status: "in progress", customer: customer_2))
       
+      invoices[0..1].each do |invoice|
+        item = create(:item, merchant: merchant)
+        invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 0)
+      end
+      invoices[2..3].each do |invoice|
+        item = create(:item, merchant: merchant)
+        invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 1)
+      end
+      invoices[4..5].each do |invoice|
+        item = create(:item, merchant: merchant)
+        invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
+      end
+      visit invoice_path(@invoices.first.id)
+      save_and_open_page
     end
   end
 end
