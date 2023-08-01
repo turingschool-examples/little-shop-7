@@ -8,20 +8,22 @@ RSpec.describe "Merchant Items Show Page" do
       @merchant = create(:merchant)
       @item = create(:item, merchant: @merchant)
       @item2 = create(:item, merchant: @merchant)
-      visit "/merchants/#{@merchant.id}/items/#{@item.id}"
+
+      visit merchant_item_path(@merchant, @item)
 
       expect(page).to have_link("#{@item.name} update information")
 
       click_on("#{@item.name} update information")
       
-      expect(current_path).to eq("/merchants/#{@item.merchant.id}/items/#{@item.id}/edit")
+      expect(current_path).to eq(edit_merchant_item_path(@merchant, @item))
 
       fill_in 'Name', with: 'Fancy Shirt'
       fill_in 'Description', with: 'This is a fancy shirt'
-
+      
       click_on 'Update Item' 
       
       expect(current_path).to eq("/merchants/#{@item.merchant.id}/items/#{@item.id}")
+      
       expect(page).to have_content('Fancy Shirt')
       expect(page).to have_content('This is a fancy shirt')
       expect(page).to have_content('Item information was successfully updated.')

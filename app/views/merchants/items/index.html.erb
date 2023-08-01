@@ -1,0 +1,28 @@
+<section id="header">
+  <h3 style="float:left; width:50%; text-align:left;"><%= "#{@merchant.name}" %></h3>
+</section>
+
+<div id="merchant_item_list" style="float:right; width:50%; padding:20px;">
+  <h2><%= "#{@merchant.name}" %>'s Item List</h2>
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+    </li>
+  <% end %>
+</ul>
+</div>
+
+<section id="content" style="clear:both">
+  <div id="item_list" style="float:left; width:50%; padding:20px;">
+    <h4>My Items</h4>
+    <ol>
+      <% @items.each do |item| %>
+  <li><%= "#{item.name}"%><%= button_to item.status ? "Enable" : "Disable", merchant_item_path(@merchant, item, button_update: true), method: :patch, id: "#{item.id}_button" %>
+        </li>
+      <% end %>
+
+    </ol>
+  </div>
+</section>
+
