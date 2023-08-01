@@ -1,5 +1,5 @@
 class Merchants::ItemsController < ApplicationController
-  
+ 
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
@@ -35,13 +35,19 @@ class Merchants::ItemsController < ApplicationController
   #   redirect_to “/merchants/#{params[:merchant_id]}/items”
   # end
 
-  # def create
-  #   Item.create(name: params[:name], status: false)
-  #   redirect_to merchant_items_path
-  # end
+  def create
+    new_item = Item.new(new_item_params)
+    new_item.status = false
+    new_item.save
+    redirect_to merchant_items_path(params[:merchant_id])
+  end
+
   private
   def item_params
-    params.require(:item).permit(:name, :description, :unit_price, :status)
+    params.require(:item).permit(:name, :description, :unit_price, :status, :merchant_id)
   end 
+  def new_item_params
+    params.permit(:name, :description, :unit_price, :status, :merchant_id)
+  end
 end
 

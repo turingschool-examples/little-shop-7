@@ -10,17 +10,20 @@ Rails.application.routes.draw do
   # get "/merchants/:merchant_id/items/:item_id/edit", to: "merchants/items#edit"
   # patch "/merchants/:merchant_id/items/:item_id", to: "merchants/items#update" 
   # patch "/merchants/:merchant_id/items/:item_id", to: "merchants/items#update_status", as: :update_status_merchant_item
-
+  post "/merchants/:merchant_id/items/new", to: "merchants/items#create"
+  #possible refactor for route 
 
   resources :merchants do #, only: :index do
-    resources :items, controller: "merchants/items" #, only: [:index, :show, :new, :create, :edit, :update]
-    resources :dashboard #, only: [:index, :show]
+    resources :items, only: [:index, :show, :new, :create, :edit, :update], controller: "merchants/items"
+    resources :dashboard, only: [:index, :show]
   end
+  # namespace :merchants do
+  #   resources :items, only: [:new], as: :new_item
+  # end
 
-
-  namespace :merchants do
-    resources :items
-  end
+  # namespace :merchants do
+  #   resources :items
+  # end
 
   resources :admins, only: :index
   resources :merchant_dashboard, only: [:show]

@@ -77,26 +77,31 @@ RSpec.describe "As a merchant" do
       expect(page).to have_link("Create New Item", href: "#{new_merchant_item_path(merchant)}")
 
       click_link("Create New Item")
-        
+      
       expect(current_path).to eq("#{new_merchant_item_path(merchant)}")
       expect(page).to have_css("#new_item_form")
     end
 
     it "When I fill out the form I click Submit then I am taken back to the items index page and I see the item I just created displayed in the list of items" do
-      visit new_merchant_item_path
+      merchant = create(:merchant)  
+      items = create_list(:item, 4, merchant: merchant)
+      items << create_list(:item, 4, merchant: merchant, status: false)
 
-      # fill_in(:name, with: "African Bullfrog", :description, with: "A furious father", :unit_price, with: 50000000)
-      fill_in(:name => "African Bullfrog", :description => "A furious father", :unit_price => 50000000)
+      visit new_merchant_item_path(merchant)
+
+      fill_in(:name, with: "African Bullfrog")
+      fill_in(:description, with: "A furious father")
+      fill_in(:unit_price, with: 50000000)
 
       click_button("Create Item")
 
-      expect(current_path).to eq("#{merchant_items_path}")
-
+      expect(current_path).to eq("#{merchant_items_path(merchant)}")
+      save_and_open_page
       within (".disabled_items") do
         expect(page).to have_content("African Bullfrog")
       end
 
-      expect(Merchant.items.last.status).to eq(false)
+      expect(merchant.items.last.status).to eq(false)
     end
   end
 end
