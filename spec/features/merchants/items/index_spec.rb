@@ -55,17 +55,6 @@ RSpec.describe "As a merchant" do
         expect(page).to have_content(item_8.name)
       end
     end
-#     11. Merchant Item Create
-
-    # As a merchant
-    # When I visit my items index page
-    # I see a link to create a new item.
-    # When I click on the link,
-    # I am taken to a form that allows me to add item information.
-    # When I fill out the form I click ‘Submit’
-    # Then I am taken back to the items index page
-    # And I see the item I just created displayed in the list of items.
-    # And I see my item was created with a default status of disabled.
     #US 11
     it "I see a link to create a new item, When I click on this link and I see a form that allows me to add item info" do
       merchant = create(:merchant)  
@@ -102,6 +91,41 @@ RSpec.describe "As a merchant" do
       end
 
       expect(merchant.items.last.status).to eq(false)
+    end
+
+    #     12. Merchant Items Index: 5 most popular items
+
+    # As a merchant
+    # When I visit my items index page
+    # Then I see the names of the top 5 most popular items ranked by total revenue generated
+    # And I see that each item name links to my merchant item show page for that item
+    # And I see the total revenue generated next to each item name
+
+    # Notes on Revenue Calculation:
+    # - Only invoices with at least one successful transaction should count towards revenue
+    # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
+    # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
+  end
+  describe "I see the names of the top 5 most popular items ranked by total revenue generated" do
+    @merchant = create(:merchant)
+
+    @item_1 = create(:item, merchant: @merchant)
+    @item_2 = create(:item, merchant: @merchant)
+    @item_3 = create(:item, merchant: @merchant)
+    @item_4 = create(:item, merchant: @merchant)
+    @item_5 = create(:item, merchant: @merchant)
+
+    @invoice_1 = create(:invoice, merchant: @merchant)
+    @invoice_2 = create(:invoice, merchant: @merchant)
+    @invocie_3 = create(:invoice, merchant: @merchant)
+    @invoice_4 = create(:invoice, merchant: @merchant)
+    @invoice_5 = create(:invoice, merchant: @merchant)
+
+    @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 2, quantity: 1, unit_price: 1000)
+    @invoice_item_2
+    it "And I see that each item name links to my merchant item show page for that item" do
+
+      visit merchant_items_path(@merchant)
     end
   end
 end
