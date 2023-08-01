@@ -96,7 +96,7 @@ RSpec.describe "As a merchant" do
       click_button("Create Item")
 
       expect(current_path).to eq("#{merchant_items_path(merchant)}")
-      save_and_open_page
+      
       within (".disabled_items") do
         expect(page).to have_content("African Bullfrog")
       end
