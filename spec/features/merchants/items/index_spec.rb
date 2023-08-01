@@ -365,6 +365,12 @@ RSpec.describe "Merchant Items index Page", type: :feature do
       expect(page).to have_content("#{@item_3.name} - $836,952.00 in sales")
       expect(page).to have_content("#{@item_4.name} - $52,704.00 in sales")
 
+      expect(page).to_not have_content("#{@item_2.name}")
+      expect(page).to_not have_content("#{@item_6.name}")
+      expect(page).to_not have_content("#{@item_8.name}")
+      expect(page).to_not have_content("#{@item_9.name}")
+      expect(page).to_not have_content("#{@item_10.name}")
+
       expect(@item_1.name).to appear_before(@item_5.name)
       expect(@item_5.name).to appear_before(@item_7.name)
       expect(@item_7.name).to appear_before(@item_3.name)
@@ -382,11 +388,11 @@ RSpec.describe "Merchant Items index Page", type: :feature do
     visit merchant_items_path(@merchant_1)
     
     within("div#top-5-items") do
-      expect(page).to have_content("Top selling date for #{@item_1.name}")
-      expect(page).to have_content("Top selling date for #{@item_2.name}")
-      expect(page).to have_content("Top selling date for #{@item_3.name}")
-      expect(page).to have_content("Top selling date for #{@item_4.name}")
-      expect(page).to have_content("Top selling date for #{@item_5.name}")
+      expect(page).to have_content("Top selling date for #{@item_1.name} was #{@invoice_1.formatted_date}")
+      expect(page).to have_content("Top selling date for #{@item_5.name} was #{@invoice_5.formatted_date}")
+      expect(page).to have_content("Top selling date for #{@item_7.name} was #{@invoice_1.formatted_date}")
+      expect(page).to have_content("Top selling date for #{@item_3.name} was #{@invoice_3.formatted_date}")
+      expect(page).to have_content("Top selling date for #{@item_4.name} was #{@invoice_4.formatted_date}")
     end
   end
 end

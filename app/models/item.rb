@@ -22,12 +22,19 @@ class Item < ApplicationRecord
 
   def self.top_5_items
     joins(invoices: :transactions)
-    .select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS invoice_item_revenue")
-    .where("transactions.result = ?", "success")
-    .group(:id)
-    .order("invoice_item_revenue DESC")
-    .limit(5)
-    .distinct
+      .select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS invoice_item_revenue")
+      .where("transactions.result = ?", "success")
+      .group(:id)
+      .order("invoice_item_revenue DESC")
+      .limit(5)
+      .distinct
   end
 
+  def top_item_day
+    invoices.joins(:transactions)
+      .where("transactions.result = ?", "success")
+      .select("invoices.*, invoice_items.quantity AS items_sales")
+      .group("invoices.id, invoices.created_at, items_sales")
+      .order(items_sales: :desc).first
+  end
 end 

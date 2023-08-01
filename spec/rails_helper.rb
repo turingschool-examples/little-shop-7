@@ -31,7 +31,7 @@ def original_test_data
     @customer_9 = Customer.create!(first_name: 'Dejon', last_name: 'Fadel')
     @customer_10 = Customer.create!(first_name: 'Ramona', last_name: 'Reynolds')
 
-    @invoice_1 = @customer_1.invoices.create!(status: 'cancelled')
+    @invoice_1 = @customer_1.invoices.create!(status: 'cancelled', created_at: Time.new(2000))
     InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_1.id, quantity: 5, unit_price: 13635, status: 'packaged')
     InvoiceItem.create!(invoice_id: @invoice_1.id,  item_id: @item_7.id, quantity: 10, unit_price: 66747, status: 'shipped')
     @invoice_2 = @customer_1.invoices.create!(status: 'cancelled')
@@ -43,29 +43,29 @@ def original_test_data
     @invoice_4 = @customer_2.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_4.id,  item_id: @item_4.id, quantity: 8, unit_price: 2196, status: 'pending')
 
-    @invoice_5 = @customer_3.invoices.create!(status: 'cancelled')
+    @invoice_5 = @customer_3.invoices.create!(status: 'cancelled', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
     InvoiceItem.create!(invoice_id: @invoice_5.id,  item_id: @item_5.id, quantity: 3, unit_price: 79140, status: 'packaged')
-    @invoice_6 = @customer_3.invoices.create!(status: 'in progress')
+    @invoice_6 = @customer_3.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     InvoiceItem.create!(invoice_id: @invoice_6.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     
-    @invoice_7 = @customer_4.invoices.create!(status: 'in progress')
+    @invoice_7 = @customer_4.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     InvoiceItem.create!(invoice_id: @invoice_7.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_8 = @customer_4.invoices.create!(status: 'cancelled')
+    @invoice_8 = @customer_4.invoices.create!(status: 'cancelled', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     InvoiceItem.create!(invoice_id: @invoice_8.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     
-    @invoice_9 = @customer_5.invoices.create!(status: 'completed')
+    @invoice_9 = @customer_5.invoices.create!(status: 'completed', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_9.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_10 = @customer_5.invoices.create!(status: 'completed')
+    @invoice_10 = @customer_5.invoices.create!(status: 'completed', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_10.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
     
-    @invoice_11 = @customer_6.invoices.create!(status: 'in progress')
+    @invoice_11 = @customer_6.invoices.create!(status: 'in progress', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_11.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
-    @invoice_12 = @customer_6.invoices.create!(status: 'completed')
+    @invoice_12 = @customer_6.invoices.create!(status: 'completed', created_at: Time.new(2023))
     InvoiceItem.create!(invoice_id: @invoice_12.id,  item_id: @item_1.id, quantity: 9, unit_price: 52100, status: 'shipped')
 
 
