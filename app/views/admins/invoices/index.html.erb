@@ -11,7 +11,7 @@
     <p>
       <ol>
         <% @invoices.each do |invoice| %>
-          <li><%= invoice.id %></li>
+          <li><%= link_to invoice.id, "/admin/invoices/#{invoice.id}" %></li>
         <% end %>
       </ol>
     </p>
