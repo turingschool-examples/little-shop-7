@@ -1,0 +1,15 @@
+<section id="header"> 
+  <h3 style="float:left; width:50%; text-align:left;">Admin Dashboard</h3>
+  <nav style="float:right; width:50%; text-align:right"> 
+    <%= link_to("Merchants", "/admin/merchants") %> | 
+    <%= link_to("Invoices", "/admin/invoices") %>
+  </nav>
+</section>
+<section id="content" style="clear:both">
+  <p>
+    ID: <%= @invoice.id %><br />
+    Status: <%= @invoice.status %><br />
+    Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %><br />
+    Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %>
+  </p>
+</section>
