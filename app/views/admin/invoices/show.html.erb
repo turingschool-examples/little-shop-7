@@ -1,6 +1,6 @@
 <h1>Admin Invoice - <%= @invoice.id %></h1>
 <p>Status: <%= @invoice.status %></p>
-<p>Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+<p>Created at: <%= @invoice.formatted_date %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
 <h2>Items on Invoice:</h2>

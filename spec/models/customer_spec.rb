@@ -136,6 +136,7 @@ RSpec.describe Customer, type: :model do
       it 'displays the names of the top 5 customers by successful transactions' do 
         expect(Customer.top_5_customers).to match([@customer_6, @customer_2, @customer_3, @customer_5, @customer_1])
         expect(Customer.top_5_customers[0].first_name).to match("Heber")
+        expect(Customer.top_5_customers[1].first_name).not_to match("Leanna")
       end
     end
 
@@ -143,6 +144,7 @@ RSpec.describe Customer, type: :model do
       it 'displays the names of the top 5 customers by successful transactions' do 
         expect(Customer.top_5_customers_by_transaction(@merchant_1.id)).to match([@customer_6, @customer_2, @customer_3, @customer_5, @customer_1])
         expect(Customer.top_5_customers_by_transaction(@merchant_1.id)[0].first_name).to match("Heber")
+        expect(Customer.top_5_customers_by_transaction(@merchant_1.id)[1].first_name).not_to match("Leanna")
       end
     end
   end
@@ -168,5 +170,4 @@ RSpec.describe Customer, type: :model do
       end
     end
   end
-
 end
