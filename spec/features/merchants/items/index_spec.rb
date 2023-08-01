@@ -113,17 +113,17 @@ RSpec.describe "As a merchant" do
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
 
-    @item_1 = create(:item, merchant: @merchant, customer: @customer_1)
-    @item_2 = create(:item, merchant: @merchant, customer: @customer_1)
-    @item_3 = create(:item, merchant: @merchant, customer: @customer_1)
-    @item_4 = create(:item, merchant: @merchant, customer: @customer_2)
-    @item_5 = create(:item, merchant: @merchant, customer: @customer_2)
+    @item_1 = create(:item, merchant: @merchant)
+    @item_2 = create(:item, merchant: @merchant)
+    @item_3 = create(:item, merchant: @merchant)
+    @item_4 = create(:item, merchant: @merchant)
+    @item_5 = create(:item, merchant: @merchant)
 
-    @invoice_1 = create(:invoice, merchant: @merchant)
-    @invoice_2 = create(:invoice, merchant: @merchant)
-    @invocie_3 = create(:invoice, merchant: @merchant)
-    @invoice_4 = create(:invoice, merchant: @merchant)
-    @invoice_5 = create(:invoice, merchant: @merchant)
+    @invoice_1 = create(:invoice, customer: @customer_1)
+    @invoice_2 = create(:invoice, customer: @customer_1)
+    @invoice_3 = create(:invoice, customer: @customer_1)
+    @invoice_4 = create(:invoice, customer: @customer_2)
+    @invoice_5 = create(:invoice, customer: @customer_2)
 
     @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 2, quantity: 6, unit_price: 1000)
     @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 2, quantity: 5, unit_price: 1000)
@@ -150,7 +150,7 @@ RSpec.describe "As a merchant" do
     it "And I see that each item name links to my merchant item show page for that item" do
 
       visit merchant_items_path(@merchant)
-
+      
       within (".most_popular_items") do
         expect(@item_1.name).to appear_before(@item_2.name)
         expect(@item_2.name).to appear_before(@item_3.name)

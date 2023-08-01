@@ -46,4 +46,14 @@
   </ol>
 </section>
 
+<section class="most_popular_items">
+<h2>Most Popular Items</h2>
+  <ol>
+    <% @merchant.popular_items.each do |item| %>
+      <li><%= "#{item.name}"%></li> 
+    <% end %>
+  </ol>
+</section>
+  
+
 
