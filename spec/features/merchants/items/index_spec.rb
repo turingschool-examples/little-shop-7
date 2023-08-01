@@ -18,15 +18,14 @@ RSpec.describe "As a merchant" do
       items = create_list(:item, 4, merchant: merchant)
 
       visit "/merchants/#{merchant.id}/items" 
-      # visit  merchant_items_path(merchant)
 
-      find_button("Disable", id: "#{items.first.id}_button")      
+      find_button("Enable", id: "#{items.first.id}_button")      
       
-      click_button "Disable", id: "#{items.first.id}_button"
-      save_and_open_page
+      click_button "Enable", id: "#{items.first.id}_button"
+      
       expect(current_path).to eq("/merchants/#{merchant.id}/items")
-      expect(page).to have_no_button("Disable", id: "#{items.first.id}_button")
-      expect(page).to have_button("Enable", id: "#{items.first.id}_button")
+      expect(page).to have_no_button("Enable", id: "#{items.first.id}_button")
+      expect(page).to have_button("Disable", id: "#{items.first.id}_button")
     end
   end
 end

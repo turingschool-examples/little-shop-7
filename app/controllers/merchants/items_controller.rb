@@ -18,11 +18,12 @@ class Merchants::ItemsController < ApplicationController
     if item_params[:status].present? == false
       @item.update_status
     end
+    
     if @item.update(item_params)
       flash[:notice] = "Item information was successfully updated."
       redirect_to "/merchants/#{@item.merchant.id}/items/#{@item.id}"
     else
-      render :edit
+      redirect_to "/merchants/#{@item.merchant.id}/items"
     end
   end
   # def item_status
