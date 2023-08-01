@@ -7,7 +7,7 @@ RSpec.describe "Merchant Show Page" do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
 
-      visit "/merchants/#{merchant.id}/dashboard"
+      visit merchant_path(merchant)
       expect(page).to have_content(merchant.name)
     end
 
@@ -17,7 +17,7 @@ RSpec.describe "Merchant Show Page" do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
       
-      visit "/merchants/#{merchant.id}/dashboard"
+      visit merchant_path(merchant)
       
       expect(page).to have_link("Items")
       expect(page).to have_link("Invoices")
@@ -41,7 +41,7 @@ RSpec.describe "Merchant Show Page" do
         end
       end
       
-      visit "/merchants/#{merchant.id}/dashboard"
+      visit merchant_path(merchant)
       
       top_customers = merchant.top_five_customers
       
@@ -77,7 +77,7 @@ RSpec.describe "Merchant Show Page" do
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
         
-        visit "/merchants/#{merchant.id}/dashboard"
+        visit merchant_path(merchant)
         
         merchant_pending_items = merchant.pending_items
         

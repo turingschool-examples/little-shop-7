@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_30_175333) do
     t.string "description"
     t.integer "unit_price"
     t.integer "merchant_id"
+    t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
