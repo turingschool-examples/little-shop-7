@@ -33,7 +33,12 @@ RSpec.describe "Merchant invoice index" do
       expect(page).to_not have_content(@non_merchant_invoice.id)
     end
 
-    it "has a link to the "
+    it "has a link to each merchant invoice show page" do
+      visit merchant_invoices_path(@merchant)
+      
+      click_link(@invoice1.id)
+      expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice1.id))
+    end
     
   end
 end
