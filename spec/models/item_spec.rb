@@ -35,16 +35,33 @@ RSpec.describe Item, type: :model do
         expect(merchant_1.items.disabled_items.to_a).to eq([item_3])
       end
     end
-  end
 
+    describe ".top_5_items" do 
+      it "returns the top 5 items by total revenue generated" do
+        item_data
+        
+        expect(@merchant_1.items.top_5_items).to eq([@item_1, @item_7, @item_5, @item_3, @item_4])
+      end
+    end
+  end
+  
   describe "instance methods" do 
-    describe "#currrent_price" do
+    describe "#current_price" do
       it "returns the unit price as $xx.xx " do
         merchant_3 = Merchant.create!(name: 'Willms and Sons')
         item_1 = merchant_3.items.create!(name: 'Gold Ring', description: 'A ring thats gold', unit_price: 75107)
         item_2 = merchant_3.items.create!(name: 'Silver ring', description: 'A ring thats silver', unit_price: 45107)
         expect(item_1.current_price).to eq("$751.07")
         expect(item_2.current_price).to eq("$451.07")
+      end
+    end
+
+    describe "#top_item_day" do 
+      it "returns the top day for a specific item" do
+        original_test_data
+  
+        expect(@merchant_1.items.first.top_item_day.formatted_date).to eq("Sunday, January 1, 2023")
+        expect(@merchant_1.items.third.top_item_day.formatted_date).to eq("Saturday, January 1, 2000")
       end
     end
   end

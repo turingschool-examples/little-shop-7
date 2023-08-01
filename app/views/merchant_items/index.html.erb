@@ -34,4 +34,17 @@
   </div>
 </div>
   
-  
+<div id="top-items">
+  <h3> Top Items</h3>
+
+  <div id="top-5-items">
+    <ol>
+      <% @items.top_5_items.each do |item|  %> 
+      <li><%= link_to "#{item.name}", merchant_item_path(@merchant, item)%> - <%= number_to_currency(item.invoice_item_revenue) %> in sales
+      <br>
+      Top selling date for <%= item.name %> was <%= item.top_item_day.formatted_date %> 
+      </li>
+      <% end %>
+    </ol>
+  </div>
+</div>

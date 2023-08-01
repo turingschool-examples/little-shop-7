@@ -23,6 +23,12 @@ class Invoice < ApplicationRecord
     ActiveSupport::NumberHelper::number_to_currency(total_revenue.to_f / 100)
   end
 
+
+  def self.status_list_for_select_menu
+    statuses.keys.map { |status| [status.titleize, status]}
+    #per note from Chris Simmons "That looks good to us; this Ruby isn’t doing anything that AR could do, so it can be used like this."
+  end
+  
   def merchant_invoice_items(merchant_id)
     invoice_items.joins(:item).where("items.merchant_id = #{merchant_id}")
   end
