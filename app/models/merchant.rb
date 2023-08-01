@@ -32,6 +32,15 @@ class Merchant < ApplicationRecord
     items.where(status: false)
   end
 
+  def popular_items
+    items.joins(:invoice_items)
+    .where("invoice_items.status = 2")
+    .group(:id)
+    .select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .order("revenue DESC")
+    .limit(5)
+  end
+
   def toggle_status
     if self.status
       self.update_attribute(:status, false)
