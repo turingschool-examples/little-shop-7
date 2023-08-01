@@ -31,7 +31,7 @@ class Merchant < ApplicationRecord
   def disabled_items
     items.where(status: false)
   end
-end
+
 
 
   def toggle_status
