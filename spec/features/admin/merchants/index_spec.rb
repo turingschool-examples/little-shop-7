@@ -75,7 +75,6 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         fill_in(:name, with: "My Merchant Name")
         click_button "Submit"
         expect(current_path).to eq("#{admin_merchants_path}")
-        save_and_open_page
         within "#disabled_merchants" do
           expect(page).to have_content("My Merchant Name")
         end
