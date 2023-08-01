@@ -107,13 +107,17 @@ RSpec.describe "As a merchant" do
     # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
   end
   describe "I see the names of the top 5 most popular items ranked by total revenue generated" do
+    before :each do
     @merchant = create(:merchant)
 
-    @item_1 = create(:item, merchant: @merchant)
-    @item_2 = create(:item, merchant: @merchant)
-    @item_3 = create(:item, merchant: @merchant)
-    @item_4 = create(:item, merchant: @merchant)
-    @item_5 = create(:item, merchant: @merchant)
+    @customer_1 = create(:customer)
+    @customer_2 = create(:customer)
+
+    @item_1 = create(:item, merchant: @merchant, customer: @customer_1)
+    @item_2 = create(:item, merchant: @merchant, customer: @customer_1)
+    @item_3 = create(:item, merchant: @merchant, customer: @customer_1)
+    @item_4 = create(:item, merchant: @merchant, customer: @customer_2)
+    @item_5 = create(:item, merchant: @merchant, customer: @customer_2)
 
     @invoice_1 = create(:invoice, merchant: @merchant)
     @invoice_2 = create(:invoice, merchant: @merchant)
@@ -121,11 +125,38 @@ RSpec.describe "As a merchant" do
     @invoice_4 = create(:invoice, merchant: @merchant)
     @invoice_5 = create(:invoice, merchant: @merchant)
 
-    @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 2, quantity: 1, unit_price: 1000)
-    @invoice_item_2
+    @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 2, quantity: 6, unit_price: 1000)
+    @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 2, quantity: 5, unit_price: 1000)
+    @invoice_item_3 = create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 2, quantity: 4, unit_price: 1000)
+    @invoice_item_4 = create(:invoice_item, item: @item_4, invoice: @invoice_4, status: 2, quantity: 3, unit_price: 1000)
+    @invoice_item_5 = create(:invoice_item, item: @item_5, invoice: @invoice_5, status: 2, quantity: 2, unit_price: 1000)
+    @invoice_item_6 = create(:invoice_item, item: @item_5, invoice: @invoice_1, status: 2, quantity: 1, unit_price: 1000)
+    @invoice_item_7 = create(:invoice_item, item: @item_4, invoice: @invoice_2, status: 2, quantity: 1, unit_price: 1000)
+    @invoice_item_8 = create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 2, quantity: 2, unit_price: 1000)
+    @invoice_item_9 = create(:invoice_item, item: @item_2, invoice: @invoice_4, status: 2, quantity: 3, unit_price: 1000)
+    @invoice_item_10 = create(:invoice_item, item: @item_1, invoice: @invoice_5, status: 2, quantity: 4, unit_price: 1000)
+
+    @transaction_1 = create(:transaction, invoice: @invoice_1, result: "failed")
+    @transaction_2 = create(:transaction, invoice: @invoice_2, result: "failed")
+    @transaction_3 = create(:transaction, invoice: @invoice_3, result: "failed")
+    @transaction_4 = create(:transaction, invoice: @invoice_4, result: "failed")
+    @transaction_5 = create(:transaction, invoice: @invoice_5, result: "failed")
+    @transaction_1 = create(:transaction, invoice: @invoice_1, result: "success")
+    @transaction_2 = create(:transaction, invoice: @invoice_2, result: "success")
+    @transaction_3 = create(:transaction, invoice: @invoice_3, result: "success")
+    @transaction_4 = create(:transaction, invoice: @invoice_4, result: "success")
+    @transaction_5 = create(:transaction, invoice: @invoice_5, result: "success")
+    end
     it "And I see that each item name links to my merchant item show page for that item" do
 
       visit merchant_items_path(@merchant)
+
+      within (".most_popular_items") do
+        expect(@item_1.name).to appear_before(@item_2.name)
+        expect(@item_2.name).to appear_before(@item_3.name)
+        expect(@item_3.name).to appear_before(@item_4.name)
+        expect(@item_4.name).to appear_before(@item_5.name)
+      end
     end
   end
 end
