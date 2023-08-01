@@ -93,18 +93,7 @@ RSpec.describe "As a merchant" do
       expect(merchant.items.last.status).to eq(false)
     end
 
-    #     12. Merchant Items Index: 5 most popular items
-
-    # As a merchant
-    # When I visit my items index page
-    # Then I see the names of the top 5 most popular items ranked by total revenue generated
-    # And I see that each item name links to my merchant item show page for that item
-    # And I see the total revenue generated next to each item name
-
-    # Notes on Revenue Calculation:
-    # - Only invoices with at least one successful transaction should count towards revenue
-    # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
-    # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
+    # us_12
   end
   describe "I see the names of the top 5 most popular items ranked by total revenue generated" do
     before :each do
@@ -156,6 +145,16 @@ RSpec.describe "As a merchant" do
         expect(@item_2.name).to appear_before(@item_3.name)
         expect(@item_3.name).to appear_before(@item_4.name)
         expect(@item_4.name).to appear_before(@item_5.name)
+      end
+    end
+
+    it "And I see the total revenue generated next to each item name" do
+      visit merchant_items_path(@merchant)
+
+      within (".most_popular_items") do
+        expect(page).to have_content("Total Revenue: $6000")
+        expect(page).to have_content("Total Revenue: $4000")
+        expect(page).to have_content("Total Revenue: $3000")
       end
     end
   end

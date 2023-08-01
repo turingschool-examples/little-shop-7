@@ -51,6 +51,7 @@
   <ol>
     <% @merchant.popular_items.each do |item| %>
       <li><%= "#{item.name}"%></li> 
+      Total Revenue: $<%= "#{item.revenue}"%>
     <% end %>
   </ol>
 </section>
