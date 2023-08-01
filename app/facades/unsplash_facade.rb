@@ -3,4 +3,8 @@ class UnsplashFacade
     image = UnsplashService.find_logo
     image.urls.full
   end
+
+  def self.get_likes
+    likes = UnsplashService.find_likes
+  end
 end

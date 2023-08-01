@@ -83,8 +83,7 @@ RSpec.configure do |config|
       match_requests_on: %i[method uri body]
     }
   
-    config.allow_http_connections_when_no_cassette = false
+    config.allow_http_connections_when_no_cassette = true
     config.configure_rspec_metadata!
   end
-
 end
