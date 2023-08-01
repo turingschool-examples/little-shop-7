@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   
   resources :admin, only: :index, controller: "admins"
   scope '/admin', module: 'admins'  do
+    resources :invoices, only: [:index]
     resources :merchants, as: "admin_merchants" do
       member do
         patch :toggle_status
