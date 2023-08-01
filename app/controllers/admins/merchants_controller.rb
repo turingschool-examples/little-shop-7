@@ -1,6 +1,7 @@
 class Admins::MerchantsController < ApplicationController
   def index
     @merchants = Merchant.all
+    @top_merchants = Merchant.top_5_by_revenue
   end
   def show
     @merchant = Merchant.find(params[:id])
@@ -12,7 +13,7 @@ class Admins::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
 
     if @merchant.update(merchant_params)
-      flash[:notice] = "Merchant information was successfully updated." # Add this line
+      flash[:notice] = "Merchant information was successfully updated."
       redirect_to admin_merchant_path(@merchant)
     else
       render :edit

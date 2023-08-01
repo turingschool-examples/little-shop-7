@@ -41,13 +41,24 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
-
   def toggle_status
     if self.status
       self.update_attribute(:status, false)
     else
       self.update_attribute(:status, true)
     end
+  end
+
+  def self.top_5_by_revenue
+    joins(:invoices)
+      .merge(Invoice.completed)
+      .group('merchants.id')
+      .order(Arel.sql('SUM(invoice_items.unit_price * invoice_items.quantity) DESC'))
+      .limit(5)
+  end
+
+  def revenue
+    invoices.completed.joins(:invoice_items).sum('invoice_items.unit_price * invoice_items.quantity')
   end
 end
 

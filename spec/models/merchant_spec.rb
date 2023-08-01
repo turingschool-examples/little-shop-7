@@ -14,7 +14,21 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:customers).through(:invoices) }
   end
 
-
+  describe "class methods" do
+    it ".top_5_by_revenue" do
+      merchants = create_list(:merchant, 10)
+      
+        successful_merchants = merchants[0..4]
+        successful_merchants.each do |merchant|
+          customer = create(:customer)
+          item = create(:item, merchant: merchant)
+          invoice = create(:invoice, customer: customer, status: "completed")
+          create(:invoice_item, invoice: invoice, item: item, unit_price: 1000, quantity: rand(5..10), status: :shipped) # Total revenue: 50
+        end
+      expect(Merchant.top_5_by_revenue).to match_array(merchants[0..4])
+      expect(Merchant.top_5_by_revenue).to_not match_array(merchants[4..9])
+    end
+  end
 
   describe "instance methods" do
     describe "Merchant Dashboard" do
@@ -154,6 +168,23 @@ RSpec.describe Merchant, type: :model do
           end
         end
       end
+    end
+
+    it "#revenue" do
+      merchants = create_list(:merchant, 10)
+    
+      successful_merchants = merchants[0..4]
+      successful_merchants.each do |merchant|
+        customer = create(:customer)
+        item = create(:item, merchant: merchant)
+        invoice = create(:invoice, customer: customer, status: "completed")
+        create(:invoice_item, invoice: invoice, item: item, unit_price: 1000, quantity: 5, status: :shipped)
+      end
+
+      expect(successful_merchants.first.revenue).to eq(5000)
+      expect(successful_merchants.last.revenue).to eq(5000)
+      
+      expect(merchants.last.revenue).to eq(0)
     end
   end
 end
