@@ -30,8 +30,14 @@ class Admins::MerchantsController < ApplicationController
   end
 
   def create
-    Merchant.create(name: params[:name], status: false)
-    redirect_to admin_merchants_path
+    @merchant = Merchant.new(name: params[:name], status: params[:status])
+
+    if @merchant.save
+      flash[:notice] = "Merchant information was successfully created."
+      redirect_to admin_merchants_path
+    else
+      render :new
+    end
   end
 
   private
