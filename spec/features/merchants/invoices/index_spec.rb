@@ -34,11 +34,10 @@ RSpec.describe "Merchant invoice index" do
     end
 
     it "has a link to each merchant invoice show page" do
-      visit merchant_invoices_path(@merchant)
+      visit merchant_invoices_path("#{@merchant.id}")
       
       click_link(@invoice1.id)
       expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice1.id))
     end
-    
   end
 end
