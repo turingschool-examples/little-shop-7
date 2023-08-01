@@ -8,9 +8,9 @@ RSpec.describe "Invoices index page", type: :feature do
       visit "/admin/invoices"
 
       invoices.each do |invoice|
-        expect(page).to have_content("#{invoice.id}")
+        expect(page).to have_link("#{invoice.id}")
       end
-      save_and_open_page
+      
     end
   end
 end
