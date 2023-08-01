@@ -24,6 +24,16 @@ class Merchant < ApplicationRecord
   end
 
 
+  def enabled_items
+    items.where(status: true)
+  end
+
+  def disabled_items
+    items.where(status: false)
+  end
+
+
+
   def toggle_status
     if self.status
       self.update_attribute(:status, false)
@@ -32,4 +42,5 @@ class Merchant < ApplicationRecord
     end
   end
 end
+
 

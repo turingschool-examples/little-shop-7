@@ -1,6 +1,9 @@
 <section id="header">
   <h3 style="float:left; width:50%; text-align:left;"><%= "#{@merchant.name}" %></h3>
 </section>
+<div>
+  <%= link_to "Create New Item", "#{new_merchant_item_path}" %>
+</div>
 
 <div id="merchant_item_list" style="float:right; width:50%; padding:20px;">
   <h2><%= "#{@merchant.name}" %>'s Item List</h2>
@@ -18,11 +21,29 @@
     <h4>My Items</h4>
     <ol>
       <% @items.each do |item| %>
-  <li><%= "#{item.name}"%><%= button_to item.status ? "Enable" : "Disable", merchant_item_path(@merchant, item, button_update: true), method: :patch, id: "#{item.id}_button" %>
+        <li><%= "#{item.name}"%><%= button_to item.status ? "Enable" : "Disable", merchant_item_path(@merchant, item, button_update: true), method: :patch, id: "#{item.id}_button" %>
         </li>
       <% end %>
-
     </ol>
   </div>
 </section>
+
+<section class="enabled_items">
+<h2>Enabled Items</h2>
+  <ol>
+    <% @merchant.enabled_items.each do |item| %>
+      <li><%= "#{item.name}"%></li> 
+    <% end %>
+  </ol>
+</section>
+
+<section class="disabled_items">
+<h2>Disabled Items</h2>
+  <ol>
+    <% @merchant.disabled_items.each do |item| %>
+      <li><%= "#{item.name}"%></li> 
+    <% end %>
+  </ol>
+</section>
+
 

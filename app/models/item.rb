@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   validates_presence_of :description
   validates_presence_of :unit_price
   validates_presence_of :merchant_id
-  validates_presence_of :status
+  validates :status, inclusion: { in: [true, false] }, exclusion: nil
 
   belongs_to :merchant
   has_many :invoice_items
