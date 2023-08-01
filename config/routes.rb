@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :merchants do #, only: :index do
     resources :items, only: [:index, :show, :new, :create, :edit, :update], controller: "merchants/items"
+    resources :invoices, only: [:index, :show, :new, :create, :edit, :update], controller: "merchants/invoices"
     resources :dashboard, only: [:index, :show]
   end
   # namespace :merchants do
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
   
   resources :admin, only: :index, controller: "admins"
   scope '/admin', module: 'admins'  do
+    resources :invoices, only: [:index, :show]
     resources :merchants, as: "admin_merchants" do
       member do
         patch :toggle_status

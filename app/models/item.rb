@@ -17,6 +17,8 @@ class Item < ApplicationRecord
       self.update_attribute(:status, true)
     end
   end
+
+  
 end
 
 

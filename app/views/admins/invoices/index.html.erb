@@ -1,0 +1,19 @@
+<section id="header"> 
+  <h3 style="float:left; width:50%; text-align:left;">Admin Dashboard</h3>
+  <nav style="float:right; width:50%; text-align:right"> 
+    <%= link_to("Merchants", "/admin/merchants") %> | 
+    <%= link_to("Invoices", "/admin/invoices") %>
+  </nav>
+</section>
+<section id="content" style="clear:both">
+  <div id="incomplete_invoices" style="float:left; width:50%; padding:20px;">
+    <h4>Incomplete Invoices</h4>
+    <p>
+      <ol>
+        <% @invoices.each do |invoice| %>
+          <li><%= link_to invoice.id, "invoice_show_path(#{invoice.id})" %></li>
+        <% end %>
+      </ol>
+    </p>
+  </div>
+</section>
