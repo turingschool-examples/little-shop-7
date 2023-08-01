@@ -18,9 +18,10 @@
     <h4>My Items</h4>
     <ol>
       <% @items.each do |item| %>
-        <li><%= "#{item.name}"%><%= button_to item.status ? "Enable" : "Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, id: "#{item.id}_button" %>
+  <li><%= "#{item.name}"%><%= button_to item.status ? "Enable" : "Disable", merchant_item_path(@merchant, item, button_update: true), method: :patch, id: "#{item.id}_button" %>
         </li>
       <% end %>
+
     </ol>
   </div>
 </section>
