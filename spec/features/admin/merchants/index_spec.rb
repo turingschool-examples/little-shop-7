@@ -95,12 +95,25 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
 
         fill_in "Name", with: "Yak's R Us"
         click_button("Create Merchant")
-
+        
         expect(current_path).to eq(admin_merchants_path)
+        expect(page).to have_content("Merchant created successfully.")
         
         within "#disabled_merchants" do
           expect(page).to have_content("Yak's R Us")
           expect(page).to have_button("Enable Yak's R Us")
+        end
+      end  
+
+      describe "sad path" do 
+        it "There is a form when you put nothing in the name box it give you an error saying it cant be blank" do
+          visit new_admin_merchant_path
+          
+          fill_in "Name", with: ""
+          click_button("Create Merchant")
+
+          expect(current_path).to eq(new_admin_merchant_path)
+          expect(page).to have_content("Name can't be blank")
         end
       end
     end

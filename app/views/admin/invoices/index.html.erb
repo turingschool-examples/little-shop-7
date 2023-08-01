@@ -1,6 +1,16 @@
-<%= render partial: "admin/merchants/admin_header" %>
+<div id="admin-dashboard-sub-header">
+  <h3> Admin Dashboard </h3>
+</div>
 
-<div class="invoices">
+<div class="admin_nav">
+  <%= render partial: "admin/admin_header" %>
+<div>
+
+<section class="full-page-sub-header">
+  <hr><h3><strong>Invoices</strong></h3>
+</section>
+
+<div id="invoices-list">
   <% @invoices.each do |invoice| %>
     <div class="invoice">
       <p> Invoice #<%= link_to invoice.id, admin_invoice_path(invoice) %> </p>

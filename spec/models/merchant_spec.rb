@@ -29,6 +29,7 @@ RSpec.describe Merchant, type: :model do
       top_merchant_test_data
 
       expect(Merchant.top_five_merchants_by_revenue).to eq([@merchant_1, @merchant_6, @merchant_2, @merchant_4, @merchant_5])
+      expect(Merchant.top_five_merchants_by_revenue).to_not eq([@merchant_7, @merchant_3, @merchant_2, @merchant_6, @merchant_5])
     end
   end
 
