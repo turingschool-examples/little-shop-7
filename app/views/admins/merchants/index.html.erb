@@ -9,7 +9,7 @@
       <% @merchants.each do |merchant| %>
         <% if merchant.status == true %>
           <li>
-            <%= link_to "#{merchant.name}", admins_merchant_path(merchant.id) %><%= button_to merchant.status ? "Disable" : "Enable", toggle_status_admins_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
+            <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %><%= button_to merchant.status ? "Disable" : "Enable", toggle_status_admin_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
           </li>
         <% end %>
       <% end %>
@@ -19,7 +19,7 @@
       <% @merchants.each do |merchant| %>
         <% if merchant.status == false %>
           <li>
-            <%= link_to "#{merchant.name}", admins_merchant_path(merchant.id) %><%= button_to merchant.status ? "Disable" : "Enable", toggle_status_admins_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
+            <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %><%= button_to merchant.status ? "Disable" : "Enable", toggle_status_admin_merchant_path(merchant.id), method: :patch, id: "#{merchant.id}_button" %>
           </li>
         <% end %>
       <% end %>

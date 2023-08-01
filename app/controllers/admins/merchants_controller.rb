@@ -13,7 +13,7 @@ class Admins::MerchantsController < ApplicationController
 
     if @merchant.update(merchant_params)
       flash[:notice] = "Merchant information was successfully updated." # Add this line
-      redirect_to admins_merchant_path(@merchant)
+      redirect_to admin_merchant_path(@merchant)
     else
       render :edit
     end
@@ -22,7 +22,7 @@ class Admins::MerchantsController < ApplicationController
   def toggle_status
     @merchant = Merchant.find(params[:id])
     @merchant.toggle_status
-    redirect_to admins_merchants_path
+    redirect_to admin_merchants_path
   end
 
   private
