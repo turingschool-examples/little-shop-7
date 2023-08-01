@@ -1,1 +1,71 @@
-
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.unsplash.com/photos/kOGDVpRl3RE?utm_campaign=api-credit&utm_medium=referral&utm_source=api_app
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Client-ID
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - Cowboy
+      Content-Type:
+      - application/json
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Request-Method:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Link,X-Total,X-Per-Page,X-RateLimit-Limit,X-RateLimit-Remaining
+      X-Powered-By:
+      - hero-app
+      Content-Language:
+      - en
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - f94ad726-7743-488f-b225-7ba179fdf63b
+      X-Runtime:
+      - '0.012324'
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Via:
+      - 1.1 vegur, 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Tue, 01 Aug 2023 14:56:53 GMT
+      X-Served-By:
+      - cache-iad-kiad7000114-IAD, cache-den8249-DEN
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1690901814.625534,VS0,VE60
+      Vary:
+      - Accept-Encoding,Authorization,Accept-Language,Accept
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"errors":["OAuth error: The access token is invalid"]}'
+  recorded_at: Tue, 01 Aug 2023 14:56:53 GMT
+recorded_with: VCR 6.2.0

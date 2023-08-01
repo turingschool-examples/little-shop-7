@@ -106,8 +106,6 @@ GEM
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
     faraday-net_http (3.0.2)
-    figaro (1.2.0)
-      thor (>= 0.14.0, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashdiff (1.0.1)
@@ -302,8 +300,6 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
-  faraday
-  figaro
   importmap-rails
   jbuilder
   launchy
