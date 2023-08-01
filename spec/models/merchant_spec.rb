@@ -92,11 +92,11 @@ RSpec.describe Merchant, type: :model do
     it "#best_day" do
       top_merchant_test_data
 
-      expect(@merchant_1.best_day.strftime('%B %d, %Y')).to eq(@invoice_1.created_at.strftime('%B %d, %Y'))
-      expect(@merchant_6.best_day.strftime('%B %d, %Y')).to eq(@invoice_2.created_at.strftime('%B %d, %Y'))
-      expect(@merchant_2.best_day.strftime('%B %d, %Y')).to eq(@invoice_1.created_at.strftime('%B %d, %Y'))
-      expect(@merchant_4.best_day.strftime('%B %d, %Y')).to eq(@invoice_2.created_at.strftime('%B %d, %Y'))
-      expect(@merchant_5.best_day.strftime('%B %d, %Y')).to eq(@invoice_2.created_at.strftime('%B %d, %Y'))
+      expect(@merchant_1.best_day.formatted_date).to eq(@invoice_1.created_at.strftime("%A, %B %-e, %Y"))
+      expect(@merchant_6.best_day.formatted_date).to eq(@invoice_2.created_at.strftime("%A, %B %-e, %Y"))
+      expect(@merchant_2.best_day.formatted_date).to eq(@invoice_1.created_at.strftime("%A, %B %-e, %Y"))
+      expect(@merchant_4.best_day.formatted_date).to eq(@invoice_2.created_at.strftime("%A, %B %-e, %Y"))
+      expect(@merchant_5.best_day.formatted_date).to eq(@invoice_2.created_at.strftime("%A, %B %-e, %Y"))
     end
   end
 end

@@ -1,15 +1,10 @@
-<header>
-  <h1 class="main-title">Little Esty Shop</h1>
+<div id="admin-dashboard-sub-header">
+  <h3> Admin Dashboard </h3>
+</div>
 
-  <div class="sub-header">
-    <h2 class="page-title">Admin Dashboard</h2>
-      <nav class="navigation">
-      <%= link_to "Dashboard", admin_index_path %>
-      <%= link_to "Merchants", admin_merchants_path %>
-      <%= link_to "Invoices", admin_invoices_path %>
-    </nav>
-  </div>
-</header>
+<div class="admin_nav">
+  <%= render partial: "admin/admin_header" %>
+<div>
 
 <p> <%= link_to 'Create New Merchant', new_admin_merchant_path %></p>
 
@@ -19,7 +14,7 @@
         <% @merchants.top_five_merchants_by_revenue.each do |merchant| %>
         <li> <%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
         <%= "Total Revenue: #{number_to_currency(merchant.total_revenue&./100)}"  %>
-        <%= "Top selling date for #{merchant.name} was #{merchant.best_day.strftime('%B %d, %Y')}" %>
+        <%= "Top selling date for #{merchant.name} was #{merchant.best_day.formatted_date}" %>
         <% end %>
     </ol>
 </div>

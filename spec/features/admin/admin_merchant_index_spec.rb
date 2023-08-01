@@ -95,12 +95,25 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
 
         fill_in "Name", with: "Yak's R Us"
         click_button("Create Merchant")
-
+        
         expect(current_path).to eq(admin_merchants_path)
+        expect(page).to have_content("Merchant created successfully.")
         
         within "#disabled_merchants" do
           expect(page).to have_content("Yak's R Us")
           expect(page).to have_button("Enable Yak's R Us")
+        end
+      end  
+
+      describe "sad path" do 
+        it "There is a form when you put nothing in the name box it give you an error saying it cant be blank" do
+          visit new_admin_merchant_path
+          
+          fill_in "Name", with: ""
+          click_button("Create Merchant")
+
+          expect(current_path).to eq(new_admin_merchant_path)
+          expect(page).to have_content("Name can't be blank")
         end
       end
     end
@@ -137,11 +150,11 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
         visit admin_merchants_path
         
         within ".top_merchants" do 
-          expect(page).to have_content("Top selling date for #{@merchant_1.name} was #{@merchant_1.best_day.strftime('%B %d, %Y')}")
-          expect(page).to have_content("Top selling date for #{@merchant_6.name} was #{@merchant_6.best_day.strftime('%B %d, %Y')}")
-          expect(page).to have_content("Top selling date for #{@merchant_2.name} was #{@merchant_2.best_day.strftime('%B %d, %Y')}")
-          expect(page).to have_content("Top selling date for #{@merchant_4.name} was #{@merchant_4.best_day.strftime('%B %d, %Y')}")
-          expect(page).to have_content("Top selling date for #{@merchant_5.name} was #{@merchant_5.best_day.strftime('%B %d, %Y')}")
+          expect(page).to have_content("Top selling date for #{@merchant_1.name} was #{@merchant_1.best_day.created_at.strftime("%A, %B %-e, %Y")}")
+          expect(page).to have_content("Top selling date for #{@merchant_6.name} was #{@merchant_6.best_day.created_at.strftime("%A, %B %-e, %Y")}")
+          expect(page).to have_content("Top selling date for #{@merchant_2.name} was #{@merchant_2.best_day.created_at.strftime("%A, %B %-e, %Y")}")
+          expect(page).to have_content("Top selling date for #{@merchant_4.name} was #{@merchant_4.best_day.created_at.strftime("%A, %B %-e, %Y")}")
+          expect(page).to have_content("Top selling date for #{@merchant_5.name} was #{@merchant_5.best_day.created_at.strftime("%A, %B %-e, %Y")}")
         end
       end
     end

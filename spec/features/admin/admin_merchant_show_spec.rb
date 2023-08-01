@@ -22,7 +22,7 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
     end
   # US 25
     it "I can click on a merchant name and be taken to the merchant show page" do
- 
+
       visit admin_merchants_path
     
       click_link("Bob's Burgers")
@@ -46,10 +46,21 @@ RSpec.describe "Admin Merchant Show Page", type: :feature do
       click_button "Update Merchant"
 
       expect(page).to have_current_path(admin_merchant_path(@merchant_1))
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
       expect(page).to have_content("Robert's Hamburgers")
       expect(page).to have_content('Merchant information updated successfully.')
     end
   end
-
   
+  describe "sad path" do
+    it "There is a form when you put nothing in the name box it give you an error saying it cant be blank" do
+      visit edit_admin_merchant_path(@merchant_1)
+
+      fill_in "merchant[name]", with: ""
+      click_button "Update Merchant"
+      
+      expect(current_path).to eq(edit_admin_merchant_path(@merchant_1))
+      expect(page).to have_content("Name can't be blank")
+    end
+  end
 end

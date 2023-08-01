@@ -124,5 +124,12 @@ RSpec.describe Invoice, type: :model do
         expect(@invoice_2.merchant_revenue_to_currency(@merchant_2.id)).to eq("$6,924.69")
       end
     end
+
+    describe "formatted_date" do
+      it "returns a formatted date" do 
+        merchant_invoice_test_data
+        expect(@invoice_1.formatted_date).to eq("Saturday, January 1, 2000")
+      end
+    end
   end
 end

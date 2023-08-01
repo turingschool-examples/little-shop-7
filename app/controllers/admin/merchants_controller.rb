@@ -21,12 +21,12 @@ class Admin::MerchantsController < ApplicationController
       if !params[:merchant][:status].nil?
         redirect_to admin_merchants_path
       else 
-        flash[:success] = 'Merchant information updated successfully.'
         redirect_to admin_merchant_path(@merchant)
+        flash[:success] = 'Merchant information updated successfully.'
       end
     else
-      flash[:error] = "Merchant must have a name."
       redirect_to edit_admin_merchant_path(@merchant)
+      flash[:alert] = "Error: #{error_message(@merchant.errors)}"
     end
   end
 
@@ -35,12 +35,12 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def create 
-    merchant = Merchant.new(merchant_params)
-    if merchant.save
+    @merchant = Merchant.new(merchant_params)
+    if @merchant.save
       flash[:success] = "Merchant created successfully."
       redirect_to admin_merchants_path
     else 
-      flash[:error] = "Merchant must have a name."
+      flash[:error] = "Error: #{error_message(@merchant.errors)}"
       redirect_to new_admin_merchant_path
     end
   end
