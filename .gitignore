@@ -29,10 +29,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/intializers/configs.rb
 coverage
 
 .DS_Store
 
 # Ignore assess keys and secrets
-/config/initializers/configs.rb
+/config/initializers/configs.
+/spec/fixtures
