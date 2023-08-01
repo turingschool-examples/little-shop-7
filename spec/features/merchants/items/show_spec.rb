@@ -127,11 +127,13 @@ RSpec.describe "Merchant Items show Page", type: :feature do
     #Customer 6 - total successful transactions = 6
   end
 
-  #6. Merchant Items show Page
+  #7. Merchant Items show Page
   it "After clicking on a item name I am taken to the item show page" do
     visit merchant_items_path(@merchant_1)
 
-    click_link("#{@item_1.name}")
+    within("div#merchant-items") do 
+      click_link("#{@item_1.name}")
+    end
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1.id))
 
@@ -145,9 +147,10 @@ RSpec.describe "Merchant Items show Page", type: :feature do
 
     within("div#merchant-item-price") do
       expect(page).to have_content("Current Price: $751.07")
+      expect(page).not_to have_content("Item Not Found")
     end
   end
-
+#8. Merchant Items Edit Page
   it "There is a link to update the item that takes you to a form" do
     visit merchant_item_path(@merchant_1, @item_1.id)
 

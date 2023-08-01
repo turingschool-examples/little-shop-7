@@ -21,7 +21,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
     @item_3 = Item.create!(name: "Squishee", description: "Slushy", unit_price: 150, merchant_id: @merchant_2.id)
     @item_4 = Item.create!(name: "Hot Dog", description: "Tasty", unit_price: 300, merchant_id: @merchant_2.id)
     @item_5 = Item.create!(name: "Wine", description: "It makes you drink", unit_price: 2000, merchant_id: @merchant_2.id)
-    @item_6 = Item.create!(name: "Cheese", description: "It goes well with winr", unit_price: 1375, merchant_id: @merchant_2.id)
+    @item_6 = Item.create!(name: "Cheese", description: "It goes well with wine", unit_price: 1375, merchant_id: @merchant_2.id)
 
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 10, unit_price: 450, status: 1)
     @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 250, status: 1)

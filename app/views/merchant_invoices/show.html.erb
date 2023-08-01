@@ -27,9 +27,17 @@
         <% @invoice.merchant_invoice_items(@merchant.id).each do |invoice_item| %>
           <tr>
             <td><%= invoice_item.item.name %></td>
-            <td><%= invoice_item.quantity %></td>
-            <td><%= number_to_currency(invoice_item.dollar_price) %></td>
-            <td><%= invoice_item.status.titleize %></td>
+            <td class="quantity"><%= invoice_item.quantity %></td>
+            <td class="price"><%= number_to_currency(invoice_item.dollar_price) %></td>
+            <td id="invoice_item_status_<%= invoice_item.id %>">
+              <%= form_with model: invoice_item, method: :patch, local: true do |form| %>
+                <%= form.select(:status, [["Pending", "pending"], ["Packaged", "packaged"], ["Shipped", "shipped"]], selected: invoice_item.status) %>
+                <%= form.hidden_field :merchant_id, value: @merchant.id %>
+                <%= form.hidden_field :invoice_id, value: @invoice.id %>
+                <%= form.submit "Update Item Status" %>
+              <% end %>
+
+            </td>
           </tr>
         <% end %>
       </tbody>
