@@ -76,33 +76,36 @@ RSpec.describe Merchant, type: :model do
           expect(pending_packages.first.invoice_items.first).to eq(invoice_item_pending)
         end
 
-        # #User Story 5
-        # describe "oldest_to_newest" do
-        #   it "displays items ready to ship and their invoice is oldest to newest" do
-        #     oldest_to_newest_invoices = merchant.pending_items
-        #     #This will check that the invoice on :65 happens before the invoice on :66
-        #     expect(oldest_to_newest_invoices.first).to eq(invoice_item_pending)
-            
-        #   end
-        # end
+
+        describe "enabled_items & disabled_items" do
+          before :each do
+          @merchant = create(:merchant)
+          @item_1 = create(:item, merchant: @merchant, status: true)
+          @item_2 = create(:item, merchant: @merchant, status: false)
+          @item_3 = create(:item, merchant: @merchant, status: true)
+          @item_4 = create(:item, merchant: @merchant, status: false)
+          @item_5 = create(:item, merchant: @merchant, status: true)
+          @item_6 = create(:item, merchant: @merchant, status: false)
+          @item_7 = create(:item, merchant: @merchant, status: true)
+          @item_8 = create(:item, merchant: @merchant, status: false)
+          end
+          it "can list all enabled items" do
+            @merchant.enabled_items
+
+            expect(@merchant.enabled_items.length).to eq(4)
+            expect(@merchant.enabled_items.first).to eq(@item_1)
+            expect(@merchant.enabled_items.last).to eq(@item_7)
+          end
+
+          it "can list all disabled items" do
+            @merchant.disabled_items
+
+            expect(@merchant.disabled_items.length).to eq(4)
+            expect(@merchant.disabled_items.first).to eq(@item_2)
+            expect(@merchant.disabled_items.last).to eq(@item_8)
+          end
+        end
       end
     end
-    
-    # describe "Merchant Items" do
-    #   describe "Merchant Item List" do
-    #     let!(:merchant) {create(:merchant)}
-    #     let!(:merchant_2) {create(:merchant)}
-    #     let!(:item) {create(:item, merchant: merchant)}
-    #     let!(:item_2) {create(:item, merchant: merchant)}
-    #     let!(:item_3) {create(:item, merchant: merchant_2)}
-    #     let!(:item_4) {create(:item, merchant: merchant_2)}
-    #     #User Story 6 
-    #     it "creates a list of all items associated to a specific merchant" do 
-    #       #Creates a list of only 2 items that belong to the first merchant
-    #       expect(merchant.item_list.length).to eq(2)
-    #       expect(merchant.item_list.first).to eq(item.name)
-    #     end
-    #   end
-    # end
   end
 end
