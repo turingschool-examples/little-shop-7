@@ -14,7 +14,6 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         within "#merchant_list" do
           click_link("#{@merchants[0].name}")
         end
-        save_and_open_page
         expect(current_path).to eq(admin_merchant_path("#{@merchants.first.id}"))
         expect(page).to have_content("#{@merchants[0].name}")
       end

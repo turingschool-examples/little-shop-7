@@ -24,6 +24,15 @@ class Admins::MerchantsController < ApplicationController
     @merchant.toggle_status
     redirect_to admin_merchants_path
   end
+  
+  def new
+    
+  end
+
+  def create
+    Merchant.create(name: params[:name], status: false)
+    redirect_to admin_merchants_path
+  end
 
   private
 

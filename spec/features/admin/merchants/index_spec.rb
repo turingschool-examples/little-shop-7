@@ -63,23 +63,23 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         merchants = create_list(:merchant, 4)
         merchants << create_list(:merchant, 4, status: :false)
         visit admin_merchants_path
-
-        expect(page).to have_link("New Merchant", href: "/admin/merchants/new")
-
+        expect(page).to have_link("New Merchant", href: "#{new_admin_merchant_path}")
+        
         click_link("New Merchant")
-        expect(current_path).to eq("/admin/merchants/new")
+        expect(current_path).to eq("#{new_admin_merchant_path}")
         expect(page).to have_css("#new_merchant_form")
       end
-
+      
       it "When I fill out the form I click 'Submit' Then I am taken back to the admin merchants index page. And I see the merchant I just created displayed And I see my merchant was created with a default status of disabled." do
         visit new_admin_merchant_path
         fill_in(:name, with: "My Merchant Name")
         click_button "Submit"
-        expect(current_path).to eq("/admin/merchants")
+        expect(current_path).to eq("#{admin_merchants_path}")
+        save_and_open_page
         within "#disabled_merchants" do
           expect(page).to have_content("My Merchant Name")
         end
-        expect(Merchant.all.last.status).to eq("disabled")
+        expect(Merchant.all.last.status).to eq(false)
       end
     end
   end
