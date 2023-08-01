@@ -131,7 +131,9 @@ RSpec.describe "Merchant Items show Page", type: :feature do
   it "After clicking on a item name I am taken to the item show page" do
     visit merchant_items_path(@merchant_1)
 
-    click_link("#{@item_1.name}")
+    within("div#merchant-items") do 
+      click_link("#{@item_1.name}")
+    end
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1.id))
 
