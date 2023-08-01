@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord 
   validates :name, presence: true
+  validates :status, inclusion: { in: [true, false] }, exclusion: nil
 
   has_many :items
   has_many :invoice_items, through: :items
@@ -20,8 +21,8 @@ class Merchant < ApplicationRecord
     items.joins(:invoice_items)
     .where("invoice_items.status >= 1")
     .order(created_at: :asc)
-    # .distinct
   end
+
 
   def enabled_items
     items.where(status: true)
@@ -31,3 +32,15 @@ class Merchant < ApplicationRecord
     items.where(status: false)
   end
 end
+
+
+  def toggle_status
+    if self.status
+      self.update_attribute(:status, false)
+    else
+      self.update_attribute(:status, true)
+    end
+  end
+end
+
+

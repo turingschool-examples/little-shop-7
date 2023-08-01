@@ -29,7 +29,11 @@ Rails.application.routes.draw do
   resources :merchant_dashboard, only: [:show]
 
   namespace :admins do
-    resources :merchants
+    resources :merchants do
+      member do
+      patch :toggle_status
+      end
+    end
   end
 
 end

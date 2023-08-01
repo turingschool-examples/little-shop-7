@@ -19,9 +19,15 @@ class Admins::MerchantsController < ApplicationController
     end
   end
 
+  def toggle_status
+    @merchant = Merchant.find(params[:id])
+    @merchant.toggle_status
+    redirect_to admins_merchants_path
+  end
+
   private
 
   def merchant_params
-    params.require(:merchant).permit(:name)
+    params.require(:merchant).permit(:name, :status)
   end
 end
