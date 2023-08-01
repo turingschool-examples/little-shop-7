@@ -14,8 +14,9 @@ RSpec.describe "Merchant Index Page" do
     #User Story 6
     it "displays a list of only the merchants items" do
       
-      visit "/merchants/#{@merchant.id}/items"
-      
+      # visit "/merchants/#{@merchant.id}/items"
+      visit merchant_items_path(@merchant) 
+
       expect(page).to have_content(@item.name)
       expect(page).to have_content(@item3.name)
       expect(page).to have_no_content(@item4.name)
@@ -28,7 +29,7 @@ RSpec.describe "Merchant Index Page" do
   describe "User Story 7" do
     it "reroutes and displays all of the items attributes when the item name is clicked" do
       
-      visit "/merchants/#{@merchant.id}/items"
+      visit merchant_items_path(@merchant) 
 
       expect(page).to have_content(@item.name)
       expect(page).to have_link(@item.name)

@@ -1,12 +1,24 @@
 <section id="header">
   <h3 style="float:left; width:50%; text-align:left;"><%= "#{@merchant.name}" %></h3>
 </section>
+
+<div id="merchant_item_list" style="float:right; width:50%; padding:20px;">
+  <h2><%= "#{@merchant.name}" %>'s Item List</h2>
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+    </li>
+  <% end %>
+</ul>
+</div>
+
 <section id="content" style="clear:both">
   <div id="item_list" style="float:left; width:50%; padding:20px;">
     <h4>My Items</h4>
     <ol>
       <% @items.each do |item| %>
-        <li><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items" %><%= button_to item.status ? "Disable" : "Enable", update_status_merchant_item(item.id), method: :patch, id: "#{item.id}_button" %>
+        <li><%= "#{item.name}"%><%= button_to item.status ? "Disable" : "Enable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, id: "#{item.id}_button" %>
         </li>
       <% end %>
     </ol>
