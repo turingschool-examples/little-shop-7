@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # patch "/merchants/:merchant_id/items/:item_id", to: "merchants/items#update_status", as: :update_status_merchant_item
 
 
+
   resources :merchants do #, only: :index do
     resources :items, controller: "merchants/items" #, only: [:index, :show, :new, :create, :edit, :update]
     resources :dashboard #, only: [:index, :show]
@@ -23,12 +24,22 @@ Rails.application.routes.draw do
   end
 
   resources :admins, only: :index
-  resources :merchant_dashboard, only: [:show]
 
-  namespace :admins do
-    resources :merchants do
+  resources :merchant_dashboard, only: [:show]
+  
+  # namespace :admins do
+  #   resources :merchants do
+  #     member do
+  #     patch :toggle_status
+  #     end
+  #   end
+  # end
+  
+  resources :admin, only: :index, controller: "admins"
+  scope '/admin', module: 'admins'  do
+    resources :merchants, as: "admin_merchants" do
       member do
-      patch :toggle_status
+        patch :toggle_status
       end
     end
   end

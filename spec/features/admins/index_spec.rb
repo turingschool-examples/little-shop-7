@@ -89,13 +89,14 @@ RSpec.describe "Admin", type: :feature do
           invoice_item = create(:invoice_item, invoice: invoice, item: item, status: 2)
         end
         visit admin_index_path
+
         within "#incomplete_invoices" do
-          expect(page).to_not have_content("Invoice ##{invoices[0].id}")
-          expect(page).to_not have_content("Invoice ##{invoices[1].id}")
-          expect(page).to have_content("Invoice ##{invoices[2].id}")
-          expect(page).to have_content("Invoice ##{invoices[3].id}")
-          expect(page).to have_content("Invoice ##{invoices[4].id}")
-          expect(page).to have_content("Invoice ##{invoices[5].id}")
+          expect(page).to_not have_content(invoices[0].id)
+          expect(page).to_not have_content(invoices[1].id)
+          expect(page).to have_content(invoices[2].id)
+          expect(page).to have_content(invoices[3].id)
+          expect(page).to have_content(invoices[4].id)
+          expect(page).to have_content(invoices[5].id)
           # "And each invoice id links to that invoice's admin show page"
           expect(page).to have_link("#{invoices[2].id}", href: "/admin/invoices/#{invoices[2].id}")
           expect(page).to have_link("#{invoices[4].id}", href: "/admin/invoices/#{invoices[4].id}")

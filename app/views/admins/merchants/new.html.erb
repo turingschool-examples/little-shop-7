@@ -1,0 +1,16 @@
+<section id="header"> 
+  <h3 style="float:left; width:50%; text-align:left;">Admin Dashboard</h3>
+</section>
+<section id="content" style="clear:both">
+  <%= form_with model: @merchant, url: admin_merchants_path, id: "new_merchant_form", local: true do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+  <%= form.hidden_field :status, value: false %>
+  <p>
+    <%= form.submit value: "Submit" %>
+  </p>
+  <% end %>
+
+</section>
