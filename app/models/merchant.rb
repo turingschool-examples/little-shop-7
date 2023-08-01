@@ -22,4 +22,12 @@ class Merchant < ApplicationRecord
     .order(created_at: :asc)
     # .distinct
   end
+
+  def enabled_items
+    items.where(status: true)
+  end
+
+  def disabled_items
+    items.where(status: false)
+  end
 end

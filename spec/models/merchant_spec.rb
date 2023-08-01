@@ -75,6 +75,35 @@ RSpec.describe Merchant, type: :model do
           expect(pending_packages.first.invoice_items.first).to eq(invoice_item_pending)
         end
 
+
+        describe "enabled_items & disabled_items" do
+          before :each do
+          @merchant = create(:merchant)
+          @item_1 = create(:item, merchant: @merchant, status: true)
+          @item_2 = create(:item, merchant: @merchant, status: false)
+          @item_3 = create(:item, merchant: @merchant, status: true)
+          @item_4 = create(:item, merchant: @merchant, status: false)
+          @item_5 = create(:item, merchant: @merchant, status: true)
+          @item_6 = create(:item, merchant: @merchant, status: false)
+          @item_7 = create(:item, merchant: @merchant, status: true)
+          @item_8 = create(:item, merchant: @merchant, status: false)
+          end
+          it "can list all enabled items" do
+            @merchant.enabled_items
+
+            expect(@merchant.enabled_items.length).to eq(4)
+            expect(@merchant.enabled_items.first).to eq(@item_1)
+            expect(@merchant.enabled_items.last).to eq(@item_7)
+          end
+
+          it "can list all disabled items" do
+            @merchant.disabled_items
+
+            expect(@merchant.disabled_items.length).to eq(4)
+            expect(@merchant.disabled_items.first).to eq(@item_2)
+            expect(@merchant.disabled_items.last).to eq(@item_8)
+          end
+        end
         # #User Story 5
         # describe "oldest_to_newest" do
         #   it "displays items ready to ship and their invoice is oldest to newest" do
