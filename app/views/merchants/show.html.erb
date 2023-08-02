@@ -1,23 +1,28 @@
-<!-- https://backend.turing.edu/module2/lessons/partials -->
-
 <%= render partial: "header", locals: {merchant: @merchant} %>
 
 <%= image_tag(@merchant_photo.url["thumb"]) %>
 
-<div id="favorite-customers">
-  <h4>Favorite Customers</h4>
-  <ol>
-    <% @merchant.favorite_customers_alt.each do |c| %>
-      <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
-    <% end %>
-  </ol>
-</div>
+<div class="container">
+  <div class="row pb-5">
+    <div id="items_to_be_shipped" class="col">
+      <div class="text-center bg-dark-subtle border-top border-black border-5 p-2 mb-4">
+        <h3>Items Ready to Ship</h3>
+      </div>
+      <ul>
+        <% @merchant.items_ready.each do |i| %>
+          <li><%= i.name %> - Invoice #<%= link_to "#{i.invoice_id}", merchant_invoice_path(@merchant, i.invoice_id) %> - <%= i.invoice_created_at %></li>
+        <% end %>
+      </ul>
+    </div>
 
-<div id="items_to_be_shipped">
-  <h4>Items Ready to Ship</h4>
-  <ul>
-    <% @merchant.items_ready.each do |i| %>
-      <li><%= i.name %> - Invoice #<%= link_to "#{i.invoice_id}", merchant_invoice_path(@merchant, i.invoice_id) %> - <%= i.invoice_created_at %></li>
-    <% end %>
-  </ul>
+    <div id="favorite-customers" class="col">
+        <div class="text-center bg-dark-subtle border-top border-black border-5 p-2 mb-4">
+          <h3>Favorite Customers</h3>
+        </div>      <ol>
+        <% @merchant.favorite_customers_alt.each do |c| %>
+          <li><%= c.full_name %> - <%= c.num_transactions %> purchases</li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
 </div>

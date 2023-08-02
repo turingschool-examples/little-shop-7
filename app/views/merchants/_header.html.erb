@@ -1,9 +1,14 @@
-<div id="merchant-header">
-  <h1>Little Esty Shop</h1>
-  <h2 class="title"><%= merchant.name %></h2>
-    <nav class="navigation-bar"> 
-    <%= link_to "Dashboard", merchant_dashboard_path(merchant) %>
-    <%= link_to "My Items", merchant_items_path(merchant) %>
-    <%= link_to "My Invoices", merchant_invoices_path(merchant) %>
-    </nav>
+<div class="container">
+  <div class="row pb-5" id="merchant-header">
+    <div class="col">
+      <h2 class="title"><%= merchant.name %></h2>
+    </div>
+    <div class="col">
+      <nav class="nav nav-pills justify-content-end">
+        <%= link_to "Dashboard", merchant_dashboard_path(merchant), class: "nav-link" + (current_page?(merchant_dashboard_path(merchant)) ? " active" : "") %>
+        <%= link_to "My Items", merchant_items_path(merchant), class: "nav-link" + (current_page?(merchant_items_path(merchant)) ? " active" : "") %>
+        <%= link_to "My Invoices", merchant_invoices_path(merchant), class: "nav-link" + (current_page?(merchant_invoices_path(merchant)) ? " active" : "") %>
+      </nav>
+    </div>
+  </div>
 </div>
