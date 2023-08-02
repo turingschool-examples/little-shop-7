@@ -1,6 +1,7 @@
 <!-- - Must include a thorough README to describe the project
    - README should include a basic description of the project, a summary of the work completed, and some ideas for a potential contributor to work on/refactor next. Also include the names and GitHub links of all student contributors on your project.  -->
-# 🛍️ **Little Esty Shop** 🛍️
+   # Little Esty Shop
+   ![logo](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1577720086808-ee62b140bc0e%3Fcrop%3Dfaces%252Cedges%26cs%3Dtinysrgb%26fit%3Dcrop%26fm%3Djpg%26ixid%3DM3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkwOTE0NzE5fA%26ixlib%3Drb-4.0.3%26q%3D60%26w%3D1200%26auto%3Dformat%26h%3D630%26mark-w%3D64%26mark-align%3Dtop%252Cleft%26mark-pad%3D50%26blend-mode%3Dnormal%26blend-alpha%3D10%26blend-w%3D1%26mark%3Dhttps%253A%252F%252Fimages.unsplash.com%252Fopengraph%252Flogo.png%26blend%3D000000)  
 
 ## Project Description
 
@@ -73,5 +74,5 @@ ___
 
 ___
 
-## 💐 Acknowledgments 💐
+## 💐 Acknowledgments 🫶
 We express our gratitude to our instructors, teaching assistants, and cohort-mates for their guidance and support throughout the development of this project.
