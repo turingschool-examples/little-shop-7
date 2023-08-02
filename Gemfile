@@ -60,6 +60,7 @@ group :development, :test do
   gem "orderly"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "faraday"
 end
 
 group :development do
