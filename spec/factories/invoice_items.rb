@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :invoice_item do
-    quantity {rand(1..1000)}
+    quantity {rand(1..10)}
     unit_price { Faker::Commerce.price }
   
     trait :shipped do
