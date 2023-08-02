@@ -107,6 +107,12 @@ RSpec.describe "Admin/merchants index page", type: :feature do
           end
         end
       end
+
+      describe "story 31" do
+        it "Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant. And I see a label 'Top selling date for was' " do
+
+        end
+      end
     end
   end
 end
