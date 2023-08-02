@@ -124,7 +124,7 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         end
 
         visit admin_merchants_path
-        save_and_open_page
+        
 
         within("#top_merchants") do
           successful_merchants.each do |merchant|

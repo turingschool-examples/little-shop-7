@@ -62,7 +62,6 @@ class Merchant < ApplicationRecord
   end
 
   def top_selling_date
-    #require 'pry'; binding.pry
     invoices.completed.joins(:invoice_items)
       .group(:id)
         .order(Arel.sql("SUM(invoice_items.unit_price * invoice_items.quantity)desc, invoices.created_at"))

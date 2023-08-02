@@ -186,5 +186,25 @@ RSpec.describe Merchant, type: :model do
       
       expect(merchants.last.revenue).to eq(0)
     end
+
+    it "#top_selling_date" do
+      merchants = create_list(:merchant, 10)
+      successful_merchants = merchants[0..4]
+      successful_merchants.each do |merchant|
+        customer = create(:customer)
+        item = create(:item, merchant: merchant)
+        invoice_1 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 6, 12 ) )
+        create(:invoice_item, invoice: invoice_1, item: item, unit_price: 1000, quantity: 5, status: :shipped)
+        invoice_2 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 7, 12 ) )
+        create(:invoice_item, invoice: invoice_2, item: item, unit_price: 1000, quantity: 10, status: :shipped)
+        invoice_3 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 7, 11 ) )
+        create(:invoice_item, invoice: invoice_3, item: item, unit_price: 1000, quantity: 7, status: :shipped)
+      end
+      expect(merchants.first.top_selling_date).to_not eq("2023-06-12 05:00:00 UTC")
+      expect(merchants.first.top_selling_date).to eq("2023-07-12 05:00:00 UTC")
+    end
+
+
+
   end
 end
