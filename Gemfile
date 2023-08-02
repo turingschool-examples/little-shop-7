@@ -58,6 +58,8 @@ group :development, :test do
   gem "orderly"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "faraday"
+  gem "figaro"
 end
 
 group :development do
@@ -70,4 +72,3 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-

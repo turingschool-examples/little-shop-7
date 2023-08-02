@@ -19,9 +19,9 @@ ______________
 ## Over View
 The main features of "Little Esty Shop" include:
 
-- Inventory Management: Merchants can add, edit, and delete products, ensuring they have control over their store's inventory.
+- Inventory Management: Merchants can add, edit, and disable products, ensuring they have control over their store's inventory.
 
-- Invoice Management: Admins can manage customer invoices, updating their status and tracking order fulfillment.
+- Invoice Management: Admins can add, enable and disable, and upadte merchants, see all invoices, and update invoice statuses.
 
 - API Integration: The application utilizes a public API to fetch external data, enhancing the user experience with up-to-date information.
 
@@ -41,7 +41,10 @@ ___
 ___
 ## 🏗️ Next Steps and Potential Refactors
 
-stuff we want to refactor
+While we have implemented the core functionality of the project, there are some areas we would have refactored or improved if we had more time:
+   1. Setting up Factorybot for easier testing
+   2. 
+
 ___
 
 ## Contributors
