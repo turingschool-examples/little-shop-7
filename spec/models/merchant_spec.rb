@@ -200,8 +200,8 @@ RSpec.describe Merchant, type: :model do
         invoice_3 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 7, 11 ) )
         create(:invoice_item, invoice: invoice_3, item: item, unit_price: 1000, quantity: 7, status: :shipped)
       end
-      expect(merchants.first.top_selling_date).to_not eq("2023-06-12 05:00:00 UTC")
-      expect(merchants.first.top_selling_date).to eq("2023-07-12 05:00:00 UTC")
+      expect(merchants.first.top_selling_date).to_not eq("June 12, 2023")
+      expect(merchants.first.top_selling_date).to eq("July 12, 2023")
     end
 
 

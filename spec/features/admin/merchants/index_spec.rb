@@ -128,7 +128,7 @@ RSpec.describe "Admin/merchants index page", type: :feature do
 
         within("#top_merchants") do
           successful_merchants.each do |merchant|
-            expect(page).to have_content ("Top selling date for #{merchant.name} was #{merchant.invoices[1].created_at}")
+            expect(page).to have_content ("Top selling date for #{merchant.name} was July 12, 2023")
           end     
         end
       end

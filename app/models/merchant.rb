@@ -65,7 +65,7 @@ class Merchant < ApplicationRecord
     invoices.completed.joins(:invoice_items)
       .group(:id)
         .order(Arel.sql("SUM(invoice_items.unit_price * invoice_items.quantity)desc, invoices.created_at"))
-          .first.created_at
+          .first.created_at.strftime("%B %-d, %Y")
           
 
   end
