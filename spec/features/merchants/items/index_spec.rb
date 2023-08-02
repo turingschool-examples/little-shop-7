@@ -207,14 +207,12 @@ RSpec.describe "As a merchant" do
       @transaction_9 = create(:transaction, invoice: @invoice_4, result: "success")
       @transaction_10 = create(:transaction, invoice: @invoice_5, result: "success")
       end
-    describe "I visit my merchant items index page" do
       it "Then next to each of the 5 most popular items I see the date with the most sales for each item" do
         visit merchant_items_path(@merchant)
 
         within (".most_popular_items") do
-          expect(page).to have_content("Top selling date for #{@item_1} was 2012-03-25")
+          expect(page).to have_content("Top selling date for #{@item_1.name} was March 25, 2012")
         end
       end
-    end
   end
 end
