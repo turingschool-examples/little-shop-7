@@ -17,3 +17,6 @@
   <br>
 
 <%end%>
+
+<h2>Total revenue from invoice #<%=@invoice.id%></h2>
+<p><%= number_to_currency(@invoice_total_revenue.to_f / 100, unit: '$')%></p>

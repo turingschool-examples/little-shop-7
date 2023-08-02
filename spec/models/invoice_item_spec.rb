@@ -18,6 +18,7 @@ describe InvoiceItem, type: :model do
     it { should belong_to :invoice }
   end
 
+  
   # describe "factory_bot" do
   #   it "exists" do
   #     invoice = create(:invoice)
