@@ -107,6 +107,33 @@ RSpec.describe "Admin/merchants index page", type: :feature do
           end
         end
       end
+
+    describe "story 31" do
+      it "Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant. And I see a label 'Top selling date for was' " do
+        merchants = create_list(:merchant, 10)
+        successful_merchants = merchants[0..4]
+        successful_merchants.each do |merchant|
+          customer = create(:customer)
+          item = create(:item, merchant: merchant)
+          invoice_1 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 6, 12 ) )
+          create(:invoice_item, invoice: invoice_1, item: item, unit_price: 1000, quantity: 5, status: :shipped)
+          invoice_2 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 7, 12 ) )
+          create(:invoice_item, invoice: invoice_2, item: item, unit_price: 1000, quantity: 10, status: :shipped)
+          invoice_3 = create(:invoice, customer: customer, status: "completed", created_at: Time.new(2023, 7, 11 ) )
+          create(:invoice_item, invoice: invoice_3, item: item, unit_price: 1000, quantity: 7, status: :shipped)
+        end
+
+        visit admin_merchants_path
+        
+
+        within("#top_merchants") do
+          successful_merchants.each do |merchant|
+            expect(page).to have_content ("Top selling date for #{merchant.name} was July 12, 2023")
+          end     
+        end
+      end
+    end
+
     end
   end
 end
