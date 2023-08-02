@@ -52,6 +52,8 @@
     <% @merchant.popular_items.each do |item| %>
       <li><%= "#{item.name}"%></li> 
       Total Revenue: $<%= "#{item.revenue}"%>
+      <li>Top selling date for <%= "#{item.name}" %> was <%= "#{item.top_selling_date}" %></li>
+      </li>
     <% end %>
   </ol>
 </section>
