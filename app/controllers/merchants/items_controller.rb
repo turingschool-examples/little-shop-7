@@ -8,6 +8,7 @@ class Merchants::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @search = PhotoService.new.search(@item.name)
   end 
 
   def edit

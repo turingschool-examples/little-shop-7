@@ -29,5 +29,17 @@ RSpec.describe "Merchant Items Show Page" do
       expect(page).to have_content('Item information was successfully updated.')
     end
   end
+  describe "api consumption" do
+    it "matches a search with photo" do
+      @merchant = create(:merchant)
+      @item = create(:item, merchant: @merchant)
+      @item2 = create(:item, merchant: @merchant)
 
+      visit merchant_item_path(@merchant, @item)
+
+      within ".search" do
+        expect(page).to have_css("img[src]")
+      end
+    end
+  end
 end
