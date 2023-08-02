@@ -20,4 +20,8 @@ class Invoice < ApplicationRecord
     InvoiceItem.where(invoice_id: id).includes(:item)
   end
 
+  def total_revenue
+    invoice_items.sum { |item| item.quantity * item.unit_price }
+  end
+
 end
