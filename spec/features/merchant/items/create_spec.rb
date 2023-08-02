@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchant item update page" do
+RSpec.describe "merchant item update page", :vcr do
   before(:each) do
     @merchant = FactoryBot.create(:merchant)
     @item = FactoryBot.create(:item, merchant: @merchant)

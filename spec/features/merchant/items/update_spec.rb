@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchant item update page" do
+RSpec.describe "merchant item update page", :vcr do
   before(:each) do
     # @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     # @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)

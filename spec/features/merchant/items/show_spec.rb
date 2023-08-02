@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "items show page", type: :feature do
+RSpec.describe "items show page", :vcr do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)
@@ -34,5 +34,11 @@ RSpec.describe "items show page", type: :feature do
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.formatted_unit_price)
     end
+  end
+
+  it "takes me to that items show page" do
+    visit merchant_item_path(@merchant_1, @item_1)
+    
+    expect(page).to have_content(@image)
   end
 end

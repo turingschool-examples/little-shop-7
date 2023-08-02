@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "admin merchants new page" do
+RSpec.describe "admin merchants new page", :vcr do
 
   let!(:little_kin_shop) { create(:merchant, name: "Dave Schools", status: 0) }
   let!(:red_roses) { create(:merchant, name: "Sunny", status: 0) }

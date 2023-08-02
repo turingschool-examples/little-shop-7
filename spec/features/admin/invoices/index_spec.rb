@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin Invoices Index Page" do
+describe "Admin Invoices Index Page", :vcr do
   before :each do
   
 

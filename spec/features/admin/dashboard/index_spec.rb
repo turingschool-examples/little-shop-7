@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin Dashboard Index Page" do
+describe "Admin Dashboard Index Page", :vcr do
   before :each do
    
 

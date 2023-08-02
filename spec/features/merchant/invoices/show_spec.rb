@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchant invoice show page" do
+RSpec.describe "merchant invoice show page", :vcr do
   before(:each) do
     @merchant = FactoryBot.create(:merchant)
     @customer = FactoryBot.create(:customer)
