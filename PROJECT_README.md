@@ -64,13 +64,13 @@ ___
 
 ## Contributors
 
-👨 Ethan Black: [Github](https://github.com/ethanrossblack),[LinkedIn](https://www.linkedin.com/in/ethanrossblack/)
+👨 Ethan Black: [Github](https://github.com/ethanrossblack), [LinkedIn](https://www.linkedin.com/in/ethanrossblack/)
 
-👩 Zanna Fitch: [Github](https://github.com/z-fitch),[LinkedIn](https://www.linkedin.com/in/zanna-fitch-2841a1279/)
+👩 Zanna Fitch: [Github](https://github.com/z-fitch), [LinkedIn](https://www.linkedin.com/in/zanna-fitch-2841a1279/)
 
-👩 Jorja Fleming: [Github](https://github.com/JorjaF),[LinkedIn](https://www.linkedin.com/in/jorja-f-25027a70/)
+👩 Jorja Fleming: [Github](https://github.com/JorjaF), [LinkedIn](https://www.linkedin.com/in/jorja-f-25027a70/)
 
-👨 Daniel Gallagher: [Github](Daniel-Gallagher92),[LinkedIn](https://www.linkedin.com/in/daniel-gallagher-5b29271a1/)
+👨 Daniel Gallagher: [Github](Daniel-Gallagher92), [LinkedIn](https://www.linkedin.com/in/daniel-gallagher-5b29271a1/)
 
 ___
 
