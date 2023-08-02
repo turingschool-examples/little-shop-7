@@ -13,6 +13,13 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe "class methods" do
+    describe ".status_list_for_select_menu" do
+      it "returns an array of statuses for select menu" do
+        expected = [["In Progress", "in progress"], ["Completed", "completed"], ["Cancelled", "cancelled"]]
+        
+        expect(Invoice.status_list_for_select_menu).to eq(expected)
+      end
+    end
     describe ".incomplete_invoices" do
       before :each do
         invoice_spec_test_data
