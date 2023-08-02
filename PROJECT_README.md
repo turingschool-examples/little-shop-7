@@ -7,7 +7,7 @@
 "Little Esty Shop" is a mid-mod group project where students are tasked with building a fictitious e-commerce platform. The project aims to create a robust web application that allows merchants and admins to efficiently manage inventory and fulfill customer invoices.
 ___
 
-## Tools Used
+## 🔧 Tools Used 🔧 
 | Rails 7.0.5 | Ruby 3.2.2 | ActiveRecord |
 |:-----------:|:----------:|:------------:|
 |  SimpleCov  |   VS Code  |   Capybara   |
@@ -21,7 +21,7 @@ The main features of "Little Esty Shop" include:
 
 - Inventory Management: Merchants can add, edit, and disable products, ensuring they have control over their store's inventory.
 
-- Invoice Management: Admins can add, enable and disable, and upadte merchants, see all invoices, and update invoice statuses.
+- Invoice Management: Admins can add, enable and disable, and upadte merchants. They can also see all invoices, and update invoice statuses.
 
 - API Integration: The application utilizes a public API to fetch external data, enhancing the user experience with up-to-date information.
 
