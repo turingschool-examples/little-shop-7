@@ -32,6 +32,13 @@ module LittleEstyShop7
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'env.yml')
+      YAML.load(File.open(env_file)).each do |key, value|
+        ENV[key.to_s] = value
+      end if File.exist?(env_file)
+    end
+    
     config.generators.system_tests = nil
   end
 end
