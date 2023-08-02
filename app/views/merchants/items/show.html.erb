@@ -3,5 +3,6 @@
 <p>Item Description: <%= @item.description %></p>
 <p>Item Unit Price: <%= @item.unit_price %></p>
 
+<img src= <%= @search %>>
 
 <%= link_to "#{@item.name} update information", "/merchants/#{@item.merchant.id}/items/#{@item.id}/edit", method: :get %>
