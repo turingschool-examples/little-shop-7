@@ -158,14 +158,7 @@ RSpec.describe "As a merchant" do
       end
     end
   end
-    #   13. Merchant Items Index: Top Item's Best Day
-
-    # As a merchant
-    # When I visit my items index page
-    # Then next to each of the 5 most popular items I see the date with the most sales for each item.
-    # And I see a label “Top selling date for <item name> was <date with most sales>"
-
-    # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    # us_13
   describe "Merchant Items Index Page, top items best day" do 
     before :each do
       @merchant = create(:merchant)
