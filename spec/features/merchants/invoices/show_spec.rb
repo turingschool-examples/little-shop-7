@@ -1,14 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Merchant invoice show" do
-  describe "US15 & 16" do
-              #     As a merchant
-              # When I visit my merchant's invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
-              # Then I see information related to that invoice including:
-              # - Invoice id
-              # - Invoice status
-              # - Invoice created_at date in the format "Monday, July 18, 2019"
-              # - Customer first and last name
+  describe "US15, 16 & 17" do
+              
     before :each do
       @merchant = create(:merchant)
       @merchant2 = create(:merchant)
@@ -28,6 +22,7 @@ RSpec.describe "Merchant invoice show" do
       @invoice_item3 = create(:invoice_item, item: @item3, invoice: @invoice, status: 0)
       
     end
+    #User story 15
     it "Visits merchants invoice show page" do
       visit merchant_invoice_path(@merchant, @invoice.id)
       
@@ -37,11 +32,7 @@ RSpec.describe "Merchant invoice show" do
     end
 
     describe "User Story 16" do
-            # - Item name
-            # - The quantity of the item ordered
-            # - The price the Item sold for
-            # - The Invoice Item status
-            # And I do not see any information related to Items for other merchants
+
       it "Shows all the items attached to an invoice" do
         visit merchant_invoice_path(@merchant, @invoice.id)
 
@@ -51,6 +42,33 @@ RSpec.describe "Merchant invoice show" do
         expect(page).to have_content("$8.99")
         expect(page).to have_content(@invoice_item3.status)
         expect(page).to_not have_content(@item5.name)
+      end
+    end
+
+    describe "User Story 17" do
+      before :each do
+        @merchant3 = create(:merchant)
+        
+        @item5 = create(:item, merchant:@merchant3)
+        @item6 = create(:item, merchant:@merchant3)
+        @item7 = create(:item, merchant:@merchant3)
+        
+      
+        @customer5 = create(:customer)
+  
+        @invoice5 = create(:invoice, customer: @customer5)
+        
+        @invoice_item5 = create(:invoice_item, item: @item7, invoice: @invoice5, status: 0, quantity: 1, unit_price: 800)
+
+        @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice5, status: 0,quantity: 1, unit_price: 800)
+
+        @invoice_item7 = create(:invoice_item, item: @item2, invoice: @invoice5, status: 0, quantity: 2, unit_price: 800)
+        
+      end
+      it "Show the total revenue of an invoice " do
+        visit merchant_invoice_path(@merchant3, @invoice5.id)
+        save_and_open_page
+        expect(page).to have_content("$32.00")
       end
     end
   end

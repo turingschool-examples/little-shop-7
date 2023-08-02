@@ -36,4 +36,31 @@ RSpec.describe Invoice, type: :model do
       expect(Invoice.incomplete_invoices).to eq([invoices[2],invoices[3],invoices[4],invoices[5]])
     end
   end
+
+      #User Story 17
+  describe "item_price" do
+    before :each do
+      @merchant = create(:merchant)
+      @merchant2 = create(:merchant)
+        
+      @item = create(:item, merchant:@merchant)
+      @item2 = create(:item, merchant:@merchant)
+      @item3 = create(:item, merchant:@merchant)
+        
+      
+      @customer = create(:customer)
+  
+      @invoice = create(:invoice, customer: @customer)
+        
+      @invoice_item = create(:invoice_item, item: @item, invoice: @invoice, status: 0, quantity: 1, unit_price: 800)
+
+      @invoice_item2 = create(:invoice_item, item: @item, invoice: @invoice, status: 0,quantity: 1, unit_price: 800)
+
+      @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice, status: 0, quantity: 2, unit_price: 800)
+        
+    end
+    it "sums unit price for all of the items listed under a invoice" do
+      expect(@invoice.item_total_revenue).to eq(3200) 
+    end
+  end
 end
