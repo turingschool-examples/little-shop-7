@@ -29,7 +29,7 @@ RSpec.describe "Invoices show page", type: :feature do
       invoice_item_3 = create(:invoice_item, invoice: invoice, item: item_3, status: 0)
 
       visit invoice_path(invoice.id)
-      save_and_open_page
+      
       within("#item#{item_1.id}") do
         expect(page).to have_content("#{item_1.name}")
         expect(page).to have_content("#{invoice_item_1.quantity}")

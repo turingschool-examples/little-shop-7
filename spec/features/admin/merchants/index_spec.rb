@@ -80,6 +80,33 @@ RSpec.describe "Admin/merchants index page", type: :feature do
         end
         expect(Merchant.all.last.status).to eq(false)
       end
+
+      it "Then I see the names of the top 5 merchants by total revenue generated with total revenue next to each" do
+        
+        merchants = create_list(:merchant, 10)
+      
+        successful_merchants = merchants[0..4]
+        successful_merchants.each do |merchant|
+          customer = create(:customer)
+          item = create(:item, merchant: merchant)
+          invoice = create(:invoice, customer: customer, status: "completed")
+          create(:invoice_item, invoice: invoice, item: item, unit_price: 1000, quantity: rand(5..10), status: :shipped)
+        end
+        
+        visit admin_merchants_path
+      
+        expect(page).to have_content("Top Merchants")
+
+        within("#top_merchants") do
+          successful_merchants.each do |merchant|
+            expect(page).to have_link(merchant.name, href: admin_merchant_path(merchant))
+            expect(page).to have_content('$')
+          end
+          (merchants - successful_merchants).each do |merchant|
+            expect(page).not_to have_link(merchant.name, href: admin_merchant_path(merchant))
+          end
+        end
+      end
     end
   end
 end
