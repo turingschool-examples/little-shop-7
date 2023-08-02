@@ -1,50 +1,75 @@
 <%= render partial: "merchants/header", locals: {merchant: @merchant} %>
 
-<h3> My Items </h3>
+<div class="container">
 
-<div id="create-item">
-  <h4><%= link_to "Create Item", new_merchant_item_path(@merchant, @item) %></h4>
-</div>
-
-<div id="merchant-items">
-  <div id="enabled-items">
-    <h3> Enabled Items </h3>
-    <% @items.enabled_items.each do |item| %>
-      <h4><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
-        <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
-          <%= form.hidden_field :method, value: "patch" %>
-          <%= form.hidden_field :status, value: "disabled" %>
-          <%= form.submit "Disable #{item.name}" %>
-        <% end %>
-      </h4>
-    <% end %>
+  <div class="row">
+    <div class="col text-center bg-dark-subtle border-top border-black border-5 p-2 mb-4">
+      <h3>My Items</h3>
+    </div>
   </div>
 
-  <div id="disabled-items">
-    <h3> Disabled Items </h3>
-    <% @items.disabled_items.each do |item| %>
-      <h4><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
-        <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
-          <%= form.hidden_field :method, value: "patch" %>
-          <%= form.hidden_field :status, value: "enabled" %>
-          <%= form.submit "Enable #{item.name}" %>
-        <% end %>
-      </h4>
-    <% end %>
+  <div class="row">
+    <div class="col">
+      <div id="create-item">
+        <h4><%= link_to "Create Item", new_merchant_item_path(@merchant, @item) %></h4>
+      </div>
+    </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="col" id="merchant-items">
+      <div id="enabled-items" class="mb-4">
+        <h3>Enabled Items</h3>
+        <div class="ps-4">
+          <% @items.enabled_items.each do |item| %>
+            <h4>
+              <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></h4>
+              <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
+                <%= form.hidden_field :method, value: "patch" %>
+                <%= form.hidden_field :status, value: "disabled" %>
+                <%= form.submit "Disable #{item.name}" %>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="disabled-items">
+        <h3>Disabled Items</h3>
+        <div class="ps-4">
+          <% @items.disabled_items.each do |item| %>
+            <h4><%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></h4>
+              <%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %>
+                <%= form.hidden_field :method, value: "patch" %>
+                <%= form.hidden_field :status, value: "enabled" %>
+                <%= form.submit "Enable #{item.name}" %>
+              <% end %>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+
+        <div id="top-items">
+          <h3> Top Items</h3>
+
+          <div id="top-5-items">
+              <ol>
+                <% @items.top_5_items.each do |item|  %> 
+                <li><%= link_to "#{item.name}", merchant_item_path(@merchant, item)%> - <%= number_to_currency(item.invoice_item_revenue) %> in sales
+                <br>
+                Top selling date for <%= item.name %> was <%= item.top_item_day.formatted_date %> 
+                </li>
+                <% end %>
+              </ol>
+            </div>
+          </div>
+      </div>
+
+    </div>
   
-<div id="top-items">
-  <h3> Top Items</h3>
-
-  <div id="top-5-items">
-    <ol>
-      <% @items.top_5_items.each do |item|  %> 
-      <li><%= link_to "#{item.name}", merchant_item_path(@merchant, item)%> - <%= number_to_currency(item.invoice_item_revenue) %> in sales
-      <br>
-      Top selling date for <%= item.name %> was <%= item.top_item_day.formatted_date %> 
-      </li>
-      <% end %>
-    </ol>
   </div>
+
 </div>
