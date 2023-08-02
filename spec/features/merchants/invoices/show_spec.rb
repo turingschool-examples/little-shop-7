@@ -44,7 +44,7 @@ RSpec.describe "Merchant invoice show" do
             # And I do not see any information related to Items for other merchants
       it "Shows all the items attached to an invoice" do
         visit merchant_invoice_path(@merchant, @invoice.id)
-        save_and_open_page
+
 
         expect(page).to have_content(@item.name)
         expect(page).to have_content(@invoice_item.quantity)
