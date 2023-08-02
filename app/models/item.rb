@@ -18,7 +18,14 @@ class Item < ApplicationRecord
     end
   end
 
-  
+  def top_selling_date
+    top_selling = invoices.joins(:invoice_items)
+                .group(:created_at)
+                .order('sum(invoice_items.quantity) desc')
+                .select(:created_at)
+                .first
+    top_selling&.created_at&.strftime('%B %-d, %Y')
+  end
 end
 
 
