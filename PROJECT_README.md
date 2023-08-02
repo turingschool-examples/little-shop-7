@@ -22,7 +22,7 @@ The main features of "Little Esty Shop" include:
 
 - Inventory Management: Merchants can add, edit, and disable products, ensuring they have control over their store's inventory.
 
-- Invoice Management: Admins can add, enable and disable, and upadte merchants. They can also see all invoices, and update invoice statuses.
+- Invoice Management: Admins can add, enable and disable, and update merchants. They can also see all invoices, and update invoice statuses.
 
 - API Integration: The application utilizes a public API to fetch external data, enhancing the user experience with up-to-date information.
 
@@ -66,7 +66,7 @@ ___
 
 👨 Ethan Black: [Github](https://github.com/ethanrossblack),[LinkedIn](https://www.linkedin.com/in/ethanrossblack/)
 
- 👩 Zanna Fitch; [Github](https://github.com/z-fitch),[LinkedIn](https://www.linkedin.com/in/zanna-fitch-2841a1279/)
+👩 Zanna Fitch: [Github](https://github.com/z-fitch),[LinkedIn](https://www.linkedin.com/in/zanna-fitch-2841a1279/)
 
 👩 Jorja Fleming: [Github](https://github.com/JorjaF),[LinkedIn](https://www.linkedin.com/in/jorja-f-25027a70/)
 
