@@ -16,5 +16,8 @@ class Invoice < ApplicationRecord
       .order(created_at: :asc)
   end
 
-  
+  def find_item_info
+    InvoiceItem.where(invoice_id: id).includes(:item)
+  end
+
 end

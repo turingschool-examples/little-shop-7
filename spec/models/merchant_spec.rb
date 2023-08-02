@@ -105,6 +105,15 @@ RSpec.describe Merchant, type: :model do
             expect(@merchant.disabled_items.last).to eq(@item_8)
           end
         end
+        describe ".toggle_status" do
+          it "should toggle the Merchant status" do
+            @merchant = create(:merchant)
+
+            expect(@merchant.status).to eq(true)
+            @merchant.toggle_status
+            expect(@merchant.status).to eq(false)
+          end
+        end
       end
     end
   end

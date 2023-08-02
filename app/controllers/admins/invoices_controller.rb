@@ -4,6 +4,6 @@ class Admins::InvoicesController < ApplicationController
   end
   def show
     @invoice = Invoice.find(params[:id])
-    require 'pry'; binding.pry
+    @invoice_items = @invoice.find_item_info
   end
 end

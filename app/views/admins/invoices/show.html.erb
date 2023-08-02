@@ -6,13 +6,22 @@
   </nav>
 </section>
 <section id="content" style="clear:both">
-  <p>
+  <p id="invoice_info">
     ID: <%= @invoice.id %><br />
     Status: <%= @invoice.status %><br />
     Created at: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %><br />
     Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %>
   </p>
   <p>
-    #
+    <b>Invoice Items</b><br />
+    <ol>
+      <% @invoice_items.each do |invoice_item| %>
+        <li id="item<%=invoice_item.item_id%>">
+          Name: <%= invoice_item.item.name %><br />
+          Qty: <%= invoice_item.quantity %><br />
+          Unit price: $<%= invoice_item.unit_price %>
+        </li>
+      <% end %>
+    </ol>
   </p>
 </section>
