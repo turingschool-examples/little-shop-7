@@ -92,5 +92,16 @@ RSpec.describe "Merchant Show Page" do
         end
       end
     end
+    describe "api consumption" do
+      it "shows a random image from unsplash" do
+        merchant = create(:merchant)
+
+        visit merchant_path(merchant)
+
+        within ".random_image" do
+          expect(page).to have_css("img[src]")
+        end
+      end
+    end
   end
 end
