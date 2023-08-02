@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
+  before_action :get_logo
+  
   def get_logo
-    UnsplashFacade.get_logo
+    @logo_image = UnsplashFacade.get_logo
   end
 
-  def get_likes
-    UnsplashFacade.get_likes
-  end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchant dashboards index", type: :feature do
+RSpec.describe "merchant dashboards index", :vcr do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @items = create_list(:item, 20, merchant: @merchant_1)

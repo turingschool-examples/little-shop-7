@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.find(params[:id])
+    @image = UnsplashFacade.get_item_image(@item.name)
   end
 
   def edit

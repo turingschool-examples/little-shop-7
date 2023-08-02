@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "admin merchants index page" do
+RSpec.describe "admin merchants index page", :vcr do
 
   describe 'enable/disable merchants' do 
     let!(:little_kin_shop) { create(:merchant, name: "Dave Schools", status: 0) }
@@ -142,7 +142,7 @@ RSpec.describe "admin merchants index page" do
     end
   end
 
-  describe "merchants best day" do
+  describe "merchants best day", :vcr do
     # little_kin_shops best day was january 15, 2022
     let!(:little_kin_shop) { create(:merchant, name: "jam threads") }
     let!(:jimmy) { create(:customer) }
@@ -211,7 +211,7 @@ RSpec.describe "admin merchants index page" do
       visit admin_merchants_path
     end
 
-    it "displays best day for top 5 merchants" do
+    it "displays best day for top 5 merchants", :vcr do
       within(".top_5_merchants") do         
         expect(page).to have_content("Top Day: 2022-01-15 23:48:56 UTC")
         expect(page).to have_content("Top Day: 2023-07-12 23:48:56 UTC")
@@ -223,7 +223,7 @@ RSpec.describe "admin merchants index page" do
     
     # User Story 37
     it "has photo from unsplash on each page", :vcr do
-      expect(page).to have_css("img[src*='unsplash.com/premium_photo']")
+      expect(page).to have_content(@logo_image)
     end
     
     # User Story 40

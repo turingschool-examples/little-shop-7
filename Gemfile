@@ -6,6 +6,7 @@ ruby "3.2.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"
 gem 'unsplash'
+gem 'faraday'
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

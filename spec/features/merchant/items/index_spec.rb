@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "items index page", type: :feature do
+RSpec.describe "items index page", :vcr do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde", status: nil)
     @merchant_2 = Merchant.create!(name: "John Johnson", status: nil)

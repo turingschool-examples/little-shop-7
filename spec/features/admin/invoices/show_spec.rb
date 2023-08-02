@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Admin Invoices Show Page" do
+describe "Admin Invoices Show Page", :vcr do
   before :each do
     @m1 = Merchant.create!(name: "Merchant 1")
     @c1 = Customer.create!(first_name: "Lucifer", last_name: "Hell")

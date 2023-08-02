@@ -3,8 +3,8 @@
   <head>
     <title>LittleEstyShop7</title>
 
-    <img src=<%= @logo_image %>width="200" height="300">
-    <p>Photo Likes: <%= @logo_likes %></p>
+    <img src=<%= @logo_image.url %>width="200" height="300">
+    <p>Photo Likes: <%= @logo_image.likes %></p>
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
