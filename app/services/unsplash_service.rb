@@ -15,6 +15,11 @@ class UnsplashService
     Photo.new(parsed_body)
   end
 
+  def get_random_photo
+    response = connection.get("/photos/random")
+    parsed_body = JSON.parse(response.body)
+    Photo.new(parsed_body)
+  end
 
   def connection
     Faraday.new(url:'https://api.unsplash.com', params: {"client_id" => ENV["UNSPLASH_KEY"]})

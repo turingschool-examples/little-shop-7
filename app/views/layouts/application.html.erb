@@ -10,7 +10,9 @@
   </head>
 
   <body>
-    <%= image_tag(@logo.url["small"])  %> <b>Likes: </b><%= @logo.likes %>
+
+    <%= image_tag(@logo.url["thumb"])  %> <b>Likes: </b><%= @logo.likes %>
+
     <% flash.each do |type, msg| %>
       <div class="<%= type %>">
         <%= msg %>

@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
     @logo = UnsplashService.new.get_logo_photo
   end
 
-
   private
     def error_message(errors)
       errors.full_messages.join(', ')
