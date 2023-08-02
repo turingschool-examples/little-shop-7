@@ -1,14 +1,5 @@
 class UnsplashService
   
-  # base_uri 'https://api.unsplash.com'
-  # headers 'Authorization' => "rm4CWeBAPX4THdCc9uEI7Gkzn9MSkzvnkcsb4U1Aeew"
-
-
-  # def random_photo
-  #   response = self.class.get('/photos/random')
-  #   JSON.parse(response.body)
-  # end
-
   def get_logo_photo
     response = connection.get("/photos/frlKR1JfDok")
     parsed_body = JSON.parse(response.body)
