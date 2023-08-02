@@ -36,6 +36,9 @@
     <li>
       <%= link_to merchant.name, admin_merchant_path(merchant) %>
       — <%= number_to_currency(merchant.revenue, unit: '$') %> in sales
+      <br>
+        Top selling date for <%= merchant.name%> was <%=merchant.top_selling_date%>
+      
     </li>
   </ol>
 <% end %>
