@@ -14,7 +14,21 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:customers).through(:invoices) }
   end
 
-
+  describe "class methods" do
+    it ".top_5_by_revenue" do
+      merchants = create_list(:merchant, 10)
+      
+        successful_merchants = merchants[0..4]
+        successful_merchants.each do |merchant|
+          customer = create(:customer)
+          item = create(:item, merchant: merchant)
+          invoice = create(:invoice, customer: customer, status: "completed")
+          create(:invoice_item, invoice: invoice, item: item, unit_price: 1000, quantity: rand(5..10), status: :shipped) # Total revenue: 50
+        end
+      expect(Merchant.top_5_by_revenue).to match_array(merchants[0..4])
+      expect(Merchant.top_5_by_revenue).to_not match_array(merchants[4..9])
+    end
+  end
 
   describe "instance methods" do
     describe "Merchant Dashboard" do
@@ -105,6 +119,7 @@ RSpec.describe Merchant, type: :model do
             expect(@merchant.disabled_items.last).to eq(@item_8)
           end
         end
+
         describe ".toggle_status" do
           it "should toggle the Merchant status" do
             @merchant = create(:merchant)
@@ -112,9 +127,74 @@ RSpec.describe Merchant, type: :model do
             expect(@merchant.status).to eq(true)
             @merchant.toggle_status
             expect(@merchant.status).to eq(false)
+
+
+        describe "popular_items & revenue" do
+          before :each do
+            @merchant = create(:merchant)
+        
+            @customer_1 = create(:customer)
+            @customer_2 = create(:customer)
+        
+            @item_1 = create(:item, merchant: @merchant)
+            @item_2 = create(:item, merchant: @merchant)
+            @item_3 = create(:item, merchant: @merchant)
+            @item_4 = create(:item, merchant: @merchant)
+            @item_5 = create(:item, merchant: @merchant)
+        
+            @invoice_1 = create(:invoice, customer: @customer_1)
+            @invoice_2 = create(:invoice, customer: @customer_1)
+            @invoice_3 = create(:invoice, customer: @customer_1)
+            @invoice_4 = create(:invoice, customer: @customer_2)
+            @invoice_5 = create(:invoice, customer: @customer_2)
+        
+            @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, status: 2, quantity: 6, unit_price: 1000)
+            @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice_2, status: 2, quantity: 5, unit_price: 1000)
+            @invoice_item_3 = create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 2, quantity: 4, unit_price: 1000)
+            @invoice_item_4 = create(:invoice_item, item: @item_4, invoice: @invoice_4, status: 2, quantity: 3, unit_price: 1000)
+            @invoice_item_5 = create(:invoice_item, item: @item_5, invoice: @invoice_5, status: 2, quantity: 2, unit_price: 1000)
+            @invoice_item_6 = create(:invoice_item, item: @item_5, invoice: @invoice_1, status: 2, quantity: 1, unit_price: 1000)
+            @invoice_item_7 = create(:invoice_item, item: @item_4, invoice: @invoice_2, status: 2, quantity: 1, unit_price: 1000)
+            @invoice_item_8 = create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 2, quantity: 2, unit_price: 1000)
+            @invoice_item_9 = create(:invoice_item, item: @item_2, invoice: @invoice_4, status: 2, quantity: 3, unit_price: 1000)
+            @invoice_item_10 = create(:invoice_item, item: @item_1, invoice: @invoice_5, status: 2, quantity: 4, unit_price: 1000)
+        
+            @transaction_1 = create(:transaction, invoice: @invoice_1, result: "failed")
+            @transaction_2 = create(:transaction, invoice: @invoice_2, result: "failed")
+            @transaction_3 = create(:transaction, invoice: @invoice_3, result: "failed")
+            @transaction_4 = create(:transaction, invoice: @invoice_4, result: "failed")
+            @transaction_5 = create(:transaction, invoice: @invoice_5, result: "failed")
+            @transaction_1 = create(:transaction, invoice: @invoice_1, result: "success")
+            @transaction_2 = create(:transaction, invoice: @invoice_2, result: "success")
+            @transaction_3 = create(:transaction, invoice: @invoice_3, result: "success")
+            @transaction_4 = create(:transaction, invoice: @invoice_4, result: "success")
+            @transaction_5 = create(:transaction, invoice: @invoice_5, result: "success")
+            end
+          it "can list the top 5 items by revenue" do
+            expect(@merchant.popular_items.length).to eq(5)
+            expect(@merchant.popular_items.first).to eq(@item_1)
+            expect(@merchant.popular_items.last).to eq(@item_5)
+
           end
         end
       end
+    end
+
+    it "#revenue" do
+      merchants = create_list(:merchant, 10)
+    
+      successful_merchants = merchants[0..4]
+      successful_merchants.each do |merchant|
+        customer = create(:customer)
+        item = create(:item, merchant: merchant)
+        invoice = create(:invoice, customer: customer, status: "completed")
+        create(:invoice_item, invoice: invoice, item: item, unit_price: 1000, quantity: 5, status: :shipped)
+      end
+
+      expect(successful_merchants.first.revenue).to eq(5000)
+      expect(successful_merchants.last.revenue).to eq(5000)
+      
+      expect(merchants.last.revenue).to eq(0)
     end
   end
 end

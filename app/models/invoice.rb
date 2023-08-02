@@ -16,8 +16,19 @@ class Invoice < ApplicationRecord
       .order(created_at: :asc)
   end
 
+
   def find_item_info
     InvoiceItem.where(invoice_id: id).includes(:item)
+  end
+
+
+
+  def item_total_revenue
+    self.invoice_items.sum("quantity * unit_price")
+  end
+
+  def revenue
+    invoice_items.sum("unit_price * quantity")
   end
 
 end
