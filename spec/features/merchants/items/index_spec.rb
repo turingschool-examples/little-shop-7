@@ -130,11 +130,11 @@ RSpec.describe "As a merchant" do
     @transaction_3 = create(:transaction, invoice: @invoice_3, result: "failed")
     @transaction_4 = create(:transaction, invoice: @invoice_4, result: "failed")
     @transaction_5 = create(:transaction, invoice: @invoice_5, result: "failed")
-    @transaction_1 = create(:transaction, invoice: @invoice_1, result: "success")
-    @transaction_2 = create(:transaction, invoice: @invoice_2, result: "success")
-    @transaction_3 = create(:transaction, invoice: @invoice_3, result: "success")
-    @transaction_4 = create(:transaction, invoice: @invoice_4, result: "success")
-    @transaction_5 = create(:transaction, invoice: @invoice_5, result: "success")
+    @transaction_6 = create(:transaction, invoice: @invoice_1, result: "success")
+    @transaction_7 = create(:transaction, invoice: @invoice_2, result: "success")
+    @transaction_8 = create(:transaction, invoice: @invoice_3, result: "success")
+    @transaction_9 = create(:transaction, invoice: @invoice_4, result: "success")
+    @transaction_10 = create(:transaction, invoice: @invoice_5, result: "success")
     end
     it "And I see that each item name links to my merchant item show page for that item" do
 
@@ -195,17 +195,17 @@ RSpec.describe "As a merchant" do
       @invoice_item_8 = create(:invoice_item, item: @item_3, invoice: @invoice_3, status: 2, quantity: 2, unit_price: 1000)
       @invoice_item_9 = create(:invoice_item, item: @item_2, invoice: @invoice_4, status: 2, quantity: 3, unit_price: 1000)
       @invoice_item_10 = create(:invoice_item, item: @item_1, invoice: @invoice_5, status: 2, quantity: 4, unit_price: 1000)
-  
+
       @transaction_1 = create(:transaction, invoice: @invoice_1, result: "failed")
       @transaction_2 = create(:transaction, invoice: @invoice_2, result: "failed")
       @transaction_3 = create(:transaction, invoice: @invoice_3, result: "failed")
       @transaction_4 = create(:transaction, invoice: @invoice_4, result: "failed")
       @transaction_5 = create(:transaction, invoice: @invoice_5, result: "failed")
-      @transaction_1 = create(:transaction, invoice: @invoice_1, result: "success")
-      @transaction_2 = create(:transaction, invoice: @invoice_2, result: "success")
-      @transaction_3 = create(:transaction, invoice: @invoice_3, result: "success")
-      @transaction_4 = create(:transaction, invoice: @invoice_4, result: "success")
-      @transaction_5 = create(:transaction, invoice: @invoice_5, result: "success")
+      @transaction_6 = create(:transaction, invoice: @invoice_1, result: "success")
+      @transaction_7 = create(:transaction, invoice: @invoice_2, result: "success")
+      @transaction_8 = create(:transaction, invoice: @invoice_3, result: "success")
+      @transaction_9 = create(:transaction, invoice: @invoice_4, result: "success")
+      @transaction_10 = create(:transaction, invoice: @invoice_5, result: "success")
       end
     describe "I visit my merchant items index page" do
       it "Then next to each of the 5 most popular items I see the date with the most sales for each item" do

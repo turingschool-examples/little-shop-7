@@ -19,7 +19,7 @@ class Item < ApplicationRecord
   end
 
   def top_selling_date
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 end
 
