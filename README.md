@@ -39,3 +39,24 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+## Team Description
+README should include a basic description of the project, a summary of the work completed, and some ideas for a potential contributor to work on/refactor next. Also include the names and GitHub links of all student contributors on your project. 
+
+1. This project creates a webpage that tracks online transactions between customers and merchants with their invoices and the items they are purchasing. We completed all but User Story #18 and creating a deployable website. We could refactor by creating more partials, formating HTML websites.
+
+1. Contributors
+chris.asercion@gmail.com
+GitHub: ChrisAsercion 
+
+GitHub: Gabe-Torres
+thomastgtorres21@gmail.com 
+
+email: davisweimer@gmail.com
+GitHub: DavisWeimer
+
+GitHub:  kcockett
+Email:  kainacockett@gmail.com
+
+John O'Leary
+
+
