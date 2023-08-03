@@ -436,6 +436,7 @@ And I see that my Invoice's status has now been updated
 ## API Consumption
 
 For each of these stories, you will need to hit an endpoint provided by the [Unsplash API](https://unsplash.com/developers) in order to serve the data required on your site.
+NOTE: Use of the Unsplash gem is not permitted for this project. 
 
 ```
 37. Unsplash API: App Logo
