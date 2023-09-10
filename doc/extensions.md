@@ -34,6 +34,49 @@ Or, you could create custom styles!
 
 ## Tier 2 - Difficult
 
+### API Consumption
+
+For each of these additional user stories, you will need to hit an endpoint provided by the [Unsplash API](https://unsplash.com/developers) in order to serve the data required on your site.
+NOTE: Use of the Unsplash gem is not permitted for this project. 
+
+```
+37. Unsplash API: App Logo
+
+As a visitor or an admin user
+When I visit any page on the site
+I see the logo image at the top of every page
+
+Note: You can choose which picture from Unsplash you'd like to be your app's logo. DO NOT save the image to your repo, but instead serve it up via the API.
+```
+
+```
+38. Unsplash API: Item Image
+
+As a visitor or an admin user
+When I visit the Merchant Item Show page (/merchants/:merchant_id/items/:item_id)
+I see a photo related to that item's name
+```
+
+```
+39. Unsplash API: Merchant Image
+
+As a visitor or an admin user
+When I visit a Merchant's Dashboard (/merchants/:merchant_id/dashboard)
+I see a random photo near the name of the Merchant
+This photo should update to a new random photo each time the page is refreshed.
+```
+
+```
+40. Unsplash API: Logo Image Like History
+
+As a visitor or an admin user
+When I visit any page on the site
+I see that next to the app logo is the number of likes that image has. 
+
+Note: Communicate with your teammate that is working on the first API story to make sure you're gathering statistics for the same image that they're displaying as the logo. 
+```
+
+
 ### Filters
 
 ```
