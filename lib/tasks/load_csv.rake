@@ -3,13 +3,38 @@ require "csv"
 
 
 namespace :load_csv do
-  task :customers => :environment do
-    contents = CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
-  #  binding.pry
-  #  contents.each do |content| 
-  #   first_name = content[:first_name],
-  #   last_name = content[:last_name]
-  #   Customer.create(first_name: first_name, last_name: last_name)
-  #  end
+  task :customers => :environment do #team
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
   end
+  task :customers => :environment do #Joop invoice_items
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  end
+  task :customers => :environment do #Blake invoices
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  end
+  task :customers => :environment do #Noelle items
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  end
+  task :customers => :environment do #Allan merchants
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  end
+  task :customers => :environment do #Noelle transactions
+    CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  end
+  # task :customers => :environment do #Blake
+  #   CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
+  #   ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+  # end
+
+
+
+
+
+
 end
