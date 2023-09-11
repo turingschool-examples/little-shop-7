@@ -39,3 +39,6 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## DTR 
+[DTR Link](https://docs.google.com/document/d/1KnudgigtRSa36lwspm11bNRnj7BeY-r6E2UZXSEq-1c/edit)
