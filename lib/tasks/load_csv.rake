@@ -27,10 +27,8 @@ namespace :load_csv do
     CSV.foreach("./db/data/transactions.csv", headers: true, header_converters: :symbol) { |row| Transaction.create(row) }
     ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
-  # task :customers => :environment do #Blake
-  #   CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
-  #   ActiveRecord::Base.connection.reset_pk_sequence!('customers')
-  # end
+  task :all => :environment do #Blake
+  end
 
 
 
