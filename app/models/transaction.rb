@@ -1,3 +1,3 @@
 class Transaction < ApplicationRecord
-  enum :result, success: "success", failed: "failed"
+  enum result: [:success, :failed]
 end
