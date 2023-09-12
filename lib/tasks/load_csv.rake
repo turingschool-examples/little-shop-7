@@ -15,10 +15,10 @@ namespace :load_csv do
     CSV.foreach("./db/data/invoices.csv", headers: true, header_converters: :symbol) { |row| Invoice.create(row) }
     ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
   end
-  # task :customers => :environment do #Noelle items
-  #   CSV.foreach("./db/data/customers.csv", headers: true, header_converters: :symbol) { |row| Customer.create(row) }
-  #   ActiveRecord::Base.connection.reset_pk_sequence!('customers')
-  # end
+  task :items => :environment do #Noelle items
+    CSV.foreach("./db/data/items.csv", headers: true, header_converters: :symbol) { |row| Item.create(row) }
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+  end
   task :merchants => :environment do #Allan merchants
     CSV.foreach("./db/data/merchants.csv", headers: true, header_converters: :symbol) { |row| Merchant.create(row) }
     ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
