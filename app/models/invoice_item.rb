@@ -1,4 +1,5 @@
 class InvoiceItem < ApplicationRecord
+
   belongs_to :item
   belongs_to :invoice
 
@@ -7,4 +8,5 @@ class InvoiceItem < ApplicationRecord
   validates :status, presence: true
 
   enum status: {"pending" => 0, "packaged" => 1, "shipped" => 2}
+
 end

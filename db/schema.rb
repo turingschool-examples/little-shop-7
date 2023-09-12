@@ -22,29 +22,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_003651) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "invoice_id"
+    t.bigint "item_id"
+    t.bigint "invoice_id"
     t.integer "quantity"
-    t.integer "unit_price"
+    t.decimal "unit_price"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+    t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.integer "customer_id"
+    t.bigint "customer_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
   end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "unit_price"
+    t.bigint "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "merchant_id", null: false
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
