@@ -28,17 +28,10 @@ RSpec.describe "As a visitor when I visit 'admin/merchants'" do
     visit 'admin/merchants'
 
     within("#merchant-#{@gap.id}") do
-      click_button "#{@gap.name}"
-
-      expect(current_path).to eq("admin/merchants/#{@gap.id}")
+      click_link "#{@gap.name}"
     end
 
-    within("#merchant-#{@handm.id}") do
-      click_button "#{@handm.name}"
-    end
-
-    within("#merchant-#{@nike.id}") do
-      click_button "#{@nike.name}"
-    end
+    expect(current_path).to eq("/admin/merchants/#{@gap.id}")
+    expect(page).to have_content(@gap.name)
   end
 end
