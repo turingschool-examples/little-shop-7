@@ -4,6 +4,7 @@ RSpec.describe Customer do
   describe "factory tester" do
     let(:abel) { FactoryBot.create(:customer) }
     let(:bruce) { FactoryBot.create(:bruce) }
+    let(:first) { FactoryBot.create(:invoice)}
 
     it "has a first name" do
       expect(abel.first_name).to eq("Abel")
@@ -11,6 +12,10 @@ RSpec.describe Customer do
 
     it "also has a first name" do
       expect(bruce.first_name).to eq("Bruce")
+    end
+
+    it "has invoices" do
+      expect(bruce.invoices).to eq(binding.pry)
     end
 
   end

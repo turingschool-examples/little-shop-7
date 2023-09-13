@@ -5,9 +5,15 @@ FactoryBot.define do
   end
 
   factory :bruce, class: Customer do
+    # id { 1 }
     first_name { "Bruce" }
     last_name { "Baker" }
   end
+
+  # factory :invoice do
+  #   status { nil }
+  #   customer {association :bruce}
+  # end
 
   factory :chris, class: Customer do
     first_name {"Chris"}
