@@ -37,12 +37,12 @@ RSpec.describe "the admin index" do
     invoice_5 = create(:invoice, customer: customer_5)
     invoice_6 = create(:invoice, customer: customer_6)
 
-    transactions_for_invoice_1 = create_list(:transactions, 4, invoice: invoice_1)
-    transactions_for_invoice_2 = create_list(:transactions, 5, invoice: invoice_2)
-    transactions_for_invoice_3 = create_list(:transactions, 6, invoice: invoice_3)
-    transactions_for_invoice_4 = create_list(:transactions, 1, invoice: invoice_4)
-    transactions_for_invoice_5 = create_list(:transactions, 2, invoice: invoice_5)
-    transactions_for_invoice_6 = create_list(:transactions, 3, invoice: invoice_6)
+    transactions_for_invoice_1 = create_list(:transaction, 4, invoice: invoice_1)
+    transactions_for_invoice_2 = create_list(:transaction, 5, invoice: invoice_2)
+    transactions_for_invoice_3 = create_list(:transaction, 6, invoice: invoice_3)
+    transactions_for_invoice_4 = create_list(:transaction, 1, invoice: invoice_4)
+    transactions_for_invoice_5 = create_list(:transaction, 2, invoice: invoice_5)
+    transactions_for_invoice_6 = create_list(:transaction, 3, invoice: invoice_6)
     
     visit "/admin"
 

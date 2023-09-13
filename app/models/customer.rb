@@ -7,7 +7,7 @@ class Customer < ApplicationRecord
   def self.order_customers_by_transactions
     joins(invoices: :transactions)
     .where(transactions: {result: 1})
-    .group('customer.*')
+    .group('customers.id, customers.first_name, customers.last_name')
     .order("COUNT(transactions.id) DESC")
     .limit(5)
   end
