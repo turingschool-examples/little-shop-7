@@ -7,3 +7,8 @@
 <section id="admin_invoices_index">
 <%= link_to "Invoices", "/admin/merchants" %>
 </section>
+
+<h3>Top 5 Customers</h3>
+<% @ordered_customers.each do |customer| %>
+  <p><%= customer.first_name%> <%= customer.last_name%>: <%= customer.invoices.transactions%> Transactions</p>
+  <% end %>
