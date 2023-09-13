@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "dashboards#welcome"
   end
+
+  # namespace :merchant do
+  #   get "/:merchant_id/"
+  # end
+  get "/merchants/:merchant_id/dashboard", to: "merchants#show"
 end
