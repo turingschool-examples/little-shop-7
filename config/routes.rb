@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     get '', to: 'dashboard#index', as: 'dashboard'
-    resources :merchants, only: [:index, :show, :edit, :update]
+    resources :merchants do
+      member do
+        patch :disable_enable, to: 'merchants#disable_enable', as: 'disable_enable'
+      end
+    end
   end
 end
+

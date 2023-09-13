@@ -5,6 +5,8 @@
   <% @merchants.each do |merchant| %>
     <li>
     <%= link_to merchant.name, admin_merchant_path(merchant) %>
+    <%= link_to merchant.disabled ? 'Enable' : 'Disable', disable_enable_admin_merchant_path(merchant), method: :patch, data: { confirm: 'Are you sure?' } %>
+
     </li>
   <% end %>
 </ul>

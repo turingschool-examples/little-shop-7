@@ -22,6 +22,14 @@ class Admin::MerchantsController < ApplicationController
     end
   end
 
+  def disable_enable
+    require 'pry' ; binding.pry
+    @merchant = Merchant.find(params[:id])
+    @merchant.toggle_disabled
+    @merchant.save
+    redirect_to admin_merchant_path(@merchant)
+  end
+
   private 
 
   def merchant_params
