@@ -290,6 +290,8 @@ And I see that the list is ordered from oldest to newest
 As an admin,
 When I visit the admin merchants index (/admin/merchants)
 Then I see the name of each merchant in the system
+
+[x] done
 ```
 
 ```
