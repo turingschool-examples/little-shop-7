@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get '', to: 'dashboard#index', as: 'dashboard'
     resources :merchants do
       member do
-        patch :disable_enable, to: 'merchants#disable_enable', as: 'disable_enable'
+        put :disable_enable, to: "merchants#disable_enable", as: :disable_enable
       end
     end
   end

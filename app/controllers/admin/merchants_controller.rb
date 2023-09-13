@@ -23,11 +23,11 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def disable_enable
-    require 'pry' ; binding.pry
     @merchant = Merchant.find(params[:id])
     @merchant.toggle_disabled
     @merchant.save
-    redirect_to admin_merchant_path(@merchant)
+    notice = @merchant.disabled ? "Merchant #{@merchant.name} disabled." : "Merchant #{@merchant.name} enabled."
+    redirect_to '/admin/merchants', notice: notice
   end
 
   private 
