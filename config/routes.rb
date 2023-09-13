@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :admin do
-    get "/", to: "admin#welcome"
+    get "/", to: "dashboards#welcome"
   end
 end
