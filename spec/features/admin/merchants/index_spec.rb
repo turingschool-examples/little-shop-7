@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor when I visit 'admin/merchants'" do
   before :each do
-    @gap = Merchant.create!(name: "Gap")
+    @gap = Merchant.create!(name: Faker::Name.name)
     @handm = Merchant.create!(name: "H & M")
     @nike = Merchant.create!(name: "Nike")
   end
