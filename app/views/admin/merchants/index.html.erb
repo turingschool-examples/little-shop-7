@@ -3,7 +3,9 @@
 <% if @merchants.any? %>
 <ul>
   <% @merchants.each do |merchant| %>
-    <li><%= merchant.name %></li>
+    <li>
+    <%= link_to merchant.name, admin_merchant_path(merchant) %>
+    </li>
   <% end %>
 </ul>
 <% else %>
