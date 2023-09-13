@@ -9,28 +9,28 @@ FactoryBot.define do
     last_name { "Baker" }
   end
 
-  # factory :chris do
-  #   first_name "Chris"
-  #   last_name "Christopher"
-  # end
+  factory :chris, class: Customer do
+    first_name {"Chris"}
+    last_name {"Christopher"}
+  end
 
-  # factory :dave do
-  #   first_name "Dave"
-  #   last_name "Davidson"
-  # end
+  factory :dave, class: Customer do
+    first_name {"Dave"}
+    last_name {"Davidson"}
+  end
 
-  # factory :elliot do
-  #   first_name "Elliot"
-  #   last_name "Eagle"
-  # end
+  factory :elliot, class: Customer do
+    first_name {"Elliot"}
+    last_name {"Eagle"}
+  end
 
-  # factory :frank do
-  #   first_name "Frank"
-  #   last_name "Fullerton"
-  # end
+  factory :frank, class: Customer do
+    first_name {"Frank"}
+    last_name {"Fullerton"}
+  end
 
-  # factory :gene do
-  #   first_name "Gene"
-  #   last_name "Georges"
-  # end
+  factory :gene, class: Customer do
+    first_name {"Gene"}
+    last_name {"Georges"}
+  end
 end
