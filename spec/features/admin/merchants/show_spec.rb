@@ -2,18 +2,20 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor when I visit 'admin/merchants/:id'" do
   before :each do
-    @gap = Merchant.create!(name: Faker::Name.name)
+    @gap = Merchant.create!(name: "Gap")
     @handm = Merchant.create!(name: "H & M")
     @nike = Merchant.create!(name: "Nike")
   end
 
   #user story 26
-  it "I see alink to update the merchant's info" do
+  it "I see a link to update the merchant's info" do
     visit "/admin/merchants/#{@gap.id}"
 
-    click_button "Update Merchant Name"
+    click_link "Update Merchant Name"
 
     expect(current_path).to eq("/admin/merchants/#{@gap.id}/edit")
+
+    fill_in :name, with: ""
 
     click_button "Submit"
 
