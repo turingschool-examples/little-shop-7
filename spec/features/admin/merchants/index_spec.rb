@@ -1,6 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "Admin Merchants Index Page" do
+  
+  describe "empty merchant index page" do
+    it "can display a message when there are no merchants" do
+
+      visit "/admin/merchants"
+
+      expect(page).to have_content("No Merchants Found")
+    end
+  end
+
   describe "complete merchant list" do
     it "can list all merchants" do
       brown_inc = Merchant.create!(name: "Brown Inc")
