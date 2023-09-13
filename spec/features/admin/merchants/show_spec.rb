@@ -12,4 +12,14 @@ RSpec.describe "Admin Merchants Show Page", type: :feature do
       expect(page).to_not have_content(quitzon_and_sons.name)
     end
   end
+
+  describe "When i visit the admin merchant show page" do
+    it "I see a link to edit the merchant's information" do
+      brown_inc = Merchant.create!(name: "Brown Inc")
+
+      visit "/admin/merchants/#{brown_inc.id}"
+
+      expect(page).to have_link("Edit Merchant")
+    end
+  end
 end
