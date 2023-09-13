@@ -18,6 +18,10 @@ RSpec.describe "the merchant show" do
     expect(page).to have_link('invoices_index')
 
   end
+
+  it "gives top 5 customers and items bought" do
+      
+  end
 end
 
 
