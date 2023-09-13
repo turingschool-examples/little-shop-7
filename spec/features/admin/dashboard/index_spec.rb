@@ -11,9 +11,7 @@ RSpec.describe "the admin index" do
 
   it "has links to the admin merchant's index and the admin invoices index" do
     visit "/admin"
-
-    save_and_open_page
-
+    
     within("#admin_merchants_index") do
       expect(page).to have_link("Merchants")
     end
