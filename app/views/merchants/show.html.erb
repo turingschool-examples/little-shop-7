@@ -1,0 +1,14 @@
+<h1>Ahoy, matey! Here be ye Merchant Page</h1>
+
+
+<section id="merchant_info-<%= @merchants.id %>">
+  <h2><%= @merchants.name %></h2>
+</section>
+
+<h3><%= @merchants.name %>'s Items: </h3>
+<section id="items_index-<%= @merchants.id %>">
+  <%= link_to "Items", "/merchants/:merchant_id/items" %>
+</section>
+<section id="invoices_index-<%= @merchants.id %>">
+<%= link_to "Invoices", "/merchants/:merchant_id/invoices" %>
+</section>
