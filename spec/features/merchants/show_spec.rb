@@ -19,8 +19,24 @@ RSpec.describe "the merchant show" do
 
   end
 
+  describe "advanced features" do
+    before(:each) do
+      load_test_data
+    end
+
   it "gives top 5 customers and items bought" do
-      
+
+    visit "/merchants/#{@merchant1.id}/dashboard"
+
+    # save_and_open_page
+    expect(page).to have_content(@customer_1.first_name)
+    expect(page).to have_content(@customer_1.last_name)
+    expect(page).to have_content(@customer_2.first_name)
+    expect(page).to have_content(@customer_2.last_name)
+    expect(page).to have_content(20)
+    expect(page).to have_content(12)
+    
+   end
   end
 end
 
