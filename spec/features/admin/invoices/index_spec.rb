@@ -14,7 +14,6 @@ RSpec.describe "the invoice index" do
     @invoice_3b = Invoice.create!(status: "cancelled", customer: @customer_3)
 
     visit "/admin/invoices"
-    save_and_open_page
 
     expect(page).to have_link("Invoice: #{@invoice_1k.id}")
 
