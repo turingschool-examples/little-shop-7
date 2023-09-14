@@ -5,7 +5,7 @@ RSpec.describe "the merchant show" do
     merchant = Merchant.create(name: "Bob Burger")
 
     visit "/merchants/#{merchant.id}/dashboard"
-
+    within "#merchant_name"
     expect(page).to have_content(merchant.name)
   end
 
@@ -14,8 +14,8 @@ RSpec.describe "the merchant show" do
 
     visit "/merchants/#{merchant.id}/dashboard"
 
-    expect(page).to have_link('items_index')
-    expect(page).to have_link('invoices_index')
+    expect(page).to have_link('My Items')
+    expect(page).to have_link('My Invoices')
 
   end
 
@@ -28,7 +28,7 @@ RSpec.describe "the merchant show" do
 
     visit "/merchants/#{@merchant1.id}/dashboard"
 
-    # save_and_open_page
+    within "#top_five"
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
     expect(page).to have_content(@customer_2.first_name)
@@ -41,20 +41,14 @@ RSpec.describe "the merchant show" do
 
     visit "/merchants/#{@merchant1.id}/dashboard"
 
-    # save_and_open_page
-    # expect(page).to have_content(@customer_1.first_name)
-    # expect(page).to have_content(@customer_1.last_name)
-    # expect(page).to have_content(@customer_2.first_name)
-    # expect(page).to have_content(@customer_2.last_name)
-    # expect(page).to have_content(20)
-    # expect(page).to have_content(12)
+    within "#ready_to_ship"
+    expect(page).to have_content(@customer_1.first_name)
+    expect(page).to have_content(@customer_1.last_name)
+    expect(page).to have_content(@customer_2.first_name)
+    expect(page).to have_content(@customer_2.last_name)
+    expect(page).to have_content(20)
+    expect(page).to have_content(12)
     
    end
   end
 end
-
-
-# As a merchant,
-# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-# Then I see link to my merchant items index (/merchants/:merchant_id/items)
-# And I see a link to my merchant invoices index (/merchants/:merchant_id/invoices)
