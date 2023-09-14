@@ -6,4 +6,8 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   belongs_to :customer
   has_many :transactions
+
+  def self.incomplete
+    where("status != 0")
+  end
 end
