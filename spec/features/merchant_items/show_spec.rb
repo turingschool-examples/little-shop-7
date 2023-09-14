@@ -21,7 +21,7 @@ RSpec.describe "MerchantItems Show", type: :feature do
 
       expect(page).to have_content("Name: #{@item_1.name}")
       expect(page).to have_content("Description: #{@item_1.description}")
-      expect(page).to have_content("Unit price: #{@item_1.unit_price}")
+      expect(page).to have_content("Unit price: #{ActionController::Base.helpers.number_to_currency(@item_1.unit_price)}") #yikes, ask about this
     end
   end
 end
