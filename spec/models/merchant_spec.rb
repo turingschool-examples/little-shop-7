@@ -15,7 +15,7 @@ RSpec.describe Merchant, type: :model do
     end
 
     it "can display top customers" do
-      expect(Merchant.top_customers.first.first_name).to eq("Frodo")
+      expect(@merchant1.top_customers).to eq([@customer_1, @customer_2])
     end
   end
 end

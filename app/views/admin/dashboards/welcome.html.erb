@@ -3,5 +3,12 @@
 <p><%= link_to "Admin: All Invoices", "/admin/invoices" %></p>
 <p> The Top 5 Customers: </p>
 <% Customer.top_customers.each do |customer| %>
-  <%= "#{customer.first_name} #{customer.last_name}" %></br>
+<section id="customer-<%= customer.id%>">
+  <%= "#{customer.first_name} #{customer.last_name}: #{customer.count} Transactions" %></br>
+  </section>
+<% end %>
+
+<p> Incomplete Invoices: </p>
+<% Invoice.incomplete.each do |invoice|%>
+<ul><%= link_to "#{invoice.id}", "/admin/invoices/show" %></ul>
 <% end %>
