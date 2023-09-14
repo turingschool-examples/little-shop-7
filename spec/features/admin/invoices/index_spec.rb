@@ -15,9 +15,9 @@ RSpec.describe "the admin invoices index page" do
         first_name: "Satoshi",
         last_name: "Nakamoto"
       )
-      invoice1 = Customer.invoice.create!(status: 0)
-      invoice2 = Customer.invoice.create!(status: 1)
-      invoice3 = Customer.invoice.create!(status: 2)
+      invoice1 = customer.invoices.create!(status: 0)
+      invoice2 = customer.invoices.create!(status: 1)
+      invoice3 = customer.invoices.create!(status: 2)
 
       visit "/admin/invoices"
 
