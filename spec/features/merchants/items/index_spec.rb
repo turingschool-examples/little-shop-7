@@ -25,7 +25,7 @@ RSpec.describe "Merchant Item Index page" do
 
   it "doesn't show the items of any other merchant" do 
     visit "merchants/#{@merchant1.id}/items"
-    save_and_open_page
+
     within "#merchant_items" do 
       expect(page).to_not have_content("Book")
       expect(page).to_not have_content("Card")
