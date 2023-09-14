@@ -1,0 +1,7 @@
+<section class = header> <h1> Admin Dashboard </h1></section>  
+<p><%= link_to "Admin: All Merchants", "/admin/merchants" %></p>
+<p><%= link_to "Admin: All Invoices", "/admin/invoices" %></p>
+<p> The Top 5 Customers: </p>
+<% Customer.top_customers.each do |customer| %>
+  <%= "#{customer.first_name} #{customer.last_name}" %></br>
+<% end %>
