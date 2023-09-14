@@ -10,8 +10,8 @@
   <li><%= "#{customer.first_name} #{customer.last_name} purchased #{customer.count} items" %></p>
 <% end %>
 
-<div id="ready_to_ship"> Ready to ship:>
+<div id="ready_to_ship"> <p> Ready to ship </p>
 <% @merchant.items_to_ship.each do |item| %>
-  <%= "#{item.name} Ready for: " %><%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %></br>
+  <%= "#{item.name} created at: #{item.formatted_date} Ready for: " %><%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %></br>
 <% end %>
 </div>
