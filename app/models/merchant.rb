@@ -6,4 +6,8 @@ class Merchant < ApplicationRecord
   def toggle_disabled
     update(disabled: !disabled)
   end
+
+  def default_status
+    update(status: false)
+  end
 end
