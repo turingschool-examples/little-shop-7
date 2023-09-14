@@ -19,8 +19,13 @@ RSpec.describe "the merchant show" do
 
   end
 
+  describe "advanced features" do
+    before(:each) do
+      load_test_data
+    end
+
   it "gives top 5 customers and items bought" do
-      
+    visit "/merchants/#{merchant.id}/dashboard"
   end
 end
 
