@@ -1,9 +1,22 @@
 <h1>Admin Dashboard</h1>
 
-
 <section id="admin_merchants_index">
   <%= link_to "Merchants", "/admin/merchants" %>
 </section>
 <section id="admin_invoices_index">
-<%= link_to "Invoices", "/admin/merchants" %>
+  <%= link_to "Invoices", "/admin/invoices" %>
 </section>
+
+<h3>Top 5 Customers</h3>
+<% @ordered_customers.each do |customer| %>
+  <p><%= customer.first_name %> <%= customer.last_name %>: <%= customer.amount_of_transactions %> Transactions</p>
+<% end %>
+
+<h4>Incomplete Invoices</h4>
+<% @incomplete_invoices.each do |invoice| %>
+  <p>
+  <%= invoice.id %>
+  <%= link_to "Show Invoice: #{invoice.id}", admin_invoice_path(invoice)%>
+  </p>
+  <% end %>
+
