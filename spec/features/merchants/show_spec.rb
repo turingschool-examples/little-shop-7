@@ -28,17 +28,14 @@ RSpec.describe "the merchant show" do
 
     visit "/merchants/#{@merchant1.id}/dashboard"
 
-    # save_and_open_page
+    save_and_open_page
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
-    expect(page).to have_content(@customer_3.first_name)
-    expect(page).to have_content(@customer_3.last_name)
     expect(page).to have_content(@customer_2.first_name)
     expect(page).to have_content(@customer_2.last_name)
-    expect(page).to have_content(@customer_4.first_name)
-    expect(page).to have_content(@customer_4.last_name)
-    expect(page).to have_content(@customer_5.first_name)
-    expect(page).to have_content(@customer_5.last_name)
+    expect(page).to have_content(20)
+    expect(page).to have_content(12)
+    
    end
   end
 end

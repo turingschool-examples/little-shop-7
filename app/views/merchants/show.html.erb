@@ -4,6 +4,6 @@
 <li><%= link_to 'invoices_index', "/merchants/#{@merchant.id}/invoices" %></li>
 
 <p> The Top 5 Customers: </p>
-<% Merchant.top_customers.each do |customer| %>
+<% @merchant.top_customers.each do |customer| %>
   <%= "#{customer.first_name} #{customer.last_name} purchased #{customer.count} items" %></br>
 <% end %>

@@ -1,10 +1,10 @@
 class Merchant <ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
-  # has_many :invoices
   has_many :customers, through: :invoices
+  has_many :transactions, through: :invoices
 
-  def self.top_customers
+  def top_customers
     # find_by_sql(
     #   "SELECT customers.*, COUNT(invoices.status)
 	  #   FROM customers 
@@ -12,9 +12,10 @@ class Merchant <ApplicationRecord
 	  #   GROUP BY customers.id
 	  #   ORDER BY count DESC
 	  #   LIMIT 5")
-      Merchant.select("customers.*, COUNT(invoices.status)")
-      .joins(:customers)
-      .where("invoices.customer_id = customers.id")
+    
+      self.customers.select("customers.*, COUNT(transactions.id)")
+      .joins(:transactions) #invoices: optional
+      .where("transactions.result = 0")
       .group("customers.id")
       .order("count desc")
       .limit(5)
