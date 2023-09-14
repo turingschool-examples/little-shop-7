@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   end
 
   get "/admin/invoices", to: "admin/invoices#index"
-  get "/admin/invoices/:invoice_id", to: "admin/invoices#show"
+  get "/admin/invoices/:id", to: "admin/invoices#show"
 end
