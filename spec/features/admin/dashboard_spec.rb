@@ -46,8 +46,18 @@ RSpec.feature "Admin Dashboard" do
       visit '/admin'
 
       expect(page).to have_content("Incomplete Invoices:")
-      # expect(page).to have_content(@invoice_)
-save_and_open_page
+      expect(page).to have_content(@invoice_1.id) 
+      expect(page).to have_content(@invoice_1a.id) 
+      expect(page).to have_content(@invoice_1b.id) 
+      expect(page).to have_content(@invoice_1c.id) 
+      expect(page).to have_content(@invoice_1d.id) 
+      expect(page).to have_content(@invoice_1e.id) 
+      expect(page).to have_content(@invoice_3a.id) 
+      expect(page).to have_content(@invoice_3b.id) 
+      expect(page).to have_content(@invoice_3c.id) 
+      expect(page).to have_content(@invoice_3d.id) 
+      expect(page).to have_content(@invoice_6a.id) 
+      expect(page).to have_content(@invoice_6b.id) 
     end
   end
 end

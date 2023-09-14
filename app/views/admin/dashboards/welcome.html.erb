@@ -10,5 +10,5 @@
 
 <p> Incomplete Invoices: </p>
 <% Invoice.incomplete.each do |invoice|%>
-<%= link_to "#{invoice.id}", "/admin/invoices/show" %>
+<ul><%= link_to "#{invoice.id}", "/admin/invoices/show" %></ul>
 <% end %>
