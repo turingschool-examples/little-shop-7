@@ -14,6 +14,9 @@
 
 <h4>Incomplete Invoices</h4>
 <% @incomplete_invoices.each do |invoice| %>
-  <p><%= invoice.id %></p>
+  <p>
+  <%= invoice.id %>
+  <%= link_to "Show Invoice: #{invoice.id}", admin_invoice_path(invoice)%>
+  </p>
   <% end %>
 
