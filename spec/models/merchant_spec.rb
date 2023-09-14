@@ -6,6 +6,7 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:invoices).through(:items) }
     it { should have_many :invoices }
     it { should have_many(:customers).through(:invoices) }
+    it { should have_many(:transactions).through(:invoices) }
   end
 
   describe "top 5 customers" do
@@ -13,8 +14,8 @@ RSpec.describe Merchant, type: :model do
       load_test_data
     end
 
-    it "does something" do
-      expect(@customer_1.invoices).to eq("")
+    it "can display top customers" do
+      expect(Merchant.top_customers.first.first_name).to eq("Frodo")
     end
   end
 end
