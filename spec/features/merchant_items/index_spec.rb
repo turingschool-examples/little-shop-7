@@ -29,5 +29,16 @@ RSpec.describe "MerchantItems Index", type: :feature do
       expect(page).to_not have_content(@item_8.name)
       expect(page).to_not have_content(@item_9.name)
     end
+
+    it "each listed item links to that items show page" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_link("#{@item_1.name}", href: "/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+        click_link("#{@item_1.name}")
+      end
+
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+    end
   end
 end

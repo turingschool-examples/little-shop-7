@@ -3,6 +3,6 @@
 <p>Available items:</p>
 <ul>
   <% @merchant.items.each do |item| %>
-    <li><%= item.name %></li>
+    <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a></li>
   <% end %>
 </ul>
