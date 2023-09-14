@@ -10,5 +10,4 @@ class Invoice < ApplicationRecord
   def self.incomplete
     where("status != 0")
   end
-
 end
