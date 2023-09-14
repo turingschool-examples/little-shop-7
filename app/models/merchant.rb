@@ -23,8 +23,8 @@ class Merchant <ApplicationRecord
   end
 
   def items_to_ship
-      self.items.select("items.*, invoice_items.invoice_id")
-      .joins(:invoice_items) #invoices: optional
+      self.items.select("items.*, invoice_items.invoice_id, invoices.created_at")
+      .joins(invoices: :invoice_items) #invoices: optional
       .where("invoice_items.status != 2")
   end
 end
