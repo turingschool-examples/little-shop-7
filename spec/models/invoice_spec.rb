@@ -7,4 +7,25 @@ RSpec.describe Invoice, type: :model do
     it { should have_many :invoice_items }
     it { should have_many(:items).through(:invoice_items) }
   end
+
+  describe "can do caculations" do
+    it "can return incomplete transactions" do
+      @customer_1 = Customer.create!(first_name: "Frodo", last_name: "Baggins")
+      @customer_2 = Customer.create!(first_name: "Samwise", last_name: "Gamgee")
+      @customer_3 = Customer.create!(first_name: "Meridoc", last_name: "Brandybuck")
+
+      @invoice_1k = Invoice.create!(status: "completed", customer: @customer_1)
+      @invoice_1l = Invoice.create!(status: "completed", customer: @customer_1)
+      @invoice_2a = Invoice.create!(status: "in progress", customer: @customer_2)
+      @invoice_2d = Invoice.create!(status: "in progress", customer: @customer_2)
+      @invoice_3a = Invoice.create!(status: "cancelled", customer: @customer_3)
+      @invoice_3b = Invoice.create!(status: "cancelled", customer: @customer_3)
+      
+      expect(Invoice.incomplete).to eq([@invoice_2a, @invoice_2d, @invoice_3a, @invoice_3b])
+    end
+  end
+
+
+
+
 end

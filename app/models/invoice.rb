@@ -7,5 +7,7 @@ class Invoice < ApplicationRecord
   belongs_to :customer
   has_many :transactions
 
-  
+  def self.incomplete
+    where("status != 0")
+  end
 end
