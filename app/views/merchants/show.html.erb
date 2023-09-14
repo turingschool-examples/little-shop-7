@@ -7,3 +7,8 @@
 <% @merchant.top_customers.each do |customer| %>
   <%= "#{customer.first_name} #{customer.last_name} purchased #{customer.count} items" %></br>
 <% end %>
+
+<p> Ready to ship: </p>
+<% @merchant.items_to_ship.each do |item| %>
+  <%= "#{item.name} ready with #{item.invoice.id} id" %></br>
+<% end %>

@@ -1,6 +1,7 @@
 class Merchant <ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
+  has_many :invoice_items, through: :items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
@@ -19,5 +20,11 @@ class Merchant <ApplicationRecord
       .group("customers.id")
       .order("count desc")
       .limit(5)
+  end
+
+  def items_to_ship
+      self.items.select("items.*, invoice_items.invoice_id")
+      .joins(:invoice_items) #invoices: optional
+      .where("invoice_items.status != 2")
   end
 end
