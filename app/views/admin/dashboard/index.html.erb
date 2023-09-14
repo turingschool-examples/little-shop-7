@@ -11,3 +11,9 @@
 <% @ordered_customers.each do |customer| %>
   <p><%= customer.first_name %> <%= customer.last_name %>: <%= customer.amount_of_transactions %> Transactions</p>
 <% end %>
+
+<h4>Incomplete Invoices</h4>
+<% @incomplete_invoices.each do |invoice| %>
+  <p><%= invoice.id %></p>
+  <% end %>
+
