@@ -33,4 +33,5 @@ RSpec.feature "Admin Dashboard" do
       expect(page).to have_content(@customer_5.first_name)
       expect(page).to have_content(@customer_5.last_name)
     end
+  end
 end
