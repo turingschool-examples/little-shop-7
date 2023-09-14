@@ -2,7 +2,7 @@
 
 <% if @invoices.any? %>
 <ul>
-  <% @invoices.each do |merchant| %>
+  <% @invoices.each do |invoice| %>
     <li>
     <%= link_to invoice.id, "/admin/invoices/#{invoice.id}" %>
     </li>
