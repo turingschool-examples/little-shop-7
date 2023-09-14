@@ -46,11 +46,13 @@ RSpec.describe "the admin index" do
     
     visit "/admin"
 
-    expect(customer_3).to appear_before(customer_2)
-    expect(customer_2).to appear_before(customer_1)
-    expect(customer_1).to appear_before(customer_6)
-    expect(customer_6).to appear_before(customer_5)
-    expect(page).to have_content(customer_5)
-    expect(page).not_to have_content(customer_4)
+    expect(customer_3.first_name).to appear_before(customer_2.first_name)
+    expect(customer_2.first_name).to appear_before(customer_1.first_name)
+    expect(customer_1.first_name).to appear_before(customer_6.first_name)
+    expect(customer_6.first_name).to appear_before(customer_5.first_name)
+    expect(page).to have_content(customer_5.first_name)
+    expect(page).not_to have_content(customer_4.first_name)
+
+    expect(page).to have_content("#{customer_1.first_name} #{customer_1.last_name}: #{customer_1.amount_of_transactions} Transactions")
   end
 end
