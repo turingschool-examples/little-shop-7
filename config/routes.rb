@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
 
-  namespace :admin, path: '/admin' do
-    get '', to: 'dashboard#index', as: 'dashboard'
+  namespace :admin, path: "/admin" do
+    get "", to: "dashboard#index", as: "dashboard"
     resources :merchants, only: [:index, :show, :edit, :update]
   end
+
+  get "/admin/invoices", to: "admin/invoices#index"
+  get "/admin/invoices/:invoice_id", to: "admin/invoices#show"
 end
