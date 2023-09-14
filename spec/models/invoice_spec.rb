@@ -23,6 +23,14 @@ RSpec.describe Invoice, type: :model do
       
       expect(Invoice.incomplete).to eq([@invoice_2a, @invoice_2d, @invoice_3a, @invoice_3b])
     end
+
+    it "can format a date" do
+      @customer_1 = Customer.create!(first_name: "Frodo", last_name: "Baggins")
+
+      @invoice_1k = Invoice.create!(status: "completed", customer: @customer_1, created_at: "2012-03-25 09:54:09 UTC")
+
+      expect(@invoice_1k.formatted_date).to eq("Sunday, March 25, 2012")
+    end
   end
 
 
