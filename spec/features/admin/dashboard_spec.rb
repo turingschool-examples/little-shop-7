@@ -21,7 +21,7 @@ RSpec.feature "Admin Dashboard" do
 
     it "has the top five customers" do
       visit '/admin'
-      save_and_open_page
+      
       expect(page).to have_content(@customer_1.first_name)
       expect(page).to have_content(@customer_1.last_name)
       expect(page).to have_content(@customer_3.first_name)
