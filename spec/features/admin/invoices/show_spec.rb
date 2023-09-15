@@ -37,6 +37,11 @@ RSpec.describe "the invoice show" do
   end
 
   it "can calculate the total_revenue for a page" do
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(find("#total_revenue")).to have_content("$234.00")
 
   end
 
