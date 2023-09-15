@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe "Admin Merchants Index" do 
+RSpec.describe "Admin Merchants" do 
   before :each do 
     load_test_data
   end 
 
+  # US 24- Merchant Index 
   it "shows the names of each merchant in the system" do 
-    
     visit '/admin/merchants'
 
     expect(page).to have_content(@merchant1.name)
