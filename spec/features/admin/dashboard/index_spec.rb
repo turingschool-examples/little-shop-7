@@ -55,4 +55,32 @@ RSpec.describe "the admin index" do
 
     expect(page).to have_content("#{customer_1.first_name} #{customer_1.last_name}: #{customer_1.amount_of_transactions} Transactions")
   end
+
+  it "will display all incomplete invoices" do
+    customer_1 = create(:customer)
+
+    invoice_1 = create(:invoice, customer: customer_1, status: 0)
+    invoice_2 = create(:invoice, customer: customer_1)
+    invoice_3 = create(:invoice, customer: customer_1, status: 0)
+
+    visit "/admin"
+
+    expect(page).to have_content("#{invoice_1.id}")
+    expect(page).not_to have_content("#{invoice_2.id}")
+    expect(page).to have_content("#{invoice_3.id}")
+  end
+
+  it "displays a link to each incomplete invoice" do
+    customer_1 = create(:customer)
+
+    invoice_1 = create(:invoice, customer: customer_1, status: 0)
+    invoice_2 = create(:invoice, customer: customer_1, status: 0)
+
+    visit "/admin"
+
+    expect(page).to have_link("Show Invoice: #{invoice_1.id}")
+    expect(page).to have_link("Show Invoice: #{invoice_2.id}")
+  end
+
+
 end

@@ -9,11 +9,13 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     get '', to: 'dashboard#index', as: 'dashboard'
+
     resources :merchants do
       member do
         put :disable_enable, to: "merchants#disable_enable", as: :disable_enable
       end
     end
+    resources :invoices, only: [:show]
   end
 end
 
