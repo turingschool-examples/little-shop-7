@@ -24,8 +24,17 @@ class Merchant < ApplicationRecord
   end
 
   def revenue
-    invoices.joins(:transactions)
+    invoices
+      .joins(:transactions)
       .where(transactions: { result: 1 })
       .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def top_date
+    invoices
+      .joins(:invoice_items)
+      .group('DATE(invoices.created_at)')
+      .sum('invoice_items.quantity * invoice_items.unit_price')
+      .max_by { |_, revenue| revenue }&.first
   end
 end
