@@ -15,8 +15,24 @@ RSpec.describe "the invoice show" do
     expect(page).to have_content(@invoice_1k.id)
     expect(page).to have_content("Frodo Baggins")
     expect(page).to_not have_content("Samwise")
-    expect(page).to have_content("completed")
+    expect(page).to have_content("Completed")
     expect(page).to_not have_content("in progress")
     expect(page).to have_content("Sunday, March 25, 2012")
+  end
+
+  it "shows its items and details" do 
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(find("#ii-#{@invoice_items37.id}")).to have_content("Huskies")
+    expect(find("#ii-#{@invoice_items37.id}")).to have_content(20)
+    expect(find("#ii-#{@invoice_items37.id}")).to have_content(13)
+    expect(find("#ii-#{@invoice_items37.id}")).to have_content("shipped")
+
+    expect(find("#ii-#{@invoice_items38.id}")).to have_content("Gatorade")
+    expect(find("#ii-#{@invoice_items38.id}")).to have_content(2)
+    expect(find("#ii-#{@invoice_items38.id}")).to have_content(13)
+    expect(find("#ii-#{@invoice_items38.id}")).to have_content("shipped")
   end
 end
