@@ -92,4 +92,36 @@ RSpec.describe Merchant, type: :model do
       end
     end
   end
+
+  describe "Top date" do
+    it "returns the date with the most sales for a merchant" do
+      merchant_1 = create(:merchant)
+      merchant_2 = create(:merchant)
+      merchant_3 = create(:merchant)
+
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      customer_3 = create(:customer)
+
+      item_1 = create(:item, merchant: merchant_1)
+      item_2 = create(:item, merchant: merchant_2)
+      item_3 = create(:item, merchant: merchant_3)
+
+      invoice_1 = create(:invoice, customer: customer_1, created_at: "2021-04-01 14:54:05 UTC")
+      invoice_2 = create(:invoice, customer: customer_2, created_at: "2021-04-06 11:33:00 UTC")
+      invoice_3 = create(:invoice, customer: customer_3, created_at: "2021-04-10 20:00:22 UTC")
+
+      invoice_item_1 = create(:invoice_item, item: item_1, invoice: invoice_1, quantity: 1, unit_price: 1000)
+      invoice_item_2 = create(:invoice_item, item: item_2, invoice: invoice_2, quantity: 1, unit_price: 2000)
+      invoice_item_3 = create(:invoice_item, item: item_3, invoice: invoice_3, quantity: 1, unit_price: 3000)
+
+      transaction_1 = create(:transaction, invoice: invoice_1, result: 1)
+      transaction_2 = create(:transaction, invoice: invoice_2, result: 1)
+      transaction_3 = create(:transaction, invoice: invoice_3, result: 1)
+
+      expect(merchant_1.top_date).to eq(Date.new(2021, 4, 1))
+      expect(merchant_2.top_date).to eq(Date.new(2021, 4, 6))
+      expect(merchant_3.top_date).to eq(Date.new(2021, 4, 10))
+    end
+  end
 end
