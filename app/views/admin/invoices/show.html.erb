@@ -1,5 +1,25 @@
-<%= "Invoice: #{@invoice.id}" %>
-<%= @invoice.status %>
-<%= @invoice.formatted_date %>
-<%= @invoice.customer.first_name + " " + @invoice.customer.last_name %>
+<%= "Invoice: #{@invoice.id}" %></br>
+<%= @invoice.status.capitalize %> </br>
+<%= @invoice.formatted_date %></br>
+<%= @invoice.customer.first_name + " " + @invoice.customer.last_name %></br></br>
 
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Quanity</th>
+    <th>Price</th>
+    <th>Status</th>
+  </tr>
+<% @invoice.invoice_items.each do |ii| %>
+<section id="ii-<%= ii.id %>">
+  <tr>
+    <td><%= ii.item.name %></td>
+    <td><%= ii.item.unit_price %></td>
+    <td><%= ii.quantity %></td>
+    <td><%= ii.status %></td>
+  </tr>
+</section>
+
+  <% end %>
+ 
+</table>
