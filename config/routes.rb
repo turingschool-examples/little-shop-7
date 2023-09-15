@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
+  get "/merchants/:merchant_id/items", to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
 
   namespace :admin, path: '/admin' do
     get '', to: 'dashboard#index', as: 'dashboard'
