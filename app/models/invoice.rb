@@ -15,4 +15,8 @@ class Invoice < ApplicationRecord
     created_at.strftime("%A, %B %d, %Y")
     # "Monday, July 18, 2019"
   end
+
+  def total_revenue
+    items.select("SUM(invoice_items.quantity * items.unit_price) AS total")[0].total
+  end
 end
