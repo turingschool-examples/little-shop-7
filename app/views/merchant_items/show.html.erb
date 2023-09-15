@@ -2,6 +2,6 @@
 
 <ul id="item_details"> 
   <li><strong>Item Description: </strong><%= @item.description %></li>
-  <li><strong>Current Selling Price: </strong><%= number_to_currency(@item.unit_price/100) %></li>
+  <li><strong>Current Selling Price: </strong><%= number_to_currency(@item.unit_price/100.0) %></li>
 </ul>
 

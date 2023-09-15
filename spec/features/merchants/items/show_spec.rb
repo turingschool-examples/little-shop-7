@@ -16,4 +16,8 @@ RSpec.describe "Merchant's Item's Show Page" do
       expect(page).to have_content("Current Selling Price: $4.00")
     end
   end
+
+  it "has a link to edit the item" do 
+    visit "/merchants/#{@merchant1.id}/items/#{@item36.id}"
+  end
 end
