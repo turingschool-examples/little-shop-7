@@ -37,6 +37,7 @@ RSpec.describe "Merchant Item Index page" do
       expect(page).to_not have_content("Shelf")
       expect(page).to_not have_content("Hook")
     end
+    
     it "has a link to each item's show page" do 
       visit "merchants/#{@merchant1.id}/items"
 
@@ -50,6 +51,36 @@ RSpec.describe "Merchant Item Index page" do
         expect(page).to have_link 'Coors'
         expect(page).to have_link 'Mug'
       end
+    end
+
+    it "takes you to the merchant's item's show page when you click the item's link" do 
+      visit "merchants/#{@merchant1.id}/items"
+      within "#merchant_items" do 
+        click_link 'Colgate'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+
+        click_link 'Red Bell Pepper'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item2.id}")
+
+        click_link 'Huskies'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item3.id}")
+
+        click_link 'Gatorade'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item4.id}")
+
+        click_link 'Pretzels'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item5.id}")
+
+        click_link 'Chicken Breast'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item6.id}")
+
+        click_link 'Coors'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item7.id}")
+
+        click_link 'Mug'
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item36.id}")
+      end
+
     end
   end
 end
