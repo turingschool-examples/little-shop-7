@@ -15,8 +15,8 @@ RSpec.describe "the invoice show" do
     expect(page).to have_content(@invoice_1k.id)
     expect(page).to have_content("Frodo Baggins")
     expect(page).to_not have_content("Samwise")
-    expect(page).to have_content("Completed")
-    expect(page).to_not have_content("in progress")
+    expect(page).to have_field('status', with: 'completed')
+    expect(page).to_not have_field('status', with: 'in progress')
     expect(page).to have_content("Sunday, March 25, 2012")
   end
 
@@ -43,6 +43,21 @@ RSpec.describe "the invoice show" do
 
     expect(find("#total_revenue")).to have_content("$234.00")
 
+  end
+
+  it "can change the status of the invoice" do
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(page).to have_field('status', with: 'cancelled')
+    expect(page).to_not have_field('status', with: 'completed')
+
+    select('complete', from: 'status')
+    click_button "Update Invoice Status"
+
+    expect(page).to_not have_field('status', with: 'cancelled')
+    expect(page).to have_field('status', with: 'completed')
   end
 
 end
