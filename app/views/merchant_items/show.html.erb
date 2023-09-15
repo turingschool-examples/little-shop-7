@@ -5,3 +5,6 @@
   <li><strong>Current Selling Price: </strong><%= number_to_currency(@item.unit_price/100.0) %></li>
 </ul>
 
+<section id="link_to_edit">
+  <p><%= link_to "Edit Item", "/items/#{@item.id}/edit" %></p>
+</section>
