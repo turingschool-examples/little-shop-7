@@ -37,10 +37,10 @@ RSpec.describe "the merchant show" do
     expect(page).to have_content(12)
     
    end
-  it "gives not shipped items and ids" do
+  it "gives not shipped items and ids and dates" do
 
     visit "/merchants/#{@merchant1.id}/dashboard"
-
+    
     within "#ready_to_ship"
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
@@ -48,6 +48,7 @@ RSpec.describe "the merchant show" do
     expect(page).to have_content(@customer_2.last_name)
     expect(page).to have_content(40)
     expect(page).to have_content(12)
+    # expect(page).to have_content(Date)
     
    end
   end
