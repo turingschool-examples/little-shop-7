@@ -4,6 +4,7 @@ class Merchant <ApplicationRecord
   has_many :invoice_items, through: :items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
+  enum status: ["disabled", "enabled"]
 
   def top_customers
     # find_by_sql(
