@@ -37,6 +37,19 @@ RSpec.describe "Merchant Item Index page" do
       expect(page).to_not have_content("Shelf")
       expect(page).to_not have_content("Hook")
     end
+    it "has a link to each item's show page" do 
+      visit "merchants/#{@merchant1.id}/items"
 
+      within "#merchant_items" do 
+        expect(page).to have_link 'Colgate'
+        expect(page).to have_link 'Red Bell Pepper'
+        expect(page).to have_link 'Huskies'
+        expect(page).to have_link 'Gatorade'
+        expect(page).to have_link 'Pretzels'
+        expect(page).to have_link 'Chicken Breast'
+        expect(page).to have_link 'Coors'
+        expect(page).to have_link 'Mug'
+      end
+    end
   end
 end
