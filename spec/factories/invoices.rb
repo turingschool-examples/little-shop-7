@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :invoice do
     customer_id { 1 }
-    status { 1 }
-    created_at { "2023-09-11 16:37:13" }
-    updated_at { "2023-09-11 16:37:13" }
+    status { "in progress" }
+    created_at { Faker::Time.backward(days: 30) }
+    updated_at { DateTime.now }
   end
 end
