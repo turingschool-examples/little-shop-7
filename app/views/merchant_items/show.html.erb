@@ -1,0 +1,7 @@
+<h1 id="product_header"><%= @item.name %></h1>
+
+<ul id="item_details"> 
+  <li><%= @item.description %></li>
+  <li><%= number_to_currency(@item.unit_price/100) %></li>
+</ul>
+

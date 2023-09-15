@@ -5,6 +5,6 @@ class MerchantItemsController < ApplicationController #named for MerchantsItems 
   end
 
   def show 
-    
+    @item = Item.find(params[:item_id])
   end
 end
