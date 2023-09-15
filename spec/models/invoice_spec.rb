@@ -31,9 +31,11 @@ RSpec.describe Invoice, type: :model do
 
       expect(@invoice_1k.formatted_date).to eq("Sunday, March 25, 2012")
     end
+
+    it "can find total_revenue" do
+      load_test_data
+
+      expect(@invoice_1a.total_revenue).to eq(23400)
+    end
   end
-
-
-
-
 end
