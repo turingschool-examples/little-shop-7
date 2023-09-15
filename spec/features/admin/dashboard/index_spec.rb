@@ -82,5 +82,19 @@ RSpec.describe "the admin index" do
     expect(page).to have_link("Show Invoice: #{invoice_2.id}")
   end
 
+  it "displays the date when the invoice was created with the correct formatted date" do
+    customer_1 = create(:customer)
+
+    invoice_1 = create(:invoice, customer: customer_1, status: 0)
+    invoice_2 = create(:invoice, customer: customer_1, status: 0)
+
+    visit "/admin"
+
+    expect(page).to have_content(invoice_1.created_at.strftime("%A, %B %d, %Y"))
+    expect(page).to have_content(invoice_2.created_at.strftime("%A, %B %d, %Y"))
+  end
+
+  it "orders the invoices form oldest to newest" do
+  end
 
 end
