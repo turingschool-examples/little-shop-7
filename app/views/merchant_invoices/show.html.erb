@@ -4,3 +4,24 @@
   <%= @invoice.formatted_date %></br>
   <%= @invoice.customer.first_name + " " + @invoice.customer.last_name %></br></br>
 </ul>
+
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Quanity</th>
+    <th>Price per unit</th>
+    <th>Status</th>
+  </tr>
+<% @invoice.invoice_items.each do |invoice_item| %>
+<section id="invoice_items">
+  <tr>
+    <td><%= invoice_item.item.name %></td>
+    <td><%= invoice_item.quantity %></td>
+    <td><%= number_to_currency(invoice_item.item.unit_price/100.0) %></td>
+    <td><%= invoice_item.status %></td>
+  </tr>
+</section>
+  <% end %>
+</table>
+
+<section id="total_revenue"><h2> Total Price: <%=number_to_currency(@invoice.total_revenue/100.0)%> </h2></section>
