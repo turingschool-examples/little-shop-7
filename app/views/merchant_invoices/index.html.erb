@@ -3,6 +3,6 @@
 <h2>Available Invoices:</h2>
 <ul id="merchant_invoices">
   <% @merchant_invoices.each do |invoice| %>
-    <li><%= "Invoice #{invoice.id}" %>
+    <li><%= "Invoice " %><%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %>
   <% end %> 
 </ul>

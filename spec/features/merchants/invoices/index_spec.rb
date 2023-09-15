@@ -10,16 +10,9 @@ RSpec.describe "Merchant Invoice Index page" do
     within "#merchant_name" do 
       expect(page).to have_content(@merchant1.name)
     end
-    # save_and_open_page
+    save_and_open_page
     within "#merchant_invoices" do 
-      # expect(page).to have_content("Colgate")
-      # expect(page).to have_content("Red Bell Pepper")
-      # expect(page).to have_content("Huskies")
-      # expect(page).to have_content("Gatorade")
-      # expect(page).to have_content("Pretzels")
-      # expect(page).to have_content("Chicken Breast")
-      # expect(page).to have_content("Coors")
-      # expect(page).to have_content("Mug")
+      expect(page).to have_content(@invoice_1.id)
     end
   end
 
