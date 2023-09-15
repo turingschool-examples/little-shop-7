@@ -1,8 +1,11 @@
-<%= "Invoice: #{@invoice.id}" %></br>
-<%= @invoice.status.capitalize %> </br>
-<%= @invoice.formatted_date %></br>
-<%= @invoice.customer.first_name + " " + @invoice.customer.last_name %></br></br>
-
+<h2><%= "Invoice: #{@invoice.id}" %></h2>
+Created at: <%= @invoice.formatted_date %></br>
+Customer: <%= @invoice.customer.first_name + " " + @invoice.customer.last_name %>
+<%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, data: { turbo: false } do |f| %>
+Current Status: <%= f.select :status, options_for_select(["completed", "cancelled", "in progress"], selected: @invoice.status) %><br>
+<%= f.submit "Update Invoice Status" %>
+<%end%>
+</br></br>
 <table>
   <tr>
     <th>Item</th>
@@ -22,4 +25,4 @@
   <% end %>
 </table>
 
-<section id="total_revenue"><h2> Total Price: <%=number_to_currency(@invoice.total_revenue/100.0)%> </h2></section>
+<section id="total_revenue"><h3> Total Price: <%=number_to_currency(@invoice.total_revenue/100.0)%> </h3></section>
