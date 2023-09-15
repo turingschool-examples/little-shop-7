@@ -1,0 +1,44 @@
+<h1>Merchant Index</h1>
+<%= link_to "Create New Merchant", new_admin_merchant_path %>
+
+<% if @enabled_merchants.any? || @disabled_merchants.any? || @top_merchants.any? %>
+
+<section id="top_merchants">
+  <h2>Top 5 Merchants by Revenue</h2>
+  <ul>
+    <% @top_merchants.each do |merchant| %>
+      <li>
+        <p>- Total Revenue for: <%= merchant.name %> is $<%= merchant.revenue %></p>
+        <p>- Top Selling Day for: <%= merchant.name %> is <%= merchant.top_date %></p>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section id="enabled_merchants">
+  <h2>Enabled Merchants</h2>
+<ul>
+  <% @enabled_merchants.each do |merchant| %>
+    <li>
+    <%= link_to merchant.name, admin_merchant_path(merchant) %>
+    <%= button_to (merchant.disabled ? 'Enable' : 'Disable'), disable_enable_admin_merchant_path(merchant), method: :put, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
+</section>
+
+<section id ="disabled_merchants">
+  <h2>Disabled Merchants</h2>
+  <ul>
+    <% @disabled_merchants.each do |merchant| %>
+    <li>
+      <%= link_to merchant.name, admin_merchant_path(merchant) %>
+      <%= button_to (merchant.disabled ? 'Enable' : 'Disable'), disable_enable_admin_merchant_path(merchant), method: :put, data: { confirm: 'Are you sure?' } %>
+    </li>
+    <% end %>
+  </ul>
+</section>
+
+<% else %>
+  <p>No Merchants Found</p>
+<% end %>
