@@ -15,15 +15,15 @@ RSpec.describe "the admin invoices index page" do
         first_name: "Satoshi",
         last_name: "Nakamoto"
       )
-      invoice1 = customer.invoices.create!(status: 0)
-      invoice2 = customer.invoices.create!(status: 1)
-      invoice3 = customer.invoices.create!(status: 2)
+      invoice_1 = customer.invoices.create!(status: 0)
+      invoice_2 = customer.invoices.create!(status: 1)
+      invoice_3 = customer.invoices.create!(status: 2)
 
       visit "/admin/invoices"
 
-      expect(page).to have_link("#{invoice1.id}")
-      expect(page).to have_link("#{invoice2.id}")
-      expect(page).to have_link("#{invoice3.id}")
+      expect(page).to have_link("#{invoice_1.id}")
+      expect(page).to have_link("#{invoice_2.id}")
+      expect(page).to have_link("#{invoice_3.id}")
     end
   end
 end
