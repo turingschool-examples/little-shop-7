@@ -3,6 +3,7 @@
 <h2>Available Items:</h2>
 <ul id="merchant_items">
   <% @merchant_items.each do |item| %>
-    <li><%= item.name %>
+    <li><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
   <% end %> 
 </ul>
+
