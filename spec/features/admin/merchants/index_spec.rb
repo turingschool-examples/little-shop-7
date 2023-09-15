@@ -11,15 +11,65 @@ RSpec.describe "Admin Merchants Index Page", type: :feature do
 
   describe "complete merchant list" do
     it "can list all merchants" do
-      brown_inc = Merchant.create!(name: "Brown Inc")
-      quitzon_and_sons = Merchant.create!(name: "Quitzon and Sons")
-      boehm_llc = Merchant.create!(name: "Boehm LLC")
+      @merchant_1 = create(:merchant)
+      @merchant_2 = create(:merchant)
+      @merchant_3 = create(:merchant, disabled: true)
+      @merchant_4 = create(:merchant, disabled: true)
 
       visit "/admin/merchants"
 
-      expect(page).to have_content(brown_inc.name)
-      expect(page).to have_content(quitzon_and_sons.name)
-      expect(page).to have_content(boehm_llc.name)
+      expect(page).to have_content(@merchant_1.name)
+      expect(page).to have_content(@merchant_2.name)
+      expect(page).to have_content(@merchant_3.name)
+      expect(page).to have_content(@merchant_4.name)
+    end
+  end
+
+  describe "merchant index list has button to disable merchant" do
+    xit "when clicked can disable a merchant" do
+      @merchant_1 = create(:merchant)
+
+      visit "/admin/merchants"
+
+      within("#enabled_merchants#{@merchant_1.name}") do
+        expect(page).to have_button("Disable")
+        
+        click_button("Disable")
+
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant #{@merchant_1.name} disabled.")
+      end
+    end
+  end
+
+  describe "merchant index list has two sections" do
+    before do
+      @merchant_1 = create(:merchant)
+      @merchant_2 = create(:merchant)
+      @merchant_3 = create(:merchant, disabled: true)
+      @merchant_4 = create(:merchant, disabled: true)
+
+      visit "/admin/merchants"
+    end
+
+      it "can list all enabled merchants and all disabled merchants" do
+        within("#enabled_merchants") do
+        expect(page).to have_content(@merchant_1.name)
+        expect(page).to have_content(@merchant_2.name)
+        expect(page).to_not have_content(@merchant_3.name)
+        expect(page).to_not have_content(@merchant_4.name)
+        expect(page).to have_button("Disable")
+      end
+    end
+
+    it "can list all disabled merchants" do
+      within("#disabled_merchants") do
+        expect(page).to_not have_content(@merchant_1.name)
+        expect(page).to_not have_content(@merchant_2.name)
+        expect(page).to have_content(@merchant_3.name)
+        expect(page).to have_content(@merchant_4.name)
+        expect(page).to have_button("Enable")
+      end
     end
   end
 end
