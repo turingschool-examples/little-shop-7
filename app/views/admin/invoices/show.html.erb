@@ -7,16 +7,16 @@
   <tr>
     <th>Item</th>
     <th>Quanity</th>
-    <th>Price</th>
+    <th>Price per unit</th>
     <th>Status</th>
   </tr>
-<% @invoice.invoice_items.each do |ii| %>
-<section id="ii-<%= ii.id %>">
+<% @invoice.invoice_items.each do |invoice_item| %>
+<section id="invoice_item-<%= invoice_item.id %>">
   <tr>
-    <td><%= ii.item.name %></td>
-    <td><%= ii.item.unit_price %></td>
-    <td><%= ii.quantity %></td>
-    <td><%= ii.status %></td>
+    <td><%= invoice_item.item.name %></td>
+    <td><%= invoice_item.quantity %></td>
+    <td><%= number_to_currency(invoice_item.item.unit_price/100.0) %></td>
+    <td><%= invoice_item.status %></td>
   </tr>
 </section>
 

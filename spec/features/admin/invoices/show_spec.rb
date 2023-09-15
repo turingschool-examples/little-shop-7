@@ -25,14 +25,19 @@ RSpec.describe "the invoice show" do
 
     visit "admin/invoices/#{@invoice_1a.id}"
 
-    expect(find("#ii-#{@invoice_items37.id}")).to have_content("Huskies")
-    expect(find("#ii-#{@invoice_items37.id}")).to have_content(20)
-    expect(find("#ii-#{@invoice_items37.id}")).to have_content(13)
-    expect(find("#ii-#{@invoice_items37.id}")).to have_content("shipped")
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("Huskies")
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("$2.00")
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content(13)
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("shipped")
 
-    expect(find("#ii-#{@invoice_items38.id}")).to have_content("Gatorade")
-    expect(find("#ii-#{@invoice_items38.id}")).to have_content(2)
-    expect(find("#ii-#{@invoice_items38.id}")).to have_content(13)
-    expect(find("#ii-#{@invoice_items38.id}")).to have_content("shipped")
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("Gatorade")
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("$2.00")
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content(13)
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("shipped")
   end
+
+  it "can calculate the total_revenue for a page" do
+
+  end
+
 end
