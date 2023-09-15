@@ -1,18 +1,18 @@
 require "rails_helper"
 
-RSpec.describe "Merchant Invoice Index page" do 
+RSpec.describe "Merchant Invoice Show page" do 
   before(:each) do 
     load_test_data
   end
   it "shows a list of all my items" do 
-    visit "merchants/#{@merchant1.id}/invoices"
+    visit "merchants/#{@merchant1.id}/invoices/#{@invoice_1.id}"
 
-    within "#merchant_name" do 
-      expect(page).to have_content(@merchant1.name)
-    end
-    # save_and_open_page
-    within "#merchant_invoices" do 
-      expect(page).to have_content(@invoice_1.id)
+    within "#single_invoice" do 
+       expect(page).to have_content(@invoice_1.id)
+       expect(page).to have_content(@invoice_1.status.capitalize)
+       expect(page).to have_content("Friday, September 15, 2023")
+       expect(page).to have_content(@invoice_1.customer.first_name)
+       expect(page).to have_content(@invoice_1.customer.last_name)
     end
   end
 
