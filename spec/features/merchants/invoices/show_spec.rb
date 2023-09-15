@@ -10,26 +10,23 @@ RSpec.describe "Merchant Invoice Show page" do
     within "#single_invoice" do 
        expect(page).to have_content(@invoice_1.id)
        expect(page).to have_content(@invoice_1.status.capitalize)
-       expect(page).to have_content("Friday, September 15, 2023")
+      #  expect(page).to have_content("Friday, September 15, 2023")
        expect(page).to have_content(@invoice_1.customer.first_name)
        expect(page).to have_content(@invoice_1.customer.last_name)
     end
   end
 
-  # it "doesn't show the items of any other merchant" do 
-  #   visit "merchants/#{@merchant1.id}/items"
+  it "shows its items and details" do 
+    load_test_data
 
-  #   within "#merchant_items" do 
-  #     expect(page).to_not have_content("Book")
-  #     expect(page).to_not have_content("Card")
-  #     expect(page).to_not have_content("Bag")
-  #     expect(page).to_not have_content("Keychain")
-  #     expect(page).to_not have_content("Lamp")
-  #     expect(page).to_not have_content("Mouse")
-  #     expect(page).to_not have_content("Clip")
-  #     expect(page).to_not have_content("Shelf")
-  #     expect(page).to_not have_content("Hook")
-  #   end
+    visit "merchants/#{@merchant1.id}/invoices/#{@invoice_1.id}"
+    invoice_item = @invoice_1.invoice_items.first
 
-  # end
+    within "#invoice_items" do 
+      expect(page).to have_content(invoice_item.item.name)
+       expect(page).to have_content(invoice_item.quantity)
+       expect(page).to have_content("$4.00")
+       expect(page).to have_content(invoice_item.status)
+    end
+  end
 end

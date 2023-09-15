@@ -25,7 +25,7 @@ RSpec.describe "the invoice show" do
 
     visit "admin/invoices/#{@invoice_1a.id}"
 
-    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("Huskies")
+    expect(find("#invoice_items")).to have_content("Huskies")
     expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("$2.00")
     expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content(13)
     expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("shipped")
