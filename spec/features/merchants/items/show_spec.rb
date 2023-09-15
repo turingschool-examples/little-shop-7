@@ -12,8 +12,8 @@ RSpec.describe "Merchant's Item's Show Page" do
     end
 
     within "#item_details" do 
-      expect(page).to have_content("Item description #{@item5.description}")
-      expect(page).to have_content("Current Selling price: $4.00")
+      expect(page).to have_content("Item description: #{@item5.description}")
+      expect(page).to have_content("Current Selling Price: $4.00")
     end
   end
 end
