@@ -34,8 +34,7 @@ RSpec.feature "Admin Dashboard" do
       expect(page).to have_content(@customer_5.first_name)
       expect(page).to have_content(@customer_5.last_name)
       expect(find("#customer-#{@customer_1.id}")).to have_content("6 Transactions") 
-    end3.
-0    
+    end
   end
 
   describe "Incomplete invoice section" do 
