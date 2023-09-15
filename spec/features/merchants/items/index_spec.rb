@@ -60,27 +60,49 @@ RSpec.describe "Merchant Item Index page" do
     within "#merchant_items" do 
       click_link 'Colgate'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item1.id}")
-
+    end
+  
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Red Bell Pepper'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item2.id}")
+    end
 
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Huskies'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item3.id}")
-
+    end
+    
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Gatorade'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item4.id}")
-
+    end
+    
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Pretzels'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item5.id}")
+    end
 
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Chicken Breast'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item6.id}")
+    end
 
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Coors'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item7.id}")
+    end
 
+    visit "merchants/#{@merchant1.id}/items"
+    within "#merchant_items" do 
       click_link 'Mug'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item36.id}")
+
     end
   end
 end
