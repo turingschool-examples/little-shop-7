@@ -34,7 +34,10 @@ class Merchant < ApplicationRecord
     invoices
       .joins(:invoice_items)
       .group('DATE(invoices.created_at)')
-      .sum('invoice_items.quantity * invoice_items.unit_price')
-      .max_by { |_, revenue| revenue }&.first
+      .select('DATE(invoices.created_at) AS date, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .order(Arel.sql('SUM(invoice_items.quantity * invoice_items.unit_price) DESC'))
+      .limit(1)
+      .pluck('DATE(invoices.created_at)')
+      .first
   end
 end
