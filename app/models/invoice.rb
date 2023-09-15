@@ -17,6 +17,10 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue
-    items.select("SUM(invoice_items.quantity * items.unit_price) AS total")[0].total
+    if self.items.count != 0
+      items.select("SUM(invoice_items.quantity * items.unit_price) AS total")[0].total
+    else
+      0
+    end
   end
 end
