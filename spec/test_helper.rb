@@ -132,8 +132,13 @@ def load_test_data
   @invoice_items31 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item30, invoice: @invoice_1h )
   @invoice_items32 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item31, invoice: @invoice_1i )
   @invoice_items33 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item32, invoice: @invoice_1j )
-  @invoice_items34 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item33, invoice: @invoice_1k)
-  @invoice_items35 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item34, invoice: @invoice_1l )
+  @invoice_items34 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item33, invoice: @invoice_1k )
+
+  @invoice_items35 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item1, invoice: @invoice_1a )
+  @invoice_items36 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item2, invoice: @invoice_1a )
+  @invoice_items37 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item3, invoice: @invoice_1a )
+  @invoice_items38 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item4, invoice: @invoice_1a )
+  @invoice_items39 = InvoiceItem.create!(quantity: 13, unit_price: 31415, status: "shipped", item: @item5, invoice: @invoice_1a )
   
   @transaction_1f = Transaction.create!(invoice: @invoice_1e, credit_card_number: "123456789012", credit_card_expiration_date: "01/24", result: "failed")
   @transaction_2 = Transaction.create!(invoice: @invoice_1f, credit_card_number: "234567890102", credit_card_expiration_date: "02/24", result: "success")
