@@ -7,13 +7,24 @@ RSpec.describe 'the item edit' do
   end
   it 'can edit the item' do
     visit "/merchants/#{@merchant1.id}/items/#{@item36.id}"
-    save_and_open_page
     click_link 'Edit Item'
 
     fill_in 'Name', with: 'Tumbler'
+    fill_in 'Description', with: 'HOLD UR WATR'
+    fill_in 'Unit price', with: '90000'
     click_button 'Update Item'
 
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
-    expect(page).to have_content('Tumbler')
+
+    within "#merchant_items" do 
+      expect(page).to have_content('Tumbler')
+    end
+
+    visit "/merchants/#{@merchant1.id}/items/#{@item36.id}"
+
+    within "#item_details" do 
+      expect(page).to have_content("Item Description: HOLD UR WATR")
+      expect(page).to have_content("Current Selling Price: $900.00")
+    end
   end
 end

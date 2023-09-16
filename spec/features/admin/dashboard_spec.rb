@@ -70,7 +70,6 @@ RSpec.feature "Admin Dashboard" do
       expect(page).to have_content(@invoice_6a.formatted_date) 
       expect(page).to have_content(@invoice_6b.id) 
       expect(page).to have_content(@invoice_6b.formatted_date) 
-      save_and_open_page
     end
   end
 end
