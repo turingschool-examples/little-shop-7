@@ -35,6 +35,5 @@ RSpec.describe "Admin Merchants" do
     expect(page).to have_content("Karl")
     expect(page).to not_have_content("Catbus")
 
-    # save_and_open_page
   end
 end 

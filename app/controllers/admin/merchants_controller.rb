@@ -12,5 +12,11 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def update
+    merchant = Merchant.find(params[:merchant_id])
+    if merchant.update([:name])
+    redirect_to "/admin/merchants/#{merchant.id}"
+    else 
+      redirect_to "/admin/merchants/edit/#{merchant.id}"
+    end 
   end
 end
