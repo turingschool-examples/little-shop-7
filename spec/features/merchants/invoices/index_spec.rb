@@ -10,6 +10,7 @@ RSpec.describe "Merchant Invoice Index page" do
     within "#merchant_name" do 
       expect(page).to have_content(@merchant1.name)
     end
+
     within "#merchant_invoices" do 
       expect(page).to have_content(@invoice_1.id)
     end
