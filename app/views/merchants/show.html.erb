@@ -14,6 +14,7 @@
   <%= link_to "Invoices", "/merchants/:merchant_id/invoices" %>
 </section>
 
+<h3>Ye Top 5 Cusomters, Yaharr</h3>
 <section id="top_5_customers-<%= @merchants.id %>">
   <ul>
     <% @top_5.each do |customer| %>
@@ -26,7 +27,7 @@
 </section>
     <% end %>
 
-<h2>Here be ye Items Ready to Ship</h2>
+<h3>Here be ye Items Ready to Ship</h3>
 <section id="items_to_ship-<%= @merchants.id %>">
   <ul>
     <% @items_to_ship.each do |item| %>
