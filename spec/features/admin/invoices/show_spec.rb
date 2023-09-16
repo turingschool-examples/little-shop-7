@@ -2,13 +2,11 @@ require "rails_helper"
 
 RSpec.describe "the admin invoices show page" do
   describe "US33 When I visit an admin invoice show page" do
-    xit "I see information related to that invoice including: id, status, created_at date in the format Monday, July 18, 2019, and customer first and last name" do
+    it "I see information related to that invoice including: id, status, created_at date in the format Monday, July 18, 2019, and customer first and last name" do
       customer = create(:customer)
       invoice = Invoice.create!(status: 0, customer_id: customer.id)
 
       visit "/admin/invoices/#{invoice.id}"
-
-      save_and_open_page
 
       expect(page).to have_content("ID: #{invoice.id}")
       expect(page).to have_content("STATUS: #{invoice.status}")
