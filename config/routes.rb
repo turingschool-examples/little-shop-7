@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "/items/:item_id/edit", to: "items#edit"
   patch "/items/:item_id", to: "items#update"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant_invoices#show"
+  patch "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant_invoices#update"
 end
 # namespace: admin do 
 #   resources: merchants, only [index] 
