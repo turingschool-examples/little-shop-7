@@ -19,6 +19,10 @@
     <td><%= invoice_item.quantity %></td>
     <td><%= number_to_currency(invoice_item.item.unit_price/100.0) %></td>
     <td><%= invoice_item.status %></td>
+    <%= form_with url: "/merchants/#{params[:merchant_id]}/invoices/#{@invoice.id}?in_item_id=#{invoice_item.id}", method: :patch, data: { turbo: false } do |f| %>
+    Current Status: <%= f.select :status, options_for_select(["pending", "packaged", "shipped"], selected: invoice_item.status) %><br>
+    <%= f.submit "Update Item Status" %>
+    <%end%>
   </tr>
 </section>
   <% end %>
