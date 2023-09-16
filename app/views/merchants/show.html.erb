@@ -24,6 +24,18 @@
       </li>
   </ul>
 </section>
-<% end %>
+    <% end %>
 
+<h2>Here be ye Items Ready to Ship</h2>
+<section id="items_to_ship-<%= @merchants.id %>">
+  <ul>
+    <% @items_to_ship.each do |item| %>
+      <% if item.invoice_items.any? { |invoice_item| invoice_items.status == "packaged" } %>
+    <li>
+      <%= item.name %>
+    </li>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
 
