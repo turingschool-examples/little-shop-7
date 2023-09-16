@@ -33,7 +33,7 @@ RSpec.describe "Admin Merchants" do
     
     expect(page).to have_current_path("/admin/merchants/#{@merchant7.id}")
     expect(page).to have_content("Karl")
-    expect(page).to not_have_content("Catbus")
-
+    expect(page).to have_content("Information has been successfully updated")
+    expect(page).to_not have_content("Catbus")
   end
 end 

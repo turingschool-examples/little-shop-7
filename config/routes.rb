@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     get "/", to: "dashboards#welcome"
     get "/invoices", to: "invoices#index"
     get "/invoices/:id", to: "invoices#show"
+    patch "/invoices/:id", to: "invoices#update"
+    
+    patch "merchants/:merchant_id", to: "merchants#update"
   end
 
   get "/admin/merchants", to: "admin/merchants#index"
@@ -19,6 +22,10 @@ Rails.application.routes.draw do
   #   get "/:merchant_id/"
   # end
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
+  get "/merchants/:merchant_id/items", to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
+  get "/merchants/:merchant_id/invoices", to: "merchant_invoices#index"
+  get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant_invoices#show"
 end
 # namespace: admin do 
 #   resources: merchants, only [index] 

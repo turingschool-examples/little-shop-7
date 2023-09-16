@@ -15,8 +15,49 @@ RSpec.describe "the invoice show" do
     expect(page).to have_content(@invoice_1k.id)
     expect(page).to have_content("Frodo Baggins")
     expect(page).to_not have_content("Samwise")
-    expect(page).to have_content("completed")
-    expect(page).to_not have_content("in progress")
+    expect(page).to have_field('status', with: 'completed')
+    expect(page).to_not have_field('status', with: 'in progress')
     expect(page).to have_content("Sunday, March 25, 2012")
   end
+
+  it "shows its items and details" do 
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("Huskies")
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("$2.00")
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content(13)
+    expect(find("#invoice_item-#{@invoice_items37.id}")).to have_content("shipped")
+
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("Gatorade")
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("$2.00")
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content(13)
+    expect(find("#invoice_item-#{@invoice_items38.id}")).to have_content("shipped")
+  end
+
+  it "can calculate the total_revenue for a page" do
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(find("#total_revenue")).to have_content("$234.00")
+
+  end
+
+  it "can change the status of the invoice" do
+    load_test_data
+
+    visit "admin/invoices/#{@invoice_1a.id}"
+
+    expect(page).to have_field('status', with: 'cancelled')
+    expect(page).to_not have_field('status', with: 'completed')
+
+    select('complete', from: 'status')
+    click_button "Update Invoice Status"
+
+    expect(page).to_not have_field('status', with: 'cancelled')
+    expect(page).to have_field('status', with: 'completed')
+  end
+
 end
