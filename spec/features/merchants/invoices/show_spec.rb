@@ -38,4 +38,20 @@ RSpec.describe "Merchant Invoice Show page" do
     expect(find("#total_revenue")).to have_content("$52.00")
 
   end
+
+  it "can change the status of the merchant invoice item" do
+    load_test_data
+
+    visit "merchants/#{@merchant1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_field('status', with: 'packaged')
+    expect(page).to_not have_field('status', with: 'shipped')
+
+    select('shipped', from: 'status')
+    click_button "Update Item Status"
+
+    expect(page).to_not have_field('status', with: 'pending')
+    expect(page).to have_field('status', with: 'shipped')
+    # save_and_open_page
+  end
 end
