@@ -105,4 +105,62 @@ RSpec.describe "Merchant Item Index page" do
 
     end
   end
+
+  it "has a enable button on disabled items" do
+    merchant1= Merchant.create!(name: "No Face", status: "disabled")
+    merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
+    merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
+
+    item1 = Item.create!(name: "chair", description: "you sit on it", unit_price: 2000, merchant: merchant1)
+    item2 = Item.create!(name: "table", description: "you eat off it", unit_price: 3000, merchant: merchant2)
+    item3 = Item.create!(name: "flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant3)
+    item4 = Item.create!(name: "gate", description: "you go through it", unit_price: 6000, merchant: merchant4)
+    item5 = Item.create!(name: "grill", description: "you grill on it", unit_price: 90000, merchant: merchant5)
+    item6 = Item.create!(name: "plant", description: "you water it", unit_price: 1000, merchant: merchant6)
+    item6 = Item.create!(name: "stool", description: "you sit higher on it", unit_price: 7000, merchant: merchant7)
+
+    visit "/merchants/#{merchant1}/items"
+
+    within "#"
+
+    expect(find("#merchant-#{merchant1.id}")).to have_button("Enable #{merchant1.name}")
+  end
+
+  it "has a disable button on enabled merchants" do
+    merchant1= Merchant.create!(name: "No Face", status: "disabled")
+    merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
+    merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
+
+    visit '/admin/merchants'
+    
+    expect(find("#merchant-#{merchant3.id}")).to have_button("Disable #{merchant3.name}")
+  end
+
+  it "has a disable button that changes the merchant status and returns you back to the merchant index" do
+    merchant1= Merchant.create!(name: "No Face", status: "disabled")
+    merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
+    merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
+
+    visit '/admin/merchants'
+    
+    expect(find("#merchant-#{merchant3.id}")).to have_button("Disable #{merchant3.name}")
+    
+    click_button "Disable #{merchant3.name}"
+    
+    expect(find("#merchant-#{merchant3.id}")).to have_button("Enable #{merchant3.name}")
+  end
+
+  it "has a enable button that changes the merchant status and returns you back to the merchant index" do
+    merchant1= Merchant.create!(name: "No Face", status: "disabled")
+    merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
+    merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
+
+    visit '/admin/merchants'
+    
+    expect(find("#merchant-#{merchant1.id}")).to have_button("Enable #{merchant1.name}")
+    
+    click_button "Enable #{merchant1.name}"
+    
+    expect(find("#merchant-#{merchant1.id}")).to have_button("Disable #{merchant1.name}")
+  end
 end
