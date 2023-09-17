@@ -3,12 +3,12 @@
   <section id="merchant-<%= merchant.id %>">
 <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %></p>
   <% if merchant.status == "enabled" %>
-    <%= form_with url: "/admin/merchants/#{merchant.id}", method: :patch, data: {turbo: false} do |f| %>
+    <%= form_with url: "/admin/merchants/#{merchant.id}?change=:status", method: :patch, data: {turbo: false} do |f| %>
       <%= f.hidden_field :status, :value=>"disabled" %>
       <%= f.submit "Disable #{merchant.name}" %>
     <% end %>
   <% else %>
-    <%= form_with url: "/admin/merchants/#{merchant.id}", method: :patch, data: {turbo: false} do |f| %>
+    <%= form_with url: "/admin/merchants/#{merchant.id}?change=:status", method: :patch, data: {turbo: false} do |f| %>
       <%= f.hidden_field :status, :value=>"enabled" %>
       <%= f.submit "Enable #{merchant.name}" %>
     <% end %>
