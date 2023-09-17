@@ -95,6 +95,15 @@ RSpec.describe "the admin index" do
   end
 
   it "orders the invoices form oldest to newest" do
+    customer_1 = create(:customer)
+
+    invoice_1 = create(:invoice, customer: customer_1, status: 0, created_at: DateTime.now)
+    invoice_2 = create(:invoice, customer: customer_1, status: 1)
+    invoice_3 = create(:invoice, customer: customer_1, status: 0)
+
+    visit "/admin"
+
+    expect(invoice_3.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice_1.created_at.strftime("%A, %B %d, %Y"))
   end
 
 end
