@@ -105,4 +105,18 @@ RSpec.describe "Merchant Item Index page" do
 
     end
   end
+
+  it "has a link new form to create item" do 
+    visit "merchants/#{@merchant1.id}/items"
+    click_link "Add Item"
+    fill_in "Name", with: "Chocolate Bar"
+    fill_in "Description", with: "Bar of chocolate"
+    fill_in "Price", with: 2
+    click_button "Submit"
+
+    expect(page).to have_content("Chocolate Bar")
+    # expect(page).to have_content("Bar of chocolate")
+    # expect(page).to have_content(2)
+    # expect(page).to have_content("Disabled")
+  end
 end
