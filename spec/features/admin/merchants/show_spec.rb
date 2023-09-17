@@ -14,4 +14,26 @@ RSpec.describe "Admin Merchants" do
     expect(page).to have_content("Catbus Page")
     expect(page).to_not have_content("Kiki")
   end
+
+  # US 26- Update Merchant 
+  it "can update a merchants information" do 
+    visit "/admin/merchants/#{@merchant7.id}"
+
+    expect(page).to have_link("Update Merchant")
+    click_link("Update Merchant")
+
+    expect(page).to have_current_path("/admin/merchants/#{@merchant7.id}/edit")
+    
+    expect(page).to have_content("Edit Merchant")
+    expect(find("form")).to have_content("Name")
+    expect(page).to have_button("Submit")
+    
+    fill_in "Name", with: "Karl"
+    click_button "Submit"
+    
+    expect(page).to have_current_path("/admin/merchants/#{@merchant7.id}")
+    expect(page).to have_content("Karl")
+    expect(page).to have_content("Information has been successfully updated")
+    expect(page).to_not have_content("Catbus")
+  end
 end 
