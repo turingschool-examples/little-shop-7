@@ -26,7 +26,7 @@ RSpec.describe "Admin Merchants" do
     merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
 
     visit '/admin/merchants'
-    save_and_open_page
+    
     expect(find("#merchant-#{merchant1.id}")).to have_button("Enable #{merchant1.name}")
   end
 
