@@ -207,7 +207,7 @@ RSpec.describe "Merchant Item Index page" do
   end
 
   it "find 5 most popular ranked by total revenue generated" do
-    visit "merchants/#{@merchant1.id}/items"
+    visit "merchants/#{@merchant3.id}/items"
     within "#popular_merchant_items" do 
     end
   end
