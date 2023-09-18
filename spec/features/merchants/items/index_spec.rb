@@ -118,6 +118,7 @@ RSpec.describe "Merchant Item Index page" do
       
   
       visit "/merchants/#{merchant1.id}/items"
+
   
       within "#all_merchant_items" do 
         expect(page).to have_button("Enable #{item1.name}")
@@ -156,14 +157,14 @@ RSpec.describe "Merchant Item Index page" do
       item4 = Item.create!(name: "Gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
   
       visit "/merchants/#{merchant2.id}/items"
-  
+
       within "#all_merchant_items" do 
-        expect(page).to have_button("Disable #{item3.name}")
+        expect(page).to have_button("Enable #{item3.name}")
   
-        click_button("Disable #{item3.name}")
+        click_button("Enable #{item3.name}")
         expect(current_path).to eq("/merchants/#{merchant2.id}/items")
   
-        expect(page).to have_button("Enable #{item3.name}")
+        expect(page).to have_button("Disable #{item3.name}")
       end
     end
   
@@ -179,12 +180,12 @@ RSpec.describe "Merchant Item Index page" do
       visit "/merchants/#{merchant2.id}/items"
   
       within "#all_merchant_items" do 
-        expect(page).to have_button("Enable #{item4.name}")
+        expect(page).to have_button("Disable #{item4.name}")
   
-        click_button("Enable #{item4.name}")
+        click_button("Disable #{item4.name}")
         expect(current_path).to eq("/merchants/#{merchant2.id}/items")
   
-        expect(page).to have_button("Disable #{item3.name}")
+        expect(page).to have_button("Enable #{item3.name}")
       end
       
     end
