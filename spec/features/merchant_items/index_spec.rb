@@ -40,5 +40,27 @@ RSpec.describe "MerchantItems Index", type: :feature do
 
       expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
     end
+
+    it "each item has a button to enable or disable it, and clicking it performs that action" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Disable Item")
+        click_button("Disable Item")
+      end
+
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Enable Item")
+        click_button("Enable Item")
+      end
+
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Disable Item")
+      end
+    end
   end
 end
