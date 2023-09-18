@@ -28,4 +28,9 @@ class Merchant <ApplicationRecord
       .joins(invoices: :invoice_items) #invoices: optional
       .where("invoice_items.status != 2")
   end
+
+  def top_five_items
+    self.items.select("items.* SUM(items.total_cost)")
+    .where()
+  end
 end
