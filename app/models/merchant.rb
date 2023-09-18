@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
+  has_many :customers, through: :invoices
 
   validates :name, presence: true
 
@@ -41,7 +42,11 @@ class Merchant < ApplicationRecord
       .first
   end
 
-  def unit_price_formatted
-    revenue.to_f / 100
+  def ready_to_ship 
+    items
+      .joins(:invoice_items)
+      .joins("INNER JOIN invoices ON invoices.id = invoice_items.invoice_id")
+      .where(invoice_items: {status: 1})
+      .order("invoices.created_at ASC")
   end
 end

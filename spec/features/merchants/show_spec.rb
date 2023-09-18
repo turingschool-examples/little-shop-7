@@ -2,10 +2,26 @@ require "rails_helper"
 
 RSpec.describe "merchant#show" do
   before(:each) do
-    @merchant_1 = Merchant.create!(name: "John Jacob Astor")
-    @item_1 = @merchant_1.items.create!(name: "fur coat", description: "a fur coat acquired ethically and legally", unit_price: 1000)
-    @item_2 = @merchant_1.items.create!(name: "opium", description: "only the finest, acquired ethically and legally", unit_price: 2000)
-    @item_3 = @merchant_1.items.create!(name: "land tract", description: "prime real estate in the future home of astoria queens", unit_price: 5000)
+    @merchant_1 = create(:merchant)
+    @merchant_2 = create(:merchant)
+    @customer_1 = create(:customer)
+    @customer_2 = create(:customer)
+    @customer_3 = create(:customer)
+    @customer_4 = create(:customer)
+    @customer_5 = create(:customer)
+    @item_1 = create(:item, merchant_id: @merchant_1.id, unit_price: 1234)
+    @item_2 = create(:item, merchant_id: @merchant_1.id)
+    @item_3 = create(:item, merchant_id: @merchant_1.id)
+    @item_4 = create(:item, merchant_id: @merchant_1.id)
+    @item_5 = create(:item, merchant_id: @merchant_2.id)
+    @item_6 = create(:item, merchant_id: @merchant_2.id)
+    @item_7 = create(:item, merchant_id: @merchant_2.id)
+    @item_8 = create(:item, merchant_id: @merchant_2.id)
+    @item_9 = create(:item, merchant_id: @merchant_2.id)
+    @invoice_1 = create(:invoice, customer_id: @customer_1.id)
+    @invoice_2 = create(:invoice, customer_id: @customer_1.id)
+
+    @invoice_item_1 = create(:invoice_item, item: @item_1.id, invoice: @invoice_1, quantity: 1, unit_price: 1000, status: 1)
   end
 
   describe "display merchant info" do
@@ -27,5 +43,37 @@ RSpec.describe "merchant#show" do
         expect(page).to have_link("Invoices")
       end
     end
+  end
+
+  describe "merchant top 5 customers" do 
+    it "shows the top 5 customers with the largest successful transactions with this merchant" do
+      visit "/merchants/#{@merchant_1.id}/dashboard"
+
+      within("#top_five_customers-#{@merchant_1.id}") do
+        expect(page).to have_content([@customer_1.first_name, @customer_2.first_name, @customer_3.first_name, @customer_4.first_name, @customer_5.first_name])
+        expect(page).to have_content([@customer_1.amount_of_transactions, @customer_2.amount_of_transactions, @customer_3.amount_of_transactions, @customer_4.amount_of_transactions, @customer_5.amount_of_transactions])
+      end
+    end
+  end
+
+  describe "merchant items ready to ship" do
+    it "has a list of items that have been ordered and not yet shipped" do
+      visit "/merchants/#{@merchant_1.id}/dashboard"
+
+      within("#items_to_ship-#{@merchants.id}") do
+        expect(page).to have_content(@item_1.name)
+      end
+
+    end
+
+    it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
+      visit "/merchants/#{@merchant_1.id}/dashboard"
+
+      within("#items_to_ship-#{@merchants.id}") do
+      expect(page).to have_link("#{@item_1.invoice.id}")
+      end
+    end
+
+
   end
 end
