@@ -33,7 +33,9 @@
     <% @items_to_ship.each do |item| %>
     <li>
       <%= item.name %>
-      <%= item.invoice_id%>
+      
+      <%= item.created_at.strftime("%A, %B %d, %Y") %>
+      <%= %>
     </li>
     <% end %>
   </ul>

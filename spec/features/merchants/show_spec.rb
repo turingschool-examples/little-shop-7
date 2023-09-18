@@ -21,7 +21,7 @@ RSpec.describe "merchant#show" do
     @invoice_1 = create(:invoice, customer_id: @customer_1.id)
     @invoice_2 = create(:invoice, customer_id: @customer_1.id)
 
-    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, status: "packaged")
+    @invoice_item_1 = create(:invoice_item, item: @item_1.id, invoice: @invoice_1, quantity: 1, unit_price: 1000, status: 1)
   end
 
   describe "display merchant info" do
@@ -66,16 +66,13 @@ RSpec.describe "merchant#show" do
 
     end
 
+    it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
+      visit "/merchants/#{@merchant_1.id}/dashboard"
 
-    #not sure if this will work and I can't check until I get a working method
-
-    # it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
-    #   visit "/merchants/#{@merchant_1.id}/dashboard"
-
-    #   within("#items_to_ship-#{@merchants.id}") do
-    #   expect(page).to have_link("#{@item_1.invoice.id}")
-
-    # end
+      within("#items_to_ship-#{@merchants.id}") do
+      expect(page).to have_link("#{@item_1.invoice.id}")
+      end
+    end
 
 
   end
