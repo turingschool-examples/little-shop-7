@@ -24,16 +24,10 @@ RSpec.describe "MerchantItems Show", type: :feature do
       expect(page).to have_content("Unit price: $12.34")
     end
 
-    it "has a link for each item to update that item" do
+    it "has a link to update that item" do
       visit "/merchants/#{@merchant_1.id}/items/#{@item_1.id}"
       
-      within("#item-#{@item_1.id}") do
-        expect(page).to have_link("Update Item", href: "/items/#{@item_1.id}/edit")
-      end
-
-      within("#item-#{@item_2.id}") do
-        expect(page).to have_link("Update Item", href: "/items/#{@item_2.id}/edit")
-      end
+      expect(page).to have_link("Update Item", href: "/items/#{@item_1.id}/edit")
     end
   end
 end

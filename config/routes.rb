@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get "/merchants/:merchant_id/items", to: "merchant_items#index"
   get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
 
+  get "/items/:id", to: "items#show"
+  get "/items/:id/edit", to: "items#edit"
+  patch "/items/:id", to: "items#update"
+
 
   namespace :admin, path: '/admin' do
     get '', to: 'dashboard#index', as: 'dashboard'
