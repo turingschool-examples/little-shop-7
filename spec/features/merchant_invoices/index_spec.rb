@@ -7,6 +7,24 @@ require "rails_helper"
 # And for each invoice I see its id
 # And each id links to the merchant invoice show page
 
+
+  @merchant_1 = create(:merchant)
+  @merchant_2 = create(:merchant)
+  @customer_1 = create(:customer)
+  @item_1 = create(:item, merchant_id: @merchant_1.id)
+  @item_2 = create(:item, merchant_id: @merchant_1.id)
+  @item_3 = create(:item, merchant_id: @merchant_2.id)
+
+  @invoice_1 = create(:invoice, customer_id: @customer_1.id)
+  @invoice_2 = create(:invoice, customer_id: @customer_1.id)
+  @invoice_3 = create(:invoice, customer_id: @customer_1.id)
+
+  @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id)
+  @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id)
+  @invoice_item_3 = create(:invoice_item, item_id: @item_3.id, invoice_id: @invoice_3.id)
+  
+
+
 RSpec.describe "the merchant's invoice index" do
   describe "empty invoice index page" do
     it "can display a message when there are no invoices" do
@@ -17,14 +35,23 @@ RSpec.describe "the merchant's invoice index" do
   end
 
   describe "complete invoices list" do
-    it "lists all invoice id's in the system" do
-      customer = Customer.create!(
-        first_name: "Satoshi",
-        last_name: "Nakamoto"
-      )
-      invoice_1 = customer.invoices.create!(status: 0)
-      invoice_2 = customer.invoices.create!(status: 1)
-      invoice_3 = customer.invoices.create!(status: 2)
+    it "lists all invoice id's in the system that have an item" do
+      
+      @merchant_1 = create(:merchant)
+      @merchant_2 = create(:merchant)
+      @customer_1 = create(:customer)
+      
+      @item_1 = create(:item, merchant_id: @merchant_1.id)
+      @item_2 = create(:item, merchant_id: @merchant_1.id)
+      @item_3 = create(:item, merchant_id: @merchant_2.id)
+    
+      @invoice_1 = create(:invoice, customer_id: @customer_1.id)
+      @invoice_2 = create(:invoice, customer_id: @customer_1.id)
+      @invoice_3 = create(:invoice, customer_id: @customer_1.id)
+    
+      @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id)
+      @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id)
+      @invoice_item_3 = create(:invoice_item, item_id: @item_3.id, invoice_id: @invoice_3.id)
 
       visit "/admin/:merchant_id/invoices"
 
