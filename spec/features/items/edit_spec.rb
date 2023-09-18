@@ -16,7 +16,7 @@ RSpec.describe 'the item edit' do
 
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       expect(page).to have_content('Tumbler')
     end
 
