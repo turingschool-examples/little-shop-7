@@ -29,7 +29,7 @@ class Merchant <ApplicationRecord
       .where("invoice_items.status != 2")
   end
 
-  def self.best_day
+  def self.top_merchants
     find_by_sql(
       "SELECT merchants.id, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_cost, MAX(invoices.updated_at) AS most_recent FROM merchants 
 	    INNER JOIN items ON items.merchant_id = merchants.id 
@@ -41,4 +41,16 @@ class Merchant <ApplicationRecord
 	    LIMIT (5)"
     )
   end
+
+  def best_day
+    best_day_data.updated_at.strftime("%A, %B %d, %Y")
+  end
+
+  def best_day_data
+    invoices.select("invoices.updated_at, sum(invoice_items.quantity * invoice_items.unit_price) AS thesum")
+            .group("invoices.updated_at")
+            .order("thesum desc, invoices.updated_at")
+            .first
+  end
+
 end
