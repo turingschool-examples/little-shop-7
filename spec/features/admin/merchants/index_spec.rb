@@ -69,7 +69,8 @@ RSpec.describe "Admin Merchants" do
   end
 
   # US 29 
-  it "creates new merchants" do 
+  it "has link to create new merchants" do
+    load_test_data
     visit "/admin/merchants"
     
     expect(page).to have_link("Create a new merchant")
@@ -86,6 +87,5 @@ RSpec.describe "Admin Merchants" do
     expect(page).to have_current_path("/admin/merchants")
     expect(page).to have_content("Karl")
     expect(page).to have_button("Disable Karl")
-    # save_and_open_page
   end
 end
