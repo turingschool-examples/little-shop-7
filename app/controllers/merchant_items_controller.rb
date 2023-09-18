@@ -17,14 +17,6 @@ class MerchantItemsController < ApplicationController #named for MerchantsItems 
     redirect_to "/merchants/#{params[:merchant_id]}/items"
   end
 
-  private
-  def item_params
-    params.permit(:name, :description, :unit_price)
-  end
-  def new
-    @item = Item.new
-  end
-
   def create
     @merchant = Merchant.find(params[:merchant_id])
     @merchant.items.create!(name:params[:item][:name],
@@ -33,5 +25,15 @@ class MerchantItemsController < ApplicationController #named for MerchantsItems 
 
       redirect_to "/merchants/#{params[:merchant_id]}/items"
   end
+  
+  def new
+    @item = Item.new
+  end
+  private
+  
+  def item_params
+    params.permit(:name, :description, :unit_price)
+  end
+
   
 end
