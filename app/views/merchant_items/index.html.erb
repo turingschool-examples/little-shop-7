@@ -15,5 +15,11 @@
         <%= f.submit "Enable #{item.name}" %>
       <% end %>
    <% end %> 
+    <li><%= "#{item.description}" %>
+    <li><%= "#{item.unit_price}" %>
+    <li><%= "#{item.status}" %>
   <% end %>
-</section>
+</section><h2>Create Items:</h2>
+<ul id="merchant_items_create">
+  <li><%= link_to "Add Item", "/merchants/#{@merchant.id}/items/new" %>
+</ul>
