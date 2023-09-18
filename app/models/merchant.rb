@@ -40,4 +40,8 @@ class Merchant < ApplicationRecord
       .pluck('DATE(invoices.created_at)')
       .first
   end
+
+  def unit_price_formatted
+    revenue.to_f / 100
+  end
 end
