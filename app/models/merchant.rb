@@ -41,10 +41,4 @@ class Merchant < ApplicationRecord
       .pluck('DATE(invoices.created_at)')
       .first
   end
-
-  def ready_to_ship 
-    Item.joins(:invoice_items)
-      .joins("LEFT JOIN invoices ON invoice_items.invoice_id = invoices.id")
-      .where("invoice_items.status = ?", "packaged").distinct
-  end
 end
