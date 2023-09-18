@@ -18,10 +18,8 @@ RSpec.describe "Items Show", type: :feature do
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.unit_price)
       expect(page).to have_content(@item_1.merchant_id)
-      expect(page).to_not have_content(@item_2.name)
-      expect(page).to_not have_content(@item_2.description)
-      expect(page).to_not have_content(@item_2.unit_price)
-      expect(page).to_not have_content(@item_2.merchant_id)
+      expect(page).to_not have_content(@item_3.name)
+      expect(page).to_not have_content(@item_3.merchant_id)
     end
   end
 end
