@@ -17,6 +17,7 @@
   <p>
   <%= invoice.id %>
   <%= link_to "Show Invoice: #{invoice.id}", admin_invoice_path(invoice)%>
+  <%= invoice.created_at.strftime("%A, %B %d, %Y")%>
   </p>
   <% end %>
 
