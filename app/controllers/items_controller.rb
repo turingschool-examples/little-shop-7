@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
       merchant_id: params[:merchant_id]
     )
     item.save
+    flash[:success] = "Item information updated successfully."
 
     redirect_to "/items/#{item.id}"
   end

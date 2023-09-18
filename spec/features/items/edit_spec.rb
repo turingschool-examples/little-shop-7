@@ -26,22 +26,22 @@ RSpec.describe "Items Edit", type: :feature do
       expect(page).to have_button("Update Item")
     end
 
-    xit "updates the item and returns the user to the item show page when the form is submitted" do #this works locally but the test is failing, will fix later
+    it "updates the item and returns the user to the item show page when the form is submitted" do
       visit "/items/#{@item_1.id}/edit"
       
       fill_in "name", with: "Updated Name"
       fill_in "description", with: "Updated Description"
       fill_in "unit_price", with: "10234"
-      fill_in "merchant_id", with: "2"
-      click_button("Update Item")
+      fill_in "merchant_id", with: "#{@merchant_2.id}"
+      click_button "Update Item"
 
       expect(page).to have_current_path("/items/#{@item_1.id}")
 
       expect(page).to have_content("Name: Updated Name")
       expect(page).to have_content("Description: Updated Description")
       expect(page).to have_content("Unit Price: 10234")
-      expect(page).to have_content("Merchant ID: 2")
-      expect(page).to have_content("Item was successfully updated!")
+      expect(page).to have_content("Merchant ID: #{@merchant_2.id}")
+      expect(page).to have_content("Item information updated successfully.")
     end
   end
 end
