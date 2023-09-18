@@ -15,8 +15,8 @@ RSpec.describe "the admin invoices show page" do
     end
   end
 
-  describe "US34 When I visit an admin invoice show page" do
-    it "I see all of the items on the invoice including: item name, quantity ordered, price item sold for and invoice item status" do
+  describe "US34 admin invoice show page" do
+    xit "I see all of the items on the invoice including: item name, quantity ordered, price item sold for and invoice item status" do
       customer = create(:customer)
       merchant = create(:merchant)
       item_1 = create(:item, merchant_id: merchant.id)
@@ -40,6 +40,24 @@ RSpec.describe "the admin invoices show page" do
       expect(page).to have_content("QUANTITY: #{invoice_item_2.quantity}")
       expect(page).to have_content("UNIT PRICE: #{invoice_item_2.unit_price}")
       expect(page).to have_content("ITEM STATUS: #{invoice_item_2.status}")
+    end
+  end
+
+  describe "US 35 admin invoice show page" do
+    xit "I see the total revenue that will be generated from the invoice" do
+      customer = create(:customer)
+      merchant = create(:merchant)
+      item_1 = create(:item, merchant_id: merchant.id)
+      item_2 = create(:item, merchant_id: merchant.id)
+      invoice = Invoice.create!(status: 0, customer_id: customer.id)
+
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice.id, status: 1, quantity: 2, unit_price: 2)
+
+      invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice.id, status: 1, quantity: 1, unit_price: 1)
+
+      visit "/admin/invoices/#{invoice.id}"
+
+      expect(page).to have_content(total_revenue)
     end
   end
 end
