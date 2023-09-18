@@ -71,10 +71,6 @@ RSpec.describe "Admin Merchants" do
 
   # US 29 
   it "creates new merchants" do 
-    merchant1= Merchant.create!(name: "No Face", status: "disabled")
-    merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
-    merchant3 = Merchant.create!(name: "Kiki", status: "enabled")
-
     visit "/admin/merchants"
     
     expect(page).to have_link("Create a new merchant")
