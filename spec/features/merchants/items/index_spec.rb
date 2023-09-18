@@ -115,8 +115,8 @@ RSpec.describe "Merchant Item Index page" do
     click_button "Submit"
 
     expect(page).to have_content("Chocolate Bar")
-    # expect(page).to have_content("Bar of chocolate")
-    # expect(page).to have_content(2)
-    # expect(page).to have_content("Disabled")
+    expect(page).to have_content("Bar of chocolate")
+    expect(page).to have_content(2)
+    expect(page).to have_content("Disabled")
   end
 end
