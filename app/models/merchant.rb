@@ -41,4 +41,13 @@ class Merchant <ApplicationRecord
 	    LIMIT (5)"
     )
   end
+
+  def most_popular_items
+    items.select("items.*, SUM(invoice_items.quantity * items.unit_price)")
+    .joins(invoices: :invoice_items)
+    .where("invoices.status = 0")
+    .group("items.id")
+    .order("sum desc")
+    .limit(5)
+  end
 end
