@@ -11,7 +11,7 @@ RSpec.describe "Merchant Item Index page" do
       expect(page).to have_content(@merchant1.name)
     end
 
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       expect(page).to have_content("Colgate")
       expect(page).to have_content("Red Bell Pepper")
       expect(page).to have_content("Huskies")
@@ -26,7 +26,7 @@ RSpec.describe "Merchant Item Index page" do
   it "doesn't show the items of any other merchant" do 
     visit "merchants/#{@merchant1.id}/items"
 
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       expect(page).to_not have_content("Book")
       expect(page).to_not have_content("Card")
       expect(page).to_not have_content("Bag")
@@ -42,7 +42,7 @@ RSpec.describe "Merchant Item Index page" do
   it "has a link to each item's show page" do 
     visit "merchants/#{@merchant1.id}/items"
 
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       expect(page).to have_link 'Colgate'
       expect(page).to have_link 'Red Bell Pepper'
       expect(page).to have_link 'Huskies'
@@ -57,49 +57,49 @@ RSpec.describe "Merchant Item Index page" do
   it "takes you to the merchant's item's show page when you click the item's link" do 
     visit "merchants/#{@merchant1.id}/items"
 
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Colgate'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item1.id}")
     end
   
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Red Bell Pepper'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item2.id}")
     end
 
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Huskies'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item3.id}")
     end
     
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Gatorade'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item4.id}")
     end
     
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Pretzels'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item5.id}")
     end
 
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Chicken Breast'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item6.id}")
     end
 
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Coors'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item7.id}")
     end
 
     visit "merchants/#{@merchant1.id}/items"
-    within "#merchant_items" do 
+    within "#all_merchant_items" do 
       click_link 'Mug'
       expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item36.id}")
 
@@ -111,21 +111,21 @@ RSpec.describe "Merchant Item Index page" do
       merchant1= Merchant.create!(name: "No Face", status: "disabled")
       merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
   
-      item1 = Item.create!(name: "chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
-      item2 = Item.create!(name: "table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
-      item3 = Item.create!(name: "flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
-      item4 = Item.create!(name: "gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
+      item1 = Item.create!(name: "Chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
+      item2 = Item.create!(name: "Table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
+      item3 = Item.create!(name: "Flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
+      item4 = Item.create!(name: "Gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
       
   
-      visit "/merchants/#{merchant1}/items"
+      visit "/merchants/#{merchant1.id}/items"
   
-      within "#merchant-#{item1.id}" do 
+      within "#all_merchant_items" do 
         expect(page).to have_button("Enable #{item1.name}")
       end
   
-      visit "/merchants#{merchant1}/items"
+      visit "/merchants/#{merchant1.id}/items"
   
-      within "#merchant-#{item3.id}" do 
+      within "#all_merchant_items" do 
         expect(page).to have_button("Enable #{item1.name}")
       end
     end
@@ -134,14 +134,14 @@ RSpec.describe "Merchant Item Index page" do
       merchant1= Merchant.create!(name: "No Face", status: "disabled")
       merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
   
-      item1 = Item.create!(name: "chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
-      item2 = Item.create!(name: "table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
-      item3 = Item.create!(name: "flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
-      item4 = Item.create!(name: "gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
+      item1 = Item.create!(name: "Chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
+      item2 = Item.create!(name: "Table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
+      item3 = Item.create!(name: "Flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
+      item4 = Item.create!(name: "Gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
       
-      visit "/merchants/#{merchant1}/items"
+      visit "/merchants/#{merchant1.id}/items"
   
-      within "#merchant-#{item2.id}" do 
+      within "#all_merchant_items" do 
         expect(page).to have_button("Disable #{item2.name}")
       end
     end
@@ -150,18 +150,18 @@ RSpec.describe "Merchant Item Index page" do
       merchant1= Merchant.create!(name: "No Face", status: "disabled")
       merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
   
-      item1 = Item.create!(name: "chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
-      item2 = Item.create!(name: "table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
-      item3 = Item.create!(name: "flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
-      item4 = Item.create!(name: "gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
+      item1 = Item.create!(name: "Chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
+      item2 = Item.create!(name: "Table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
+      item3 = Item.create!(name: "Flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
+      item4 = Item.create!(name: "Gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
   
-      visit "/merchants/#{merchant2}/items"
+      visit "/merchants/#{merchant2.id}/items"
   
-      within "#merchant-#{item3.id}" do 
+      within "#all_merchant_items" do 
         expect(page).to have_button("Disable #{item3.name}")
   
         click_button("Disable #{item3.name}")
-        expect(current_path).to eq("/merchants/#{merchant2}/items")
+        expect(current_path).to eq("/merchants/#{merchant2.id}/items")
   
         expect(page).to have_button("Enable #{item3.name}")
       end
@@ -171,18 +171,18 @@ RSpec.describe "Merchant Item Index page" do
       merchant1= Merchant.create!(name: "No Face", status: "disabled")
       merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
   
-      item1 = Item.create!(name: "chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
-      item2 = Item.create!(name: "table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
-      item3 = Item.create!(name: "flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
-      item4 = Item.create!(name: "gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
+      item1 = Item.create!(name: "Chair", description: "you sit on it", unit_price: 2000, merchant: merchant1, status: "disabled")
+      item2 = Item.create!(name: "Table", description: "you eat off it", unit_price: 3000, merchant: merchant1, status: "enabled")
+      item3 = Item.create!(name: "Flower pot", description: "you plant in it", unit_price: 1000, merchant: merchant2, status: "disabled")
+      item4 = Item.create!(name: "Gate", description: "you go through it", unit_price: 6000, merchant: merchant2, status: "enabled")
   
-      visit "/merchants/#{merchant2}/items"
+      visit "/merchants/#{merchant2.id}/items"
   
-      within "#merchant-#{item4.id}" do 
+      within "#all_merchant_items" do 
         expect(page).to have_button("Enable #{item4.name}")
   
         click_button("Enable #{item4.name}")
-        expect(current_path).to eq("/merchants/#{merchant2}/items")
+        expect(current_path).to eq("/merchants/#{merchant2.id}/items")
   
         expect(page).to have_button("Disable #{item3.name}")
       end
