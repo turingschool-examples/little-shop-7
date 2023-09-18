@@ -22,4 +22,17 @@ class Admin::MerchantsController < ApplicationController
       redirect_to "/admin/merchants"  
     end 
   end
+
+  def new 
+  end
+
+  def create 
+    merchant = Merchant.new(name: params[:name])
+    if merchant.save
+      redirect_to "/admin/merchants"
+    else 
+      flash[:error] = "Error: All fields must be filled in to submit"
+      redirect_to "/admin/merchants/new"
+    end
+  end
 end

@@ -68,6 +68,37 @@ RSpec.describe "Admin Merchants" do
     expect(find("#merchant-#{merchant1.id}")).to have_button("Disable #{merchant1.name}")
   end
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  it "has link to create new merchants" do
+    load_test_data
+    visit "/admin/merchants"
+    
+    expect(page).to have_link("Create a new merchant")
+    click_link("Create a new merchant")
+    expect(page).to have_current_path("/admin/merchants/new")
+
+    expect(page).to have_content("Create new merchant")
+    expect(find("form")).to have_content("Name")
+    expect(page).to have_button("Submit")
+    
+    fill_in "Name", with: "Karl"
+    click_button "Submit"
+
+    expect(page).to have_current_path("/admin/merchants")
+    expect(page).to have_content("Karl")
+    expect(page).to have_button("Disable Karl")
+  end
+
   it "has a enable button that changes the merchant status and returns you back to the merchant index" do
     merchant1= Merchant.create!(name: "No Face", status: "disabled")
     merchant2 = Merchant.create!(name: "Totoro", status: "enabled")
@@ -79,6 +110,7 @@ RSpec.describe "Admin Merchants" do
     expect("Totoro").to appear_before("Disabled Merchants")
     expect("Disabled Merchants").to appear_before("No Face")
   end
+
 
 
 
