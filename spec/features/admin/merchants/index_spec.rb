@@ -66,7 +66,6 @@ RSpec.describe "Admin Merchants" do
     click_button "Enable #{merchant1.name}"
     
     expect(find("#merchant-#{merchant1.id}")).to have_button("Disable #{merchant1.name}")
-    save_and_open_page
   end
 
   # US 29 
