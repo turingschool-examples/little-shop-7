@@ -68,7 +68,17 @@ RSpec.describe "Admin Merchants" do
     expect(find("#merchant-#{merchant1.id}")).to have_button("Disable #{merchant1.name}")
   end
 
-  # US 29 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   it "has link to create new merchants" do
     load_test_data
     visit "/admin/merchants"
