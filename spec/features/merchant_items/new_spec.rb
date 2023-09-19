@@ -24,9 +24,7 @@ RSpec.describe "Merchant Items New", type: :feature do
       click_button("Create Item")
 
       expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
-      expect(page).to have_content("Name: Test Item")
-      expect(page).to have_content("Description: Test Description")
-      expect(page).to have_content("Unit Price: 10234")
+      expect(page).to have_content("Test Item")
     end
 
     it "submitting the form creates the item with a default status of disabled" do

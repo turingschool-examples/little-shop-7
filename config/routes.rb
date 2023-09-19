@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/new", to: "merchant_items#new"
+  post "/merchants/:merchant_id/items/create", to: "merchant_items#create"
   get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
   patch "/merchants/:merchant_id/items/:item_id", to: "merchant_items#update"
 

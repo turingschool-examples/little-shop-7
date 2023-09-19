@@ -65,7 +65,6 @@ RSpec.describe "MerchantItems Index", type: :feature do
 
     it "items are split into two sections, one for enabled items and one for disabled items" do
       visit "/merchants/#{@merchant_1.id}/items"
-      save_and_open_page
 
       within("#status-enabled") do
         expect(page).to have_content(@item_1.name)

@@ -2,7 +2,7 @@
 
 <p><%= link_to "Create an Item", "/merchants/#{@merchant.id}/items/new" %></p>
 
-<p>Enabled items:</p>
+<h2>Enabled items:</h2>
 <ul id="status-enabled">
   <% @merchant.items.each do |item| %>
     <% if item.status == nil || item.status == "enabled" %>
@@ -13,8 +13,8 @@
     <% end %>
   <% end %>
 </ul>
-<br><br>
-<p>Disabled items:</p>
+<br>
+<h2>Disabled items:</h2>
 <ul id="status-disabled">
   <% @merchant.items.each do |item| %>
     <% if item.status == "disabled" %>
