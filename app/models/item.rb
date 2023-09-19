@@ -11,4 +11,9 @@ class Item < ApplicationRecord
   def unit_price_formatted
     unit_price.to_f / 100
   end
+
+  
+
+  #don't love this method because I'm not certain it's doing what I want here
+  # Is this stuff on line 15 doing it as a SQL with the quotes? how can I write this to work with AR?
 end
