@@ -1,15 +1,25 @@
 <h1><%= @merchant.name %></h1>
 
-<p>Available items:</p>
-<ul>
+<p>Enabled items:</p>
+<ul id="status-enabled">
   <% @merchant.items.each do |item| %>
-    <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a>
     <% if item.status == nil || item.status == "enabled" %>
-      <%= button_to "Disable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "disable" } %>
-    <% else %>
-      <%= button_to "Enable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "enable" } %>
+      <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a>
+        <%= button_to "Disable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "disable" } %>
+      </li>
+      <br>
     <% end %>
-    </li>
-    <br>
+  <% end %>
+</ul>
+<br><br>
+<p>Disabled items:</p>
+<ul id="status-disabled">
+  <% @merchant.items.each do |item| %>
+    <% if item.status == "disabled" %>
+      <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a>
+        <%= button_to "Enable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "enable" } %>
+      </li>
+      <br>
+    <% end %>
   <% end %>
 </ul>
