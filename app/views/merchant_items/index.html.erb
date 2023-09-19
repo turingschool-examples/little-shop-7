@@ -3,6 +3,13 @@
 <p>Available items:</p>
 <ul>
   <% @merchant.items.each do |item| %>
-    <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a></li>
+    <li id="item-<%= item.id %>"><a href="/merchants/<%= @merchant.id%>/items/<%= item.id %>"><%= item.name %></a>
+    <% if item.status == nil || item.status == "enabled" %>
+      <%= button_to "Disable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "disable" } %>
+    <% else %>
+      <%= button_to "Enable Item", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: "enable" } %>
+    <% end %>
+    </li>
+    <br>
   <% end %>
 </ul>
