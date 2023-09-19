@@ -26,7 +26,6 @@ RSpec.describe Item, type: :model do
 
   describe "ready_to_ship" do
     it "can display items with a status of 'packaged'" do
-      item = 
     end
   end
 end
