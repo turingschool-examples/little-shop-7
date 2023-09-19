@@ -8,7 +8,7 @@ class Invoice < ApplicationRecord
   enum :status, ["in progress", "completed", "cancelled"]
 
   def self.not_fulfilled
-    where(status: 0)
+    where(status: 0).order(created_at: :asc)
   end
 
   def total_revenue

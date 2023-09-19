@@ -16,12 +16,22 @@ RSpec.describe Invoice, type: :model do
       customer_1 = create(:customer)
 
       invoice_1 = create(:invoice, customer: customer_1, status: 0)
-      invoice_2 = create(:invoice, customer: customer_1)
-      invoice_3 = create(:invoice, customer: customer_1, status: 0)
+      invoice_2 = create(:invoice, customer: customer_1, status: 1)
 
-      @invoices= Invoice.all
+      @invoices = Invoice.all
 
-      expect(@invoices.not_fulfilled).to eq([invoice_1, invoice_3])
+      expect(@invoices.not_fulfilled).to eq([invoice_1])
+    end
+
+    it "organizes the invoices from oldes to newest" do
+      customer_1 = create(:customer)
+
+      invoice_1 = create(:invoice, customer: customer_1, status: 0, created_at: DateTime.now)
+      invoice_2 = create(:invoice, customer: customer_1, status: 0)
+
+      @invoices = Invoice.all
+
+      expect(@invoices.not_fulfilled).to eq([invoice_2, invoice_1])
     end
   end
 end
