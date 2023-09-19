@@ -5,3 +5,5 @@
   <li>Description: <%= @item.description %></li>
   <li>Unit price: <%= number_to_currency(@item.unit_price / 100.0) %></li>
 </ul>
+
+<%= link_to "Update Item", "/items/#{@item.id}/edit" %>

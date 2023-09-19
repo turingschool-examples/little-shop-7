@@ -5,9 +5,17 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/new", to: "merchant_items#new"
+  post "/merchants/:merchant_id/items/create", to: "merchant_items#create"
   get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
   get "/merchants/:merchant_id/invoices", to: "merchant_invoices#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant_invoices#show"
+  patch "/merchants/:merchant_id/items/:item_id", to: "merchant_items#update"
+
+
+  get "/items/:id", to: "items#show"
+  get "/items/:id/edit", to: "items#edit"
+  patch "/items/:id", to: "items#update"
 
 
   namespace :admin, path: '/admin' do

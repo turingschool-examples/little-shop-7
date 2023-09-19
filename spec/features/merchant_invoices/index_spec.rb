@@ -1,15 +1,5 @@
 require "rails_helper"
 
-# Merchant Invoices Index
-# As a merchant,
-# When I visit my merchant's invoices index (/merchants/:merchant_id/invoices)
-# Then I see all of the invoices that include at least one of my merchant's items
-# And for each invoice I see its id
-# And each id links to the merchant invoice show page
-
-  
-
-
 RSpec.describe "the merchant's invoice index" do
 
   describe "complete invoices list" do
@@ -19,9 +9,9 @@ RSpec.describe "the merchant's invoice index" do
       @merchant_2 = create(:merchant)
       @customer_1 = create(:customer)
       
-      @item_1 = create(:item, merchant_id: @merchant_1.id)
-      @item_2 = create(:item, merchant_id: @merchant_1.id)
-      @item_3 = create(:item, merchant_id: @merchant_2.id)
+      @item_1 = create(:item, merchant: @merchant_1)
+      @item_2 = create(:item, merchant: @merchant_1)
+      @item_3 = create(:item, merchant: @merchant_2)
     
       @invoice_1 = create(:invoice, customer_id: @customer_1.id)
       @invoice_2 = create(:invoice, customer_id: @customer_1.id)

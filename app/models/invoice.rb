@@ -10,4 +10,5 @@ class Invoice < ApplicationRecord
   def self.not_fulfilled
     where(status: 0).order(created_at: :asc)
   end
+
 end

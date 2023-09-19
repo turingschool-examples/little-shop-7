@@ -23,5 +23,11 @@ RSpec.describe "MerchantItems Show", type: :feature do
       expect(page).to have_content("Description: #{@item_1.description}")
       expect(page).to have_content("Unit price: $12.34")
     end
+
+    it "has a link to update that item" do
+      visit "/merchants/#{@merchant_1.id}/items/#{@item_1.id}"
+      
+      expect(page).to have_link("Update Item", href: "/items/#{@item_1.id}/edit")
+    end
   end
 end
