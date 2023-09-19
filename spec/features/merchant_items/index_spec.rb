@@ -81,5 +81,11 @@ RSpec.describe "MerchantItems Index", type: :feature do
         expect(page).to have_content(@item_4.name)
       end
     end
+
+    it "has a link to create a new item" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      expect(page).to have_link("Create an Item", href: "/merchants/#{@merchant_1.id}/items/new")
+    end
   end
 end
