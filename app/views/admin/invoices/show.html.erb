@@ -2,6 +2,21 @@
 <h1>Invoice </h1>
 <p>ID: <%= @invoice.id %></p>
 <p>STATUS: <%= @invoice.status %></p>
-<p>CREATED_AT: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+<p>CREATED AT: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>CUSTOMER NAME: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+</section>
+
+<p id="invoice_items">Invoice Items: 
+  <% @invoice.invoice_items.each do |invoice_item| %>
+  <li>ITEM NAME: <%= invoice_item.item.name %></li>
+  <li>QUANTITY: <%= invoice_item.quantity %></li>
+  <li>UNIT PRICE: <%= number_to_currency(invoice_item.unit_price / 100.0) %></li>
+  <li>ITEM STATUS: <%= invoice_item.status %></li>
+  <br>
+  <% end %>
+</p>
+
+<section id="total_revenue">
+  <h2>Revenue Generated</h2>
+   <p>Total Revenue for Invoice <%= @invoice.id %> is: <%= number_to_currency(@invoice.total_revenue / 100) %></p>
 </section>
