@@ -37,4 +37,10 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant2.best_day).to eq("Monday, March 27, 2023")
     end
   end
+
+  it "can return the merchants top five items" do
+    load_test_data
+    expect(@merchant3.most_popular_items.first.name).to eq("Huskies")
+    expect(@merchant3.most_popular_items.first.sum).to eq(26000)
+  end
 end

@@ -191,7 +191,6 @@ RSpec.describe "Merchant Item Index page" do
     end
 
   end
-  
 
   it "has a link new form to create item" do 
     visit "merchants/#{@merchant1.id}/items"
@@ -205,5 +204,21 @@ RSpec.describe "Merchant Item Index page" do
     expect(page).to have_content("Bar of chocolate")
     expect(page).to have_content(2)
     expect(page).to have_content("disabled")
+  end
+
+  it "find 5 most popular ranked by total revenue generated" do
+    visit "merchants/#{@merchant3.id}/items"
+    within "#popular_merchant_items" do 
+    expect(page).to have_content("Huskies")
+    expect(page).to have_content("$260.00")
+    expect(page).to have_content("Chicken Breast")
+    expect(page).to have_content("$65.00")
+    expect(page).to have_content("Colgate")
+    expect(page).to have_content("$52.00")
+    expect(page).to have_content("Pretzels")
+    expect(page).to have_content("$52.00")
+    expect(page).to have_content("Red Bell Pepper")
+    expect(page).to have_content("$26.00")
+    end
   end
 end
