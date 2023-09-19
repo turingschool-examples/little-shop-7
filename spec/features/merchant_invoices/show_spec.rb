@@ -34,8 +34,6 @@ RSpec.describe "the merhcant invoices show page" do
 
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-      save_and_open_page
-
       expect(page).to have_content("ITEM NAME: #{@item_1.name}")
       expect(page).to have_content("QUANTITY: #{@invoice_item_1.quantity}")
       expect(page).to have_content("UNIT PRICE: #{@invoice_item_1.unit_price}")
