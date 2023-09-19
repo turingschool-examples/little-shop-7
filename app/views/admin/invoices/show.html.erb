@@ -15,3 +15,10 @@
   <br>
   <% end %>
 </p>
+
+<section id="total_revenue">
+  <h2>This Invoice's Total Revenue</h2>
+  <ul>
+   <p>- Total Revenue for Invoice <%= @invoice.id %> is: <%= number_to_currency(@invoice.total_revenue / 100) %></p>
+  </ul>
+</section>
