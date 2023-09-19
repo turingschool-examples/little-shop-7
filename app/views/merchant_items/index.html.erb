@@ -1,5 +1,7 @@
 <h1><%= @merchant.name %></h1>
 
+<p><%= link_to "Create an Item", "/merchants/#{@merchant.id}/items/new" %></p>
+
 <p>Enabled items:</p>
 <ul id="status-enabled">
   <% @merchant.items.each do |item| %>
