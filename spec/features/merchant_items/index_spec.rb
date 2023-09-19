@@ -6,8 +6,8 @@ RSpec.describe "MerchantItems Index", type: :feature do
     @merchant_2 = create(:merchant)
     @item_1 = create(:item, merchant_id: @merchant_1.id)
     @item_2 = create(:item, merchant_id: @merchant_1.id)
-    @item_3 = create(:item, merchant_id: @merchant_1.id)
-    @item_4 = create(:item, merchant_id: @merchant_1.id)
+    @item_3 = create(:item, merchant_id: @merchant_1.id, status: 0)
+    @item_4 = create(:item, merchant_id: @merchant_1.id, status: 0)
     @item_5 = create(:item, merchant_id: @merchant_2.id)
     @item_6 = create(:item, merchant_id: @merchant_2.id)
     @item_7 = create(:item, merchant_id: @merchant_2.id)
@@ -39,6 +39,52 @@ RSpec.describe "MerchantItems Index", type: :feature do
       end
 
       expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+    end
+
+    it "each item has a button to enable or disable it, and clicking it performs that action" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Disable Item")
+        click_button("Disable Item")
+      end
+
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Enable Item")
+        click_button("Enable Item")
+      end
+
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Disable Item")
+      end
+    end
+
+    it "items are split into two sections, one for enabled items and one for disabled items" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      within("#status-enabled") do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_2.name)
+        expect(page).to_not have_content(@item_3.name)
+        expect(page).to_not have_content(@item_4.name)
+      end
+
+      within("#status-disabled") do
+        expect(page).to_not have_content(@item_1.name)
+        expect(page).to_not have_content(@item_2.name)
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_4.name)
+      end
+    end
+
+    it "has a link to create a new item" do
+      visit "/merchants/#{@merchant_1.id}/items"
+
+      expect(page).to have_link("Create an Item", href: "/merchants/#{@merchant_1.id}/items/new")
     end
   end
 end
