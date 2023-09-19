@@ -120,7 +120,6 @@ RSpec.describe "Admin Merchants" do
     expect(find("#top_5")).to have_content(@merchant5.name)
     expect(find("#top_5")).to have_content(@merchant7.name)
     expect(find("#top_5")).to have_content(@merchant1.name)
-    save_and_open_page 
   end
 
 end
