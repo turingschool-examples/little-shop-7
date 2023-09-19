@@ -7,4 +7,9 @@ class InvoiceItem < ApplicationRecord
   validates :status, presence: true
 
   enum status: {"pending" => 0, "packaged" => 1, "shipped" => 2}
+
+
+  def self.merchant_specific(merchant)
+    where(item: merchant.items)
+  end
 end

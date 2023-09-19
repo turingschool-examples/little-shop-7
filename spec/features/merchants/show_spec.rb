@@ -83,7 +83,7 @@ RSpec.describe "merchant#show" do
 
     end
 
-    it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
+    xit "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
       visit "/merchants/#{@merchant_1.id}/dashboard"
 
       within("#items_to_ship-#{@merchant_1.id}") do

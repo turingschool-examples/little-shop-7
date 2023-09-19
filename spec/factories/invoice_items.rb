@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :invoice_item do
-    item_id { 1 }
-    invoice_id { 1 }
+    association :item
+    association :invoice
     quantity { 1 }
-    unit_price { "9.99" }
-    status { 1 }
-    created_at { "2023-09-11 16:36:27" }
-    updated_at { "2023-09-11 16:36:27" }
+    unit_price { item.unit_price }
+    status { [0, 1, 2].sample }
+    created_at { invoice.created_at }
+    updated_at { invoice.updated_at }
   end
 end
