@@ -84,7 +84,6 @@ RSpec.describe Merchant, type: :model do
         # item2 = 4000, item3 = 3000, item5 = 1000, item6 = 3500, item7 = 4800 || item1 = 500, item4 = 400
         invoice_item_9 = create(:invoice_item, item: item_8, invoice: invoice_3, quantity: 10, unit_price: 1200)
         invoice_item_10 = create(:invoice_item, item: item_9, invoice: invoice_4, quantity: 7, unit_price: 1000)
-
         expect(merchant_1.most_popular_items).to eq([item_7, item_2, item_6, item_3, item_5])
       end
     end
