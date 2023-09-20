@@ -33,9 +33,8 @@
     <% @items_to_ship.each do |item| %>
     <li>
       <%= item.name %>
-      
-      
-      <%= item.created_at.strftime("%A, %B %d, %Y") %>
+      <%= link_to item.invoice_id, "/merchants/#{@merchants.id}/invoices/#{item.invoice_id}"%>
+      <%= item.invoice_created_at.strftime("%A, %B %d, %Y") %>
       <%= %>
     </li>
     <% end %>
