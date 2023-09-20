@@ -153,10 +153,10 @@ RSpec.describe "MerchantItems Index", type: :feature do
       visit "/merchants/#{@merchant_1.id}/items"
 
       expect(page).to have_content(("#{@item_7.name} - Total revenue: $48.00 - Top selling date: 03/25/2012"))
-      expect(page).to have_content(("#{@item_2.name} - Total revenue: $48.00 - Top selling date: 03/26/2012"))
-      expect(page).to have_content(("#{@item_6.name} - Total revenue: $48.00 - Top selling date: 03/25/2012"))
-      expect(page).to have_content(("#{@item_3.name} - Total revenue: $48.00 - Top selling date: 03/26/2012"))
-      expect(page).to have_content(("#{@item_5.name} - Total revenue: $48.00 - Top selling date: 03/25/2012"))
+      expect(page).to have_content(("#{@item_2.name} - Total revenue: $40.00 - Top selling date: 03/26/2012"))
+      expect(page).to have_content(("#{@item_6.name} - Total revenue: $35.00 - Top selling date: 03/25/2012"))
+      expect(page).to have_content(("#{@item_3.name} - Total revenue: $30.00 - Top selling date: 03/26/2012"))
+      expect(page).to have_content(("#{@item_5.name} - Total revenue: $10.00 - Top selling date: 03/25/2012"))
     end
   end
 end
