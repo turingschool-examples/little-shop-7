@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :item do
+    association :merchant
     name { Faker::Commerce.product_name }
     description { Faker::Commerce.material }
     unit_price { Faker::Commerce.price(range: 0..10.0, as_string: true) }
-    merchant_id { 1 }
     status { 1 }
     created_at { "2023-09-11 16:40:54" }
     updated_at { "2023-09-11 16:40:54" }
