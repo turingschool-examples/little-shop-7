@@ -8,7 +8,7 @@
   <ul>
     <% @top_merchants.each do |merchant| %>
       <li>
-        <p>- Total Revenue for: <%= merchant.name %> is $<%= merchant.revenue %></p>
+        <p>- Total Revenue for: <%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %> is <%= number_to_currency(merchant.revenue / 100) %></p>
         <p>- Top Selling Day for: <%= merchant.name %> is <%= merchant.top_date %></p>
       </li>
     <% end %>
