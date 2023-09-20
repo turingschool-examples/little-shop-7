@@ -15,10 +15,10 @@ RSpec.describe "merchant#show" do
     @item_4 = create(:item, merchant_id: @merchant_1.id)
     @item_5 = create(:item, merchant_id: @merchant_1.id)
 
-    @invoice_1 = create(:invoice, customer_id: @customer_1.id)
-    @invoice_2 = create(:invoice, customer_id: @customer_2.id)
-    @invoice_3 = create(:invoice, customer_id: @customer_3.id)
-    @invoice_4 = create(:invoice, customer_id: @customer_4.id)
+    @invoice_1 = create(:invoice, customer_id: @customer_1.id, created_at: "2012-03-25 09:54:09 UTC")
+    @invoice_2 = create(:invoice, customer_id: @customer_2.id, created_at: "2012-03-26 09:54:09 UTC")
+    @invoice_3 = create(:invoice, customer_id: @customer_3.id, created_at: "2012-03-27 09:54:09 UTC")
+    @invoice_4 = create(:invoice, customer_id: @customer_4.id, created_at: "2012-03-28 09:54:09 UTC")
     @invoice_5 = create(:invoice, customer_id: @customer_5.id)
 
     @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
@@ -90,21 +90,24 @@ RSpec.describe "merchant#show" do
     it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
       
       visit "/merchants/#{@merchant_1.id}/dashboard"
-      save_and_open_page
   
       within("#items_to_ship-#{@merchant_1.id}") do
         expect(page).to have_content(@invoice_1.id)
         expect(page).to have_link(@invoice_1.id)
       end
     end
+
+    it "see the date formatted and I see that the list is ordered from oldest to newest" do
+      visit "/merchants/#{@merchant_1.id}/dashboard"
+      save_and_open_page
+
+      within("#items_to_ship-#{@merchant_1.id}") do
+        expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %d, %Y"))
+        expect(@item_1.name).to appear_before(@item_2.name, only_text: true)
+        expect(@item_2.name).to appear_before(@item_3.name, only_text: true)
+        expect(@item_3.name).to appear_before(@item_4.name, only_text: true)
+      end
+
+    end
   end
 end
-
-
-# As a merchant
-# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-# Then I see a section for "Items Ready to Ship"
-# In that section I see a list of the names of all of my items that
-# have been ordered and have not yet been shipped,
-# And next to each Item I see the id of the invoice that ordered my item
-# And each invoice id is a link to my merchant's invoice show page
