@@ -11,8 +11,8 @@ RSpec.describe Merchant, type: :model do
 
   describe "instance methods" do
     describe "default status" do
-      xit "merchant loads with default status disabled" do
-        merchant = create(:merchant)
+      it "merchant loads with default status disabled" do
+        merchant = Merchant.create(name: "whatever")
 
         expect(merchant.disabled).to eq(true)
       end
