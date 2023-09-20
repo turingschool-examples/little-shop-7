@@ -21,17 +21,17 @@ RSpec.describe "merchant#show" do
     @invoice_4 = create(:invoice, customer_id: @customer_4.id)
     @invoice_5 = create(:invoice, customer_id: @customer_5.id)
 
-    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 2)
-    @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id, status: 2)
-    @invoice_item_3 = create(:invoice_item, item_id: @item_3.id, invoice_id: @invoice_3.id, status: 2)
-    @invoice_item_4 = create(:invoice_item, item_id: @item_4.id, invoice_id: @invoice_4.id, status: 2)
-    @invoice_item_5 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_5.id, status: 2)
+    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
+    @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id, status: 1)
+    @invoice_item_3 = create(:invoice_item, item_id: @item_3.id, invoice_id: @invoice_3.id, status: 1)
+    @invoice_item_4 = create(:invoice_item, item_id: @item_4.id, invoice_id: @invoice_4.id, status: 1)
+    @invoice_item_5 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_5.id, status: 1)
 
-    @transaction_1 = create(:transaction, invoice_id: @invoice_1.id, result: 0)
-    @transaction_2 = create(:transaction, invoice_id: @invoice_2.id, result: 0)
-    @transaction_3 = create(:transaction, invoice_id: @invoice_3.id, result: 0)
-    @transaction_4 = create(:transaction, invoice_id: @invoice_4.id, result: 0)
-    @transaction_5 = create(:transaction, invoice_id: @invoice_5.id, result: 0)
+    @transaction_1 = create(:transaction, invoice_id: @invoice_1.id, result: 1)
+    @transaction_2 = create(:transaction, invoice_id: @invoice_2.id, result: 1)
+    @transaction_3 = create(:transaction, invoice_id: @invoice_3.id, result: 1)
+    @transaction_4 = create(:transaction, invoice_id: @invoice_4.id, result: 1)
+    @transaction_5 = create(:transaction, invoice_id: @invoice_5.id, result: 1)
   end
   
   describe "display merchant info" do
@@ -61,19 +61,23 @@ RSpec.describe "merchant#show" do
   end
 
   describe "merchant top 5 customers" do 
-    xit "shows the top 5 customers with the largest successful transactions with this merchant" do
+    it "shows the top 5 customers with the largest successful transactions with this merchant" do
 
       visit "/merchants/#{@merchant_1.id}/dashboard"
-
+     
       within("#top_five_customers-#{@merchant_1.id}") do
-        expect(page).to have_content([@customer_1.first_name, @customer_2.first_name, @customer_3.first_name, @customer_4.first_name, @customer_5.first_name])
-        expect(page).to have_content([@customer_1.amount_of_transactions, @customer_2.amount_of_transactions, @customer_3.amount_of_transactions, @customer_4.amount_of_transactions, @customer_5.amount_of_transactions])
+        expect(page).to have_content(@customer_1.first_name)
+        expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name} (#{@customer_1.amount_of_transactions}Transactions)")
+        expect(page).to have_content("#{@customer_2.first_name} #{@customer_2.last_name} (#{@customer_2.amount_of_transactions}Transactions)")
+        expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name} (#{@customer_3.amount_of_transactions}Transactions)")
+        expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name} (#{@customer_4.amount_of_transactions}Transactions)")
+        expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name} (#{@customer_5.amount_of_transactions}Transactions)")
       end
     end
   end
 
   describe "merchant items ready to ship" do
-    xit "has a list of items that have been ordered and not yet shipped" do
+    it "has a list of items that have been ordered and not yet shipped" do
     
       visit "/merchants/#{@merchant_1.id}/dashboard"
 
@@ -83,9 +87,11 @@ RSpec.describe "merchant#show" do
 
     end
 
-    xit "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
+    it "displays the id of the invoice for the ordered item and a link to the merchant's invoice show page" do
+      
       visit "/merchants/#{@merchant_1.id}/dashboard"
-
+      save_and_open_page
+  
       within("#items_to_ship-#{@merchant_1.id}") do
         expect(page).to have_content(@invoice_1.id)
         expect(page).to have_link(@invoice_1.id)
@@ -93,3 +99,12 @@ RSpec.describe "merchant#show" do
     end
   end
 end
+
+
+# As a merchant
+# When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+# Then I see a section for "Items Ready to Ship"
+# In that section I see a list of the names of all of my items that
+# have been ordered and have not yet been shipped,
+# And next to each Item I see the id of the invoice that ordered my item
+# And each invoice id is a link to my merchant's invoice show page
