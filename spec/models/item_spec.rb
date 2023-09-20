@@ -46,11 +46,11 @@ RSpec.describe Item, type: :model do
         @item_1 = create(:item, merchant: @merchant_1)
         @item_2 = create(:item, merchant: @merchant_1)
     
-        @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, quantity: 1, unit_price: 500)
-        @invoice_item_4 = create(:invoice_item, item: @item_1, invoice: @invoice_3, quantity: 1, unit_price: 500)
-        @invoice_item_5 = create(:invoice_item, item: @item_1, invoice: @invoice_2, quantity: 1, unit_price: 500)
-        @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice_1, quantity: 1, unit_price: 1000)
-        @invoice_item_3 = create(:invoice_item, item: @item_2, invoice: @invoice_2, quantity: 3, unit_price: 1000)
+        @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice_1, quantity: 1, unit_price: 500, status: 1)
+        @invoice_item_4 = create(:invoice_item, item: @item_1, invoice: @invoice_3, quantity: 1, unit_price: 500, status: 1)
+        @invoice_item_5 = create(:invoice_item, item: @item_1, invoice: @invoice_2, quantity: 1, unit_price: 500, status: 1)
+        @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice_1, quantity: 1, unit_price: 1000, status: 1)
+        @invoice_item_3 = create(:invoice_item, item: @item_2, invoice: @invoice_2, quantity: 3, unit_price: 1000, status: 1)
       end
 
       it "returns the day that the item sold the most" do
