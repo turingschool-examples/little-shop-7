@@ -3,7 +3,7 @@ class CreateTransaction < ActiveRecord::Migration[7.0]
     create_table :transactions do |t|
       t.integer :invoice_id
       t.bigint :credit_card_number
-      t.date :credit_card_expiration_date
+      t.string :credit_card_expiration_date
       t.integer :result
 
       t.timestamps
