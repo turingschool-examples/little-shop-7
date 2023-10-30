@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "/customers", to: "customers#index"
+  get "/invoice_items", to: "invoice_items#index"
 end
