@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_223842) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.integer "quanity"
+    t.integer "quantity"
     t.integer "unit_price"
     t.integer "status"
     t.bigint "item_id", null: false
