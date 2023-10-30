@@ -39,3 +39,8 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## [DTR](https://docs.google.com/document/d/1XfspCmo165AdR7qoqsD9TQEq91X1GlM3jr-PvFAwDjA/edit?usp=sharing)
+
+## Schema
+![dbschema](./image.png)
