@@ -44,3 +44,4 @@
 
 ## Schema
 ![dbschema](./image.png)
+https://dbdesigner.page.link/ncmP6wpgHR6SPLLm7
