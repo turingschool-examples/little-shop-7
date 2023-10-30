@@ -1,4 +1,4 @@
-namespace :import_invoice_items do
+namespace :csv_load do
   desc "TODO"
   task invoice_items: :environment do
     require "csv"
