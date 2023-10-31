@@ -8,7 +8,7 @@ RSpec.describe "Merchant Invoices Index", type: :feature do
   # And each id links to the merchant invoice show page
   describe "When a user visits merchant's invoices index, there is information" do
     xit "They see all invoices with at least one of merchant's items" do
-      visit "/merchants/#{@merchant_1.id}/invoices"
+      visit merchant_invoices_path(@merchant1)
 
       expect(page).to have_content("My Invoices", count:1)
     end
