@@ -23,6 +23,18 @@ RSpec.describe "Admin Dashboard" do
       visit admin_path
 
       expect(page).to have_content("Top 5 Customers:")
-    end
+      expect(page).to have_content(@customer_1.first_name)
+      expect(page).to have_content(@customer_1.last_name)
+      expect(page).to have_content(@customer_2.first_name)
+      expect(page).to have_content(@customer_2.last_name)
+      expect(page).to have_content(@customer_3.first_name)
+      expect(page).to have_content(@customer_3.last_name)
+      expect(page).to have_content(@customer_4.first_name)
+      expect(page).to have_content(@customer_4.last_name)
+      expect(page).to have_content(@customer_5.first_name)
+      expect(page).to have_content(@customer_5.last_name)
+      within "#customer-#{@customer_3.id}"
+        expect(page).to have_content("4 Transactions")
+      end
   end
 end

@@ -4,3 +4,8 @@
 <p><%= link_to "Admin: Invoices", "/admin/invoices" %></p>
 
 <p> Top 5 Customers: </p>
+<% Customer.top_customers.each do |customer| %>
+<section id="customer-<%= customer.id%>"> 
+  <%= "#{customer.first_name} #{customer.last_name}: #{customer.count} Transactions" %>
+  </section>
+<% end %>
