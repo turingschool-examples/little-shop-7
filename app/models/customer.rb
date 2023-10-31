@@ -5,6 +5,6 @@ class Customer < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
   
-  validates :first_name
-  validates :last_name
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end
