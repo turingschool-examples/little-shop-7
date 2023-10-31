@@ -1,4 +1,6 @@
 class InvoiceItem < ApplicationRecord
+  has_many :invoices
+  has_many :items
   validates :quantity
   validates :unit_price
   validates :status
