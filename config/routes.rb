@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   get "/customers", to: "customers#index"
   get "/invoice_items", to: "invoice_items#index"
+
+  
 end
