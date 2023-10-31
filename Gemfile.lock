@@ -69,7 +69,7 @@ GEM
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     bindex (0.8.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     capybara (3.39.2)
@@ -102,8 +102,9 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.2.1)
+    importmap-rails (1.2.3)
       actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.6.0)
     irb (1.8.3)
@@ -126,9 +127,10 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.5)
     minitest (5.20.0)
     msgpack (1.7.2)
-    net-imap (0.4.2)
+    net-imap (0.4.3)
       date
       net-protocol
     net-pop (0.1.2)
@@ -138,7 +140,12 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.15.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     orderly (0.1.1)
       capybara (>= 1.1)
@@ -184,7 +191,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
       zeitwerk (~> 2.5)
-    rake (13.0.6)
+    rake (13.1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
     regexp_parser (2.8.2)
@@ -251,6 +258,8 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  ruby
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -279,4 +288,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.14
+   2.4.21
