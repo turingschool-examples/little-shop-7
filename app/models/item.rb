@@ -5,8 +5,8 @@ class Item < ApplicationRecord
 
   enum status: %w[disabled enabled]
 
-  validates :name, presence: true 
-  validates :description, presence: true 
-  validates :unit_price, presence: true, numericality: true 
-  validates :status, presence: true 
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :unit_price, presence: true, numericality: true
+  validates :status, presence: true
 end
