@@ -13,4 +13,16 @@ RSpec.describe "Admin Dashboard" do
     expect(page).to have_link("Admin: Merchants")
     expect(page).to have_link("Admin: Invoices")
   end
+
+  describe "statistics section" do 
+    before :each do 
+      load_test_data 
+    end
+
+    it "lists the top 5 customers" do 
+      visit admin_path
+
+      expect(page).to have_content("Top 5 Customers:")
+    end
+  end
 end
