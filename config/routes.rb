@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get "/customers", to: "customers#index"
   get "/invoice_items", to: "invoice_items#index"
 
-  
+  get "/admin", to: "dashboard#index"
 end
