@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get "/invoice_items", to: "invoice_items#index"
 
   namespace :admin do
-    get "/", to: "dashboard#index", as: 'dashboard'
+    get "/", to: "dashboard#index"
+    get "/merchants", to: "merchants#index"
+    get "/invoices", to: "invoices#index"
   end
+
 end
