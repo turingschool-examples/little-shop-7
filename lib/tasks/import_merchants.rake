@@ -7,7 +7,6 @@ namespace :csv_load do
     csv = CSV.parse(csv_text, :headers => true, :encoding => "ISO-8859-1")
     csv.each do |row|
       t = Merchant.new
-      t.id = row["id"]
       t.name = row["name"]
       t.created_at = row["created_at"]
       t.updated_at = row["updated_at"]
