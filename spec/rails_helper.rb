@@ -1,3 +1,5 @@
+require "support/factory_bot"
+
 require "simplecov"
 SimpleCov.start
 
