@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :merchant do
-    name { Faker::Business.credit_card_number }
+    name { Faker::Commerce.product_name }
     description { Faker::Commerce.material }
     unit_price { Faker::Commerce.price }
     status { rand(0..1)}
