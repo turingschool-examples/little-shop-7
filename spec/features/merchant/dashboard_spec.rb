@@ -5,7 +5,7 @@ RSpec.describe "Dashboard" do
     @merchant1 = Merchant.create!(name: "Billy")
     @merchant2 = Merchant.create!(name: "Nathan")
   end
-  it "shows the name of the merchant" do
+  it "US1: shows the name of the merchant" do
   # 1. Merchant Dashboard
   # As a merchant,
   # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
@@ -13,5 +13,18 @@ RSpec.describe "Dashboard" do
   visit "/merchants/#{@merchant1.id}/dashboard"
   expect(page).to have_content(@merchant1.name)
   expect(page).to_not have_content(@merchant2.name)
+  end
+
+  it "US2: has a link to merchant items and invoices indexes" do
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    expect(page).to have_link("Merchant Items")
+    expect(page).to have_link("Merchant Invoices")
+  
+    # 2. Merchant Dashboard Links
+    
+    # As a merchant,
+    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+    # Then I see link to my merchant items index (/merchants/:merchant_id/items)
+    # And I see a link to my merchant invoices index (/merchants/:merchant_id/invoices)
   end
 end
