@@ -7,12 +7,12 @@ namespace :csv_load do
     csv = CSV.parse(csv_text, :headers => true, :encoding => "ISO-8859-1")
     csv.each do |row|
       t = Merchant.new
-      t.id = row["id"]
       t.name = row["name"]
       t.created_at = row["created_at"]
       t.updated_at = row["updated_at"]
       t.save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
   end
   puts "Seeded bro bro bro bro bro"
 end

@@ -7,7 +7,6 @@ namespace :csv_load do
     csv = CSV.parse(csv_text, :headers => true, :encoding => "ISO-8859-1")
     csv.each do |row|
       t = Item.new
-      t.id = row["id"]
       t.name = row["name"]
       t.description = row["description"]
       t.unit_price = row["unit_price"]
@@ -16,6 +15,7 @@ namespace :csv_load do
       t.updated_at = row["updated_at"]
       t.save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
   puts "Seeded bro bro bro bro"
 end

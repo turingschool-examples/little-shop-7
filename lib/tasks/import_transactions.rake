@@ -8,7 +8,6 @@ namespace :csv_load do
     csv.each do |row|
       #this is a transaction object that is being created, through the class, Transaction(our model)
       t = Transaction.new
-      t.id = row["id"]
       t.invoice_id = row["invoice_id"]
       t.credit_card_number = row["credit_card_number"]
       t.credit_card_expiration_date = row["credit_card_expiration_date"]
@@ -17,6 +16,7 @@ namespace :csv_load do
       t.updated_at = row["updated_at"]
       t.save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
   puts "Seeded bro bro bro bro bro bro"
 end
