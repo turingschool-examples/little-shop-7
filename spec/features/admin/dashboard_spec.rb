@@ -8,15 +8,16 @@ RSpec.describe "Admin Dashboard" do
   end
 
   ## USER STORY 20
-  it "when visiting the admin dashboard has a link for the admin merchants index" do
+  it "when visiting the admin dashboard, it has a link for the admin merchants index" do
     visit "/admin"
-    click_link "Admin Merchants Index"
+    save_and_open_page
+    click_link("Admin Merchants Index")
     expect(current_path).to eq("/admin/merchants")
   end
 
   it "has a link for the admin invoices index" do
     visit "/admin"
-    click_link "Admin Invoices Index"
+    click_link("Admin Invoices Index")
     expect(current_path).to eq("/admin/invoices")
   end
 
