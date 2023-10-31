@@ -14,6 +14,7 @@ namespace :csv_load do
       t.status = row["status"]
       t.save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
   end  
   puts "Seeded bro bro"
 end

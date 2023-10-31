@@ -12,6 +12,7 @@ namespace :csv_load do
       t.updated_at = row["updated_at"]
       t.save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
   end
   puts "Seeded bro bro bro bro bro"
 end

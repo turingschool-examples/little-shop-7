@@ -6,8 +6,7 @@ namespace :csv_load do
     "invoices",
     "items",
     "merchants",
-    "transactions",
-    "reset_primary_keys"
+    "transactions"
   ] do
   end
   puts "Seeded it all bro!"
