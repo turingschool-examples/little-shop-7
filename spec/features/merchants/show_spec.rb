@@ -16,11 +16,24 @@ RSpec.describe Merchant, type: :feature do
       end
     end
 
-    describe "US2. Then I see link to my merchant items index" do
-      it "And I see a link to my merchant invoices index (/merchants/:merchant_id/invoices)"
+    describe "US2. Then I see a link to my merchant items index" do
+      it "And I see a link to my merchant invoices index" do
+        visit "/merchants/#{@merchant_1.id}/dashboard"
 
-      visit "/merchants/#{@merchant_1.id}/dashboard"
+        expect(page).to have_link("Merchant Items Index")
+        click_link("Merchant Items Index")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
 
-      (/merchants/:merchant_id/items)
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+
+        expect(page).to have_link("Merchant Invoices Index")
+        click_link("Merchant Invoices Index")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices")
+
+      end
+    end
   end
 end
+
+# (/merchants/:merchant_id/items)
+# (/merchants/:merchant_id/invoices)
