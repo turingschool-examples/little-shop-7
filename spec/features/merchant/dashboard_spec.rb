@@ -7,6 +7,7 @@ RSpec.describe "Dashboard" do
     @item1 = @merchant1.items.create(name: "Nathan", description: "Nathan", unit_price: 100)
     @customer = Customer.create(first_name: "Nathan", last_name: "Turing")
     @invoice1 = @customer.invoices.create(status: 1)
+    InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id)
   end
   it "US1: shows the name of the merchant" do
   # 1. Merchant Dashboard
@@ -28,11 +29,15 @@ RSpec.describe "Dashboard" do
     expect(page).to have_link("Merchant Items")
     expect(page).to have_link("Merchant Invoices")
     click_link("Merchant Items")
-    # expect(current_path).to be("/items/#{@item1.id}")
-    # expect(page).to have_content(@item1.name)
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+    click_link("#{@item1.name}")
+    expect(current_path).to eq("/items/#{@item1.id}")
+    expect(page).to have_content(@item1.name)
     visit "/merchants/#{@merchant1.id}/dashboard"
     click_link("Merchant Invoices")
-    # expect(current_path).to be("/invoices/#{@invoice1.id}")
-    # expect(page).to have_content(@invoice1.status)
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
+    click_link("#{@invoice1.id}")
+    expect(current_path).to eq("/invoices/#{@invoice1.id}")
+    expect(page).to have_content(@invoice1.status)
   end
 end
