@@ -26,7 +26,7 @@ RSpec.describe Item, type: :model do
         quantity: 1,
         unit_price: item1.unit_price)
 
-        expect(item1.invoice).to eq([invoice1.id])
+      expect(item1.invoices.first.id).to eq(invoice1.id)
     
     end
   

@@ -4,10 +4,8 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def invoice
-    id = []
     self.invoices.each do |invoice|
-      id << invoice.id
+      invoice
     end
-    id
   end
 end
