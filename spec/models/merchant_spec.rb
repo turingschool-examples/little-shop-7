@@ -35,7 +35,7 @@ RSpec.describe Merchant, type: :model do
   describe "instance methods" do
     describe "#top_customers" do
       it "returns a list of customers with largest number of successful transactions" do
-        expect(@merchant.top_customers).to eq()
+        expect(@merchant.top_customers).to eq([@customer_succ_1, @customer_succ_2, @customer_succ_3, @customer_succ_4, @customer_succ_5])
       end
     end
   end
