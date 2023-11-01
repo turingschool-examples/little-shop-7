@@ -7,9 +7,13 @@ Rails.application.routes.draw do
   get "/customers", to: "customers#index"
   get "/invoice_items", to: "invoice_items#index"
 
+  get "/items/:id", to: "items#show"
+  
+  get "invoices/:id", to: "invoices#show"
+
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "merchant_items#index"
-  get "/merchants/:merchant_id/items", to: "merchant_invoices#index"
+  get "/merchants/:merchant_id/invoices", to: "merchant_invoices#index"
 
   namespace :admin do
     get "/", to: "dashboard#index"
