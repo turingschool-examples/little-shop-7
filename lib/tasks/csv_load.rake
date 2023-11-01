@@ -3,9 +3,12 @@ require 'csv'
 namespace :csv_load do
   desc "Load customers CSV file into database"
   task :customers => :environment do
+  ActiveRecord::Base.connection.reset_pk_sequence!('customers')
     customer_data = CSV.open('./db/data/customers.csv')
     CSV.foreach('./db/data/customers.csv', :headers => true) do |row|
-      Customer.create!(row.to_hash)
+      customer = Customer.new(row.to_hash)
+      customer.id = row[:id]
+      customer.save
     end
   end
   desc "Load merchants CSV file into database"
