@@ -17,5 +17,11 @@ class MerchantItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     @merchant = @item.merchant
+    @item.update(item_params)
+    redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
+  end
+
+  def item_params
+    params.require(:item).permit(:name, :description, :unit_price)
   end
 end
