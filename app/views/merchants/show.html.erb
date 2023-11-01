@@ -2,3 +2,8 @@
 
 
 <h2>Name: <%= @merchant.name %></h2>
+
+<h2>Merchant </h2>
+
+<h3><%= link_to "Merchant Items Index", "/merchants/#{@merchant.id}/items" %></h3>
+<h3><%= link_to "Merchant Invoices Index", "/merchants/#{@merchant.id}/invoices" %></h3>
