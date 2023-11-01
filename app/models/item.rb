@@ -4,11 +4,10 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def invoice
+    id = []
     self.invoices.each do |invoice|
-      invoice.id
-      
-      # require 'pry'; binding.pry
+      id << invoice.id
     end
-
+    id
   end
 end
