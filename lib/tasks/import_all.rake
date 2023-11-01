@@ -2,11 +2,11 @@ namespace :csv_load do
   desc "Run multiple tasks"
   task all: [
     "customers",
-    "invoice_items",
+    "merchants",
     "invoices",
     "items",
-    "merchants",
-    "transactions"
+    "transactions",
+    "invoice_items"
   ] do
   end
   puts "Seeded it all bro!"
