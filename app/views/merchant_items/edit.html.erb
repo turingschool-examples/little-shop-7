@@ -1,4 +1,6 @@
+<div class="header">
 <h1>Update <%= @item.name %></h1>
+</div>
 
 <%= form_with model: @item, url: merchant_item_path(@merchant, @item), data: {turbo: false} do |f| %>
   <%= f.label :name %>
