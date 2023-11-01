@@ -11,6 +11,27 @@ RSpec.describe '/admin' do
         expect(page).to have_content("Admin Dashboard")
         expect("Little Etsy Shop").to appear_before("Admin Dashboard")
       end
+
+        # US 20, Admin Dashboard Links
+      it "has link to admin merchants index (/admin/merchants)" do
+        visit "/admin"
+        
+        expect(page).to have_link("Merchants")
+
+        click_link("Merchants")
+
+        expect(current_path).to eq("/admin/merchants")
+      end
+
+      it "has link to admin invoices index (/admin/invoices)" do
+        visit "/admin"
+        
+        expect(page).to have_link("Invoices")
+
+        click_link("Invoices")
+        
+        expect(current_path).to eq("/admin/invoices")
+      end
     end
   end
 end
