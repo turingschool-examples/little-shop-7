@@ -16,7 +16,17 @@ RSpec.describe Merchant, type: :model do
     @customer_3 = create(:customer)
     @customer_4 = create(:customer)
     @customer_5 = create(:customer)
-    
+    @customer_6 = create(:customer)
+    @transaction_1 = create(:transaction)
+    @transaction_2 = create(:transaction)
+    @transaction_3 = create(:transaction)
+    @transaction_4 = create(:transaction)
+    @transaction_5 = create(:transaction)
+    @transaction_6 = create(:transaction)
+    @transaction_7 = create(:transaction)
+    @transaction_8 = create(:transaction)
+    @transaction_9 = create(:transaction)
+    @transaction_10 = create(:transaction)
   end
 
   describe "instance methods" do

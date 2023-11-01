@@ -2,17 +2,9 @@ require "faker"
 
 FactoryBot.define do
   factory :item do
-    status 0
+    name { Faker::Commerce.product_name }
+    description { Faker::Marketing.buzzwords }
+    unit_price { rand(10000..99999) }
     association :merchant
   end
 end
-# require "faker"
-
-# FactoryBot.define do
-#   factory :item do
-#     name { Faker::Name.name }
-#     description {Faker::Marketing.buzzwords}
-#     unit_price {Faker::Commerce.price}
-#     merchant_id {Faker::Number.number(digits: 1)}
-#   end
-# end
