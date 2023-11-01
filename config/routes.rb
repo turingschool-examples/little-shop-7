@@ -9,4 +9,9 @@ Rails.application.routes.draw do
     resource :items, only: :show, to: "items#show"
     resource :invoices, only: :show, to: "invoices#show"
   end
+
+  root "welcome#index"
+  namespace :admin do
+    get "/", to: "dashboards#welcome"
+  end
 end
