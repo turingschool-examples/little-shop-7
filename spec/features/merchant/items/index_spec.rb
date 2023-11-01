@@ -45,6 +45,5 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     expect(page).to have_content(@item2.name)
     expect(page).to have_content(@item3.name)
     expect(page).to_not have_content(@item4.name)
-    save_and_open_page
   end
 end
