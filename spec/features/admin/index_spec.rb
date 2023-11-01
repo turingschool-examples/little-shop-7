@@ -8,7 +8,7 @@ RSpec.describe '/admin' do
         visit '/admin'
 
         expect(page).to have_content("Little Etsy Shop")
-        save_and_open_page
+        
         expect(page).to have_content("Admin Dashboard")
         expect("Little Etsy Shop").to appear_before("Admin Dashboard")
       end
