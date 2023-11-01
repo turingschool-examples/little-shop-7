@@ -37,6 +37,16 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant2.id}/invoices")
       end
 
+      it "has a section for items ready to ship, with a list of items that need to be shipped" do
+        visit "/merchants/#{@merchant1.id}/dashboard"
+
+        expect(page).to have_content("Items Ready To Ship")
+        
+      end
+
+      it "has an invoice id next to each item, and the id links to the merchant invoice show page" do 
+
+      end
     end
   end
 end
