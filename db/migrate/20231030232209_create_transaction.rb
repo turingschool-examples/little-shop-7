@@ -1,7 +1,7 @@
 class CreateTransaction < ActiveRecord::Migration[7.0]
   def change
     create_table :transactions do |t|
-      t.integer :invoice_id
+      # t.integer :invoice_id ##DROP
       t.bigint :credit_card_number
       t.string :credit_card_expiration_date
       t.integer :result
