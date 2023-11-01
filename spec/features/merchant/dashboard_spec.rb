@@ -4,6 +4,9 @@ RSpec.describe "Dashboard" do
   before :each do
     @merchant1 = Merchant.create!(name: "Billy")
     @merchant2 = Merchant.create!(name: "Nathan")
+    @item1 = @merchant1.items.create(name: "Nathan", description: "Nathan", unit_price: 100)
+    @customer = Customer.create(first_name: "Nathan", last_name: "Turing")
+    @invoice1 = @customer.invoices.create(status: 1)
   end
   it "US1: shows the name of the merchant" do
   # 1. Merchant Dashboard
@@ -24,12 +27,12 @@ RSpec.describe "Dashboard" do
     visit "/merchants/#{@merchant1.id}/dashboard"
     expect(page).to have_link("Merchant Items")
     expect(page).to have_link("Merchant Invoices")
-    # click_link("Merchant Items")
-    # expect(current_page).to be("/")
-    # expect(page).to have_content("Item1")
-    # visit "/merchants/#{@merchant1.id}/dashboard"
-    # click_link("Merchant Invoices")
-    # expect(current_page).to be("/")
-    # expect(page).to have_content("Invoice1")
+    click_link("Merchant Items")
+    # expect(current_path).to be("/items/#{@item1.id}")
+    # expect(page).to have_content(@item1.name)
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    click_link("Merchant Invoices")
+    # expect(current_path).to be("/invoices/#{@invoice1.id}")
+    # expect(page).to have_content(@invoice1.status)
   end
 end
