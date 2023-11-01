@@ -46,7 +46,7 @@ RSpec.describe "Merchant Items Update Page", type: :feature do
     click_link("Update Item")
 
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}/edit")
-    save_and_open_page
+
     expect(page).to have_content("Item Qui Esse")
     expect(page).to have_content("#{@item1.description}")
     expect(page).to have_content("#{@item1.unit_price}")
