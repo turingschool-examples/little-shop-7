@@ -4,6 +4,8 @@ RSpec.describe Merchant, type: :feature do
   before(:each) do 
     @merchant_1 = Merchant.create!(name: "Spongebob")
 
+    # @item_1 = @merchant_1.create!(name: "Krabby Patty", description: "yummy", unit_price: "999")
+
   end
 
   describe "visiting the admin/namespace show page" do 
@@ -34,6 +36,3 @@ RSpec.describe Merchant, type: :feature do
     end
   end
 end
-
-# (/merchants/:merchant_id/items)
-# (/merchants/:merchant_id/invoices)
