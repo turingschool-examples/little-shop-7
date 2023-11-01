@@ -53,11 +53,13 @@ RSpec.describe "merchant dashboard show page" do
     it "shows a list of the top 5 customers and a count of their successful transactions" do
       visit merchant_dashboard_path(@merchant_1)
 
-      expect(page).to have_content("1. #{@customer_succ_1.name} - 5 purchases")
-      expect(page).to have_content("2. #{@customer_succ_2.name} - 4 purchases")
-      expect(page).to have_content("3. #{@customer_succ_3.name} - 3 purchases")
-      expect(page).to have_content("4. #{@customer_succ_4.name} - 2 purchases")
-      expect(page).to have_content("5. #{@customer_succ_5.name} - 1 purchases")
+      expect(page).to have_content("1. #{@customer_succ_1.first_name} #{@customer_succ_1.last_name} - 5 purchases")
+      expect(page).to have_content("2. #{@customer_succ_2.first_name} #{@customer_succ_2.last_name} - 4 purchases")
+      expect(page).to have_content("3. #{@customer_succ_3.first_name} #{@customer_succ_3.last_name} - 3 purchases")
+      expect(page).to have_content("4. #{@customer_succ_4.first_name} #{@customer_succ_4.last_name} - 2 purchases")
+      expect(page).to have_content("5. #{@customer_succ_5.first_name} #{@customer_succ_5.last_name} - 1 purchases")
+      expect(@customer_succ_1.last_name).to appear_before(@customer_succ_2.last_name)
+      expect(page).to_not have_content(@customer_fail.first_name)
     end
   end
 end
