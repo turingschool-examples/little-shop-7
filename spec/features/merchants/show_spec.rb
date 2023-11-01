@@ -5,6 +5,7 @@ RSpec.describe "merchant dashboard index page" do
     @merchant_1 = create(:merchant)
   end
 
+  #user story 19
   it "shows the name of the merchant" do
     visit merchant_dashboard_path(@merchant_1)
 
