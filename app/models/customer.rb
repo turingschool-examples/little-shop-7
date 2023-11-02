@@ -12,6 +12,6 @@ class Customer < ApplicationRecord
   end
 
   def succ_transaction_count(merchant)
-    transactions.where(transactions: {result: 0}, merchants: {id: merchant.id}).count(:transactions)
+    transactions.where(result: 0, invoices: {merchant_id: merchant.id}).count
   end
 end
