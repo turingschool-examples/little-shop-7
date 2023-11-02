@@ -1,0 +1,9 @@
+<div class="header"><h1>Little Etsy Shop</h1></div>
+
+<ul>
+  <li><a> <%= @invoice.items.first.merchant.name %>'s Invoices </a></li>
+</ul>
+
+<p class="solid">My Invoice</p>
+
+<p>Invoice Status: <%= @invoice.status %></p>
