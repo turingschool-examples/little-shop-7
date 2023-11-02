@@ -7,11 +7,19 @@ RSpec.describe "admin dashboard index page" do
     @customer3 = create(:customer)
     @customer4 = create(:customer)
     @customer5 = create(:customer)
+    @customer6 = create(:customer)
 
     @invoice1 = @customer1.invoices.create(status: 1)
+    @invoice11 = @customer1.invoices.create(status: 1)
+    @invoice12 = @customer1.invoices.create(status: 1)
     @invoice2 = @customer2.invoices.create(status: 1)
+    @invoice22 = @customer2.invoices.create(status: 1)
     @invoice3 = @customer3.invoices.create(status: 1)
+    @invoice33 = @customer3.invoices.create(status: 1)
+    @invoice34 = @customer3.invoices.create(status: 1)
+    @invoice35 = @customer3.invoices.create(status: 1)
     @invoice4 = @customer4.invoices.create(status: 1)
+    @invoice4 = @customer4.invoices.create(status: 0)
     @invoice5 = @customer5.invoices.create(status: 1)
 
   end
@@ -21,7 +29,8 @@ RSpec.describe "admin dashboard index page" do
 
     expect(page).to have_content("Welcome to the Admin Dashboard")
   end
-
+  
+  #User story 21
   it "Displays the names of the top 5 customers" do
     visit admin_path
     expect(page).to have_content("Ilene Phannerstill, 7")
