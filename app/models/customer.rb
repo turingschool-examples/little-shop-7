@@ -16,5 +16,5 @@ class Customer < ApplicationRecord
       .order(num_transactions: :desc)
       .limit(5)
   end
-  
+
 end

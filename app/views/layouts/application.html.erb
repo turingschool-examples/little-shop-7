@@ -54,6 +54,9 @@
         text-align: center;
       }
     </style>
+     <% flash.each do |type, message| %>
+      <p><%= message %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

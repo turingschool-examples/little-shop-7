@@ -20,6 +20,7 @@ RSpec.describe "Admin Dashboard" do
       invoices.each{|id| create(:transaction, result: 1, invoice_id: id)}
       count-=1
     end
+    
   end
 
   ## USER STORY 19
