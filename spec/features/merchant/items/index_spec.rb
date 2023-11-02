@@ -51,7 +51,7 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
   describe "I see a link to create a new item - when I click the link, I am taken to a form that allows me to add item information" do
     describe "When I fill out the form I click 'Submit' and I am taken back to the items index page" do
       it "And I see the item I created and I see my item was created with a default status of disabled" do
-        visit "merchants/#{@merchant1.id}/items"
+        visit "/merchants/#{@merchant1.id}/items"
         
         expect(page).to have_link("Create A New Item")
         
@@ -64,13 +64,17 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(page).to have_content("Unit Price:")
         expect(page).to have_button("Submit")
 
-        fill_in "Name:", with: "Large Handbag"
-        fill_in "Description:", with: "Brown Leather"
-        fill_in "Unit Price:", with: 1500
+        fill_in("Name:", with: "Large Handbag")
+        fill_in("Description:", with: "Brown Leather")
+        fill_in("Unit Price:", with: 1500)
+        
         click_button "Submit"
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
-        expect(current_path).to eq("merchants/#{@merchant1.id}/items")
-
+        expect(page).to have_content("Large Handbag")
+        expect(page).to have_content("Brown Leather")
+        save_and_open_page
+        expect(page).to have_content(1500)
         #need default status as disabled
       end
     end
