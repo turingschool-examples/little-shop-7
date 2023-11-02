@@ -14,7 +14,6 @@ class Item < ApplicationRecord
   end
 
   def invoice_id
-    # return unless self.invoice_items.where(status: 1)
     return self.invoice_items.pluck(:invoice_id).first
     
   end

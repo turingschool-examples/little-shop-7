@@ -13,9 +13,9 @@ RSpec.describe "Merchant Dashboard", type: :feature do
     @customer_6 = Customer.create!(first_name: "Nicole", last_name: "Johnson")
     @customer_7 = Customer.create!(first_name: "Jackie", last_name: "Chan")
     
-    @invoice_1 = Invoice.create!(status: 0, customer_id: @customer_1.id)
+    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id)
     @invoice_2 = Invoice.create!(status: 2, customer_id: @customer_2.id)
-    @invoice_3 = Invoice.create!(status: 2, customer_id: @customer_3.id)
+    @invoice_3 = Invoice.create!(status: 1, customer_id: @customer_3.id)
     @invoice_4 = Invoice.create!(status: 2, customer_id: @customer_4.id)
     @invoice_5 = Invoice.create!(status: 2, customer_id: @customer_5.id)
     @invoice_6 = Invoice.create!(status: 2, customer_id: @customer_6.id)
@@ -45,21 +45,35 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         unit_price: 67076,
         merchant_id: @merchant1.id
       )
+      @item3 = Item.create!(
+        id: 3,
+        name: "Item Ea Voluptatum",
+        description:
+        "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non. Atque eveniet sed. Illum excepturi praesentium reiciendis voluptatibus eveniet odit perspiciatis. Odio optio nisi rerum nihil ut.",
+        unit_price: 32301,
+        merchant_id: @merchant1.id
+      )
     @customer1 = Customer.create!(id: 1, first_name: "Alan", last_name: "Smith")
-    @invoice1 = Invoice.create!(id: 1, status: 1, customer_id: @customer1.id)
-    @invoice2 = Invoice.create!(id: 2, status: 1, customer_id: @customer1.id)
+
     @invoice_item1 = InvoiceItem.create!(
       item_id: @item1.id,
-      invoice_id: @invoice1.id,
+      invoice_id: @invoice_1.id,
       quantity: 1,
       unit_price: @item1.unit_price,
       status: 1
     )
     @invoice_item2 = InvoiceItem.create!(
       item_id: @item2.id,
-      invoice_id: @invoice2.id,
+      invoice_id: @invoice_2.id,
       quantity: 1,
       unit_price: @item2.unit_price,
+      status: 0
+    )
+    @invoice_item3 = InvoiceItem.create!(
+      item_id: @item3.id,
+      invoice_id: @invoice_3.id,
+      quantity: 1,
+      unit_price: @item3.unit_price,
       status: 1
     )
 
@@ -116,10 +130,10 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
           visit "/merchants/#{@merchant1.id}/dashboard"
           
-          expect(page).to have_content(@invoice1.creation_date)
-          expect(page).to have_content(@invoice2.creation_date)
+          expect(page).to have_content(@invoice_1.creation_date)
+          expect(page).to have_content(@invoice_2.creation_date)
 save_and_open_page
-          expect(@invoice1.creation_date).to appear_before(@invoice2.creation_date)
+          expect(@invoice_1.creation_date).to appear_before(@invoice_2.creation_date)
         end
       end
     end
