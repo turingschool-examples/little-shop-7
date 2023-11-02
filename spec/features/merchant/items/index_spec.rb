@@ -75,4 +75,15 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       end
     end
   end
+
+  #User Story 12
+  describe "Top 5 Most Popular Items" do
+    describe "Displays the names of the top 5 most popular items ranked by revenue generated" do
+      it "I see each item linked to my merchant show page for an item and I see the total revenue generated next to each item name" do
+        visit "/merchants/#{@merchant1.id}/items"
+
+        expect(page).to have_content("Top 5 Most Popular Items:")
+      end
+    end
+  end
 end
