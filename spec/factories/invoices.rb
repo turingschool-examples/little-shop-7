@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :invoice do
     association :customer # automatically create a customer record when an invoice is created using factory bc of the foreign key association
 
-    status { Invoice.statuses.keys.sample } # Randomly pick one of the status keys from enum
+    status { rand(0..2) } # Randomly pick one of the status keys from enum
 
     after(:create) do |invoice|
       # Optionally create some related records after the invoice is created
