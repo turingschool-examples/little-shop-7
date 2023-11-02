@@ -72,7 +72,6 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
         expect(page).to have_link("Small Handbag")
-        #need default status as disabled
       end
     end
   end

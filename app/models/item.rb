@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
 
-  validates :merchant, presence: true
+  enum :status, {"enabled" => 0, "disabled" => 1}
 
   def invoice
     self.invoices.each do |invoice|
