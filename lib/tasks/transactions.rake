@@ -8,5 +8,6 @@ namespace :csv_load do
        hash = row.to_hash
        Transaction.create!(hash)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
 end
