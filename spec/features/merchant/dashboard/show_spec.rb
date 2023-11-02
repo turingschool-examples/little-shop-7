@@ -37,14 +37,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
       unit_price: 75107,
       merchant_id: @merchant1.id
     )
-    @customer1 = Customer.create!(id: 1, first_name: "Alan", last_name: "Smith")
-    @invoice1 = Invoice.create!(id: 1, status: 1, customer_id: @customer1.id)
-    @invoice_item = InvoiceItem.create!(
-      item_id: @item1.id,
-      invoice_id: @invoice1.id,
-      quantity: 1,
-      unit_price: @item1.unit_price
-    )
+
     @item2 = Item.create!( 
       id: 2,
       name: "Item Autem Minima",
