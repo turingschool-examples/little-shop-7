@@ -9,6 +9,10 @@ class MerchantItemsController < ApplicationController
     @merchant = @item.merchant
   end
 
+  def new
+    @merchant = Merchant.find(params[:id])
+  end
+
   def edit
     @item = Item.find(params[:id])
     @merchant = @item.merchant
@@ -21,6 +25,7 @@ class MerchantItemsController < ApplicationController
     redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
     flash.alert = "Item successfully updated"
   end
+
 
   private
   def item_params

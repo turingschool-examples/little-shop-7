@@ -54,8 +54,8 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         visit "merchants/#{@merchant1.id}/items"
         
         expect(page).to have_link("Create A New Item")
-        click_link("Create A New Item")
         
+        click_link("Create A New Item")
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
 
         expect(page).to have_content("Create A New Item")
