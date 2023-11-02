@@ -8,9 +8,7 @@ class Customer < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  # Move to Merchant model as top 5 customers belong to one merchant
-  def self.top_customers(merchant)
-
-    joins(invoices: :transactions).where(transactions: {result: 0}).select("customers.*, count(transactions)").group(:id).order(count: :desc).limit(5)
+  def self.top_five_customers(merchant)
+    joins(:transactions).joins(:merchants).where(transactions: {result: 0}, merchants: {id: merchant.id}).select("customers.*, count(transactions) as transaction_count").group(:id).order(transaction_count: :desc).limit(5)
   end
 end
