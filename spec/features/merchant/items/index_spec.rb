@@ -35,6 +35,13 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       unit_price: 4291,
       merchant_id: @merchant2.id
     )
+    @item5 = Item.create!(
+      id: 5,
+      name: "Item Expedita Aliquam",
+      description: "Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum. Enim illum labore voluptatem dicta consequatur. Consequatur sunt consequuntur ut officiis.",
+      unit_price: 68723,
+      merchant_id: @merchant2.id
+    )
   end
 
   # User Story 6
@@ -45,5 +52,14 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     expect(page).to have_content(@item2.name)
     expect(page).to have_content(@item3.name)
     expect(page).to_not have_content(@item4.name)
+  end
+
+  it "has a button to disable or enable the item" do
+    visit "merchants/#{@merchant2.id}/items"
+    # save_and_open_page
+    expect(page).to have_content(@item4.name)
+    expect(page).to have_content(@item5.name)
+    # expect(page).to have_button()
+  
   end
 end

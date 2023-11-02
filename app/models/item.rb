@@ -8,4 +8,8 @@ class Item < ApplicationRecord
       invoice
     end
   end
+
+  
+
+  enum status: {"disabled": 0, "enabled": 1}
 end
