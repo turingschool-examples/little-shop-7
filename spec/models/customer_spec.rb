@@ -51,7 +51,7 @@ RSpec.describe Customer, type: :model do
   describe "instance methods" do
     describe "#succ_transaction_count" do
       it "returns a count of successful transactions with a given merchant" do
-        expect(@customer_1.succ_transaction_count).to eq(5)
+        expect(@customer_1.succ_transaction_count(@merchant)).to eq(5)
       end
     end
   end

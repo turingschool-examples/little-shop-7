@@ -4,5 +4,5 @@
 <%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices", :merchant_id => @merchant.id%>
 
 <% @top_customers.each_with_index do |customer| %>
-  <%= "#{index}. #{customer.first_name} #{customer.last_name} - #{} purchases" %>
+  <%= "#{index}. #{customer.first_name} #{customer.last_name} - #{customer.succ_transaction_count} purchases" %>
 <% end %>

@@ -10,4 +10,8 @@ class Customer < ApplicationRecord
   def self.top_five_customers(merchant)
     joins(:transactions).joins(:merchants).where(transactions: {result: 0}, merchants: {id: merchant.id}).select("customers.*, count(transactions) as transaction_count").group(:id).order(transaction_count: :desc).limit(5)
   end
+
+  def succ_transaction_count(merchant)
+    transactions.where(transactions: {result: 0}, merchants: {id: merchant.id}).count(:transactions)
+  end
 end
