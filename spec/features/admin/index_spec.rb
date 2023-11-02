@@ -21,6 +21,7 @@ RSpec.describe '/admin' do
         @invoice7 = Invoice.create!(status: "completed", customer_id: @customer7.id)
         @invoice8 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
         @invoice9 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
+        @invoice10 = Invoice.create!(status: "cancelled", customer_id: @customer7.id)
 
         @tranaction1 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
         @tranaction2 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
@@ -99,6 +100,7 @@ RSpec.describe '/admin' do
           expect(page).to have_link(@invoice8.id)
           expect(page).to have_link(@invoice9.id)
           expect(page).to_not have_link(@invoice7.id)
+          expect(page).to_not have_link(@invoice10.id)
         end
 
         click_link(@invoice8.id)
