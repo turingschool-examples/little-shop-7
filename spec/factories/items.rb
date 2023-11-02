@@ -3,8 +3,8 @@ require "faker"
 FactoryBot.define do
   factory :item do
     name { Faker::Commerce.product_name }
-    description { Faker::Marketing.buzzwords }
-    unit_price { rand(10000..99999) }
+    description { Faker::Lorem.sentence }
+    unit_price { Faker::Number.number(digits: 5) } # adjust range as necessary
     association :merchant
   end
 end

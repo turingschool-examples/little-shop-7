@@ -10,4 +10,10 @@ class Customer < ApplicationRecord
   def self.top_five_customers(merchant)
     joins(:transactions).joins(:merchants).where(transactions: {result: 0}, merchants: {id: merchant.id}).select("customers.*, count(transactions) as transaction_count").group(:id).order(transaction_count: :desc).limit(5)
   end
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end

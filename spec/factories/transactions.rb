@@ -1,10 +1,10 @@
-require "faker"
+require 'faker'
 
 FactoryBot.define do
   factory :transaction do
-    credit_card_expiration_date { rand(1..12).to_s + "/" + rand(23..30).to_s }
     credit_card_number { Faker::Number.number(digits: 16) }
-    result { rand(0..1) }
+    credit_card_expiration_date { Faker::Date.forward(days: 365).strftime('%m/%y') } # 1 year in future
+    result { ["success", "failed"].sample } 
     association :invoice
   end
 end
