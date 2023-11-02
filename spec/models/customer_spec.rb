@@ -34,13 +34,12 @@ RSpec.describe Customer, type: :model do
     @transactions_succ_3 = create_list(:transaction, 3, result: 0, invoice: @invoice_succ_3)
     @transactions_succ_4 = create_list(:transaction, 2, result: 0, invoice: @invoice_succ_4)
     @transactions_succ_5 = create_list(:transaction, 1, result: 0, invoice: @invoice_succ_5)
-    @transactions_fail = create_list(:transaction, 5, result: 1, invoice: @invoice_fail)
+    @transactions_fail = create_list(:transaction, 10, result: 1, invoice: @invoice_fail)
   end
 
   describe "class methods" do
     describe ".top_customers" do
       it "returns a list of customers with largest number of successful transactions for a merchant" do
-        require 'pry'; binding.pry
         expect(Customer.top_customers(@merchant)).to eq([@customer_succ_1, @customer_succ_2, @customer_succ_3, @customer_succ_4, @customer_succ_5])
       end
     end

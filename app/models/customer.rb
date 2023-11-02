@@ -9,6 +9,6 @@ class Customer < ApplicationRecord
   validates :last_name, presence: true
 
   def self.top_customers(merchant)
-    
+    joins(invoices: :transactions).where(transactions: {result: 0}).select("customers.*, count(transactions)").group(:id).order(count: :desc).limit(5)
   end
 end
