@@ -22,3 +22,12 @@
     <% end %>
  </div>
 </div>   
+
+<div class="subhead">
+  <section class="Incomplete Invoices">
+    <h3>Incomplete Invoices</h3>
+    <% @invoices.incomplete.each do |invoice| %>
+      <li>ID: <%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></li>
+    <% end %>
+  </section>
+</div>  

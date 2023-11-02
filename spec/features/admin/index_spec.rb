@@ -19,6 +19,9 @@ RSpec.describe '/admin' do
         @invoice5 = Invoice.create!(status: "completed", customer_id: @customer5.id)
         @invoice6 = Invoice.create!(status: "completed", customer_id: @customer6.id)
         @invoice7 = Invoice.create!(status: "completed", customer_id: @customer7.id)
+        @invoice8 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
+        @invoice9 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
+        @invoice10 = Invoice.create!(status: "cancelled", customer_id: @customer7.id)
 
         @tranaction1 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
         @tranaction2 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: "success")
@@ -86,6 +89,23 @@ RSpec.describe '/admin' do
         expect(page).to have_content("#{@customer5.full_name}: 2 successful orders")
         expect(page).to have_content("#{@customer6.full_name}: 1 successful orders")
         expect(page).to_not have_content("#{@customer2.full_name}")
+      end
+
+      # US 22, Admin Dashboard Incomplete Invoices
+      it 'has a section for incomplete invoices' do
+        visit '/admin'
+
+        expect(page).to have_content("Incomplete Invoices")
+        within('section', :text => "Incomplete Invoices") do
+          expect(page).to have_link(@invoice8.id)
+          expect(page).to have_link(@invoice9.id)
+          expect(page).to_not have_link(@invoice7.id)
+          expect(page).to_not have_link(@invoice10.id)
+        end
+
+        click_link(@invoice8.id)
+
+        expect(current_path).to eq("/admin/invoices/#{@invoice8.id}")
       end
     end
   end
