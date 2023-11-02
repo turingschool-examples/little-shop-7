@@ -15,6 +15,6 @@ RSpec.describe Customer, type: :model do
     customer = create(:customer)
     invoice = create(:invoice, customer: customer)
     transaction = create(:transaction, invoice: invoice)
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
   end
 end
