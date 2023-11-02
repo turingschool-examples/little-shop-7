@@ -2,15 +2,15 @@
 <h1><%= @merchant.name %></h1>
 </div>
 
+<section id="ready_to_ship">
 <h3>Items Ready To Ship</h3>
   <% @merchant.items.each do |item| %>
-  <p><%= item.packaged? %>
-  <%=item.invoice_ids%></p>
-
-      <%# <%= item.name %> 
-      <%# <%=link_to "Invoice ID", "/merchants/#{@merchant.id}/invoices/#{item.invoice_ids}" %>
-  <%# <% end %> 
+    <p><%= item.packaged? %>
+    <%item.invoice_ids.each do |invoice_id|%>
+      <%=link_to "Invoice #{invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice_id}"  %>
+    <% end %> </p>
   <% end %>
+</section>
 
 <p><%= link_to "Items", "/merchants/#{@merchant.id}/items" %></p>
 <p><%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices" %></p>

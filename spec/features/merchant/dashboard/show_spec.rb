@@ -59,9 +59,8 @@ RSpec.describe "Merchant Dashboard", type: :feature do
       it "I see the name of my merchant" do
 
         visit "/merchants/#{@merchant1.id}/dashboard"
-save_and_open_page
         expect(page).to have_content(@merchant1.name)
-        # expect(page).to_not have_content(@merchant2.name)
+        expect(page).to_not have_content(@merchant2.name)
       end
       
       it "I see a link to my merchant items index" do 
@@ -99,6 +98,19 @@ save_and_open_page
         end
       end
 
+      describe "Merchant Dashboard ready to ship" do
+        it 'tells items that are ready to ship' do
+          visit "/merchants/#{@merchant1.id}/dashboard"
+          expect(page).to have_content("Items Ready To Ship")
+          within("section#ready_to_ship") do
+            expect(page).to have_content(@item1.name)
+            expect(page).to_not have_content(@item2.name)
+            expect(page).to have_link("Invoice #{@invoice_item1.invoice_id}")
+            click_link("Invoice #{@invoice_item1.invoice_id}")
+            expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item1.invoice_id}")
+          end
+        end
+      end
     end
   end
 end
