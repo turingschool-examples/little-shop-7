@@ -45,7 +45,7 @@ RSpec.describe "merchant dashboard index page" do
   #user story 2
 
 
- main
+
   describe "Merchant Dashboard Links" do
     # US 2
     it "shows links to merchant items index and merchant invoices index" do
