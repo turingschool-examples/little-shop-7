@@ -40,12 +40,20 @@ RSpec.describe Customer, type: :model do
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
     @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5)
     @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6)
-    @transaction_1 = create(:transaction, invoice: @invoice_1, result: 0)
-    @transaction_2 = create(:transaction, invoice: @invoice_2, result: 0)
-    @transaction_3 = create(:transaction, invoice: @invoice_3, result: 0)
-    @transaction_4 = create(:transaction, invoice: @invoice_4, result: 0)
-    @transaction_5 = create(:transaction, invoice: @invoice_5, result: 0)
+    @transaction_1 = create_list(:transaction, 5, invoice: @invoice_1, result: 0)
+    @transaction_2 = create_list(:transaction, 4, invoice: @invoice_2, result: 0)
+    @transaction_3 = create_list(:transaction, 3, invoice: @invoice_3, result: 0)
+    @transaction_4 = create_list(:transaction, 2, invoice: @invoice_4, result: 0)
+    @transaction_5 = create_list(:transaction, 1, invoice: @invoice_5, result: 0)
     @transaction_6 = create(:transaction, invoice: @invoice_6, result: 1)
+  end
+
+  describe "instance methods" do
+    describe "#succ_transaction_count" do
+      it "returns a count of successful transactions with a given merchant" do
+        expect(@customer_1.succ_transaction_count).to eq(5)
+      end
+    end
   end
 
   describe "class methods" do
