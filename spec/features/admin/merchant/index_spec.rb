@@ -13,7 +13,7 @@ RSpec.describe "Admin Merchants Index", type: feature do
     merch8 = Merchant.create!({name: "Hand-Spencer"})
 
     visit "/admin/merchants"
-    save_and_open_page
+
     expect(page).to have_content("#{merch1.name}")
     expect(page).to have_content("#{merch2.name}")
     expect(page).to have_content("#{merch3.name}")
