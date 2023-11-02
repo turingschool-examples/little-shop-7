@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   root "welcome#index"
   namespace :admin do
     get "/", to: "dashboards#welcome"
+    resource :merchants, only: :show, to: "merchants#show"
   end
 end
