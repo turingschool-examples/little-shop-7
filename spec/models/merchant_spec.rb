@@ -45,12 +45,24 @@ RSpec.describe Merchant, type: :model do
 
   describe "instance methods" do
     describe "#top_five_customers" do
-      it "returns a list of customers with largest number of successful transactions for a merchant" do
-        expect(@merchant.top_five_customers).to eq({@customer_1.id => 5, @customer_2.id => 4, @customer_3.id => 3, @customer_4.id => 2, @customer_5.id => 1})
+      it "returns an array of customers with largest number of successful transactions for a merchant" do
+        expect(@merchant.top_five_customers).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
       end
 
       it "only counts successful transactions" do
         expect(@merchant.top_five_customers).to_not include(@customer_6)
+      end
+    end
+
+    describe "#top_five_customers_count" do
+      it "returns a hash of customers ids and transaction counts for top five customers" do
+        expected = {@customer_1.id => 5, 
+                  @customer_2.id => 4, 
+                  @customer_3.id => 3, 
+                  @customer_4.id => 2, 
+                  @customer_5.id => 1}
+
+        expect(@merchant.top_five_customers_count).to eq(expected)
       end
     end
   end

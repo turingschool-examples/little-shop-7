@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Customer, type: :model do
-  before :each do
-    @customer = create(:customer)
-  end
-
   describe "relationships" do
     it { should have_many(:invoices)}
     it { should have_many(:transactions).through(:invoices) }
@@ -17,15 +13,6 @@ RSpec.describe Customer, type: :model do
     it {should validate_presence_of(:first_name)}
     it {should validate_presence_of(:last_name)}
   end
-
-  describe "instance methods" do
-    describe "#full_name" do
-      it "can return the full name of the customer'" do
-        expect(@customer.full_name).to eq("#{@customer.first_name} #{@customer.last_name}")
-      end
-    end
-  end
-end
 
   before(:each) do
     @merchant = create(:merchant)
@@ -60,23 +47,11 @@ end
     @transaction_5 = create_list(:transaction, 1, invoice: @invoice_5, result: 0)
     @transaction_6 = create(:transaction, invoice: @invoice_6, result: 1)
   end
-
-  # describe "instance methods" do
-  #   describe "#succ_transaction_count" do
-  #     it "returns a count of successful transactions with a given merchant" do
-  #       expect(@customer_1.succ_transaction_count(@merchant)).to eq(5)
-  #     end
-  #   end
-  # end
-
-  describe "class methods" do
-    describe ".top_five_customers" do
-      it "returns a list of customers with largest number of successful transactions for a merchant" do
-        expect(Customer.top_five_customers(@merchant)).to eq([@customer_1, @customer_2, @customer_3, @customer_4, @customer_5])
-      end
-
-      it "only counts successful transactions" do
-        expect(Customer.top_five_customers(@merchant)).to_not include(@customer_6)
+  
+  describe "instance methods" do
+    describe "#full_name" do
+      it "can return the full name of the customer'" do
+        expect(@customer_1.full_name).to eq("#{@customer_1.first_name} #{@customer_1.last_name}")
       end
     end
   end

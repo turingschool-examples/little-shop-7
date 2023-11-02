@@ -1,8 +1,8 @@
 <%= @merchant.name %>
 <br>
 <%= link_to "Items", "/merchants/#{@merchant.id}/items", :merchant_id => @merchant.id%>
-<%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices", :merchant_id => @merchant.id%>
+<%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices", :merchant_id => @merchant.id%></br>
 
-<% @top_customers.each_with_index do |customer| %>
-  <%= "#{index}. #{customer.first_name} #{customer.last_name} - #{customer.succ_transaction_count} purchases" %>
+<% @top_customers.each_with_index do |customer, index| %>
+  <%= "#{index + 1}. #{customer.full_name} - #{@merchant.top_five_customers_count[customer.id]} purchases" %></br>
 <% end %>
