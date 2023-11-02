@@ -1,4 +1,6 @@
-class Dashboard < ApplicationRecord
+class Admin::Dashboard < ApplicationRecord
+  include ActiveModel::Model
+  
   def top_5
     Customer
     .select("customers.id, customers.first_name, customers.last_name, COUNT(invoices.customer_id) AS transaction_count")

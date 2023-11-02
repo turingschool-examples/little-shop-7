@@ -1,6 +1,21 @@
 require "rails_helper"
 
 RSpec.describe "admin dashboard index page" do
+  before(:each) do
+    @customer1 = create(:customer)
+    @customer2 = create(:customer)
+    @customer3 = create(:customer)
+    @customer4 = create(:customer)
+    @customer5 = create(:customer)
+
+    @invoice1 = @customer1.invoices.create(status: 1)
+    @invoice2 = @customer2.invoices.create(status: 1)
+    @invoice3 = @customer3.invoices.create(status: 1)
+    @invoice4 = @customer4.invoices.create(status: 1)
+    @invoice5 = @customer5.invoices.create(status: 1)
+
+  end
+
   it "Displays a admin dashboard header" do
     visit admin_path
 
