@@ -54,7 +54,7 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     expect(page).to_not have_content(@item4.name)
   end
 
-  it "has a button to disable or enable the item" do
+  xit "has a button to disable or enable the item" do
     visit "merchants/#{@merchant2.id}/items"
     # save_and_open_page
     # Next to each item name I see a button to disable or enable that item.

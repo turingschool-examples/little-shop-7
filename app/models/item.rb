@@ -3,13 +3,14 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
 
-  def invoice
-    self.invoices.each do |invoice|
-      invoice
-    end
+  def invoice_ids
+    self.invoice_items.where(status: 1).pluck(:invoice_id)
+    
   end
 
-  
+  def packaged?
+    return unless self.invoice_items.includes(:invoice_items).where(status: 1).exists?
+    return self.name
+  end
 
-  enum status: {"disabled": 0, "enabled": 1}
 end

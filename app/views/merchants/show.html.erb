@@ -4,10 +4,12 @@
 
 <h3>Items Ready To Ship</h3>
   <% @merchant.items.each do |item| %>
-  <p><%= item.name %> 
-  <%= item.invoice.each do |invoice| %>
-    <%= link_to "Invoice ID", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %></p>
-  <% end %>
+  <p><%= item.packaged? %>
+  <%=item.invoice_ids%></p>
+
+      <%# <%= item.name %> 
+      <%# <%=link_to "Invoice ID", "/merchants/#{@merchant.id}/invoices/#{item.invoice_ids}" %>
+  <%# <% end %> 
   <% end %>
 
 <p><%= link_to "Items", "/merchants/#{@merchant.id}/items" %></p>
