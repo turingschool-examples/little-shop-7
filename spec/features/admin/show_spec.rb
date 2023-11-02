@@ -31,6 +31,7 @@ RSpec.describe "admin dashboard index page" do
 
     expect(page).to have_content("Welcome to the Admin Dashboard")
   end
+  
   #user story 20
   it "has a link to the admin merchant index" do
     # visit("/admin/dashboard")
