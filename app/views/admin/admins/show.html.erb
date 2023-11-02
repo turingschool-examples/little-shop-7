@@ -1,0 +1,6 @@
+<h1>Welcome to the Admin Dashboard</h1>
+<p><%= link_to "Admin Merchants", admin_merchants_path%></p>
+<p><%= link_to "Admin Invoices", admin_invoices_path%></p>
+<% @top5.each_with_index do |customer, index| %>
+  <p><%= "#{index}. #{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases" %></p>
+<% end %>
