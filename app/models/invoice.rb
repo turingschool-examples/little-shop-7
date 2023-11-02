@@ -6,7 +6,11 @@ class Invoice < ApplicationRecord
   
   enum status: {"cancelled": 0, "in progress": 1, "completed": 2}
 
-  def self.incomplete
-    where(status: 1)
+  def self.incomplete_by_creation_date
+    where(status: 1).order(:created_at)
+  end
+
+  def creation_date
+    created_at.strftime "%A, %B %-d, %Y"
   end
 end
