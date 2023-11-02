@@ -37,7 +37,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
       unit_price: 75107,
       merchant_id: @merchant1.id
       )
-      
       @item2 = Item.create!( 
         id: 2,
         name: "Item Autem Minima",
@@ -45,13 +44,28 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         "Cumque consequuntur ad.",
         unit_price: 67076,
         merchant_id: @merchant1.id
-        )
-        
-        @invoice_item1 = InvoiceItem.create!(quantity: 5, unit_price: 10, status: 1, item_id: @item1.id, invoice_id: @invoice_1.id)
-        @invoice_item2 = InvoiceItem.create!(quantity: 3, unit_price: 15, status: 0, item_id: @item2.id, invoice_id: @invoice_1.id)
-        @invoice_item3 = InvoiceItem.create!(quantity: 18, unit_price: 10, status: 1, item_id: @item1.id, invoice_id: @invoice_2.id)
-        @invoice_item4 = InvoiceItem.create!(quantity: 7, unit_price: 15, status: 0, item_id: @item2.id, invoice_id: @invoice_3.id)
-      end
+      )
+    @customer1 = Customer.create!(id: 1, first_name: "Alan", last_name: "Smith")
+    @invoice1 = Invoice.create!(id: 1, status: 1, customer_id: @customer1.id)
+    @invoice2 = Invoice.create!(id: 2, status: 1, customer_id: @customer1.id)
+    @invoice_item1 = InvoiceItem.create!(
+      item_id: @item1.id,
+      invoice_id: @invoice1.id,
+      quantity: 1,
+      unit_price: @item1.unit_price,
+      status: 1
+    )
+    @invoice_item2 = InvoiceItem.create!(
+      item_id: @item2.id,
+      invoice_id: @invoice2.id,
+      quantity: 1,
+      unit_price: @item2.unit_price,
+      status: 1
+    )
+
+
+
+  end
 
   describe "As a merchant" do
     #User Story 1
@@ -86,6 +100,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         #User Story 3
         it "shows names of the top five customers" do
           visit "/merchants/#{@merchant1.id}/dashboard"
+          
           expect(page).to have_content("Top 5 Customers")
           expect(page).to have_content("Susan Robinson Successful Transactions: 1")
           expect(page).to have_content("Jessica Simpson Successful Transactions: 1")
@@ -96,18 +111,15 @@ RSpec.describe "Merchant Dashboard", type: :feature do
           expect(page).to_not have_content("John Jacobs")
         end
       end
-
-      describe "Merchant Dashboard ready to ship" do
-        it 'tells items that are ready to ship' do
+      #User Story 5
+      describe "In the section 'Items Ready to Ship'" do
+        it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
           visit "/merchants/#{@merchant1.id}/dashboard"
-          expect(page).to have_content("Items Ready To Ship")
-          within("section#ready_to_ship") do
-            expect(page).to have_content(@item1.name)
-            expect(page).to_not have_content(@item2.name)
-            expect(page).to have_link("Invoice #{@invoice_item1.invoice_id}")
-            click_link("Invoice #{@invoice_item1.invoice_id}")
-            expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item1.invoice_id}")
-          end
+          
+          expect(page).to have_content(@invoice1.creation_date)
+          expect(page).to have_content(@invoice2.creation_date)
+save_and_open_page
+          expect(@invoice1.creation_date).to appear_before(@invoice2.creation_date)
         end
       end
     end

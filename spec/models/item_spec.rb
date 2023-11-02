@@ -22,7 +22,7 @@ RSpec.describe Item, type: :model do
       invoice1 = Invoice.create!(id: 1, status: 1, customer_id: customer1.id)
       invoice_item = InvoiceItem.create!(quantity: 5, unit_price: 10, status: 1, item_id: item1.id, invoice_id: invoice1.id)
 
-      expect(item1.packaged).to eq(item1.name)
+      expect(item1.packaged).to eq(item1)
     
     end
   end
