@@ -6,6 +6,7 @@
   <% @merchant.items.each do |item| %>
   <p><%= item.name %> 
   <% item.invoice.each do |invoice| %>
+    Invoice Creation Date: <%= invoice.created_at.strftime("%A, %B %-d, %Y") %>
     <%= link_to "Invoice ID", "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %></p>
   <% end %>
   <% end %>

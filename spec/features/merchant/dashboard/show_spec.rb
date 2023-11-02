@@ -48,7 +48,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
     )
     @customer1 = Customer.create!(id: 1, first_name: "Alan", last_name: "Smith")
     @customer2 = Customer.create!(id: 2, first_name: "Steve", last_name: "Johnson")
-    @invoice1 = Invoice.create!(id: 1, status: 1, customer_id: @customer1.id)
+    @invoice1 = Invoice.create!(id: 1, status: 1, customer_id: @customer1.id, created_at: "11/2/2014")
     @invoice2 = Invoice.create!(id: 2, status: 1, customer_id: @customer2.id)
     @invoice_item = InvoiceItem.create!(
       item_id: @item1.id,
@@ -98,7 +98,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         #User Story 3
         it "shows names of the top five customers" do
           visit "/merchants/#{@merchant1.id}/dashboard"
-
+          
           expect(page).to have_content("Top 5 Customers")
           expect(page).to have_content("Susan Robinson Successful Transactions: 1")
           expect(page).to have_content("Jessica Simpson Successful Transactions: 1")
@@ -112,11 +112,12 @@ RSpec.describe "Merchant Dashboard", type: :feature do
       #User Story 5
       describe "In the section 'Items Ready to Ship'" do
         it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
+          visit "/merchants/#{@merchant1.id}/dashboard"
           
           expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %-d, %Y"))
           expect(page).to have_content(@invoice2.created_at.strftime("%A, %B %-d, %Y"))
 
-          expect(@invoice2.created_at.strftime("%A, %B %-d, %Y")).to appear_before(@invoice1.created_at.strftime("%A, %B %-d, %Y"))
+          expect(@invoice1.created_at.strftime("%A, %B %-d, %Y")).to appear_before(@invoice2.created_at.strftime("%A, %B %-d, %Y"))
         end
       end
     end
