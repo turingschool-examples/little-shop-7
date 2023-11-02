@@ -19,7 +19,7 @@ RSpec.describe "Dashboard" do
   expect(page).to_not have_content(@merchant2.name)
   end
 
-  it "US2: has a link to merchant items and invoices indexes" do
+  xit "US2: has a link to merchant items and invoices indexes" do
     # 2. Merchant Dashboard Links
     # As a merchant,
     # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)

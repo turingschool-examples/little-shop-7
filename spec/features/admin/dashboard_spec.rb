@@ -56,9 +56,13 @@ RSpec.describe "Admin Dashboard" do
 
   ## USER STORY 21
   it "when visiting the dashboard, the names of the top 5 customers with the largest number of successful transactions appears" do
-    visit "/admin
-    # expected_results = 
-    # binding.pry
-    # top_5_customers = 12
+    visit "/admin"
+    testing_hash = {}
+    Customer.all.each{|c| testing_hash[c.id] = c.transactions.map{|t| t.result=="success"}.count(true)}
+    top_5_customers = testing_hash.sort_by{|k, v| -v}.to_h.first(5).map{|set| set.first}
+    expect(page).to have_content("Top 5 Customers with Successful Transactions:")
+    top_5_customers.each do |id|
+      expect(page).to have_content(Customer.find(id: id))
+    end
   end
 end
