@@ -6,12 +6,15 @@ RSpec.describe "merchant dashboard index page" do
     # @item_1 = create(:item)
   end
 
+  # US 1
   it "shows the name of the merchant" do
     visit merchant_dashboard_path(@merchant_1)
 
     expect(page).to have_content(@merchant_1.name)
   end
+
   describe "Merchant Dashboard Links" do
+    # US 2
     it "shows links to merchant items index and merchant invoices index" do
       visit merchant_dashboard_path(@merchant_1)
       
