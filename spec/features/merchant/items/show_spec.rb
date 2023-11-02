@@ -39,17 +39,8 @@ RSpec.describe 'Merchant item update' do
         expect(page).to have_content("Item Name: Paper")
         expect(page).to have_content("Item Description: Paper for writing")
         expect(page).to have_content("Item Unit Price: 10")
-        # expect(page).to have_content("Update successful")
+        expect(page).to have_content("Update successful")
       end
-    end
-
-    it 'testing invoices' do
-      merchant = create(:merchant)
-      customer = create(:customer)
-      item = create(:item, merchant_id: merchant.id)
-      invoice = create(:invoice, customer_id: customer.id)
-      invoice_item = create(:invoice_item, invoice_id: invoice.id, item_id: item.id)
-      # require 'pry'; binding.pry
     end
   end
 end
