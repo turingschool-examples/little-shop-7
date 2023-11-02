@@ -46,4 +46,13 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     expect(page).to have_content(@item3.name)
     expect(page).to_not have_content(@item4.name)
   end
+
+  #User Story 11
+  describe "I see a link to create a new item - when I click the link, I am taken to a form that allows me to add item information" do
+    describe "When I fill out the form I click 'Submit' and I am taken back to the items index page" do
+      it "And I see the item I created and I see my item was created with a default status of disabled" do
+
+      end
+    end
+  end
 end
