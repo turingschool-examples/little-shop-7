@@ -20,7 +20,19 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content(@item2.name)
         expect(page).to have_content(@item3.name)
         expect(page).to_not have_content(@item4.name)
-        save_and_open_page
+      end
+
+      it 'when I click on an item, it takes to the the show page' do
+        #US 7
+        visit "/merchants/#{@merchant1.id}/items"
+
+        click_on "#{@item1.name}"
+
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+
+        expect(page).to have_content("Item Name: #{@item1.name}")
+        expect(page).to have_content("Item Description: #{@item1.description}")
+        expect(page).to have_content("Item Unit Price: #{@item1.unit_price}")
       end
     end
   end
