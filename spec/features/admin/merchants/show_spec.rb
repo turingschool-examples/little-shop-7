@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "the employees show page" do
+RSpec.describe "the merchants show page" do
   before(:each) do
     @merchant1 = Merchant.create!(name: "Sooyung LLC")
     @merchant2 = Merchant.create!(name: "Joseph LLC")
@@ -9,7 +9,9 @@ RSpec.describe "the employees show page" do
   end
 
   it "takes me to the merchant's admin show page when i click the link, which has the merchant name listed there" do
-    visit "/admin/merchants/#{@merchant1.id}"
+    visit "/admin/merchants"
+    click_on("#{@merchant1.name}")
+    expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}")
     expect(page).to have_content(@merchant1.name)
   end
 end
