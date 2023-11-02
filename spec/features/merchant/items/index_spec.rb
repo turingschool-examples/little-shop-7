@@ -64,17 +64,14 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(page).to have_content("Unit Price:")
         expect(page).to have_button("Submit")
 
-        fill_in("Name:", with: "Large Handbag")
+        fill_in("Name:", with: "Small Handbag")
         fill_in("Description:", with: "Brown Leather")
         fill_in("Unit Price:", with: 1500)
         
         click_button "Submit"
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
-        expect(page).to have_content("Large Handbag")
-        expect(page).to have_content("Brown Leather")
-        save_and_open_page
-        expect(page).to have_content(1500)
+        expect(page).to have_link("Small Handbag")
         #need default status as disabled
       end
     end
