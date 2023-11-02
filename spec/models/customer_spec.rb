@@ -17,4 +17,12 @@ RSpec.describe Customer, type: :model do
     transaction = create(:transaction, invoice: invoice)
       # require 'pry'; binding.pry
   end
+
+  describe "#name" do
+    it "will return the first and last name of the customer as one" do
+      customer = create(:customer)
+      full_name = customer.first_name + " " + customer.last_name
+      expect(customer.name).to eq(full_name)
+    end
+  end
 end
