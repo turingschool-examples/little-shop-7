@@ -68,7 +68,7 @@ RSpec.describe '/admin' do
       # US 21, Admin Dashboard Statistics - Top Customers
       it 'gives names of the top 5 customers' do
         visit '/admin'
-
+    
         expect(page).to have_content(@customer1.full_name)
         expect(page).to have_content(@customer3.full_name)
         expect(page).to have_content(@customer4.full_name)
@@ -77,16 +77,16 @@ RSpec.describe '/admin' do
         expect(page).to_not have_content(@customer2.full_name)
       end
 
-      # it 'gives number of successful transactions they have conducted' do
-      #   visit '/admin'
-
-      #   expect(page).to have_content(@customer1.name)
-      #   expect(page).to have_content(@customer3.name)
-      #   expect(page).to have_content(@customer4.name)
-      #   expect(page).to have_content(@customer5.name)
-      #   expect(page).to have_content(@customer6.name)
-      #   expect(page).to_not have_content(@customer2.name)
-      # end
+      it 'gives number of successful transactions they have conducted' do
+        visit '/admin'
+ 
+        expect(page).to have_content("#{@customer1.full_name}: 3 successful orders")
+        expect(page).to have_content("#{@customer3.full_name}: 2 successful orders")
+        expect(page).to have_content("#{@customer4.full_name}: 2 successful orders")
+        expect(page).to have_content("#{@customer5.full_name}: 2 successful orders")
+        expect(page).to have_content("#{@customer6.full_name}: 1 successful orders")
+        expect(page).to_not have_content("#{@customer2.full_name}")
+      end
     end
   end
 end
