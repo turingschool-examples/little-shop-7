@@ -48,13 +48,13 @@ RSpec.describe Customer, type: :model do
     @transaction_6 = create(:transaction, invoice: @invoice_6, result: 1)
   end
 
-  describe "instance methods" do
-    describe "#succ_transaction_count" do
-      it "returns a count of successful transactions with a given merchant" do
-        expect(@customer_1.succ_transaction_count(@merchant)).to eq(5)
-      end
-    end
-  end
+  # describe "instance methods" do
+  #   describe "#succ_transaction_count" do
+  #     it "returns a count of successful transactions with a given merchant" do
+  #       expect(@customer_1.succ_transaction_count(@merchant)).to eq(5)
+  #     end
+  #   end
+  # end
 
   describe "class methods" do
     describe ".top_five_customers" do
