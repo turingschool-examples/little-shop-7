@@ -16,6 +16,6 @@ Rails.application.routes.draw do
     get "/", to: "admins#show"
 
     resources :invoices, only: [:index, :show]
-    resources :merchants, only: :index
+    resources :merchants, only: [:index, :show]
   end
 end

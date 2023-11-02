@@ -37,24 +37,25 @@ RSpec.describe "admin dashboard index page" do
 
   #user story 19
   it "Displays a admin dashboard header" do
-    visit("/admin")
-    # visit admin_dashboard_path
+    # visit("/admin")
+    visit admin_path
 
     expect(page).to have_content("Welcome to the Admin Dashboard")
   end
 
   #user story 20
-  xit "has a link to the admin merchant index" do
-    visit("/admin")
-    # visit admin_dashboard_path
+  it "has a link to the admin merchant index" do
+    # visit("/admin")
+    visit admin_path
+
     # expect(page).to have_link("Admin Merchants", href: "/admin/merchants")
     click_link("Admin Merchants")
     expect(current_path).to eq(admin_merchants_path)
   end
 
-  xit "has a link to the admin admin invoice index" do
-     visit("/admin")
-    # visit admin_dashboard_path
+  it "has a link to the admin admin invoice index" do
+    #  visit("/admin")
+    visit admin_path
     # expect(page).to have_link("Admin Invoices", href: "/admin/invoices")
     expect(page).to have_link("Admin Invoices")
     click_link("Admin Invoices")
@@ -64,7 +65,8 @@ RSpec.describe "admin dashboard index page" do
 
   #User story 21
   it "Displays the names of the top 5 customers" do
-    visit("/admin")
+    # visit("/admin")
+    visit admin_path
     expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 purchases")
     expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 purchases")
     expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
