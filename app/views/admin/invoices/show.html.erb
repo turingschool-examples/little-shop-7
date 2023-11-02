@@ -1,1 +1,8 @@
-<h1>Invoice <%= @invoice.id %> Show Page </h1>
+<h1>Invoice ID #<%= @invoice.id %> Show Page </h1>
+
+<section class="invoice-details">
+  <p><strong>ID:</strong> #<%= @invoice.id %></p>
+  <p><strong>Status:</strong> <%= @invoice.status %></p>
+  <p><strong>Customer:</strong> <%= @invoice.customer.full_name %></p>
+  <p><strong>Created Date:</strong> <%= @invoice.date_format %></p>
+</section>

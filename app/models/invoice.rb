@@ -7,4 +7,8 @@ class Invoice < ApplicationRecord
   validates :status, presence: true
 
   enum :status, {"in progress": 0, "completed": 1, "cancelled": 2}
+
+  def date_format
+    self.created_at.strftime("%A, %B %d, %Y")
+  end
 end
