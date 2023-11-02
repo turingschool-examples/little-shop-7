@@ -2,3 +2,13 @@
 <br>
 <%= link_to "Items", "/merchants/#{@merchant.id}/items", :merchant_id => @merchant.id%>
 <%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices", :merchant_id => @merchant.id%>
+
+<section>
+  <h1>Items Ready to Ship</h1>
+  <% if @invoice.status != 2 %>
+    <% @invoice.items.each do |item| %>
+      <p><%= item.name %> Invoice ID:<%= link_to "#{@invoice.id}", "/merchants/#{@merchant.id}/invoices", :merchant_id => @merchant.id %></p>
+      <br>
+    <% end %>
+  <% end %>
+</section>
