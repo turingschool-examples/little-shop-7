@@ -13,7 +13,6 @@ class Customer < ApplicationRecord
 
   def self.total_top_five_customers
     joins(:transactions)
-    .joins(:merchants)
     .where(transactions: {result: 0})
     .select("customers.*, count(transactions) as transaction_count")
     .group(:id)

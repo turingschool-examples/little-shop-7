@@ -68,7 +68,6 @@ RSpec.describe "admin dashboard index page" do
   it "Displays the names of the top 5 customers" do
     # visit("/admin")
     visit admin_path
-    save_and_open_page
     expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 transactions")
     expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 transactions")
     expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 transactions")
