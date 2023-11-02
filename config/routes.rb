@@ -3,9 +3,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :merchants, param: :id do
-    resources :items, controller: "merchant_items", only: [:index]
-    resources :invoices, controller: "merchant_invoices", only: [:index]
+  root "welcome#index"
+  namespace :admin do
+    get "/", to: "dashboards#welcome"
+    resources :merchants, only: [:show]
+  end
+
+  resources :merchants, param: :merchant_id do
+    resources :items, only: [:index]
+    resources :invoices, only: [:index]
     get "dashboard", on: :member, action: :show
   end
 end
