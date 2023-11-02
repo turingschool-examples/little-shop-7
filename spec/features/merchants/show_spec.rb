@@ -1,7 +1,5 @@
 require "rails_helper"
 
-RSpec.describe "merchant dashboard show page" do
-#user story 1
 RSpec.describe "merchant dashboard index page" do
   before :each do
     @merchant_1 = create(:merchant)
@@ -43,11 +41,7 @@ RSpec.describe "merchant dashboard index page" do
 
     expect(page).to have_content(@merchant_1.name)
   end
- merchant/dashboard-us4
-  #user story 2
 
-
- main
   describe "Merchant Dashboard Links" do
     # US 2
     it "shows links to merchant items index and merchant invoices index" do
