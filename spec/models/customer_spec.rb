@@ -11,10 +11,4 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:last_name) }
   end
 
-  it 'creates' do
-    customer = create(:customer)
-    invoice = create(:invoice, customer: customer)
-    transaction = create(:transaction, invoice: invoice)
-      # require 'pry'; binding.pry
-  end
 end

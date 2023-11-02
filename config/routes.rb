@@ -10,10 +10,15 @@ Rails.application.routes.draw do
   get "/merchants/:merchant_id/items/:item_id", to: "merchant_items#show"
   get "/merchants/:merchant_id/items/:item_id/edit", to: "merchant_items#edit"
   patch "/merchants/:merchant_id/items/:item_id", to: "merchant_items#update"
+  get "/merchants/:merchant_id/invoices/:invoices", to: "merchant_invoices#show"
 
   namespace :admin do
     get "/", to: "dashboard#index"
     get "/merchants", to: "merchants#index"
+    get "/merchants/:merchant_id", to: "merchants#show"
+    get "/merchants/:merchant_id/edit", to: "merchants#edit"
+    patch "/merchants/:merchant_id/edit", to: "merchants#show"
+
     get "/invoices", to: "invoices#index"
   end
 

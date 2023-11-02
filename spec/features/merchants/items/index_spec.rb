@@ -20,6 +20,7 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content(@item2.name)
         expect(page).to have_content(@item3.name)
         expect(page).to_not have_content(@item4.name)
+        expect(page).to_not have_content(@merchant2.name)
       end
 
       it 'when I click on an item, it takes to the the show page' do
