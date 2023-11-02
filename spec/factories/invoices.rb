@@ -6,10 +6,10 @@ FactoryBot.define do
 
     status { rand(0..2) } # Randomly pick one of the status keys from enum
 
-    after(:create) do |invoice|
-      # Optionally create some related records after the invoice is created
-      create_list(:transaction, 3, invoice: invoice)
-      create_list(:invoice_item, 3, invoice: invoice)
-    end
+    # after(:create) do |invoice|
+    #   # Optionally create some related records after the invoice is created
+    #   create_list(:transaction, 3, invoice: invoice)
+    #   create_list(:invoice_item, 3, invoice: invoice)
+    # end
   end
 end
