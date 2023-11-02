@@ -66,7 +66,7 @@ RSpec.describe "merchant dashboard show page" do
   describe "merchant dashboard top customers" do
     it "shows a list of the top 5 customers and a count of their successful transactions" do
       visit merchant_dashboard_path(@merchant_1)
-save_and_open_page
+
       expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 purchases")
       expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 purchases")
       expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
