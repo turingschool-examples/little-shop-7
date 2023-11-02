@@ -53,6 +53,7 @@ RSpec.describe "admin dashboard index page" do
     expect(current_path).to eq(admin_merchants_path)
   end
 
+  #user story 20
   it "has a link to the admin admin invoice index" do
     #  visit("/admin")
     visit admin_path
@@ -63,15 +64,16 @@ RSpec.describe "admin dashboard index page" do
     expect(current_path).to eq(admin_invoices_path)
   end
 
-  #User story 21
+  #user story 21
   it "Displays the names of the top 5 customers" do
     # visit("/admin")
     visit admin_path
-    expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 purchases")
-    expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 purchases")
-    expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
-    expect(page).to have_content("4. #{@customer_4.first_name} #{@customer_4.last_name} - 2 purchases")
-    expect(page).to have_content("5. #{@customer_5.first_name} #{@customer_5.last_name} - 1 purchases")
+    save_and_open_page
+    expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 transactions")
+    expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 transactions")
+    expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 transactions")
+    expect(page).to have_content("4. #{@customer_4.first_name} #{@customer_4.last_name} - 2 transactions")
+    expect(page).to have_content("5. #{@customer_5.first_name} #{@customer_5.last_name} - 1 transactions")
     expect(@customer_1.last_name).to appear_before(@customer_2.last_name)
     expect(page).to_not have_content(@customer_6.first_name)
   end
