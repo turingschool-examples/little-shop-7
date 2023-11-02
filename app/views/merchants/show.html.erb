@@ -5,7 +5,7 @@
 <section id="ready_to_ship">
 <h3>Items Ready To Ship</h3>
   <% @merchant.items.each do |item| %>
-    <p><%= item.packaged? %>
+    <p><%= item.packaged %>
     <%item.invoice_ids.each do |invoice_id|%>
       <%=link_to "Invoice #{invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice_id}"  %>
     <% end %> </p>

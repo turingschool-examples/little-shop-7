@@ -86,7 +86,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         #User Story 3
         it "shows names of the top five customers" do
           visit "/merchants/#{@merchant1.id}/dashboard"
-save_and_open_page
           expect(page).to have_content("Top 5 Customers")
           expect(page).to have_content("Susan Robinson Successful Transactions: 1")
           expect(page).to have_content("Jessica Simpson Successful Transactions: 1")

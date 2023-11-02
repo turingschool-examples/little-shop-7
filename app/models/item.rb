@@ -8,7 +8,7 @@ class Item < ApplicationRecord
     
   end
 
-  def packaged?
+  def packaged
     return unless self.invoice_items.includes(:invoice_items).where(status: 1).exists?
     return self.name
   end
