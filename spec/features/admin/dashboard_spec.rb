@@ -40,6 +40,7 @@ RSpec.describe "Admin Dashboard" do
     visit "/admin"
     expect(page).to have_content("Admin Dashboard")
   end
+
   ## USER STORY 20
   it "when visiting the admin dashboard, it has a link for the admin merchants index" do
     visit "/admin"
@@ -55,7 +56,7 @@ RSpec.describe "Admin Dashboard" do
 
   ## USER STORY 21
   it "when visiting the dashboard, the names of the top 5 customers with the largest number of successful transactions appears" do
-    visit "/admin"
+    visit "/admin
     # expected_results = 
     # binding.pry
     # top_5_customers = 12
