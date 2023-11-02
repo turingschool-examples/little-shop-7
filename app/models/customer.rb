@@ -5,8 +5,7 @@ class Customer < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
   
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name, :last_name, presence: true
 
   def self.top_five_customers(merchant)
     joins(:transactions).joins(:merchants).where(transactions: {result: 0}, merchants: {id: merchant.id}).select("customers.*, count(transactions) as transaction_count").group(:id).order(transaction_count: :desc).limit(5)
