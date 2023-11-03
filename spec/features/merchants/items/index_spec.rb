@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchant dashboard index page" do
+RSpec.describe "merchant items index page" do
   before :each do
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)
@@ -28,5 +28,14 @@ RSpec.describe "merchant dashboard index page" do
     visit merchant_items_path(@merchant_1)
     
     expect(page).to_not have_content(@item_6.name)
+  end
+
+  # US7
+  it "item names link to merchant item show page" do
+    visit merchant_items_path(@merchant_1)
+
+    click_link "#{@item_1.name}"
+
+    expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
   end
 end

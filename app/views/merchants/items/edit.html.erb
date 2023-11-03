@@ -1,0 +1,14 @@
+<section id="update_item_form">
+  <%= form_with url: merchant_item_path(@merchant, @item), method: :patch, data: { turbo: false }, local: true do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name, value: @item.name %>
+
+    <%= form.label :description %>
+    <%= form.text_field :description, value: @item.description %>
+
+    <%= form.label :unit_price %>
+    <%= form.number_field :unit_price, value: @item.unit_price %>
+
+    <%= form.submit "Update Item" %>
+  <% end %>
+</section>
