@@ -18,13 +18,12 @@ class MerchantItemsController < ApplicationController
       flash[:alert] = "Update successful"
       redirect_to "/merchants/#{@item.merchant.id}/items/#{@item.id}"
     end
-
     if params[:commit] == "Enable"
       @item.update(enable: true)     
-      render "/merchants/#{@item.merchant.id}/items"
+      redirect_to "/merchants/#{@item.merchant.id}/items"
     elsif params[:commit] == "Disable"
       @item.update(enable: false)
-      render "/merchants/#{@item.merchant.id}/items"
+      redirect_to "/merchants/#{@item.merchant.id}/items"
     end
     
   end

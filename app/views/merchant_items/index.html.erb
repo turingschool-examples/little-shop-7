@@ -2,19 +2,18 @@
 
 <h3>Enabled Items</h3>
 <% @merchant.items.each do |item| %>
-  <% if item.enable == true %>  
   <div id="enabled_item-<%= item.id %>">
+  <% if item.enable == true %>  
   <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
   
-  <%= button_to "Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Enable", :item_id => item.id } %><% end %>
+  <%= button_to "Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Disable", :item_id => item.id } %><% end %>
 
 <% end %></div>
 
 <h3>Disabled Items</h3>
-
 <% @merchant.items.each do |item| %>
-  <% if item.enable == false %>
   <div id="disabled_item-<%= item.id %>">
+  <% if item.enable == false %>
   <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
   <%= button_to "Enable", "/merchants/#{@merchant.id}/items", method: :patch, params: { :commit => "Enable", :item_id => item.id } %></p>
 <% end %></div>
