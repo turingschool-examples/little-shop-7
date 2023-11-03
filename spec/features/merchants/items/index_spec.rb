@@ -9,6 +9,7 @@ RSpec.describe 'merchant items index page' do
     @item2 = create(:item, merchant_id: @merchant1.id)
     @item3 = create(:item, merchant_id: @merchant1.id, enable: false)
     @item4 = create(:item, merchant_id: @merchant2.id)
+    @item5 = create(:item)
   end
 
   describe 'as a merchant' do
@@ -68,6 +69,30 @@ RSpec.describe 'merchant items index page' do
         expect(@item1.name).to appear_before("Disabled Items")
         expect(@item2.name).to appear_before("Disabled Items")
         expect("Disabled Items").to appear_before(@item3.name)
+      end
+
+      it 'has a link to create a new item and add to index' do
+        #US 11
+        visit "/merchants/#{@merchant1.id}/items"
+
+        expect(page).to have_link("Create a new item")
+
+        click_link("Create a new item")
+
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
+
+        expect(page).to have_field("Item Name")
+        expect(page).to have_field("Item Description")
+        expect(page).to have_field("Item Unit Price")
+
+        fill_in("Item Name", with: "Jerky")
+        fill_in("Item Description", with: "Jerky for energy")
+        fill_in("Item Unit Price", with: 10)
+
+        click_button("Submit")
+
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+        expect(page).to have_content("Jerky")
       end
     end
   end
