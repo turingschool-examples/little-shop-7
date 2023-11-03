@@ -38,6 +38,12 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     #   unit_price: 68723,
     #   merchant_id: @merchant2.id
     # )
+    @item5 = Item.create!(name: "Gold Ring", unit_price: 1200, merchant_id: @merchant1.id, description: "14k Gold")
+    @item6 = Item.create!(name: "Silver Ring", unit_price: 900, merchant_id: @merchant1.id, description: "Pure Silver")
+    @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
+    @item8 = Item.create!(name: "Silver Necklace", unit_price: 1000, merchant_id: @merchant1.id, description: "Pure Silver")
+    @item9 = Item.create!(name: "Hair Clip", unit_price: 25, merchant_id: @merchant1.id, description: "Black Plastic")
+    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant1.id, description: "Bonze")
 
     @customer1 = Customer.create!(first_name: "John", last_name: "Jacobs")
     @customer2 = Customer.create!(first_name: "Susan", last_name: "Robinson")
@@ -45,13 +51,6 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     @customer4 = Customer.create!(first_name: "Harry", last_name: "Potter")
     @customer5 = Customer.create!(first_name: "Ron", last_name: "Weasley")
     @customer6 = Customer.create!(first_name: "Nicole", last_name: "Johnson")
-
-    @item5 = Item.create!(name: "Gold Ring", unit_price: 1200, merchant_id: @merchant1.id, description: "14k Gold")
-    @item6 = Item.create!(name: "Silver Ring", unit_price: 900, merchant_id: @merchant1.id, description: "Pure Silver")
-    @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
-    @item8 = Item.create!(name: "Silver Necklace", unit_price: 1000, merchant_id: @merchant1.id, description: "Pure Silver")
-    @item9 = Item.create!(name: "Hair Clip", unit_price: 25, merchant_id: @merchant1.id, description: "Black Plastic")
-    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant1.id, description: "Bonze")
 
     @invoice1 = Invoice.create!(status: 2, customer_id: @customer1.id)
     @invoice2 = Invoice.create!(status: 2, customer_id: @customer2.id)
@@ -71,7 +70,7 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     @invoice_item3 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice3.id, quantity: 1, unit_price: 420, status: 1) 
     @invoice_item4 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice4.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item5 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice5.id, quantity: 1, unit_price: 420, status: 1) 
-    @invoice_item6 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice6.id, quantity: 1, unit_price: 345, status: 2) 
+    @invoice_item6 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice6.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item7 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice7.id, quantity: 1, unit_price: 711, status: 1)
     @invoice_item8 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice8.id, quantity: 1, unit_price: 711, status: 1)
     @invoice_item9 = InvoiceItem.create!(item_id: @item10.id, invoice_id: @invoice9.id, quantity: 1, unit_price: 345, status: 1)
@@ -178,7 +177,7 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         end 
       end
 
-      xit "Each item name links to my merchant item show page for that item" do
+      it "Each item name links to my merchant item show page for that item" do
         visit "/merchants/#{@merchant1.id}/items"
 
         within("div.top-5-items") do
@@ -190,7 +189,7 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         end
       end
 
-      xit "Displays the total revenue generated next to each item name" do
+      it "Displays the total revenue generated next to each item name" do
         visit "/merchants/#{@merchant1.id}/items"
 
         within("div.top-5-items") do

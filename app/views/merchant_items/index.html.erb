@@ -10,5 +10,7 @@
 
 <h2>Top 5 Most Popular Items:</h2>
 <div class="top-5-items">
-
+  <% @merchant.top_5_items.each do |item| %>
+    <p><%= link_to "#{item.name}", merchant_item_path(item.merchant_id, item.id) %></p>
+  <% end %>
 </div>
