@@ -131,10 +131,17 @@ RSpec.describe Item, type: :model do
   describe "item_revenue" do
     it "returns the total revenue of an item" do
       
-
       @revenue = Item.item_revenue(@item1)
 
       expect(@revenue).to eq(@invoice_item1.unit_price + @invoice_item3.unit_price + @invoice_item5.unit_price)
+    end
+  end
+
+  describe "item_best_day" do
+    it "returns the date with the most sales for each item" do
+      best_day = Item.item_best_day(@item1)
+
+      expect(best_day).to eq(Date.today)
     end
   end
 end
