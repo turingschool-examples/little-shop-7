@@ -9,3 +9,9 @@
 <% end %>
 </ol>
  
+<h3>Incomplete Invoices:</h3>
+<ol><% @invoices.incomplete_not_shipped.each do |i| %>
+<%= link_to "Invoice ##{i.id}", "/admin/invoices/#{i.id}" %>
+<br>
+<% end %>
+</ol>
