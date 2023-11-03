@@ -10,6 +10,7 @@ RSpec.describe "merchant items index page" do
     @item_4 = create(:item, merchant: @merchant_1)
     @item_5 = create(:item, merchant: @merchant_1)
     @item_6 = create(:item, merchant: @merchant_2)
+    @item_7 = create(:item, merchant: @merchant_2, status: 1)
   end
 
   # US6
@@ -42,19 +43,19 @@ RSpec.describe "merchant items index page" do
   it "has buttons to enable or disable for each item" do
     visit merchant_items_path(@merchant_1)
 
-    expect(page).to have_button("Enabled")
+    expect(page).to have_content("Enabled")
     expect(page).to have_button("Disable Item")
   end
 
   it "enable button changes item status and redirects back" do
-    visit merchant_items_path(@merchant_1)
+    visit merchant_items_path(@merchant_2)
 
-    within("##{@item_1.id}") do
+    within("##{@item_7.id}") do
       click_button "Enable Item"
     end
 
-    expect(current_path).to eq(merchant_items_path(@merchant_1))
-    within("##{@item_1.id}") do
+    expect(current_path).to eq(merchant_items_path(@merchant_2))
+    within("##{@item_7.id}") do
       expect(page).to have_content("Enabled")
       expect(page).to have_button("Disable Item")
     end
