@@ -29,10 +29,13 @@ RSpec.describe "merchant item edit page" do
       fill_in :name, with: "Fantastic Fidget"
       fill_in :description, with: "a fantastically fun fidget!"
       fill_in :unit_price, with: 12345
+      click_button "Update Item"
     end
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
-
+    expect(page).to have_content(@item_1.name)
+    expect(page).to have_content(@item_1.description)
+    expect(page).to have_content(@item_1.format_price)
   end
 
   # US8
@@ -43,6 +46,7 @@ RSpec.describe "merchant item edit page" do
       fill_in :name, with: ""
       fill_in :description, with: "a fantastically fun fidget!"
       fill_in :unit_price, with: 12345
+      click_button "Update Item"
     end
 
     expect(page).to have_content("Error: Name can't be blank")
