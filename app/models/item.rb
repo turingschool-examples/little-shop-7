@@ -25,7 +25,7 @@ end
   end
 
   def invoice_id
-    return self.invoice_items.pluck(:invoice_id)
+    return self.invoice_items.pluck(:invoice_id).join
     
   end
 end
