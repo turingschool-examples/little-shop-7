@@ -80,14 +80,19 @@ RSpec.describe "admin dashboard index page" do
   #user story 22 & 23
   it "Displays incomplete invoices with oldest first" do
     visit admin_path
-    save_and_open_page
-    expect(page).to have_content(@invoice_item_1.invoice_id)
-    expect(page).to have_content(@invoice_item_2.invoice_id)
-    expect(page).to have_content(@invoice_item_3.invoice_id)
-    expect(page).to have_content(@invoice_item_4.invoice_id)
-    expect(page).not_to have_content(@invoice_item_5.invoice_id)
+    invoice_1 = find_link(@invoice_item_1.invoice_id)
+    invoice_2 = find_link(@invoice_item_2.invoice_id)
+    expect(invoice_1).to appear_before(invoice_2)
+
+    expect(page).to have_link(@invoice_item_1.invoice_id)
+    expect(page).to have_link(@invoice_item_2.invoice_id)
+    expect(page).to have_link(@invoice_item_3.invoice_id)
+    expect(page).to have_link(@invoice_item_4.invoice_id)
+    expect(page).not_to have_link(@invoice_item_5.invoice_id)
+    
     expect(page).to have_link("#{@invoice_item_1.invoice_id}")
     click_link("#{@invoice_item_1.invoice_id}")
     expect(current_path).to eq("/admin/invoices/#{@invoice_item_1.invoice_id}")
+  
   end
 end
