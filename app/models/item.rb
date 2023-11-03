@@ -34,21 +34,16 @@ end
     "Enable"
   end
 
-  def enabled?
-    if status == "enabled"
-      self.toggle_status
-      return true
-    else
-      self.toggle_status
-      return false
-    end
-  end
+  # def enabled?
+  #   if status == "enabled"
+  #     self.toggle_status
+  #     return true
+  #   else
+  #     self.toggle_status
+  #     return false
+  #   end
+  # end
 
-  def button_text
-    # require 'pry'; binding.pry
-    return "Disable" if status == "enabled"
-    "Enable"
-  end
 
   def toggle_status
     if self.status == "disabled"
