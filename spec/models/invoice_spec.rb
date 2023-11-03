@@ -4,7 +4,7 @@ RSpec.describe Invoice, type: :model do
   describe "relationships" do
     it { should have_many(:transactions) }
     it { should have_many(:invoice_items) }
-    it {should belong_to(:customer) }
+    it { should belong_to(:customer) }
   end
 
   describe "methods" do
@@ -39,6 +39,12 @@ RSpec.describe Invoice, type: :model do
     describe "#creation_date" do
       it "gives the date of creation in a specific format" do 
         expect(@invoice11.creation_date).to eq("Thursday, March 8, 2012")
+      end
+    end
+
+    describe "#customer_name" do
+      it "can give the full name of a customer associated with a given invoice" do
+        expect(@invoice11.customer_name).to eq("Parker Daugherty")
       end
     end
   end
