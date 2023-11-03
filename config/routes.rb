@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get "/merchants/:merchant_id/edit", to: "merchants#edit"
 
     get "/invoices", to: "invoices#index"
-    get "/invoices/:invoice_id", to: "invoices#index"
+    get "/invoices/:invoice_id", to: "invoices#show"
   end
 
 end
