@@ -55,4 +55,16 @@ RSpec.describe Customer, type: :model do
       end
     end
   end
+
+  describe "class methods" do
+    describe "'total_top_five_customers" do
+      it "returns the top 5 customers with the most successful transactions" do
+        expect(Customer.total_top_five_customers).to be_a(ActiveRecord::Relation)
+        expect(Customer.total_top_five_customers.first.first_name).to eq(@customer_1.first_name)
+        expect(Customer.total_top_five_customers.last.last_name).to eq(@customer_5.last_name)
+        expect(Customer.total_top_five_customers[2].transaction_count).to eq(3)
+        expect(Customer.total_top_five_customers).not_to include(@customer_6)
+      end
+    end
+  end
 end
