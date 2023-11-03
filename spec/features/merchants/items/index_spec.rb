@@ -42,7 +42,7 @@ RSpec.describe "merchant items index page" do
   it "has buttons to enable or disable for each item" do
     visit merchant_items_path(@merchant_1)
 
-    expect(page).to have_button("Enable Item")
+    expect(page).to have_button("Enabled")
     expect(page).to have_button("Disable Item")
   end
 
