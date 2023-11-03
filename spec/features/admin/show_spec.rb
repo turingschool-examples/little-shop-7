@@ -15,7 +15,7 @@ RSpec.describe "admin dashboard index page" do
     @invoice_4 = create(:invoice, customer: @customer_4)
     @invoice_5 = create(:invoice, customer: @customer_5)
     @invoice_6 = create(:invoice, customer: @customer_6)
-    @item_1 = create(:item, merchant: @merchant_1)
+    @item_1= create(:item, merchant: @merchant_1)
     @item_2 = create(:item, merchant: @merchant_1)
     @item_3 = create(:item, merchant: @merchant_1)
     @item_4 = create(:item, merchant: @merchant_1)
@@ -77,15 +77,18 @@ RSpec.describe "admin dashboard index page" do
     expect(page).to_not have_content(@customer_6.first_name)
   end
 
-  #user story 22
-  it "Displays incomplete invoices" do
+  #user story 22 & 23
+  it "Displays incomplete invoices with oldest first" do
     visit admin_path
-    @invoice_item_1 = create(:invoice_item, status: 0)
-    @invoice_item_2 = create(:invoice_item, status: 1)
-    expect(page).to have_content(@invoice_item_1.invoice_id)
-    expect(page).to have_content(@invoice_item_2.invoice_id)
-    expect(page).to have_link("#{@invoice_item_2.invoice_id}")
-    click_link("#{@invoice_item_2.invoice_id}")
-    expect(current_path).to eq("/admin/invoices/#{@invoice_item_2.invoice_id}")
+    save_and_open_page
+    @invoice_item_10 = create(:invoice_item, status: 0)
+    @invoice_item_20 = create(:invoice_item, status: 1)
+    @invoice_item_30 = create(:invoice_item, status: 2)
+    expect(page).to have_content(@invoice_item_10.invoice_id)
+    expect(page).to have_content(@invoice_item_20.invoice_id)
+    expect(page).not_to have_content(@invoice_item_30.invoice_id)
+    expect(page).to have_link("#{@invoice_item_20.invoice_id}")
+    click_link("#{@invoice_item_20.invoice_id}")
+    expect(current_path).to eq("/admin/invoices/#{@invoice_item_20.invoice_id}")
   end
 end
