@@ -13,4 +13,8 @@ class Invoice < ApplicationRecord
     Invoice.joins(items: :invoice_items).where(invoice_items: {status: "pending"}).distinct
   end
 
+  def format_date
+    created_at.strftime('%A, %B %e, %Y')
+  end
+
 end

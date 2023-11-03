@@ -27,9 +27,9 @@ RSpec.describe "Admin Dashboard" do
     @item4 = create(:item)
     @item5 = create(:item)
 
-    @incomplete = create(:invoice, customer_id: @customer5.id, status: 0)
-    @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0)
-    @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0)
+    @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
+    @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
+    @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 2, 4))
 
     @incomplete_results = [@incomplete, @incomplete2, @incomplete3]
 
@@ -91,5 +91,14 @@ RSpec.describe "Admin Dashboard" do
     visit "/admin"
     click_link "Invoice ##{@incomplete2.id}"
     expect(current_path).to eq("/admin/invoices/#{@incomplete2.id}")
+  end
+
+  ## USER STORY 23
+  it "in the section for Incomplete Invoices lists the date that the invoice was created" do
+    visit "/admin"
+    expect(page).to have_content("Incomplete Invoices")
+    expect(page).to have_content("Tuesday, March 9, 2021")
+    expect(page).to have_content("Sunday, December 5, 2021")
+    expect(page).to have_content("Thursday, February 4, 2021")
   end
 end
