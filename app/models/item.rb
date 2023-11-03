@@ -5,17 +5,18 @@ class Item < ApplicationRecord
 
   enum :status, {"disabled" => 0, "enabled" => 1}
 
-  enum :status, {"disabled" => 0, "enabled" => 1}
 
-def invoice
+  def invoice
   self.invoices.each do |invoice|
     invoice
   end
+end
 
 
   def invoice_date
+
     # return unless self.invoice_items.where(status: 1)
-    return self.created_at.strftime("%A, %B %-d, %Y")
+    self.invoice.first.creation_date
   end
 
   def packaged
@@ -27,5 +28,4 @@ def invoice
     return self.invoice_items.pluck(:invoice_id).first
     
   end
-
 end

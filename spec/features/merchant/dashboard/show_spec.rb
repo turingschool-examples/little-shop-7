@@ -13,10 +13,10 @@ RSpec.describe "Merchant Dashboard", type: :feature do
     @customer_6 = Customer.create!(first_name: "Nicole", last_name: "Johnson")
     @customer_7 = Customer.create!(first_name: "Jackie", last_name: "Chan")
     
-    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id)
-    @invoice_2 = Invoice.create!(status: 2, customer_id: @customer_2.id)
-    @invoice_3 = Invoice.create!(status: 1, customer_id: @customer_3.id)
-    @invoice_4 = Invoice.create!(status: 2, customer_id: @customer_4.id)
+    @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id, created_at: Time.now - 1.day)
+    @invoice_2 = Invoice.create!(status: 2, customer_id: @customer_2.id, created_at: Time.now - 2.days)
+    @invoice_3 = Invoice.create!(status: 1, customer_id: @customer_3.id, created_at: Time.now - 3.days)
+    @invoice_4 = Invoice.create!(status: 2, customer_id: @customer_4.id, created_at: Time.now - 4.days)
     @invoice_5 = Invoice.create!(status: 2, customer_id: @customer_5.id)
     @invoice_6 = Invoice.create!(status: 2, customer_id: @customer_6.id)
     @invoice_7 = Invoice.create!(status: 0, customer_id: @customer_7.id)
@@ -78,7 +78,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
     )
 
 
-
   end
 
   describe "As a merchant" do
@@ -130,10 +129,10 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
           visit "/merchants/#{@merchant1.id}/dashboard"
           
+          save_and_open_page
           expect(page).to have_content(@invoice_1.creation_date)
-          expect(page).to have_content(@invoice_2.creation_date)
-save_and_open_page
-          expect(@invoice_1.creation_date).to appear_before(@invoice_2.creation_date)
+          expect(page).to have_content(@invoice_3.creation_date)
+          expect(@invoice_3.creation_date).to appear_before(@invoice_1.creation_date)
         end
       end
     end
