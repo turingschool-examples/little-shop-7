@@ -4,4 +4,8 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   validates :name, :description, :unit_price, presence: true
+
+  def format_price
+    format('%.2f', (self.unit_price / 100.0)).prepend("$")
+  end
 end
