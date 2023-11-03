@@ -157,6 +157,23 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         visit "/merchants/#{@merchant1.id}/items"
 
         expect(page).to have_content("Top 5 Most Popular Items:")
+
+        expect(page).to_not have_content("#{@item3.name}")
+        expect(page).to_not have_content("#{@item4.name}")
+        expect(page).to_not have_content("#{@item5.name}")
+        expect(page).to_not have_content("#{@item6.name}")
+        expect(page).to_not have_content("#{@item7.name}")
+
+        expect(page).to have_content("#{@item2.name}")
+        expect(page).to have_content("#{@item1.name}")
+        expect(page).to have_content("#{@item8.name}")
+        expect(page).to have_content("#{@item9.name}")
+        expect(page).to have_content("#{@item10.name}")
+
+        expect("#{@item2.name}").to appear_before("#{@item1.name}")
+        expect("#{@item1.name}").to appear_before("#{@item8.name}")
+        expect("#{@item8.name}").to appear_before("#{@item9.name}")
+        expect("#{@item9.name}").to appear_before("#{@item10.name}")
       end
     end
   end
