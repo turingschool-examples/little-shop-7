@@ -92,6 +92,7 @@ RSpec.describe 'merchant items index page' do
         click_button("Submit")
 
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+        save_and_open_page
         expect(page).to have_content("Jerky")
       end
     end

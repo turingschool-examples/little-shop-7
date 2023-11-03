@@ -1,0 +1,17 @@
+<div class="header"><h1>Little Esty Shop</h1></div>
+
+<p class="solid">Add New Item</p>
+
+<%= form_with url: "/merchants/#{@merchant.id}/items", method: :post, data: { turbo:false }, local: true do |f| %>
+  <%= f.hidden_field :item_add, value: "Add_item" %>
+  <%= f.label :name, "Item Name" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :description, "Item Description" %>
+  <%= f.text_field :description %>
+
+  <%= f.label :unit_price, "Item Unit Price" %>
+  <%= f.text_field :unit_price %>
+
+  <%= f.submit "Submit" %>
+<% end %>

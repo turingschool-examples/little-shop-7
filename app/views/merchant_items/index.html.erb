@@ -1,6 +1,12 @@
 <div class="header"><h1>Little Esty Shop</h1></div>
 
-<h1> Items for <%= @merchant.name %> </h1>
+
+<ul>
+  <li><a> <%= @merchant.name %>'s Items </a></li>
+  <li><%= link_to "Create a new item", "/merchants/#{@merchant.id}/items/new" %></li>
+</ul>
+
+<p class="solid"> Items for <%= @merchant.name %> </p>
 
 <h3>Enabled Items</h3>
 <% @merchant.items.each do |item| %>
