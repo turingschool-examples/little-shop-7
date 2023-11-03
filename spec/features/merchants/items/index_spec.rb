@@ -38,4 +38,39 @@ RSpec.describe "merchant items index page" do
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
   end
+
+  it "has buttons to enable or disable for each item" do
+    visit merchant_items_path(@merchant_1)
+
+    expect(page).to have_button("Enable Item")
+    expect(page).to have_button("Disable Item")
+  end
+
+  it "enable button changes item status and redirects back" do
+    visit merchant_items_path(@merchant_1)
+
+    within("##{@item_1.id}") do
+      click_button "Enable Item"
+    end
+
+    expect(current_path).to eq(merchant_items_path(@merchant_1))
+    within("##{@item_1.id}") do
+      expect(page).to have_content("Enabled")
+      expect(page).to have_button("Disable Item")
+    end
+  end
+
+  it "disable button changes item status and redirects back" do
+    visit merchant_items_path(@merchant_1)
+
+    within("##{@item_1.id}") do
+      click_button "Disable Item"
+    end
+
+    expect(current_path).to eq(merchant_items_path(@merchant_1))
+    within("##{@item_1.id}") do
+      expect(page).to have_content("Disabled")
+      expect(page).to have_button("Enable Item")
+    end
+  end
 end
