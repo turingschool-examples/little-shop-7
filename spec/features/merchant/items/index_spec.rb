@@ -195,4 +195,15 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       end
     end
   end
+
+  #User Story 13
+  describe "Next to each most popular item, I see the date with the most sales for each item" do
+    it "And I see a label 'Top selling date for was'" do
+      visit "/merchants/#{@merchant1.id}/items"
+
+      within("div.top-5-items") do
+        
+      end
+    end
+  end
 end
