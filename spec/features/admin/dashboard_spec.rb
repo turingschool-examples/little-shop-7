@@ -20,6 +20,28 @@ RSpec.describe "Admin Dashboard" do
       invoices.each{|id| create(:transaction, result: 1, invoice_id: id)}
       count-=1
     end
+
+    @item1 = create(:item)
+    @item2 = create(:item)
+    @item3 = create(:item)
+    @item4 = create(:item)
+    @item5 = create(:item)
+
+    @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
+    @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
+    @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 2, 4))
+
+    @incomplete_results = [@incomplete, @incomplete2, @incomplete3]
+
+    create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete.id, status: 0)
+    create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete.id, status: 0)
+    create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete.id, status: 1)
+
+    create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete2.id, status: 0)
+    create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete2.id, status: 1)
+    create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete2.id, status: 0)
+
+    create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
     
   end
 
@@ -50,6 +72,39 @@ RSpec.describe "Admin Dashboard" do
     expect(@customer2.name).to appear_before(@customer3.name)
     expect(@customer3.name).to appear_before(@customer4.name)
     expect(@customer4.name).to appear_before(@customer5.name)
+  end
+
+  ## USER STORY 22
+  it "has a section for incomplete invoices with a list of IDs of all invoices not shipped" do
+    visit "/admin"
+    expect(page).to have_content("Incomplete Invoices")
+    @incomplete_results.each do |result|
+      expect(page).to have_content(result.id)
+    end
+  end
+
+  it "also includes invoice ID links to the invoice admin show page" do
+    visit "/admin"
+    click_link "Invoice ##{@incomplete.id}"
+    expect(current_path).to eq("/admin/invoices/#{@incomplete.id}")
+    visit "/admin"
+    click_link "Invoice ##{@incomplete2.id}"
+    expect(current_path).to eq("/admin/invoices/#{@incomplete2.id}")
+  end
+
+  ## USER STORY 23
+  it "in the section for Incomplete Invoices lists the date that the invoice was created" do
+    visit "/admin"
+    expect(page).to have_content("Incomplete Invoices")
+    expect(page).to have_content("Tuesday, March 9, 2021")
+    expect(page).to have_content("Sunday, December 5, 2021")
+    expect(page).to have_content("Thursday, February 4, 2021")
+  end
+
+  it "is placed in order from oldest to newest" do
+    visit "/admin"
+    expect("Invoice ##{@incomplete3.id}").to appear_before("Invoice ##{@incomplete.id}")
+    expect("Invoice ##{@incomplete.id}").to appear_before("Invoice ##{@incomplete2.id}")
   end
 
 end
