@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Dashboard" do
   before :each do
-    @merchant1 = create(:merchant)
-    @merchant2 = create(:merchant)
+    @merchant1 = create(:merchant, name: "CandyLand")
+    @merchant2 = create(:merchant, name: "BeefStickCo")
 
     @item1 = create(:item, merchant_id: @merchant1.id)
 
