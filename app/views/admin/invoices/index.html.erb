@@ -1,0 +1,5 @@
+<h1><%= "All Admin Invoices" %></h1>
+<ol><% @invoices.each do |i| %>
+<%= link_to "Invoice ##{i.id}", "/admin/invoices/#{i.id}" %> | <%= i.format_date %><br>
+<% end %>
+</ol>

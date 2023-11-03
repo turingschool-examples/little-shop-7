@@ -17,4 +17,11 @@ RSpec.describe "the merchants index" do
     expect(page).to have_content(@merchant3.name)
     expect(page).to have_content(@merchant4.name)
   end
+
+  ## USER STORY 27
+  it "when visiting the admin index, next to each merchant there is an option to disable or enable merchant" do
+    visit "/admin/merchants"
+    ##within block testing statements?
+  end
+  
 end
