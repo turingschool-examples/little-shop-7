@@ -9,4 +9,8 @@ class InvoiceItem < ApplicationRecord
   validates :unit_price, presence: true, numericality: true
   validates :status, presence: true, numericality: true
   
+  def customer_name
+    binding.pry
+  end
+
 end
