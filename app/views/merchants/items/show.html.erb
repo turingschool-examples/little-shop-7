@@ -2,4 +2,5 @@
 
 <%= @item.name %></br>
 <%= @item.description %></br>
-<%= @item.format_price %>
+<%= @item.format_price %></br>
+<%= link_to "Update Item", edit_merchant_item_path(@merchant, @item) %>
