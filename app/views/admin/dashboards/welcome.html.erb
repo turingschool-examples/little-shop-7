@@ -9,7 +9,5 @@
 
 <h3>Items to Ship, Oldest to Newest</h3>
 <% @items_to_ship.each do |invoice_item|%>
-<section>
   <p><%= link_to "#{invoice_item.invoice_id}", admin_invoice_path(invoice_item.invoice_id) %></p>
-</section>
 <% end %>
