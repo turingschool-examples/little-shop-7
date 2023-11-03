@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'merchant items index page' do
   before :each do
-    @merchant1 = Merchant.create(name: "Target")
-    @merchant2 = Merchant.create(name: "Walmart")
+    @merchant1 = create(:merchant, name: "CamelsRUs")
+    @merchant2 = create(:merchant, name: "Pickle Store Depot")
 
     @item1 = create(:item, merchant_id: @merchant1.id)
     @item2 = create(:item, merchant_id: @merchant1.id)
