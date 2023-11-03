@@ -124,7 +124,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
           expect(page).to_not have_content("John Jacobs")
         end
       end
-      #User Story 5
       describe "In the section 'Items Ready to Ship'" do
         it 'tells items that are ready to ship and have an invoice link' do
           visit "/merchants/#{@merchant1.id}/dashboard"
@@ -137,11 +136,11 @@ RSpec.describe "Merchant Dashboard", type: :feature do
             click_link("Invoice #{@invoice_item1.invoice_id}")
             expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item1.invoice_id}")
           end
-          
         end
+      #User Story 5
         it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
           visit "/merchants/#{@merchant1.id}/dashboard"
-          
+          save_and_open_page
           expect(page).to have_content(@invoice_1.creation_date)
           expect(page).to have_content(@invoice_3.creation_date)
           expect(@invoice_3.creation_date).to appear_before(@invoice_1.creation_date)
