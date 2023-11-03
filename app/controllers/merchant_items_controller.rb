@@ -13,11 +13,20 @@ class MerchantItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:item_id])
-    @item.update(item_params)
-    redirect_to "/merchants/#{@item.merchant.id}/items/#{@item.id}"
-    if @item.update(item_params)
+    if params[:item_update] == "Update_item"
+      @item.update(item_params)
       flash[:alert] = "Update successful"
+      redirect_to "/merchants/#{@item.merchant.id}/items/#{@item.id}"
     end
+
+    if params[:commit] == "Enable"
+      @item.update(enable: true)     
+      render "/merchants/#{@item.merchant.id}/items"
+    elsif params[:commit] == "Disable"
+      @item.update(enable: false)
+      render "/merchants/#{@item.merchant.id}/items"
+    end
+    
   end
 
   private

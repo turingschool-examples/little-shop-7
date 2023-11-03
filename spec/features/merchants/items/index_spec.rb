@@ -35,6 +35,36 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content("Item Description: #{@item1.description}")
         expect(page).to have_content("Item Unit Price: #{@item1.unit_price}")
       end
+
+      it 'has a button to enable item' do
+        #US 9
+        visit "/merchants/#{@merchant1.id}/items"
+        expect(page).to have_button("Enable", count: 3)
+
+        within("#disabled_item-#{@item1.id}") do
+          expect(page).to have_button("Enable")
+        end
+        
+        within("#disabled_item-#{@item2.id}") do
+          expect(page).to have_button("Enable")
+        end
+      
+        within("#item-#{@item3.id}") do
+          expect(page).to have_button("Enable")
+          click_button "Enable"
+          # expect(page).to have_content("Enabled")
+        end
+        
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+      end
+
+      it 'shows two sections, enabled items and disabled items and items listed appropriately' do
+        #US 10
+        visit "/merchants/#{@merchant1.id}/items"
+
+        expect(page).to have_content("Enabled Items")
+        expect(page).to have_content("Disabled Items")
+      end
     end
   end
 end
