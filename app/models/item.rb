@@ -12,7 +12,6 @@ class Item < ApplicationRecord
   end
 end
 
-
   def invoice_date
     self.invoice.first.creation_date
   end
@@ -28,5 +27,35 @@ end
 
   def self.old_to_new
     joins(:invoices).order('invoices.created_at')
+  end
+
+  def button_text
+    return "Disable" if status == "enabled"
+    "Enable"
+  end
+
+  def enabled?
+    if status == "enabled"
+      self.toggle_status
+      return true
+    else
+      self.toggle_status
+      return false
+    end
+  end
+
+  def button_text
+    # require 'pry'; binding.pry
+    return "Disable" if status == "enabled"
+    "Enable"
+  end
+
+  def toggle_status
+    if self.status == "disabled"
+      self.status = "enabled"
+    else
+      self.status = "disabled"
+    end
+    self.save
   end
 end

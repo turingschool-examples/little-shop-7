@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   end
   get "/merchants/:id/invoices", to: "merchant_invoices#show"
 
+  resources :items
+
   get "/admin", to: "admin#index"
    
 end

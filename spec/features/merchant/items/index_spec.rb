@@ -79,21 +79,14 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     end
   end
 
-  xit "has a button to disable or enable the item" do
+  it "has a button to disable or enable the item" do
     visit "merchants/#{@merchant2.id}/items"
-    # save_and_open_page
-    # Next to each item name I see a button to disable or enable that item.
-# When I click this button
     expect(page).to have_content(@item4.name)
-    expect(button).to have_content("Disable")
-    click_button "Disable"
-    expect(current_path).to eq("merchants/#{@merchant2.id}/items")
+    expect(page).to have_button("Enable")
+    click_button "Enable"
+    expect(current_path).to eq("/merchants/#{@merchant2.id}/items")
+
     expect(page).to have_content(@item4.name)
-    expect(button).to have_content("Enable")
-    # Then I am redirected back to the items index
-# And I see that the items status has changed
-
-
-  
+    expect(page).to have_button("Disable")
   end
 end
