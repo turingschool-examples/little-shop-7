@@ -12,6 +12,7 @@ RSpec.describe "merchant item show page" do
 
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@item_1.description)
+    # Will need to normalize this to dollars
     expect(page).to have_content(@item_1.unit_price)
   end
 end
