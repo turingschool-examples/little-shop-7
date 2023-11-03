@@ -17,21 +17,28 @@ RSpec.describe Invoice, type: :model do
       @customer6 = Customer.create!(first_name: "Heber", last_name: "Kuhn")
       @customer7 = Customer.create!(first_name: "Parker", last_name: "Daugherty")
 
-      @invoice1 = Invoice.create!(status: "completed", customer_id: @customer1.id)
-      @invoice2 = Invoice.create!(status: "completed", customer_id: @customer2.id)
-      @invoice3 = Invoice.create!(status: "completed", customer_id: @customer3.id)
-      @invoice4 = Invoice.create!(status: "completed", customer_id: @customer4.id)
-      @invoice5 = Invoice.create!(status: "completed", customer_id: @customer5.id)
-      @invoice6 = Invoice.create!(status: "completed", customer_id: @customer6.id)
-      @invoice7 = Invoice.create!(status: "completed", customer_id: @customer7.id)
-      @invoice8 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
-      @invoice9 = Invoice.create!(status: "in progress", customer_id: @customer7.id)
-      @invoice10 = Invoice.create!(status: "cancelled", customer_id: @customer7.id)
+      @invoice1 = Invoice.create!(status: "completed", customer_id: @customer1.id, created_at: "2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+      @invoice2 = Invoice.create!(status: "completed", customer_id: @customer2.id, created_at: "2012-03-12 05:54:09 UTC", updated_at: "2012-03-12 05:54:09 UTC")
+      @invoice3 = Invoice.create!(status: "completed", customer_id: @customer3.id, created_at: "2012-03-10 00:54:09 UTC", updated_at: "2012-03-10 00:54:09 UTC")
+      @invoice4 = Invoice.create!(status: "completed", customer_id: @customer4.id, created_at: "2012-03-24 15:54:10 UTC", updated_at: "2012-03-24 15:54:10 UTC")
+      @invoice5 = Invoice.create!(status: "completed", customer_id: @customer5.id, created_at: "2012-03-07 19:54:10 UTC", updated_at: "2012-03-07 19:54:10 UTC")
+      @invoice6 = Invoice.create!(status: "completed", customer_id: @customer6.id, created_at: "2012-03-09 01:54:10 UTC", updated_at: "2012-03-09 01:54:10 UTC")
+      @invoice7 = Invoice.create!(status: "completed", customer_id: @customer7.id, created_at: "2012-03-07 21:54:10 UTC", updated_at: "2012-03-07 21:54:10 UTC")
+      @invoice8 = Invoice.create!(status: "in progress", customer_id: @customer7.id, created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
+      @invoice9 = Invoice.create!(status: "in progress", customer_id: @customer7.id, created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      @invoice10 = Invoice.create!(status: "cancelled", customer_id: @customer7.id, created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-06 21:54:10 UTC")
+      @invoice11 = Invoice.create!(status: "in progress", customer_id: @customer7.id, created_at: "2012-03-08 20:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
     end
 
-    describe "#self.incomplete" do
+    describe "#self.incomplete_by_creation_date" do
       it "gives all invoices with a status of in progress" do
-        expect(Invoice.incomplete).to eq([@invoice8, @invoice9])
+        expect(Invoice.incomplete_by_creation_date).to eq([@invoice9, @invoice11, @invoice8])
+      end
+    end
+
+    describe "#creation_date" do
+      it "gives the date of creation in a specific format" do 
+        expect(@invoice11.creation_date).to eq("Thursday, March 8, 2012")
       end
     end
   end
