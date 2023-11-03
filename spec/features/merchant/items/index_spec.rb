@@ -38,6 +38,58 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     #   unit_price: 68723,
     #   merchant_id: @merchant2.id
     # )
+    @item5 = Item.create!(name: "Gold Ring", unit_price: 1200, merchant_id: @merchant1.id, description: "14k Gold")
+    @item6 = Item.create!(name: "Silver Ring", unit_price: 900, merchant_id: @merchant1.id, description: "Pure Silver")
+    @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
+    @item8 = Item.create!(name: "Silver Necklace", unit_price: 1000, merchant_id: @merchant1.id, description: "Pure Silver")
+    @item9 = Item.create!(name: "Hair Clip", unit_price: 25, merchant_id: @merchant1.id, description: "Black Plastic")
+    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant1.id, description: "Bonze")
+
+    @customer1 = Customer.create!(first_name: "John", last_name: "Jacobs")
+    @customer2 = Customer.create!(first_name: "Susan", last_name: "Robinson")
+    @customer3 = Customer.create!(first_name: "Jessica", last_name: "Simpson")
+    @customer4 = Customer.create!(first_name: "Harry", last_name: "Potter")
+    @customer5 = Customer.create!(first_name: "Ron", last_name: "Weasley")
+    @customer6 = Customer.create!(first_name: "Nicole", last_name: "Johnson")
+
+    @invoice1 = Invoice.create!(status: 2, customer_id: @customer1.id)
+    @invoice2 = Invoice.create!(status: 2, customer_id: @customer2.id)
+    @invoice3 = Invoice.create!(status: 2, customer_id: @customer3.id)
+    @invoice4 = Invoice.create!(status: 2, customer_id: @customer4.id)
+    @invoice5 = Invoice.create!(status: 2, customer_id: @customer5.id)
+    @invoice6 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice7 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice8 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice9 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice10 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice11 = Invoice.create!(status: 2, customer_id: @customer6.id)
+    @invoice12 = Invoice.create!(status: 2, customer_id: @customer6.id)
+
+    @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 111, status: 1) 
+    @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 345, status: 1) 
+    @invoice_item3 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice3.id, quantity: 1, unit_price: 420, status: 1) 
+    @invoice_item4 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice4.id, quantity: 1, unit_price: 345, status: 1) 
+    @invoice_item5 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice5.id, quantity: 1, unit_price: 420, status: 1) 
+    @invoice_item6 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice6.id, quantity: 1, unit_price: 345, status: 1) 
+    @invoice_item7 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice7.id, quantity: 1, unit_price: 711, status: 1)
+    @invoice_item8 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice8.id, quantity: 1, unit_price: 711, status: 1)
+    @invoice_item9 = InvoiceItem.create!(item_id: @item10.id, invoice_id: @invoice9.id, quantity: 1, unit_price: 345, status: 1)
+    @invoice_item10 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice10.id, quantity: 1, unit_price: 126, status: 1)
+    @invoice_item11 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice11.id, quantity: 1, unit_price: 123, status: 1)
+    @invoice_item12 = InvoiceItem.create!(item_id: @item10.id, invoice_id: @invoice12.id, quantity: 1, unit_price: 345, status: 1)
+
+    @transaction1 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction2 = Transaction.create!(invoice_id: @invoice2.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction3 = Transaction.create!(invoice_id: @invoice3.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction4 = Transaction.create!(invoice_id: @invoice4.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction5 = Transaction.create!(invoice_id: @invoice5.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction6 = Transaction.create!(invoice_id: @invoice6.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction7 = Transaction.create!(invoice_id: @invoice7.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction8 = Transaction.create!(invoice_id: @invoice8.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction9 = Transaction.create!(invoice_id: @invoice9.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction10 = Transaction.create!(invoice_id: @invoice10.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction11 = Transaction.create!(invoice_id: @invoice11.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction12 = Transaction.create!(invoice_id: @invoice12.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
   end
 
   # User Story 6
@@ -88,5 +140,59 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
 
     expect(page).to have_content(@item4.name)
     expect(page).to have_button("Disable")
+  end
+
+  #User Story 12
+  describe "Top 5 Most Popular Items" do
+    describe "Displays the names of the top 5 most popular items ranked by revenue generated" do
+      it "I see each item linked to my merchant show page for an item and I see the total revenue generated next to each item name" do
+        visit "/merchants/#{@merchant1.id}/items"
+
+        expect(page).to have_content("Top 5 Most Popular Items:")
+        
+        within("div.top-5-items") do
+          expect(page).to_not have_content("#{@item3.name}")
+          expect(page).to_not have_content("#{@item4.name}")
+          expect(page).to_not have_content("#{@item5.name}")
+          expect(page).to_not have_content("#{@item6.name}")
+          expect(page).to_not have_content("#{@item7.name}")
+
+          expect(page).to have_content("#{@item2.name}")
+          expect(page).to have_content("#{@item1.name}")
+          expect(page).to have_content("#{@item8.name}")
+          expect(page).to have_content("#{@item9.name}")
+          expect(page).to have_content("#{@item10.name}")
+
+          expect("#{@item2.name}").to appear_before("#{@item1.name}")
+          expect("#{@item1.name}").to appear_before("#{@item8.name}")
+          expect("#{@item8.name}").to appear_before("#{@item9.name}")
+          expect("#{@item9.name}").to appear_before("#{@item10.name}")
+        end 
+      end
+
+      it "Each item name links to my merchant item show page for that item" do
+        visit "/merchants/#{@merchant1.id}/items"
+
+        within("div.top-5-items") do
+          expect(page).to have_link("#{@item2.name}")
+          expect(page).to have_link("#{@item1.name}")
+          expect(page).to have_link("#{@item8.name}")
+          expect(page).to have_link("#{@item9.name}")
+          expect(page).to have_link("#{@item10.name}")
+        end
+      end
+
+      it "Displays the total revenue generated next to each item name" do
+        visit "/merchants/#{@merchant1.id}/items"
+
+        within("div.top-5-items") do
+          expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item2)}")
+          expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item1)}")
+          expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item8)}")
+          expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item9)}")
+          expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item10)}")
+        end 
+      end
+    end
   end
 end

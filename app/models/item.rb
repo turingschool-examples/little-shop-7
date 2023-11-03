@@ -29,6 +29,10 @@ end
     joins(:invoices).order('invoices.created_at')
   end
 
+  def self.item_revenue(item)
+    joins(invoice_items: { invoice: :transactions }).where(transactions: { result: 'success' }).where("invoice_items.item_id = ?", item.id).sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
   def button_text
     return "Disable" if status == "enabled"
     "Enable"
