@@ -14,4 +14,13 @@ RSpec.describe "merchant item show page" do
     expect(page).to have_content(@item_1.description)
     expect(page).to have_content(@item_1.format_price)
   end
+
+  # US8
+  it "update item link links to merchant item edit page" do
+    visit merchant_item_path(@merchant_1, @item_1)
+
+    click_link "Update Item"
+
+    expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1))
+  end
 end
