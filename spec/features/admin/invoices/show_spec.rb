@@ -16,7 +16,7 @@ RSpec.describe "Admin Invoices Show" do
       expect(page).to have_content(@test_invoice.id)
       expect(page).to have_content(@test_invoice.status)
       expect(page).to have_content("Thursday, December 30, 2021")
-      expect(page).to have_content(@test_invoice.customer)
+      expect(page).to have_content(@test_invoice.customer.name)
     end
   end
 
