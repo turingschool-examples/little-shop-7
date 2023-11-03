@@ -10,7 +10,10 @@ class Invoice < ApplicationRecord
   enum status: {"in progress": 0, "completed": 1, "cancelled": 2}
 
   def self.incomplete_not_shipped
-    Invoice.joins(items: :invoice_items).where(invoice_items: {status: "pending"}).distinct
+    Invoice.joins(items: :invoice_items)
+           .where(invoice_items: {status: "pending"})
+           .distinct
+           .order(created_at: :asc)
   end
 
   def format_date
