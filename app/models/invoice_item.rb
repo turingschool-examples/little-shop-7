@@ -7,6 +7,10 @@ class InvoiceItem < ApplicationRecord
   validates :item_id, presence: true, numericality: true
   validates :quantity, presence: true, numericality: true
   validates :unit_price, presence: true, numericality: true
-  validates :status, presence: true, numericality: true
+  validates :status, presence: true
   
+  def price
+    (unit_price * 0.01).round(2)
+  end
+
 end

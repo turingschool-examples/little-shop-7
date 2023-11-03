@@ -11,6 +11,50 @@ require 'support/faker'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Add additional requires below this line. Rails is not loaded until this point!
 
+
+def test_data
+  @customer1 = create(:customer)
+  @customer2 = create(:customer)
+  @customer3 = create(:customer)
+  @customer4 = create(:customer)
+  @customer5 = create(:customer)
+
+  @test_customers = [@customer1, @customer2, @customer3, @customer4, @customer5]
+
+  count = 25
+  @test_customers.each do |customer|
+    invoices = []
+    count.times do
+      invoices << create(:invoice, customer_id: customer.id)
+    end
+    invoices = invoices.map{|i| i.id}
+    invoices.each{|id| create(:transaction, result: 1, invoice_id: id)}
+    count-=1
+  end
+
+  @item1 = create(:item)
+  @item2 = create(:item)
+  @item3 = create(:item)
+  @item4 = create(:item)
+  @item5 = create(:item)
+
+  @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
+  @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
+  @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 2, 4))
+
+  @incomplete_results = [@incomplete, @incomplete2, @incomplete3]
+
+  create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete.id, status: 0)
+  create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete.id, status: 0)
+  create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete.id, status: 1)
+
+  create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete2.id, status: 0)
+  create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete2.id, status: 1)
+  create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete2.id, status: 0)
+
+  create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
