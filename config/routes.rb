@@ -17,10 +17,12 @@ Rails.application.routes.draw do
     get "/", to: "dashboard#index"
     get "/merchants", to: "merchants#index"
     get "/merchants/:merchant_id", to: "merchants#show"
+    patch "/merchants/:merchant_id", to: "merchants#update"
     get "/merchants/:merchant_id/edit", to: "merchants#edit"
-    patch "/merchants/:merchant_id/edit", to: "merchants#show"
 
     get "/invoices", to: "invoices#index"
+    get "/invoices/:invoice_id", to: "invoices#show"
+
   end
 
 end

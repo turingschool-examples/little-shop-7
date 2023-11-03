@@ -17,4 +17,5 @@ RSpec.describe "the merchants index" do
     expect(page).to have_content(@merchant3.name)
     expect(page).to have_content(@merchant4.name)
   end
+
 end
