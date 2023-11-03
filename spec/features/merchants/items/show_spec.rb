@@ -7,7 +7,11 @@ RSpec.describe "merchant item show page" do
   end
 
   # US7
-  it "" do
-    
+  it "shows the name, description, and current selling price of the item" do
+    visit merchant_item_path(@merchant_1, @item_1)
+
+    expect(page).to have_content(@item_1.name)
+    expect(page).to have_content(@item_1.description)
+    expect(page).to have_content(@item_1.unit_price)
   end
 end
