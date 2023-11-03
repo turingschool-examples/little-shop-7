@@ -27,13 +27,13 @@ RSpec.describe "Admin Invoices Show" do
   end
 
   ## USER STORY 34
-  xit "has all of the items on the invoice including its name, quantity, price sold, and status" do
+  it "has all of the items on the invoice including its name, quantity, price sold, and status" do
     visit "/admin/invoices/#{@test_invoice.id}"
     @test_invoice.invoice_items.each do |ii|
       expect(page).to have_content(ii.item.name)
       expect(page).to have_content(ii.quantity)
       expect(page).to have_content(ii.price)
-      expect(page).to have_content(ii.status)
+      expect(page).to have_content(ii.status.capitalize)
     end
   end
 
