@@ -12,7 +12,7 @@ RSpec.describe "merchant dashboard index page" do
     @item_6 = create(:item, merchant: @merchant_2)
   end
 
-  #US6
+  # US6
   it "shows the names of all of this merchant's items" do
     visit merchant_items_path(@merchant_1)
 
@@ -23,6 +23,7 @@ RSpec.describe "merchant dashboard index page" do
     expect(page).to have_content(@item_5.name)
   end
 
+  # US6
   it "does not show the names of items belonging to other merchants" do
     visit merchant_items_path(@merchant_1)
     
