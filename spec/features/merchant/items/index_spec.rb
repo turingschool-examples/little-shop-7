@@ -175,6 +175,16 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect("#{@item8.name}").to appear_before("#{@item9.name}")
         expect("#{@item9.name}").to appear_before("#{@item10.name}")
       end
+
+      it "Each item name links to my merchant item show page for that item" do
+        visit "/merchants/#{@merchant1.id}/items"
+
+        expect(page).to have_link("#{@item2.name}")
+        expect(page).to have_link("#{@item1.name}")
+        expect(page).to have_link("#{@item8.name}")
+        expect(page).to have_link("#{@item9.name}")
+        expect(page).to have_link("#{@item10.name}")
+      end
     end
   end
 end
