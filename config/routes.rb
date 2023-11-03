@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [] do
     resource :dashboard, only: :show, to: "merchants#show"
-    resources :items, controller: "merchants/items", only: [:show, :index, :edit]
+    resources :items, controller: "merchants/items", only: [:show, :index, :edit, :update]
     resource :invoices, controller: "merchants/invoices", only: [:show]
   end
 
