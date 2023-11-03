@@ -9,4 +9,8 @@ class InvoiceItem < ApplicationRecord
   validates :unit_price, presence: true, numericality: true
   validates :status, presence: true
   
+  def price
+    (unit_price * 0.01).round(2)
+  end
+
 end
