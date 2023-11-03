@@ -41,5 +41,11 @@ RSpec.describe Invoice, type: :model do
         expect(@invoice11.creation_date).to eq("Thursday, March 8, 2012")
       end
     end
+
+    describe "#customer_name" do
+      it "can give the full name of a customer associated with a given invoice" do
+        expect(@invoice11.customer_name).to eq("Parker Daugherty")
+      end
+    end
   end
 end

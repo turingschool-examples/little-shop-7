@@ -14,7 +14,7 @@ class Invoice < ApplicationRecord
     created_at.strftime "%A, %B %-d, %Y"
   end
 
-  # def creation_date
-  #   self.created_at.strftime("%A, %B %-d, %Y")
-  # end
+  def customer_name
+    "#{customer.first_name} #{customer.last_name}"
+  end
 end
