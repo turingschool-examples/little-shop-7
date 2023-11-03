@@ -1,9 +1,9 @@
 <% @items.each do |item| %>
   <section id="<%= item.id %>">
     <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></br>
-    <%= if item.status == :enabled %>
+    <% if item.status == :disabled %>
       <%= button_to "Enable Item", merchant_item_status_path(@merchant, item), method: :patch, params: { enabled: true, item_id: item.id }, data: { turbo: false } %>
-    <%= elsif item.status == :disabled %>  
+    <% elsif item.status == :enabled %>  
       <%= button_to "Disable Item", merchant_item_status_path(@merchant, item), method: :patch, params: { disabled: true, item_id: item.id }, data: { turbo: false } %>
     <% end %>
   </section>
