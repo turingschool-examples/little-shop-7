@@ -8,7 +8,13 @@ class Merchant < ApplicationRecord
   validates :name, presence: true
 
   def items_to_ship
-    items.joins(:invoices)
+    # require'pry';binding.pry
+    items.joins(:invoice_items)
+    .where.not(invoice_items: {status: 2})
+    .select("items.*")
+    .group("items.id")
+  end
+
   def top_five_customers
     customers.joins(:transactions) # can join directly bc of our relations above
     .where(transactions: {result: 0}) # for all successful transactions

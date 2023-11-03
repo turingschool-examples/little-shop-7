@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "merchant dashboard index page" do
   before :each do
     @merchant_1 = create(:merchant)
+    @invoice_1 = create(:invoice)
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
@@ -41,10 +42,11 @@ RSpec.describe "merchant dashboard index page" do
 
     expect(page).to have_content(@merchant_1.name)
   end
- merchant/dashboard-us4
+#  merchant/dashboard-us4
   #user story 2
 
 
+#  main
 
   describe "Merchant Dashboard Links" do
     # US 2
@@ -63,6 +65,24 @@ RSpec.describe "merchant dashboard index page" do
       click_link("Invoices")
 
       expect(current_path).to eq(merchant_invoices_path(@merchant_1))
+    end
+  end
+
+  describe "Merchant Dashboard Items Ready to Ship" do
+    it "a section called Items Ready to Ship that shows items ordered but not shipped"
+    
+  # US 3
+  describe "merchant dashboard top customers" do
+    it "shows a list of the top 5 customers and a count of their successful transactions" do
+      visit merchant_dashboard_path(@merchant_1)
+
+      expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 purchases")
+      expect(page).to have_content("2. #{@customer_2.first_name} #{@customer_2.last_name} - 4 purchases")
+      expect(page).to have_content("3. #{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
+      expect(page).to have_content("4. #{@customer_4.first_name} #{@customer_4.last_name} - 2 purchases")
+      expect(page).to have_content("5. #{@customer_5.first_name} #{@customer_5.last_name} - 1 purchases")
+      expect(@customer_1.last_name).to appear_before(@customer_2.last_name)
+      expect(page).to_not have_content(@customer_6.first_name)
     end
   end
 end

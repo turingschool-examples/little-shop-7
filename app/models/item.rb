@@ -4,4 +4,9 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   validates :name, :description, :unit_price, presence: true
+
+  def find_invoice_id(item)
+    @id = InvoiceItem.find(:invoice_item = item)
+    @id.invoice_id
+  end
 end
