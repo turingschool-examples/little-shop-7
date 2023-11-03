@@ -33,6 +33,7 @@ RSpec.describe "merchant item edit page" do
     expect(page).to have_content("Fantastic Fidget")
     expect(page).to have_content("a fantastically fun fidget!")
     expect(page).to have_content("$123.45")
+    expect(page).to have_content("Item successfully updated")
   end
 
   # US8
