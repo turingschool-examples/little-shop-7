@@ -185,6 +185,16 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(page).to have_link("#{@item9.name}")
         expect(page).to have_link("#{@item10.name}")
       end
+
+      it "Displays the total revenue generated next to each item name" do
+        visit "/merchants/#{@merchant1.id}/items"
+        
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item2)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item1)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item8)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item9)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item10)}")
+      end
     end
   end
 end
