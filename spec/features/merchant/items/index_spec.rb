@@ -202,7 +202,11 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       visit "/merchants/#{@merchant1.id}/items"
 
       within("div.top-5-items") do
-        
+        expect(page).to have_content("Top selling date for #{@item2.name} was #{Item.item_best_day(@item2).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top selling date for #{@item1.name} was #{Item.item_best_day(@item1).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top selling date for #{@item8.name} was #{Item.item_best_day(@item8).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top selling date for #{@item9.name} was #{Item.item_best_day(@item9).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top selling date for #{@item10.name} was #{Item.item_best_day(@item10).strftime('%-m/%d/%y')}")
       end
     end
   end
