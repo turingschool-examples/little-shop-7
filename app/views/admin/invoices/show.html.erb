@@ -1,4 +1,4 @@
 <h1><%= "Invoice ##{@invoice.id}" %></h1>
-<b> Status: </b> <%= @invoice.status %><br>
+<b> Status: </b> <%= @invoice.status.capitalize %><br>
 <b> Created at: </b> <%= @invoice.format_date %><br>
 <b> Customer Name: </b> <%= @invoice.customer.name %><br>
