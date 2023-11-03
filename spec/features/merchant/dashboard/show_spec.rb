@@ -140,7 +140,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
       #User Story 5
         it "Next to each Item name I see the date that the invoice was created and I see the list is ordered oldest to newest" do
           visit "/merchants/#{@merchant1.id}/dashboard"
-          save_and_open_page
           expect(page).to have_content(@invoice_1.creation_date)
           expect(page).to have_content(@invoice_3.creation_date)
           expect(@invoice_3.creation_date).to appear_before(@invoice_1.creation_date)
