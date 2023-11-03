@@ -5,6 +5,6 @@
   <p><%= "#{index+1}. #{customer.first_name} #{customer.last_name} - #{customer.transaction_count} transactions" %></p>
 <% end %>
 
-<% @items_to_ship.each_with_index do |invoice_item, index|%>
-<p><%= "#{index+1}. #{invoice_item.invoice_id}" %></p>
+<% @items_to_ship.each do |invoice_item|%>
+  <p><%= "#{invoice_item.id}" %></p>
 <% end %>

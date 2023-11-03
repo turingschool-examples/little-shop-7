@@ -9,8 +9,7 @@ class InvoiceItem < ApplicationRecord
   def self.items_to_ship
     joins(:invoice)
     .where.not(status: 2)
-    .select('invoices.id as invoice_id', 'invoice_items.status', 'invoices.created_at')
+    .select('id', 'invoices.id as invoice_id', 'invoice_items.status', 'invoices.created_at')
     .order('invoices.created_at ASC')
-    .limit(20)
   end
 end
