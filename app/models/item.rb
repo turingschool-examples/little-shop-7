@@ -51,6 +51,12 @@ end
   #     return false
   #   end
   # end
+  def enabled?
+    if self.status == "enabled"
+      return true
+    end
+    
+  end
 
 
   def toggle_status
