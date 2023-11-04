@@ -67,10 +67,10 @@ RSpec.describe 'merchant invoices show page' do
     it "I see information related to that invoice including (invoice_id, invoice status, invoice created_at, customer first and last name)" do
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
 
-      expect(page).to have_content("Invoice #{@invoice1.id}")
-      expect(page).to have_content("Status #{@invoice1.status}")
-      expect(page).to have_content("Created on: #{@invoice1.created_at.strftime("%A, %B %-d, %Y")}")
-      expect(page).to have_content("Customer: #{@invoice1.customer.full_name}")
+      expect(page).to have_content("ID: #{@invoice1.id}")
+      expect(page).to have_content("Status: #{@invoice1.status}")
+      expect(page).to have_content("Created on: #{@invoice1.creation_date}")
+      expect(page).to have_content("Customer: #{@invoice1.customer_name}")
     end
   end
 end 
