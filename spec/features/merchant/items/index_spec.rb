@@ -31,13 +31,6 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       unit_price: 4291,
       merchant_id: @merchant2.id
     )
-    # @item5 = Item.create!(
-    #   id: 5,
-    #   name: "Item Expedita Aliquam",
-    #   description: "Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum. Enim illum labore voluptatem dicta consequatur. Consequatur sunt consequuntur ut officiis.",
-    #   unit_price: 68723,
-    #   merchant_id: @merchant2.id
-    # )
     @item5 = Item.create!(name: "Gold Ring", unit_price: 1200, merchant_id: @merchant1.id, description: "14k Gold")
     @item6 = Item.create!(name: "Silver Ring", unit_price: 900, merchant_id: @merchant1.id, description: "Pure Silver")
     @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
@@ -140,6 +133,14 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
 
     expect(page).to have_content(@item4.name)
     expect(page).to have_button("Disable")
+  end
+
+  describe 'items grouped by status' do
+    it 'has an enabled items and disabled items section ' do
+      visit "merchants/#{@merchant1.id}/items"
+        expect(page).to have_selector('.enabled-items')
+        expect(page).to have_selector('.disabled-items')
+    end
   end
 
   #User Story 12
