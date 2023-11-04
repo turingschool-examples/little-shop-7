@@ -141,6 +141,27 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(page).to have_selector('.enabled-items')
         expect(page).to have_selector('.disabled-items')
     end
+    it 'has items divided by section' do
+      visit "merchants/#{@merchant1.id}/items"
+      within('.disabled-items') do
+        expect(page).to have_content(@item1.name)
+        expect(page).to have_content(@item2.name)
+        expect(page).to have_content(@item3.name)
+        expect(page).to have_content(@item5.name)
+        expect(page).to have_content(@item6.name)
+        expect(page).to have_content(@item7.name)
+        expect(page).to have_content(@item8.name)
+      end
+      within('.enabled-items') do
+        expect(page).to_not have_content(@item1.name)
+        expect(page).to_not have_content(@item2.name)
+        expect(page).to_not have_content(@item3.name)
+        expect(page).to_not have_content(@item5.name)
+        expect(page).to_not have_content(@item6.name)
+        expect(page).to_not have_content(@item7.name)
+        expect(page).to_not have_content(@item8.name)
+      end
+    end
   end
 
   #User Story 12
