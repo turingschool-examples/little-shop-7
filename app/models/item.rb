@@ -55,7 +55,6 @@ end
     if self.status == "enabled"
       return true
     end
-    
   end
 
 

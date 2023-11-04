@@ -144,5 +144,21 @@ RSpec.describe Item, type: :model do
       expect(best_day).to eq(Date.today)
     end
   end
+
+  describe "#enabled?" do
+    context "when item status is 'enabled'" do
+      it "returns true" do
+        item = Item.new(status: "enabled")
+        expect(item.enabled?).to eq(true)
+      end
+    end
+
+    context "when item status is not 'enabled'" do
+      it "returns nil" do
+        item = Item.new(status: "disabled")
+        expect(item.enabled?).to eq(nil)
+      end
+    end
+  end
 end
   
