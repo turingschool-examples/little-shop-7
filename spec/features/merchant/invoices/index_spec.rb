@@ -14,7 +14,7 @@ RSpec.describe 'merchant invoices index' do
     @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
     @item8 = Item.create!(name: "Silver Necklace", unit_price: 1000, merchant_id: @merchant1.id, description: "Pure Silver")
     @item9 = Item.create!(name: "Hair Clip", unit_price: 25, merchant_id: @merchant1.id, description: "Black Plastic")
-    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant1.id, description: "Bonze")
+    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant2.id, description: "Bonze")
 
     @customer1 = Customer.create!(first_name: "John", last_name: "Jacobs")
     @customer2 = Customer.create!(first_name: "Susan", last_name: "Robinson")
@@ -71,8 +71,10 @@ RSpec.describe 'merchant invoices index' do
       expect(page).to have_content(@invoice1.id)
       expect(page).to have_content(@invoice2.id)
       expect(page).to have_content(@invoice8.id)
-      expect(page).to have_content(@invoice9.id)
+      expect(page).to have_content(@invoice7.id)
       expect(page).to have_content(@invoice10.id)
+      expect(page).to_not have_content(@invoice9.id)
+      expect(page).to_not have_content(@invoice12.id)
     end
 
 
