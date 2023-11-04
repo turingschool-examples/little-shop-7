@@ -39,5 +39,5 @@ RSpec.describe "Admin Invoices Index Page" do
         expect(page).to have_content("Invoice Item Status: #{invoice_item.status}")
       end
     end
-  end
-end
+  end 
+end 
