@@ -162,8 +162,25 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
         expect(page).to_not have_content(@item8.name)
       end
     end
+    it 'clicks the button to change the status section of the item' do
+      visit "merchants/#{@merchant1.id}/items"
+      save_and_open_page
+      within('.disabled-items') do
+        expect(page).to have_content(@item1.name)
+      end
+      within('.enabled-items') do
+        expect(page).to_not have_content(@item1.name)
+      end
+      # click_button "Enable"
+      # within('.disabled-items') do
+      #   expect(page).to_not have_content(@item1.name)
+      # end
+      # within('.enabled-items') do
+      #   expect(page).to have_content(@item1.name)
+      # end
+    end
   end
-
+      
   #User Story 12
   describe "Top 5 Most Popular Items" do
     describe "Displays the names of the top 5 most popular items ranked by revenue generated" do

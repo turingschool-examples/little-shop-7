@@ -2,8 +2,9 @@
 <h1>Items</h1>
 </div>
 
+  <section class="enabled-items">
+    <h2>Enabled Items:</h2>
 <% @items.each do |item| %>
-  <section class="enabled-items" id="<%= item.name %>">
     <h3>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
       <%= form_with url: item_path(item), method: :patch do %>
@@ -12,8 +13,10 @@
     </h3>
   </section>
 <% end %>
+
+<h2>Disabled Items:</h2>
+  <section class="disabled-items">
 <% @items.each do |item| %>
-  <section class="disabled-items" id="<%= item.name %>">
     <h3>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
       <%= form_with url: item_path(item), method: :patch do %>
