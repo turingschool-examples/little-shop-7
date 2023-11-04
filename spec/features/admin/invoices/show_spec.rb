@@ -40,4 +40,11 @@ RSpec.describe "Admin Invoices Index Page" do
       end
     end
   end 
+  
+  # US 35
+  it "displays the total revenue generated from the invoice" do
+    visit admin_invoice_path(@invoice1.id)
+
+    expect(page).to have_content("Total Revenue: $#{@invoice1.total_revenue}")
+  end
 end 
