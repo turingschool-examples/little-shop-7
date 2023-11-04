@@ -31,13 +31,6 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       unit_price: 4291,
       merchant_id: @merchant2.id
     )
-    # @item5 = Item.create!(
-    #   id: 5,
-    #   name: "Item Expedita Aliquam",
-    #   description: "Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum. Enim illum labore voluptatem dicta consequatur. Consequatur sunt consequuntur ut officiis.",
-    #   unit_price: 68723,
-    #   merchant_id: @merchant2.id
-    # )
     @item5 = Item.create!(name: "Gold Ring", unit_price: 1200, merchant_id: @merchant1.id, description: "14k Gold")
     @item6 = Item.create!(name: "Silver Ring", unit_price: 900, merchant_id: @merchant1.id, description: "Pure Silver")
     @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
@@ -142,6 +135,38 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     expect(page).to have_button("Disable")
   end
 
+  describe 'items grouped by status' do
+    it 'has an enabled items and disabled items section ' do
+      visit "merchants/#{@merchant1.id}/items"
+        expect(page).to have_content("Enabled Items")
+        expect(page).to have_content("Disabled Items")
+    end
+    it 'has items divided by section' do
+      visit "/merchants/#{@merchant1.id}/items"
+      expect("Enabled Items").to appear_before("Disabled Items")
+      expect("Disabled Items").to appear_before(@item1.name)
+      expect("Disabled Items").to appear_before(@item2.name)
+      expect("Disabled Items").to appear_before(@item3.name)
+      expect("Disabled Items").to appear_before(@item5.name)
+    end
+    it 'clicks the button to change the status section of the item' do
+      visit "merchants/#{@merchant1.id}/items"
+      expect("Disabled Items").to appear_before(@item1.name)
+      
+      find_button("submit-#{@item1.id}").click
+      expect(@item1.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item2.id}").click
+      expect(@item2.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item3.id}").click
+      expect(@item3.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item1.id}").click
+      expect("Disabled Items").to appear_before(@item1.name)
+    end
+  end
+      
   #User Story 12
   describe "Top 5 Most Popular Items" do
     describe "Displays the names of the top 5 most popular items ranked by revenue generated" do
