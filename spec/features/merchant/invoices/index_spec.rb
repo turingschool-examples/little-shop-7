@@ -80,10 +80,11 @@ RSpec.describe 'merchant invoices index' do
     end
     it 'each invoice id is a link' do
       visit "/merchants/#{@merchant2.id}/invoices"
-      save_and_open_page
-      expect(page).to have_link("Invoice #{@invoice_item9.invoice_id}")
-      expect(page).to have_link("Invoice #{@invoice_item12.invoice_id}")
-    
+      save_and_open_page
+      expect(page).to have_link("#{@invoice_item9.invoice_id}")
+      expect(page).to have_link("#{@invoice_item12.invoice_id}")
+      click_link("#{@invoice_item9.invoice_id}")
+      expect(current_path).to eq("/merchants/#{@merchant2.id}/invoices/#{@invoice_item9.invoice_id}")
     end
 
 
