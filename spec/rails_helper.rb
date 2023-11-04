@@ -55,6 +55,62 @@ def test_data
   create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
 end
 
+
+def test_data_2
+  @merchant1 = create(:merchant, name: "Target")
+
+  @customer1 = create(:customer)
+  @customer2 = create(:customer)
+  @customer3 = create(:customer)
+
+  @item1 = create(:item, name: "hat", description: "cool hat", unit_price: 10, merchant_id: @merchant1.id)
+  @item2 = create(:item, name: "straw", description: "it is for drinking", unit_price: 1, merchant_id: @merchant1.id)
+  @item3 = create(:item, name: "phone", description: "retro phone", unit_price: 100, merchant_id: @merchant1.id)
+  @item4 = create(:item, name: "bike", description: "mountain bike", unit_price: 10000, merchant_id: @merchant1.id)
+  @item5 = create(:item, name: "goggles", description: "wear it snowboard", unit_price: 80, merchant_id: @merchant1.id)
+  @item6 = create(:item, name: "hairspray", description: "get that hair stiff", unit_price: 8, merchant_id: @merchant1.id)
+  @item7 = create(:item, name: "mug", description: "drink tea out of it", unit_price: 5, merchant_id: @merchant1.id)
+  @item8 = create(:item, name: "candy", description: "get that sugar up", unit_price: 3, merchant_id: @merchant1.id)
+  
+  @invoice1 = Invoice.create(status: 1, customer_id: @customer1)
+  @invoice2 = Invoice.create(status: 1, customer_id: @customer2)
+  @invoice3 = Invoice.create(status: 1, customer_id: @customer3)
+  
+  @invoice_item1 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 10, status: 2)
+  @invoice_item2 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 1000, unit_price: 1, status: 2)
+  @invoice_item3 = InvoiceItem.create(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 202, unit_price: 100, status: 2)
+  @invoice_item4 = InvoiceItem.create(item_id: @item4.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 10000, status: 2)
+  @invoice_item6 = InvoiceItem.create(item_id: @item6.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 8, status: 2)
+  @invoice_item5 = InvoiceItem.create(item_id: @item7.id, invoice_id: @invoice3.id, quantity: 400, unit_price: 5, status: 2)
+  @invoice_item7 = InvoiceItem.create(item_id: @item7.id, invoice_id: @invoice1.id, quantity: 5, unit_price: 5, status: 2)
+  @invoice_item8 = InvoiceItem.create(item_id: @item8.id, invoice_id: @invoice1.id, quantity: 40, unit_price: 3, status: 2)
+  @invoice_item9 = InvoiceItem.create(item_id: @item8.id, invoice_id: @invoice2.id, quantity: 4, unit_price: 10, status: 2)
+  @invoice_item10 = InvoiceItem.create(item_id: @item7.id, invoice_id: @invoice2.id, quantity: 40, unit_price: 5, status: 2)
+  @invoice_item11 = InvoiceItem.create(item_id: @item6.id, invoice_id: @invoice2.id, quantity: 3, unit_price: 8, status: 2)
+  @invoice_item12 = InvoiceItem.create(item_id: @item5.id, invoice_id: @invoice2.id, quantity: 4, unit_price: 80, status: 2)
+  @invoice_item13 = InvoiceItem.create(item_id: @item4.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 10000, status: 2)
+  @invoice_item14 = InvoiceItem.create(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 40, unit_price: 100, status: 2)
+  @invoice_item15 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice3.id, quantity: 4000, unit_price: 1, status: 2)
+  @invoice_item16 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice3.id, quantity: 400, unit_price: 10, status: 2)
+
+  @transaction1 = create(:transaction, result: 1, invoice_id: @invoice1.id)
+  @transaction2 = create(:transaction, result: 1, invoice_id: @invoice2.id)
+  @transaction3 = create(:transaction, result: 1, invoice_id: @invoice3.id)
+  # @transaction4 = create(:transaction, result: 1, invoice_id: @invoice1.id)
+  # @transaction5 = create(:transaction, result: 1, invoice_id: @invoice.id)
+  # @transaction6 = create(:transaction, result: 1, invoice_id: @invoice6.id)
+  # @transaction7 = create(:transaction, result: 1, invoice_id: @invoice7.id)
+  # @transaction8 = create(:transaction, result: 1, invoice_id: @invoice8.id)
+  # @transaction9 = create(:transaction, result: 1, invoice_id: @invoice9.id)
+  # @transaction10 = create(:transaction, result: 1, invoice_id: @invoice10.id)
+  # @transaction11 = create(:transaction, result: 1, invoice_id: @invoice11.id)
+  # @transaction12 = create(:transaction, result: 1, invoice_id: @invoice12.id)
+  # @transaction13 = create(:transaction, result: 1, invoice_id: @invoice13.id)
+  # @transaction14 = create(:transaction, result: 1, invoice_id: @invoice14.id)
+  # @transaction15 = create(:transaction, result: 1, invoice_id: @invoice15.id)
+  # @transaction16 = create(:transaction, result: 1, invoice_id: @invoice16.id)
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
