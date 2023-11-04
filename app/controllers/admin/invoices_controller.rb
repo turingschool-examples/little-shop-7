@@ -8,10 +8,6 @@ class Admin::InvoicesController < ApplicationController
   end
 
   def update
-
-  end
-
-  def update
     invoice = Invoice.find(params[:id])
 
     invoice.update({
