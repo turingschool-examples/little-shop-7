@@ -96,7 +96,7 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content("Jerky")
       end
 
-      xit 'shows top 5 popular items ranked by total revenue' do
+      it 'shows top 5 popular items ranked by total revenue' do
         #US 12
         visit "/merchants/#{@merchant1.id}/items"
 

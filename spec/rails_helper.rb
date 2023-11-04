@@ -72,9 +72,9 @@ def test_data_2
   @item7 = create(:item, name: "mug", description: "drink tea out of it", unit_price: 5, merchant_id: @merchant1.id)
   @item8 = create(:item, name: "candy", description: "get that sugar up", unit_price: 3, merchant_id: @merchant1.id)
   
-  @invoice1 = Invoice.create(status: 1, customer_id: @customer1)
-  @invoice2 = Invoice.create(status: 1, customer_id: @customer2)
-  @invoice3 = Invoice.create(status: 1, customer_id: @customer3)
+  @invoice1 = create(:invoice, status: 1, customer_id: @customer1.id)
+  @invoice2 = create(:invoice, status: 1, customer_id: @customer2.id)
+  @invoice3 = create(:invoice, status: 1, customer_id: @customer3.id)
   
   @invoice_item1 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 10, status: 2)
   @invoice_item2 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 1000, unit_price: 1, status: 2)
