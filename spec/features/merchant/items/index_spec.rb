@@ -138,8 +138,8 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
   describe 'items grouped by status' do
     it 'has an enabled items and disabled items section ' do
       visit "merchants/#{@merchant1.id}/items"
-        expect(page).to have_selector('.enabled-items')
-        expect(page).to have_selector('.disabled-items')
+        expect(page).to have_content("Enabled Items")
+        expect(page).to have_content("Disabled Items")
     end
     it 'has items divided by section' do
       visit "/merchants/#{@merchant1.id}/items"
@@ -151,20 +151,19 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     end
     it 'clicks the button to change the status section of the item' do
       visit "merchants/#{@merchant1.id}/items"
-      save_and_open_page
-      within('.disabled-items') do
-        expect(page).to have_content(@item1.name)
-      end
-      within('.enabled-items') do
-        expect(page).to_not have_content(@item1.name)
-      end
-      # click_button "Enable"
-      # within('.disabled-items') do
-      #   expect(page).to_not have_content(@item1.name)
-      # end
-      # within('.enabled-items') do
-      #   expect(page).to have_content(@item1.name)
-      # end
+      expect("Disabled Items").to appear_before(@item1.name)
+      
+      find_button("submit-#{@item1.id}").click
+      expect(@item1.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item2.id}").click
+      expect(@item2.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item3.id}").click
+      expect(@item3.name).to appear_before("Disabled Items")
+      
+      find_button("submit-#{@item1.id}").click
+      expect("Disabled Items").to appear_before(@item1.name)
     end
   end
       
