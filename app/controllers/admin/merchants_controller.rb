@@ -19,10 +19,10 @@ class Admin::MerchantsController < ApplicationController
       flash[:alert] = "Update Successful"
     end
 
-    if params[:enable?] == "no"
+    if params[:enable] == "no"
       @merchant.update(enabled: false)
       redirect_to "/admin/merchants"
-    elsif params[:enable?] == "yes"
+    elsif params[:enable] == "yes"
       @merchant.update(enabled: true)     
       redirect_to "/admin/merchants"
     end
