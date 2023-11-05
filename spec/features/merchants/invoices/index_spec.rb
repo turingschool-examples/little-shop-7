@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)' do
   before :each do
     test_data_2
+    @invoices = [@invoice1, @invoice2, @invoice3]
   end
 
   describe 'as a visitor' do
@@ -11,7 +12,9 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         #US 14
         visit "/merchants/#{@merchant1.id}/invoices"
         
-        expect(page).to have_content(@)
+        @invoices.each do |invoice| 
+          expect(page).to have_content(invoice.id)
+        end
       end
     end
   end
