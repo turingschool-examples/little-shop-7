@@ -1,4 +1,7 @@
 class Admin::MerchantsController < ApplicationController
+  def new
+  end
+
   def index
     @merchants = Merchant.all
   end
@@ -26,5 +29,10 @@ class Admin::MerchantsController < ApplicationController
       @merchant.update(enabled: true)     
       redirect_to "/admin/merchants"
     end
+  end
+
+  def create
+    Merchant.create!(name: params[:new_company_name], enabled: false)
+    redirect_to "/admin/merchants"
   end
 end
