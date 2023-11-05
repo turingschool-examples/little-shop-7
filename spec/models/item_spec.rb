@@ -22,5 +22,10 @@ RSpec.describe Item, type: :model do
         expect(@item_1.format_price).to eq("$12.34")
       end
     end
+    describe "#created_format" do
+      it "returns created date formated as weekday, month day, year" do
+        expect(@item_1.created_format).to eq("Sunday, November 05, 2023")
+      end
+    end
   end
 end
