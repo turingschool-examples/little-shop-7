@@ -14,12 +14,17 @@ Rails.application.routes.draw do
     resource :invoices, controller: "merchants/invoices", only: [:show]
   end
 
+  namespace :merchants do
+    resources :invoices, only: :show
+    resources :items, only: :show
+  end
+  
   root "welcome#index"
 
   namespace :admin do
     get "/", to: "dashboards#welcome"
 
-    resources :invoices, only: [:index, :show]
-    resources :merchants, only: [:index, :show]
+    resources :invoices, only: [:index, :show, :update]
+    resources :merchants, only: [:index, :show, :edit, :update]
   end
 end

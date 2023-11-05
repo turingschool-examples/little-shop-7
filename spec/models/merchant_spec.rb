@@ -38,7 +38,7 @@ RSpec.describe Merchant, type: :model do
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
     @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5)
-    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6)
+    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6, status: 2)
     @transaction_1 = create_list(:transaction, 5, invoice: @invoice_1, result: 0)
     @transaction_2 = create_list(:transaction, 4, invoice: @invoice_2, result: 0)
     @transaction_3 = create_list(:transaction, 3, invoice: @invoice_3, result: 0)
@@ -79,6 +79,12 @@ RSpec.describe Merchant, type: :model do
     describe "#disabled_items" do
       it "returns an array of items whose status is disabled" do
         expect(@merchant.disabled_items.sort).to eq([@item_4, @item_5, @item_6].sort)
+
+    describe "#items_to_ship" do
+      it "returns an array of merchant's items that are not yet shipped" do
+        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
+      
+        expect(@merchant.items_to_ship).to eq(expected)
       end
     end
   end
