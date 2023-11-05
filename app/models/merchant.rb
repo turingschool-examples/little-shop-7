@@ -8,11 +8,10 @@ class Merchant < ApplicationRecord
   validates :name, presence: true
 
   def items_to_ship
-    # require'pry';binding.pry
     items.joins(:invoice_items)
+    .joins(:invoices)
     .where.not(invoice_items: {status: 2})
-    .select("items.*")
-    .group("items.id")
+    .select("id", "items.name, invoices.id as invoice_id, invoice_items.status, invoices.created_at").uniq
   end
 
   def top_five_customers

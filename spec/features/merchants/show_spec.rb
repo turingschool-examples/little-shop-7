@@ -27,7 +27,7 @@ RSpec.describe "merchant dashboard index page" do
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
     @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5)
-    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6)
+    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6, status: 2)
     @transaction_1 = create_list(:transaction, 5, invoice: @invoice_1, result: 0)
     @transaction_2 = create_list(:transaction, 4, invoice: @invoice_2, result: 0)
     @transaction_3 = create_list(:transaction, 3, invoice: @invoice_3, result: 0)
@@ -42,12 +42,7 @@ RSpec.describe "merchant dashboard index page" do
 
     expect(page).to have_content(@merchant_1.name)
   end
-#  merchant/dashboard-us4
-  #user story 2
-
-
-#  main
-
+  
   describe "Merchant Dashboard Links" do
     # US 2
     it "shows links to merchant items index and merchant invoices index" do
@@ -68,9 +63,6 @@ RSpec.describe "merchant dashboard index page" do
     end
   end
 
-  describe "Merchant Dashboard Items Ready to Ship" do
-    it "a section called Items Ready to Ship that shows items ordered but not shipped"
-    
   # US 3
   describe "merchant dashboard top customers" do
     it "shows a list of the top 5 customers and a count of their successful transactions" do
@@ -83,6 +75,35 @@ RSpec.describe "merchant dashboard index page" do
       expect(page).to have_content("5. #{@customer_5.first_name} #{@customer_5.last_name} - 1 purchases")
       expect(@customer_1.last_name).to appear_before(@customer_2.last_name)
       expect(page).to_not have_content(@customer_6.first_name)
+    end
+  end
+
+  #US 4
+  describe "Merchant Dashboard Items Ready to Ship" do
+    it "a section called Items Ready to Ship that shows items ordered but not shipped" do
+      visit merchant_dashboard_path(@merchant_1)
+      
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_3.name)
+      expect(page).to have_content(@item_4.name)
+      expect(page).to have_content(@item_5.name)
+      expect(page).to_not have_content(@item_6.name)
+    end
+
+    it "has the associated invoice number and a link to invoice page" do
+      visit merchant_dashboard_path(@merchant_1)
+
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@invoice_2.id)
+      expect(page).to have_content(@invoice_3.id)
+      expect(page).to have_content(@invoice_4.id)
+      expect(page).to have_content(@invoice_5.id)
+      expect(page).to_not have_content(@invoice_6.id)
+
+      click_link("#{@invoice_1.id}")
+
+      expect(current_path).to eq("/merchants/invoices/#{@invoice_1.id}")
     end
   end
 end

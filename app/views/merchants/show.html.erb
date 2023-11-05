@@ -7,10 +7,11 @@
   <h1>Items Ready to Ship</h1>
 </section>
   <% @merchant.items_to_ship.each do |item| %>
-    <p><%= item.name %> invoice number: <% item.find_invoice_id(item.id) %>
+    <p><%= item.name %> invoice number: <%= link_to "#{item.invoice_id}", "/merchants/invoices/#{item.invoice_id}" %>
   <% end %>
 </section>
-
+<br>
+<br>
 <% @top_customers.each_with_index do |customer, index| %>
   <%= "#{index + 1}. #{customer.full_name} - #{@merchant.top_five_customers_count[customer.id]} purchases" %></br>
 <% end %>

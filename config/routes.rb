@@ -10,9 +10,10 @@ Rails.application.routes.draw do
     resource :invoices, only: :show, to: "merchants/invoices#show"
   end
 
-  # namespace :merchants do
-  #   get 
-  # end
+  namespace :merchants do
+    resources :invoices, only: :show
+    resources :items, only: :show
+  end
 
   root "welcome#index"
 
