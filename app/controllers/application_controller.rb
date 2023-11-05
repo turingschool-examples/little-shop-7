@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :alert
+  
   private
 
     def error_message(errors)
