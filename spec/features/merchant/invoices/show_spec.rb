@@ -100,11 +100,12 @@ RSpec.describe 'merchant invoices show page' do
       # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
       # I see that each invoice item status is a select field
-      save_and_open_page
+      # And I see that the invoice item's current status is selected
       @invoice1.invoice_items.each do |invoice_item|
         expect(page).to have_select("status_#{invoice_item.id}", selected: "#{invoice_item.status}")
+        expect(page).to have_button("Update Item Status")
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
       end
-# And I see that the invoice item's current status is selected
 # When I click this select field,
 # Then I can select a new status for the Item,
 # And next to the select field I see a button to "Update Item Status"
