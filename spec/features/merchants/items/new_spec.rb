@@ -45,6 +45,6 @@ RSpec.describe "merchant items index page" do
     click_button "Add Item"
 
     expect(current_path).to eq(new_merchant_item_path(@merchant_1))
-    expect(page).to have_content("Error: fgdfgfg")
+    expect(page).to have_content("Error: Name can't be blank")
   end
 end
