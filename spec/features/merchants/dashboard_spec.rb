@@ -122,4 +122,39 @@ RSpec.describe "Dashboard" do
     click_link("#{@invoice0.id}", match: :first)
     expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice0.id}")
   end
+  it "US5: in the section for 'items ready to ship' I see date invoice was created formatted like 'Monday, July 18, 2019' and ordered oldest to newest" do
+    # 5. Merchant Dashboard Invoices sorted by least recent
+    # As a merchant
+    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+    # In the section for "Items Ready to Ship",
+    # Next to each Item name I see the date that the invoice was created
+    # And I see the date formatted like "Monday, July 18, 2019"
+    # And I see that the list is ordered from oldest to newest
+    @customer0 = Customer.create(first_name: "Angus", last_name: "Turing")
+    @invoice0 = @customer0.invoices.create(created_at: 2012-03-27, status: 1)
+    @invoice7 = @customer0.invoices.create(created_at: 2012-03-27, status: 1)
+
+    @item2 = @merchant1.items.create(created_at: 2012-03-27, name: "Bat", description: "Bat", unit_price: 200)
+    @item3 = @merchant1.items.create(created_at: 2012-03-27, name: "Cat", description: "Cat", unit_price: 300)
+    @item4 = @merchant1.items.create(created_at: 2012-03-27, name: "Rat", description: "Rat", unit_price: 400)
+
+    @transaction0 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
+    @transaction7 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
+
+
+    @ii1 = create(:invoice_item, created_at: 2012-03-27, item: @item2, invoice: @invoice0, status: 0)
+    @ii2 = create(:invoice_item, created_at: 2012-03-27, item: @item3, invoice: @invoice0, status: 1)
+    @ii3 = create(:invoice_item, created_at: 2012-03-27, item: @item4, invoice: @invoice0, status: 2)
+    @ii7 = create(:invoice_item, created_at: 2012-03-28, item: @item3, invoice: @invoice0, status: 2)
+
+
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    expect(page).to have_content("Items Ready to Ship")
+    within("#Items-Ready-to-Ship") do
+      expect(page).to have_content("Date: Sunday, November 05, 2023")
+      #save_and_open_page
+      expect(page).to have_content("Date: Monday, November 06, 2023")
+      expect("Date: Sunday, November 05, 2023").to appear_before("Date: Monday, November 06, 2023")
+    end
+  end
 end
