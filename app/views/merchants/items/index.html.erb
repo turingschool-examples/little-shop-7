@@ -1,3 +1,5 @@
 <% @items.each do |item| %>
   <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></br>
 <% end %>
+
+<%= link_to "Add Item", new_merchant_item_path(@merchant) %>
