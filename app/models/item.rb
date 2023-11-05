@@ -8,8 +8,4 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true, numericality: true
   validates :merchant_id, presence: true, numericality: true
 
-  def Item.best_date
-    # require 'pry'; binding.pry
-    joins(invoices: :invoice_items)
-  end
 end

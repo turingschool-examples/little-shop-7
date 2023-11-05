@@ -11,7 +11,6 @@
 <h3>Top 5 Popular Items and Revenue</h3>
 <ol><% @merchant.popular_items.each do |item|%>
 <li><%= item.name %> | $<%= item.total_revenue %></li><br>
-<p>Top selling date for <%= item.name %> was <%= Item.best_date %></p>
 <% end %>
 </ol>
 
@@ -34,5 +33,3 @@
   <% end %></div>
   <% end %>
 </div>
-
- 
