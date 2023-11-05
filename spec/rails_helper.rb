@@ -55,6 +55,7 @@ def test_data
   create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
 end
 
+
 def test_data_2
   @merchant1 = create(:merchant, name: "Target")
 
