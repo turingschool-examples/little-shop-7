@@ -57,8 +57,20 @@
       .button {
         display: flex;
       }
+
+      .column {
+        float: left;
+        width: 50%;
+        padding: 15px;
+      }
+      /* Clear floats after the columns */
+      .row::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
     </style>
-     <% flash.each do |type, message| %>
+    <% flash.each do |type, message| %>
       <h3><p><%= message %></p></h3>
     <% end %>
     <%= yield %>

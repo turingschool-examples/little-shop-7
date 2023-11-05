@@ -102,7 +102,16 @@ RSpec.describe 'merchant items index page' do
 
         expect(page).to have_content("Top 5 Popular Items and Revenue")
 
+        expect(@item3.name).to appear_before(@item4.name)
+        expect(@item4.name).to appear_before(@item2.name)
+        expect(@item2.name).to appear_before(@item1.name)
+        expect(@item1.name).to appear_before(@item7.name)
 
+        expect(page).to have_content("24200")
+        expect(page).to have_content("20000")
+        expect(page).to have_content("4040")
+        expect(page).to have_content("5000")
+        expect(page).to have_content("2225")
       end
     end
   end
