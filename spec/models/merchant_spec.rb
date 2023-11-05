@@ -150,10 +150,10 @@ RSpec.describe Merchant, type: :model do
       merchants = create_list(:merchant, 2)
       merchant_1 = merchants.first
       merchant_2 = merchants.last
-      merchant_2.update!({status: 0})
+      merchant_2.update!({status: 1})
 
-      expect(merchant_1.button_text).to eq("Disable")
-      expect(merchant_2.button_text).to eq("Enable")
+      expect(merchant_1.button_text).to eq("Enable")
+      expect(merchant_2.button_text).to eq("Disable")
     end
   end
 
@@ -164,10 +164,10 @@ RSpec.describe Merchant, type: :model do
       merchants = create_list(:merchant, 2)
       merchant_1 = merchants.first
       merchant_2 = merchants.last
-      merchant_2.update!({status: 0})
+      merchant_2.update!({status: 1})
 
-      expect(merchant_1.enabled?).to eq(true)
-      expect(merchant_2.enabled?).to eq(false)
+      expect(merchant_1.enabled?).to eq(false)
+      expect(merchant_2.enabled?).to eq(true)
     end
   end
 
@@ -176,10 +176,10 @@ RSpec.describe Merchant, type: :model do
       merchants = create_list(:merchant, 2)
       merchant_1 = merchants.first
       merchant_2 = merchants.last
-      merchant_2.update!({status: 0})
+      merchant_2.update!({status: 1})
 
-      expect(merchant_1.toggle_status).to eq(0)
-      expect(merchant_2.toggle_status).to eq(1)
+      expect(merchant_1.toggle_status).to eq(1)
+      expect(merchant_2.toggle_status).to eq(0)
     end
   end
 

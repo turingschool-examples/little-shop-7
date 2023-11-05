@@ -13,30 +13,34 @@ RSpec.describe "Admin Merchants Index", type: feature do
   end
   
   it "has a button next to each merchant's name to disable or enable that merchant" do 
-    
     merch_list = create_list(:merchant, 5)
     merchant = merch_list.sample
     
     visit "/admin/merchants"
 
-    within "#index-#{merchant.id}" do 
+    within ".disabled" do
+      within "#index-#{merchant.id}" do 
+        expect(page).to have_content(merchant.name)
+        expect(page).to have_button("Enable")
+        click_button "Enable"
+      end
+    end
+
+    expect(current_path).to eq("/admin/merchants")
+    expect(page).to have_content("The status has been enabled")
+
+    within ".enabled" do
       expect(page).to have_link(merchant.name)
       expect(page).to have_button("Disable")
       click_button "Disable"
     end
-    
+  
+    expect(current_path).to eq("/admin/merchants")
     expect(page).to have_content("The status has been disabled")
-    within "#index-#{merchant.id}" do 
+
+    within ".disabled" do
       expect(page).to_not have_link(merchant.name)
       expect(page).to have_button("Enable")
-      click_button "Enable"
-    end
-  
-    expect(page).to have_content("The status has been enabled")
-
-    within "#index-#{merchant.id}" do
-      expect(page).to have_link(merchant.name)
-      expect(page).to have_button("Disable")
     end
   end
 
@@ -46,11 +50,16 @@ RSpec.describe "Admin Merchants Index", type: feature do
     
     visit "/admin/merchants"
 
+    expect(page).to have_content("Enabled Merchants")
+    expect(page).to have_content("Disabled Merchants")
     # check that all merchants are enabled
     merch_list.each do |merch|
-      within ".enabled" do 
-        expect(page).to have_content("Enabled Merchants")
+      within ".disabled" do 
         expect(page).to have_content(merch.name)
+      end
+
+      within ".enabled" do 
+        expect(page).to_not have_content(merch.name)
       end
     end
     
@@ -64,12 +73,12 @@ RSpec.describe "Admin Merchants Index", type: feature do
       idx += 1
     end
     
-    merch_list_enabled = Merchant.where("id > ?", stop)
-    merch_list_disabled = Merchant.where("id <= ?", stop)
+    merch_list_enabled = Merchant.where("id <= ?", stop)
+    merch_list_disabled = Merchant.where("id > ?", stop)
 
     # disable the first four companies
-    merch_list_disabled.each do |merch| 
-      merch.update({status: 0})
+    merch_list_enabled.each do |merch| 
+      merch.update({status: 1})
     end
 
     visit "/admin/merchants"
@@ -77,17 +86,15 @@ RSpec.describe "Admin Merchants Index", type: feature do
     # check to make sure half of the merchants are in 'enabled' section and other half are in the 'disabled' section
     merch_list_enabled.each do |merch|
       within ".enabled" do 
-        expect(page).to have_content("Enabled Merchants")
         expect(page).to have_content(merch.name)
       end
     end
 
     merch_list_disabled.each do |merch|
       within ".disabled" do
-        expect(page).to have_content("Disabled Merchants")
         expect(page).to have_content(merch.name)
       end
     end
   end
-
+  
 end 
