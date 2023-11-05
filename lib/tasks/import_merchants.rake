@@ -8,6 +8,7 @@ namespace :csv_load do
     csv.each do |row|
       t = Merchant.new
       t.name = row["name"]
+      t.enabled = true
       t.created_at = row["created_at"]
       t.updated_at = row["updated_at"]
       t.save
