@@ -95,5 +95,24 @@ RSpec.describe 'merchant invoices show page' do
 
       expect(page).to have_content((@item1.unit_price + @item9.unit_price + @item9.unit_price))
     end
+
+    it 'allows you to update item status' do
+      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+      # I see that each invoice item status is a select field
+      save_and_open_page
+      @invoice1.invoice_items.each do |invoice_item|
+        expect(page).to have_select("invoice_item_#{invoice_item.id}_status", selected: 'packaged')
+      end
+# And I see that the invoice item's current status is selected
+# When I click this select field,
+# Then I can select a new status for the Item,
+# And next to the select field I see a button to "Update Item Status"
+# When I click this button
+# I am taken back to the merchant invoice show page
+# And I see that my Item's status has now been updated
+
+      
+    end
   end
 end 

@@ -8,9 +8,20 @@
 <h2>Items On This Invoice</h2>
 
 <% @invoice.invoice_items.each do |invoice_item| %>
+  <section id="invoice_item_#{invoice_item.id}">
   <h3>Item Name: <%= invoice_item.item.name %></h3>
   <h3>Quantity: <%= invoice_item.quantity %></h3>
   <h3>Unit Price: <%= invoice_item.unit_price %></h3>
-  <h3>Status: <%= invoice_item.status %></h3>
+  <h3>Status</h3>
+  <h4>
+    
+    <%= label_tag "status_pending_#{invoice_item.id}", 'Pending' %>
+    <%= radio_button_tag("status_#{invoice_item.id}", 'pending', invoice_item.status == 'pending') %>
+    <%= label_tag "status_packaged_#{invoice_item.id}", 'Packaged' %>
+    <%= radio_button_tag("status_#{invoice_item.id}", 'packaged', invoice_item.status == 'packaged') %>
+    <%= label_tag "status_shipped_#{invoice_item.id}", 'Shipped' %>
+    <%= radio_button_tag("status_#{invoice_item.id}", 'shipped', invoice_item.status == 'shipped') %>
+  </h4>
+  </section>
 <% end %>
 <h4>Revenue: <%= @invoice.revenue %></h4>
