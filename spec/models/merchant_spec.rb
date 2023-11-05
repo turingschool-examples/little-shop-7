@@ -27,12 +27,12 @@ RSpec.describe Merchant, type: :model do
     @invoice_4 = create(:invoice, customer: @customer_4)
     @invoice_5 = create(:invoice, customer: @customer_5)
     @invoice_6 = create(:invoice, customer: @customer_6)
-    @item_1 = create(:item, merchant: @merchant)
-    @item_2 = create(:item, merchant: @merchant)
-    @item_3 = create(:item, merchant: @merchant)
-    @item_4 = create(:item, merchant: @merchant)
-    @item_5 = create(:item, merchant: @merchant)
-    @item_6 = create(:item, merchant: @merchant)
+    @item_1 = create(:item, merchant: @merchant, status: "enabled")
+    @item_2 = create(:item, merchant: @merchant, status: "enabled")
+    @item_3 = create(:item, merchant: @merchant, status: "enabled")
+    @item_4 = create(:item, merchant: @merchant, status: "disabled")
+    @item_5 = create(:item, merchant: @merchant, status: "disabled")
+    @item_6 = create(:item, merchant: @merchant, status: "disabled")
     @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
     @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2)
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
@@ -67,6 +67,18 @@ RSpec.describe Merchant, type: :model do
                   @customer_5.id => 1}
 
         expect(@merchant.top_five_customers_count).to eq(expected)
+      end
+    end
+
+    describe "#enabled_items" do
+      it "returns an array of items whose status is enabled" do
+        expect(@merchant.enabled_items.sort).to eq([@item_1, @item_2, @item_3].sort)
+      end
+    end
+
+    describe "#disabled_items" do
+      it "returns an array of items whose status is disabled" do
+        expect(@merchant.disabled_items.sort).to eq([@item_4, @item_5, @item_6].sort)
       end
     end
   end
