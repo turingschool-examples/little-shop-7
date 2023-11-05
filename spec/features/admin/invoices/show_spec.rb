@@ -22,7 +22,7 @@ RSpec.describe "Admin Invoices Index Page" do
     visit admin_invoice_path(@invoice1.id)
 
     expect(page).to have_content("ID: ##{@invoice1.id}")
-    expect(page).to have_content("Status: #{@invoice1.status}")
+    expect(page).to have_select('invoice[status]', selected: @invoice1.status)
     expect(page).to have_content("Customer: #{@invoice1.customer.full_name}")
     expect(page).to have_content("Created Date: #{@invoice1.date_format}")
   end
@@ -40,11 +40,22 @@ RSpec.describe "Admin Invoices Index Page" do
       end
     end
   end 
-  
+
   # US 35
   it "displays the total revenue generated from the invoice" do
     visit admin_invoice_path(@invoice1.id)
 
     expect(page).to have_content("Total Revenue: $#{@invoice1.total_revenue}")
+  end
+
+  # US 36
+  it "displays a select field for invoice status and updates the field" do
+    visit admin_invoice_path(@invoice1.id)
+
+    expect(page).to have_select('invoice[status]', selected: @invoice1.status)
+
+    select 'cancelled', from: 'invoice[status]'
+
+    expect(page).to have_select('invoice[status]', selected: 'cancelled')
   end
 end 
