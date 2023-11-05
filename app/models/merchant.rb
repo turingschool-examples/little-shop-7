@@ -7,6 +7,13 @@ class Merchant < ApplicationRecord
   
   validates :name, presence: true
 
+  def items_to_ship
+    items.joins(:invoice_items)
+    .joins(:invoices)
+    .where.not(invoice_items: {status: 2})
+    .select("id", "items.name, invoices.id as invoice_id, invoice_items.status, invoices.created_at").uniq
+  end
+
   def top_five_customers
     customers.joins(:transactions) # can join directly bc of our relations above
     .where(transactions: {result: 0}) # for all successful transactions
