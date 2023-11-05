@@ -6,21 +6,21 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [] do
     resource :dashboard, only: :show, to: "merchants#show"
-    resource :items, only: :show, to: "merchants/items#show"
-    resource :invoices, only: :show, to: "merchants/invoices#show"
+    resources :items, controller: "merchants/items", only: [:show, :index, :edit, :update]
+    resource :invoices, controller: "merchants/invoices", only: [:show]
   end
 
   namespace :merchants do
     resources :invoices, only: :show
     resources :items, only: :show
   end
-
+  
   root "welcome#index"
 
   namespace :admin do
-    get "/dashboard", to: "dashboards#welcome"
+    get "/", to: "dashboards#welcome"
 
     resources :invoices, only: [:index, :show]
-    resources :merchants, only: :index
+    resources :merchants, only: [:index, :show]
   end
 end
