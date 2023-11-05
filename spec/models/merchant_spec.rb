@@ -70,14 +70,6 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "#items_to_ship" do
-      it "returns an array of merchant's items that are not yet shipped" do
-        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
-      
-        expect(@merchant.items_to_ship).to eq(expected)
-      end
-    end
-
     describe "#enabled_items" do
       it "returns an array of items whose status is enabled" do
         expect(@merchant.enabled_items.sort).to eq([@item_1, @item_2, @item_3].sort)
@@ -87,6 +79,12 @@ RSpec.describe Merchant, type: :model do
     describe "#disabled_items" do
       it "returns an array of items whose status is disabled" do
         expect(@merchant.disabled_items.sort).to eq([@item_4, @item_5, @item_6].sort)
+
+    describe "#items_to_ship" do
+      it "returns an array of merchant's items that are not yet shipped" do
+        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
+      
+        expect(@merchant.items_to_ship).to eq(expected)
       end
     end
   end
