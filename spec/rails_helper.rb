@@ -96,21 +96,7 @@ def test_data_2
   @transaction1 = create(:transaction, result: 1, invoice_id: @invoice1.id)
   @transaction2 = create(:transaction, result: 1, invoice_id: @invoice2.id)
   @transaction3 = create(:transaction, result: 1, invoice_id: @invoice3.id)
-  # @transaction4 = create(:transaction, result: 1, invoice_id: @invoice1.id)
-  # @transaction5 = create(:transaction, result: 1, invoice_id: @invoice.id)
-  # @transaction6 = create(:transaction, result: 1, invoice_id: @invoice6.id)
-  # @transaction7 = create(:transaction, result: 1, invoice_id: @invoice7.id)
-  # @transaction8 = create(:transaction, result: 1, invoice_id: @invoice8.id)
-  # @transaction9 = create(:transaction, result: 1, invoice_id: @invoice9.id)
-  # @transaction10 = create(:transaction, result: 1, invoice_id: @invoice10.id)
-  # @transaction11 = create(:transaction, result: 1, invoice_id: @invoice11.id)
-  # @transaction12 = create(:transaction, result: 1, invoice_id: @invoice12.id)
-  # @transaction13 = create(:transaction, result: 1, invoice_id: @invoice13.id)
-  # @transaction14 = create(:transaction, result: 1, invoice_id: @invoice14.id)
-  # @transaction15 = create(:transaction, result: 1, invoice_id: @invoice15.id)
-  # @transaction16 = create(:transaction, result: 1, invoice_id: @invoice16.id)
 end
-
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
