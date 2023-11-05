@@ -1,3 +1,15 @@
 <% @items.each do |item| %>
-  <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></br>
+  <section id="<%= item.id %>">
+    <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></br>
+
+    <% if item.status == "disabled" %>
+      Disabled
+      <%= button_to "Enable Item", merchant_item_status_path(@merchant, item), method: :patch, params: { status: "enabled" }, data: { turbo: false }, local: true %>
+    <% end %>
+
+    <% if item.status == "enabled" %>
+      Enabled  
+      <%= button_to "Disable Item", merchant_item_status_path(@merchant, item), method: :patch, params: { status: "disabled" }, data: { turbo: false }, local: true %>
+    <% end %>
+  </section>
 <% end %>
