@@ -11,7 +11,7 @@ class Merchant < ApplicationRecord
     items.joins(:invoice_items)
     .joins(:invoices)
     .where.not(invoice_items: {status: 2})
-    .select("id", "items.name, invoices.id as invoice_id, invoice_items.status, invoices.created_at").uniq
+    .select("id", "items.name, invoices.id as invoice_id, invoice_items.status, invoices.created_at as created_at").order(created_at: :desc).uniq
   end
 
   def top_five_customers
