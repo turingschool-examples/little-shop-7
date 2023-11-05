@@ -14,7 +14,7 @@ RSpec.describe 'merchant invoices show page' do
     @item7 = Item.create!(name: "Gold Necklace", unit_price: 1400, merchant_id: @merchant1.id, description: "10k Gold")
     @item8 = Item.create!(name: "Silver Necklace", unit_price: 1000, merchant_id: @merchant1.id, description: "Pure Silver")
     @item9 = Item.create!(name: "Hair Clip", unit_price: 25, merchant_id: @merchant1.id, description: "Black Plastic")
-    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant2.id, description: "Bonze")
+    @item10 = Item.create!(name: "Hoop Earrings", unit_price: 125, merchant_id: @merchant2.id, description: "Bronze")
 
     @customer1 = Customer.create!(first_name: "John", last_name: "Jacobs")
     @customer2 = Customer.create!(first_name: "Susan", last_name: "Robinson")
