@@ -2,4 +2,5 @@
 
 <%= @merchants.each do |merchant| %>
   <%= link_to "Merchant #{merchant.id}", admin_merchant_path(merchant.id) %><br>
+  <p>Merchant Name: <%= merchant.name %></p>
 <% end %>
