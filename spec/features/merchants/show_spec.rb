@@ -106,4 +106,19 @@ RSpec.describe "merchant dashboard index page" do
       expect(current_path).to eq("/merchants/invoices/#{@invoice_1.id}")
     end
   end
+
+  #US 5
+  describe "Merchant Dashboard Invoices sorted by least recent" do
+    it "shows date invoice was created and orders items oldest to newest" do
+      visit merchant_dashboard_path(@merchant_1)
+      expected = @item_1.created_format
+
+      expect(@item_5.name).to appear_before(@item_4.name)
+      expect(@item_4.name).to appear_before(@item_3.name)
+      expect(@item_3.name).to appear_before(@item_2.name)
+      expect(@item_2.name).to appear_before(@item_1.name)
+
+      expect(page).to have_content(expected)
+    end
+  end
 end

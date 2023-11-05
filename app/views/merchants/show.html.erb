@@ -6,7 +6,7 @@
   <h1>Items Ready to Ship</h1>
 </section>
   <% @merchant.items_to_ship.each do |item| %>
-    <p><%= item.name %> invoice number: <%= link_to "#{item.invoice_id}", "/merchants/invoices/#{item.invoice_id}" %>
+    <p><%= item.name %> Created: <%= item.created_format %>invoice number: <%= link_to "#{item.invoice_id}", "/merchants/invoices/#{item.invoice_id}" %>
   <% end %>
 </section>
 <br>
