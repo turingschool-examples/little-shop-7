@@ -72,14 +72,14 @@ def test_data_2
   @item7 = create(:item, name: "mug", description: "drink tea out of it", unit_price: 5, merchant_id: @merchant1.id)
   @item8 = create(:item, name: "candy", description: "get that sugar up", unit_price: 3, merchant_id: @merchant1.id)
   
-  @invoice1 = create(:invoice, status: 1, customer_id: @customer1.id)
-  @invoice2 = create(:invoice, status: 1, customer_id: @customer2.id)
-  @invoice3 = create(:invoice, status: 1, customer_id: @customer3.id)
+  @invoice1 = create(:invoice, status: 1, customer_id: @customer1.id, created_at: Time.new(2023, 1, 1)) #sunday
+  @invoice2 = create(:invoice, status: 1, customer_id: @customer2.id, created_at: Time.new(2022, 2, 1)) #Tuesday
+  @invoice3 = create(:invoice, status: 1, customer_id: @customer3.id, created_at: Time.new(2021, 3, 1)) #Monday
   
   @invoice_item1 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 10, status: 2)
   @invoice_item2 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 1000, unit_price: 1, status: 2)
   @invoice_item3 = InvoiceItem.create(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 202, unit_price: 100, status: 2)
-  @invoice_item4 = InvoiceItem.create(item_id: @item4.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 10000, status: 2)
+  @invoice_item4 = InvoiceItem.create(item_id: @item4.id, invoice_id: @invoice1.id, quantity: 2, unit_price: 10000, status: 2)
   @invoice_item6 = InvoiceItem.create(item_id: @item6.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 8, status: 2)
   @invoice_item5 = InvoiceItem.create(item_id: @item7.id, invoice_id: @invoice3.id, quantity: 400, unit_price: 5, status: 2)
   @invoice_item7 = InvoiceItem.create(item_id: @item7.id, invoice_id: @invoice1.id, quantity: 5, unit_price: 5, status: 2)
@@ -90,7 +90,7 @@ def test_data_2
   @invoice_item12 = InvoiceItem.create(item_id: @item5.id, invoice_id: @invoice2.id, quantity: 4, unit_price: 80, status: 2)
   @invoice_item13 = InvoiceItem.create(item_id: @item4.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 10000, status: 2)
   @invoice_item14 = InvoiceItem.create(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 40, unit_price: 100, status: 2)
-  @invoice_item15 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice3.id, quantity: 4000, unit_price: 1, status: 2)
+  @invoice_item15 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 4000, unit_price: 1, status: 2)
   @invoice_item16 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice3.id, quantity: 400, unit_price: 10, status: 2)
 
   @transaction1 = create(:transaction, result: 1, invoice_id: @invoice1.id)
