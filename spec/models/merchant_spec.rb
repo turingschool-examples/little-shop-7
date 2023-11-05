@@ -92,7 +92,9 @@ RSpec.describe Merchant, type: :model do
 
     describe "#top_five_items" do
       it "returns an array of 5 of a merchant's items, ordered by total revenue" do
-        expect(@merchant.top_five_items).to eq([@item_1, @item_2, @item_3, @item_4, @item_5])
+        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
+        
+        expect(@merchant.top_five_items).to eq(expected)
       end
     end
   end
