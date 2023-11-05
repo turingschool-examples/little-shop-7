@@ -36,7 +36,7 @@ RSpec.describe 'merchant invoices show page' do
     @invoice11 = Invoice.create!(status: 2, customer_id: @customer6.id)
     @invoice12 = Invoice.create!(status: 2, customer_id: @customer6.id)
 
-    @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 111, status: 1) 
+    @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 75107, status: 1) 
     @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item3 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice3.id, quantity: 1, unit_price: 420, status: 1) 
     @invoice_item4 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice4.id, quantity: 1, unit_price: 345, status: 1) 
@@ -48,6 +48,8 @@ RSpec.describe 'merchant invoices show page' do
     @invoice_item10 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice10.id, quantity: 1, unit_price: 126, status: 1)
     @invoice_item11 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice11.id, quantity: 1, unit_price: 123, status: 1)
     @invoice_item12 = InvoiceItem.create!(item_id: @item10.id, invoice_id: @invoice12.id, quantity: 1, unit_price: 345, status: 1)
+    @invoice_item13 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice1.id, quantity: 2, unit_price: 25, status: 1)
+    # @invoice_item14 = InvoiceItem.create!(item_id: @item10.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 345, status: 1)
 
     @transaction1 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
     @transaction2 = Transaction.create!(invoice_id: @invoice2.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
@@ -71,6 +73,11 @@ RSpec.describe 'merchant invoices show page' do
       expect(page).to have_content("Status: #{@invoice1.status}")
       expect(page).to have_content("Created on: #{@invoice1.creation_date}")
       expect(page).to have_content("Customer: #{@invoice1.customer_name}")
+    end
+    it 'shows the total revenue' do
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+      expect(page).to have_content((@item1.unit_price + @item9.unit_price + @item9.unit_price))
     end
   end
 end 
