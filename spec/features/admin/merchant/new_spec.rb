@@ -26,6 +26,6 @@ RSpec.describe "creating a new Merchant" do
       expect(page).to have_button("Enable")
     end
 
-    save_and_open_page
+    # save_and_open_page
   end
 end 
