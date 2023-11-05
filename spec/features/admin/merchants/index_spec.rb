@@ -17,22 +17,22 @@ RSpec.describe "the merchants index" do
     end
   end
 
-  it "has buttons to enable or disable each merchant and disables when 'Disable' is clicked" do
-    merchant1 = Merchant.create!(name: "Sooyung LLC")
-
-    visit "/admin/merchants"
-
-    expect(page).to have_link(merchant1.name)
-    expect(merchant1.enabled).to be(true)
-    expect(page).to have_button("Disable")
-    click_button("Disable")
-    expect(page).to have_current_path("/admin/merchants")
-
-    merchant1.reload
-    expect(merchant1.enabled).to be(false)
-  end
-
   describe "US27" do
+    it "has buttons to enable or disable each merchant and disables when 'Disable' is clicked" do
+      merchant1 = Merchant.create!(name: "Sooyung LLC")
+
+      visit "/admin/merchants"
+
+      expect(page).to have_link(merchant1.name)
+      expect(merchant1.enabled).to be(true)
+      expect(page).to have_button("Disable")
+      click_button("Disable")
+      expect(page).to have_current_path("/admin/merchants")
+
+      merchant1.reload
+      expect(merchant1.enabled).to be(false)
+    end
+
     it "has buttons to enable or disable each merchant and enables when 'Enable' is clicked" do
       merchant1 = Merchant.create!(name: "Sooyung LLC", enabled: false)
 
@@ -59,8 +59,15 @@ RSpec.describe "the merchants index" do
   end
 
   describe "US29" do
+    before(:each) do
+      merchant1 = Merchant.create!(name: "Sooyung LLC")
+      merchant2 = Merchant.create!(name: "Joseph LLC")
+      merchant3 = Merchant.create!(name: "Anthea LLC")
+      merchant4 = Merchant.create!(name: "Nathan LLC")
+    end
+
     it "has a link to create a new merchant" do
-      visit "admin/merchants"
+      visit "/admin/merchants"
       expect(page).to have_link("Create a new merchant")
       expect(Merchant.count).to eq(4)
     end
