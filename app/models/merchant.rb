@@ -23,4 +23,12 @@ class Merchant < ApplicationRecord
     .limit(5)
     .count("transactions.id")
   end
+
+  def enabled_items
+    items.where(status: "enabled")
+  end
+
+  def disabled_items
+    items.where(status: "disabled")
+  end
 end
