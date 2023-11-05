@@ -102,7 +102,7 @@ RSpec.describe 'merchant invoices show page' do
       # I see that each invoice item status is a select field
       save_and_open_page
       @invoice1.invoice_items.each do |invoice_item|
-        expect(page).to have_select("invoice_item_#{invoice_item.id}_status", selected: 'packaged')
+        expect(page).to have_select("status_#{invoice_item.id}", selected: "#{invoice_item.status}")
       end
 # And I see that the invoice item's current status is selected
 # When I click this select field,
