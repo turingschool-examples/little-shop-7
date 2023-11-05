@@ -86,4 +86,40 @@ RSpec.describe "Dashboard" do
     expect(page).to_not have_content("Enmity")
     expect(page).to_not have_content(0)
   end
+  it "US4: has section for 'items ready to ship'" do
+    # 4. Merchant Dashboard Items Ready to Ship
+    # As a merchant
+    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+    # Then I see a section for "Items Ready to Ship"
+    # In that section I see a list of the names of all of my items that
+    # have been ordered and have not yet been shipped,
+    # And next to each Item I see the id of the invoice that ordered my item
+    # And each invoice id is a link to my merchant's invoice show page
+    @customer0 = Customer.create(first_name: "Angus", last_name: "Turing")
+    @invoice0 = @customer0.invoices.create(status: 1)
+
+    @item2 = @merchant1.items.create(name: "Bat", description: "Bat", unit_price: 200)
+    @item3 = @merchant1.items.create(name: "Cat", description: "Cat", unit_price: 300)
+    @item4 = @merchant1.items.create(name: "Rat", description: "Rat", unit_price: 400)
+
+    @transaction0 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
+
+    @ii1 = create(:invoice_item, item: @item2, invoice: @invoice0, status: 0)
+    @ii2 = create(:invoice_item, item: @item3, invoice: @invoice0, status: 1)
+    @ii3 = create(:invoice_item, item: @item4, invoice: @invoice0, status: 2)
+
+
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    expect(page).to have_content("Items Ready to Ship")
+    within("#Items-Ready-to-Ship") do
+      expect(page).to have_content(@item2.name)
+      expect(page).to have_content(@item3.name)
+      expect(page).to_not have_content(@item4.name)
+    end
+    within("#Items-Ready-to-Ship") do
+      expect(page).to have_content(@invoice0.id)
+    end
+    click_link("#{@invoice0.id}", match: :first)
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice0.id}")
+  end
 end
