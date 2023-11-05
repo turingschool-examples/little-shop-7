@@ -2,3 +2,14 @@
 <h3> Name: <%= @merchant.name %></h3>
 <%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %>
+
+<section id="Items-Ready-to-Ship">
+<h3> Items Ready to Ship</h3>
+<% @merchant.items.each do |item| %>
+    <% item.invoice_items.each do |invoice_item| %>
+      <% if invoice_item.status != "shipped" %>
+        <p>Name: <%= item.name %> - Invoice ID:<%= link_to "#{invoice_item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice_id}" %></p>
+      <% end %>
+    <% end %>
+<% end %>
+</section>
