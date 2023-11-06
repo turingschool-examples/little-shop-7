@@ -2,37 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Dashboard" do
   before :each do
-    @merchant1 = create(:merchant, name: "CandyLand")
-    @merchant2 = create(:merchant, name: "BeefStickCo")
-
-    @item1 = create(:item, merchant_id: @merchant1.id)
-
-    @customer = create(:customer)
-    @customer2 = create(:customer)
-    @customer3 = create(:customer)
-    @customer4 = create(:customer)
-    @customer5 = create(:customer)
-    @customer6 = create(:customer)
-
-    @invoice1 = create(:invoice, customer_id: @customer.id)
-    @invoice2 = create(:invoice, customer_id: @customer2.id)
-    @invoice3 = create(:invoice, customer_id: @customer3.id)
-    @invoice4 = create(:invoice, customer_id: @customer4.id)
-    @invoice5 = create(:invoice, customer_id: @customer5.id)
-
-    invoice_item1 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice1.id)
-    invoice_item2 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice2.id)
-    invoice_item3 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice3.id)
-    invoice_item4 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice4.id)
-    invoice_item5 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice5.id)
-
-    @transaction1 = create(:transaction, invoice_id: @invoice1.id)
-    @transaction2 = create(:transaction, invoice_id: @invoice1.id)
-    @transaction3 = create(:transaction, invoice_id: @invoice2.id)
-    @transaction4 = create(:transaction, invoice_id: @invoice3.id)
-    @transaction5 = create(:transaction, invoice_id: @invoice4.id)
-    @transaction6 = create(:transaction, invoice_id: @invoice5.id)
-    @transaction7 = create(:transaction, invoice_id: @invoice5.id)
+    test_data
   end
 
   it "US1: shows the name of the merchant" do
@@ -54,38 +24,31 @@ RSpec.describe "Dashboard" do
     visit "/merchants/#{@merchant1.id}/dashboard"
     expect(page).to have_link("Merchant Items")
     expect(page).to have_link("Merchant Invoices")
+
     click_link("Merchant Items")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
     click_link("#{@item1.name}")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
     expect(page).to have_content(@item1.name)
+
     visit "/merchants/#{@merchant1.id}/dashboard"
     click_link("Merchant Invoices")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
-    click_link("#{@invoice1.id}")
-    expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
-    expect(page).to have_content(@invoice1.status)
+    expected_invoices = [@incomplete, @incomplete2]
+    expect(page).to have_content(@incomplete.id)
+    expect(page).to have_content(@incomplete2.id)
+
+    click_link("#{@incomplete.id}")
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@incomplete.id}")
+    expect(page).to have_content(@incomplete.status)
   end
   
-  xit "US3: has names of the top 5 customers with the count of their successful transactions" do
-    # 3. Merchant Dashboard Statistics - Favorite Customers
-    # As a merchant,
-    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-    # Then I see the names of the top 5 customers
-    # who have conducted the largest number of successful transactions with my merchant
-    # And next to each customer name I see the number of successful transactions they have
-    # conducted with my merchant
+  ## USER STORY 3
+  it "has names of the top 5 customers with the count of their successful transactions" do
     visit "/merchants/#{@merchant1.id}/dashboard"
-    expect(page).to have_content("Angus")
-    expect(page).to have_content("Boyardee")
-    expect(page).to have_content("Camoflauge")
-    expect(page).to have_content("Derelict")
-    expect(page).to have_content("Nathan")
-    expect(page).to have_content(2)
-    expect(page).to have_content(1)
-    expect(page).to_not have_content("Enmity")
-    expect(page).to_not have_content(0)
+    save_and_open_page
   end
+
   it "US4: has section for 'items ready to ship'" do
     # 4. Merchant Dashboard Items Ready to Ship
     # As a merchant
