@@ -17,6 +17,8 @@ class Item < ApplicationRecord
   end
 
   def total_revenue
-    invoice_items
+    invoice_items.joins(invoice: :transactions)
+    .where(transactions: {result: 0})
+    .sum("invoice_items.unit_price * invoice_items.quantity")
   end
 end

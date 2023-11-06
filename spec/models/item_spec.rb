@@ -34,7 +34,7 @@ RSpec.describe Item, type: :model do
     @item_4 = create(:item, merchant: @merchant, status: "disabled")
     @item_5 = create(:item, merchant: @merchant, status: "disabled")
     @item_6 = create(:item, merchant: @merchant, status: "disabled")
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000, quantity: 1)
     @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2, unit_price: 40000)
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3, unit_price: 30000)
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4, unit_price: 20000)
@@ -63,7 +63,6 @@ RSpec.describe Item, type: :model do
 
     describe "#total_revenue" do
       it "returns the total revenue from completed tranactions for an item" do
-        require 'pry'; binding.pry
         expect(@item_1.total_revenue).to eq(250_000)
       end
     end

@@ -2,7 +2,8 @@
   <h3>Top 5 Items</h3>
   <% @merchant.top_five_items.each do |item| %>
     <section id="top-5-items-<%= item.id %>">
-      <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %></br>
+      <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+      <%=  %></br>
     </section>
   <% end %>
 </section>
