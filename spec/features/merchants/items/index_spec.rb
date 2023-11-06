@@ -89,7 +89,7 @@ RSpec.describe "merchant items index page" do
   end
 
   # US10
-  it "disabled items are listen in a separate section" do
+  it "disabled items are listed in a separate section" do
     visit merchant_items_path(@merchant_2)
 
     within("#disabled-items") do
