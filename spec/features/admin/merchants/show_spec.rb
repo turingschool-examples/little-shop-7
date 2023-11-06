@@ -8,10 +8,20 @@ RSpec.describe "the merchants show page" do
     @merchant4 = Merchant.create!(name: "Nathan LLC")
   end
 
-  it "takes me to the merchant's admin show page when i click the link, which has the merchant name listed there" do
-    visit "/admin/merchants"
-    click_on("#{@merchant1.name}")
-    expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}")
-    expect(page).to have_content(@merchant1.name)
+  describe "US25" do
+    it "takes me to the merchant's admin show page when i click the link, which has the merchant name listed there" do
+      visit "/admin/merchants"
+      click_on("#{@merchant1.name}")
+      expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}")
+      expect(page).to have_content(@merchant1.name)
+    end
+  end
+
+  describe "US26" do
+    it "shows me a link to update the merchant" do
+      visit "/admin/merchants/#{@merchant1.id}"
+      expect(page).to have_content(@merchant1.name)
+      expect(page).to have_link("Update Merchant")
+    end
   end
 end

@@ -3,4 +3,14 @@
 <b> Created at: </b> <%= @invoice.format_date %><br>
 <b> Customer Name: </b> <%= @invoice.customer.name %><br>
 
+
 <h1>"Items Attached to Invoice:"</h1>
+
+<h3>Attached Invoice Items:</h3>
+<% @invoice.invoice_items.each do |ii| %>
+<b> Item Name: </b> <%= ii.item.name %><br>
+<b> Quantity: </b> <%= ii.quantity %><br>
+<b> Unit Price: </b> $<%= ii.price %><br>
+<b> Status: </b> <%= ii.status.capitalize %><br><br>
+<% end %>
+

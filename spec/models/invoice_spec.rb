@@ -16,6 +16,13 @@ RSpec.describe Invoice, type: :model do
     it { should validate_presence_of(:customer_id) }
     it { should validate_presence_of(:status) }
   end
+  
+  describe "#format_date" do
+    it "should return a new format for date created" do 
+      test_invoice = create(:invoice, created_at: Time.new(2021, 3, 9))
+      expect(test_invoice.format_date).to eq("Tuesday, March  9, 2021")
+    end
+  end 
 
   describe "#format_date" do
     it "should return a new format for date created" do 

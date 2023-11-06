@@ -20,28 +20,29 @@ RSpec.describe "Admin Dashboard" do
       invoices.each{|id| create(:transaction, result: 1, invoice_id: id)}
       count-=1
     end
-  
+
     @item1 = create(:item)
     @item2 = create(:item)
     @item3 = create(:item)
     @item4 = create(:item)
     @item5 = create(:item)
-  
+
     @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
     @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
     @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 2, 4))
-  
+
     @incomplete_results = [@incomplete, @incomplete2, @incomplete3]
-  
+
     create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete.id, status: 0)
     create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete.id, status: 0)
     create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete.id, status: 1)
-  
+
     create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete2.id, status: 0)
     create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete2.id, status: 1)
     create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete2.id, status: 0)
-  
+
     create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
+    
   end
 
   ## USER STORY 19
@@ -105,4 +106,5 @@ RSpec.describe "Admin Dashboard" do
     expect("Invoice ##{@incomplete3.id}").to appear_before("Invoice ##{@incomplete.id}")
     expect("Invoice ##{@incomplete.id}").to appear_before("Invoice ##{@incomplete2.id}")
   end
+
 end

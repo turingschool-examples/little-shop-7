@@ -3,6 +3,7 @@
 <p class="solid">Edit Item</p>
 
 <%= form_with url: "/merchants/#{@item.merchant.id}/items/#{@item.id}", method: :patch, data: { turbo:false }, local: true do |f| %>
+  <%= f.hidden_field :item_update, value: "Update_item" %>
   <%= f.label :name, "Item Name" %>
   <%= f.text_field :name, value: @item.name %>
 

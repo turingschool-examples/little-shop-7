@@ -8,7 +8,6 @@ RSpec.describe "the merchants update page" do
     @merchant4 = Merchant.create!(name: "Nathan LLC")
   end
 
-
   ## USER STORY 26
   it "shows me a link to update the merchant" do
     visit "/admin/merchants/#{@merchant1.id}"
@@ -26,6 +25,7 @@ RSpec.describe "the merchants update page" do
     expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}")
     expect(page).to have_content("Company Test Name")
     expect(page).to have_content("Update Successful")
+
   end
 
 end
