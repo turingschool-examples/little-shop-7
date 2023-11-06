@@ -19,6 +19,11 @@
       <p>Item Quantity: <%= ii.quantity %></p>
       <p>Item Price: <%= item.unit_price %></p>
       <p>Status: <%= ii.status %></p>
+
+      <%= form_for ii, url: "/merchants/:merchant_id/invoices/#{@invoice.id}" do |f| %>
+        <%= f.select :status, options_for_select(Status.options, ii.status) %>
+        <%= f.submit "Update Item Status" %>
+        <% end %>
     <% end %>
   <% end %>
 <% end %>

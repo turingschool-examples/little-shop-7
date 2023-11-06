@@ -71,9 +71,21 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
         # Then I see the total revenue that will be generated from all of my items on the invoice
         visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
-        save_and_open_page
         expect(page).to have_content("Total Revenue")
         expect(page).to have_content("$41,417.00")
       end
+      it "has select field for each invoice_item status that can be updated"
+        # 18. Merchant Invoice Show Page: Update Item Status
+        # As a merchant
+        # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+        # I see that each invoice item status is a select field
+        # And I see that the invoice item's current status is selected
+        # When I click this select field,
+        # Then I can select a new status for the Item,
+        # And next to the select field I see a button to "Update Item Status"
+        # When I click this button
+        # I am taken back to the merchant invoice show page
+        # And I see that my Item's status has now been updated
+        visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
     end
   end
