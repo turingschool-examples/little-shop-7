@@ -97,23 +97,33 @@ RSpec.describe 'merchant invoices show page' do
     end
 
     it 'allows you to update item status' do
-      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
-      # I see that each invoice item status is a select field
-      # And I see that the invoice item's current status is selected
-      @invoice1.invoice_items.each do |invoice_item|
-        expect(page).to have_select("status_#{invoice_item.id}", selected: "#{invoice_item.status}")
-        expect(page).to have_button("Update Item Status")
-        expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
-      end
-# When I click this select field,
-# Then I can select a new status for the Item,
-# And next to the select field I see a button to "Update Item Status"
-# When I click this button
-# I am taken back to the merchant invoice show page
-# And I see that my Item's status has now been updated
 
+      expect(page).to have_select("status_#{@invoice_item1.id}", selected: "#{@invoice_item1.status}")
+      expect(page).to have_button("Update #{@item1.name}")
       
+      select "pending", from: "status_#{@invoice_item1.id}"
+      click_button("Update #{@item1.name}")
+      @invoice_item1.reload
+      expect(@invoice_item1.status).to eq("pending")
+      
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
+      expect(page).to have_select("status_#{@invoice_item1.id}", selected: "#{@invoice_item1.status}")
+      
+      select "packaged", from: "status_#{@invoice_item1.id}"
+      click_button("Update #{@item1.name}")
+      @invoice_item1.reload
+      expect(@invoice_item1.status).to eq("packaged")
+      
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
+      expect(page).to have_select("status_#{@invoice_item1.id}", selected: "#{@invoice_item1.status}")
+      
+      select "shipped", from: "status_#{@invoice_item1.id}"
+      click_button("Update #{@item1.name}")
+      @invoice_item1.reload
+      expect(@invoice_item1.status).to eq("shipped")
+      
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
     end
   end
 end 
