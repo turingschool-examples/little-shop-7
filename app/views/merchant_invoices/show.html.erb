@@ -6,4 +6,7 @@
 
 <p class="solid">My Invoice</p>
 
+<p>Invoice ID: <%= @invoice.id %></p>
 <p>Invoice Status: <%= @invoice.status %></p>
+<p>Invoice Date: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+<p>Customer Name: <%= @invoice.customer.name %></p>
