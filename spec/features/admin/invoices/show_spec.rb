@@ -54,7 +54,7 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_content("Status: Completed")
   end
 
-  it "can select a new status and update the invoice - Completed" do
+  it "can select a new status and update the invoice - In Progress" do
     visit "/admin/invoices/#{@test_invoice.id}"
     select "In Progress", :from => "status_update"
     click_button "Update Invoice Status"
@@ -62,7 +62,7 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_content("Status: In Progress")
   end
 
-  it "can select a new status and update the invoice - Completed" do
+  it "can select a new status and update the invoice - Cancelled" do
     visit "/admin/invoices/#{@test_invoice.id}"
     select "Cancelled", :from => "status_update"
     click_button "Update Invoice Status"

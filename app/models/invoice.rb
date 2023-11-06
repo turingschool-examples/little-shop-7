@@ -11,7 +11,7 @@ class Invoice < ApplicationRecord
 
   def self.incomplete_not_shipped
     Invoice.joins(items: :invoice_items)
-           .where(invoice_items: {status: "pending"})
+           .where(invoice_items: {status: ["pending", "packaged"]})
            .distinct
            .order(created_at: :asc)
   end

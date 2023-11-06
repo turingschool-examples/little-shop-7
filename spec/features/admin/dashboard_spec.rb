@@ -30,11 +30,13 @@ RSpec.describe "Admin Dashboard" do
     @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
     @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
     @incomplete3 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 2, 4))
+    @completed = create(:invoice, customer_id: @customer5.id, status: 1, created_at: Time.new(2021, 2, 4))
+    @cancelled = create(:invoice, customer_id: @customer5.id, status: 2, created_at: Time.new(2021, 2, 4))
 
     @incomplete_results = [@incomplete, @incomplete2, @incomplete3]
 
-    create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete.id, status: 0)
-    create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete.id, status: 0)
+    create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete.id, status: 2)
+    create(:invoice_item, item_id: @item2.id, invoice_id: @incomplete.id, status: 2)
     create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete.id, status: 1)
 
     create(:invoice_item, item_id: @item1.id, invoice_id: @incomplete2.id, status: 0)
@@ -99,6 +101,7 @@ RSpec.describe "Admin Dashboard" do
     expect(page).to have_content("Tuesday, March 9, 2021")
     expect(page).to have_content("Sunday, December 5, 2021")
     expect(page).to have_content("Thursday, February 4, 2021")
+    visit "/admin/invoices/#{@incomplete.id}"
   end
 
   it "is placed in order from oldest to newest" do
