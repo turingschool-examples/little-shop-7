@@ -6,7 +6,7 @@ RSpec.describe 'merchant items index page' do
     @merchant22 = create(:merchant, name: "Pickle Store Depot")
 
     @item21 = create(:item, merchant_id: @merchant11.id)
-    @item22 = create(:item, merchant_id: @merchant11.id)
+    @item22 = create(:item, name: "Pickles", merchant_id: @merchant11.id)
     @item23 = create(:item, merchant_id: @merchant11.id, enable: false)
     @item24 = create(:item, merchant_id: @merchant22.id)
     @item25 = create(:item)
