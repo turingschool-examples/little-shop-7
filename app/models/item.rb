@@ -17,9 +17,6 @@ class Item < ApplicationRecord
   end
 
   def total_revenue
-    invoice_items.joins(:invoices)
-    .joins(:tranactions)
-    .where(transactions: {result: 0})
-    .sum(invoice_items: :unit_price)
+    invoice_items
   end
 end

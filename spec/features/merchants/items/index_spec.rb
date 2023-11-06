@@ -76,12 +76,12 @@ RSpec.describe "merchant items index page" do
   it "enable button changes item status and redirects back" do
     visit merchant_items_path(@merchant_2)
 
-    within("##{@item_8.id}") do
+    within("#disabled-#{@item_8.id}") do
       click_button "Enable Item"
     end
 
     expect(current_path).to eq(merchant_items_path(@merchant_2))
-    within("##{@item_8.id}") do
+    within("#enabled-#{@item_8.id}") do
       expect(page).to have_button("Disable Item")
     end
   end
@@ -90,12 +90,12 @@ RSpec.describe "merchant items index page" do
   it "disable button changes item status and redirects back" do
     visit merchant_items_path(@merchant_1)
 
-    within("##{@item_1.id}") do
+    within("#enabled-#{@item_1.id}") do
       click_button "Disable Item"
     end
 
     expect(current_path).to eq(merchant_items_path(@merchant_1))
-    within("##{@item_1.id}") do
+    within("#disabled-#{@item_1.id}") do
       expect(page).to have_button("Enable Item")
     end
   end
@@ -142,7 +142,12 @@ RSpec.describe "merchant items index page" do
     visit merchant_items_path(@merchant_1)
 
     within("#top-5-items") do
-      expect(page).to have_content("Top 5 Items: #{@item_1.name} #{@item_2.name} #{@item_3.name} #{@item_4.name} #{@item_5.name}")
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_3.name)
+      expect(page).to have_content(@item_4.name)
+      expect(page).to have_content(@item_5.name)
+      expect(page).to_not have_content(@item_6.name)
     end
   end
 
@@ -150,7 +155,7 @@ RSpec.describe "merchant items index page" do
   it "top 5 item names link to that item's show page" do
     visit merchant_items_path(@merchant_1)
 
-    within("#top-5-items") do
+    within("#top-5-items-#{@item_1.id}") do
       click_link "#{@item_1.name}"
     end
 
