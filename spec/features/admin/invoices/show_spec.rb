@@ -46,12 +46,28 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_select("status_update", :with_options => ["In Progress", "Completed", "Cancelled"])
   end
 
-  it "can select a new status and update the invoice" do
+  it "can select a new status and update the invoice - Completed" do
     visit "/admin/invoices/#{@test_invoice.id}"
     select "Completed", :from => "status_update"
     click_button "Update Invoice Status"
     expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
     expect(page).to have_content("Status: Completed")
+  end
+
+  it "can select a new status and update the invoice - Completed" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "In Progress", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: In Progress")
+  end
+
+  it "can select a new status and update the invoice - Completed" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "Cancelled", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: Cancelled")
   end
 
 end
