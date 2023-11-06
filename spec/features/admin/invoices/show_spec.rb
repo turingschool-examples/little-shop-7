@@ -42,10 +42,16 @@ RSpec.describe "Admin Invoices Show" do
   ## USER STORY 35
   it "when visiting the show page, an invoice status can be updated with a select field option, already defaulted as the current status" do
     visit "/admin/invoices/#{@test_invoice.id}"
-    save_and_open_page
     expect(page).to have_content("In Progress")
     expect(page).to have_select("status_update", :with_options => ["In Progress", "Completed", "Cancelled"])
   end
 
+  it "can select a new status and update the invoice" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "Completed", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: Completed")
+  end
 
 end

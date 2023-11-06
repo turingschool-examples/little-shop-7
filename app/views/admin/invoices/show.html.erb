@@ -11,7 +11,7 @@
 <b> Status: </b> <%= ii.status.capitalize %><br><br>
 <% end %>
 
-<%= form_with(url: "/admin/invoices/:invoice_id", method: :patch, local: true) do |form| %>
+<%= form_with(url: admin_invoice_show_path(@invoice), method: :patch, local: true) do |form| %>
     <%= form.select :status_update, ["In Progress", "Completed", "Cancelled"], {selected: @invoice.status.titleize} %>
     <%= form.submit "Update Invoice Status" %>
 <% end%>
