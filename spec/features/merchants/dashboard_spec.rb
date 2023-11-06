@@ -124,7 +124,6 @@ RSpec.describe "Dashboard" do
     date = Date.today.strftime('%A, %B %d, %Y')
 
     visit "/merchants/#{@merchant1.id}/dashboard"
-    save_and_open_page
     expect(page).to have_content("Items Ready to Ship")
     within("#Items-Ready-to-Ship") do
       expect(page).to have_content("Date: Friday, January 01, 1999")
