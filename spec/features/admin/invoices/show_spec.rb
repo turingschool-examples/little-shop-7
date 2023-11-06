@@ -5,10 +5,10 @@ RSpec.describe "Admin Invoices Show" do
     test_data
     @test_invoice = @customer1.invoices.first
     @test_invoice.update(status: 0, created_at: Time.new(2021, 12, 30))
-    create(:invoice_item, item_id: @item1.id, invoice_id: @test_invoice.id, status: 2)
-    create(:invoice_item, item_id: @item2.id, invoice_id: @test_invoice.id, status: 2)
-    create(:invoice_item, item_id: @item3.id, invoice_id: @test_invoice.id, status: 1)
-    create(:invoice_item, item_id: @item4.id, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 12, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 15, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item3.id, unit_price: 2500, quantity: 20, invoice_id: @test_invoice.id, status: 1)
+    create(:invoice_item, item_id: @item4.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
   end
 
   ## USER STORY 33
@@ -40,6 +40,12 @@ RSpec.describe "Admin Invoices Show" do
   end
 
   ## USER STORY 35
+  it "displays the total potential revenue of the invoice" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+
+  end
+
+  ## USER STORY 36
   it "when visiting the show page, an invoice status can be updated with a select field option, already defaulted as the current status" do
     visit "/admin/invoices/#{@test_invoice.id}"
     expect(page).to have_content("In Progress")
