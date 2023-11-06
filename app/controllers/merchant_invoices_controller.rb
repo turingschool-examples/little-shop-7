@@ -9,8 +9,6 @@ class MerchantInvoicesController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
-    # invoice = Invoice.find(params[:id])
     merchant = Merchant.find(params[:merchant_id])
     invoiceitem = InvoiceItem.find(params[:id])
     status_key = "status_#{params[:id]}"
