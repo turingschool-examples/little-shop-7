@@ -78,5 +78,14 @@ RSpec.describe "the merchants index" do
       expect(page).to have_current_path("/admin/merchants/new")
     end
   end
+
+  describe "US30" do
+    it "displays the top 5 merchants by revenue" do
+
+      visit "/admin/merchants"
+      expect(page).to have_content("Top Merchants")
+
+    end
+  end
 end
 
