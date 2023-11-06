@@ -19,11 +19,13 @@ RSpec.describe "Admin Invoices Show" do
     end
     it "when visiting show page, returns ID, status, creation date, and full name of customer on invoice" do
       visit "/admin/invoices/#{@test_invoice.id}"
+
       expect(page).to have_content(@test_invoice.id)
       expect(page).to have_content(@test_invoice.status.capitalize)
       expect(page).to have_content("Thursday, December 30, 2021")
       expect(page).to have_content(@test_invoice.customer.name)
     end
+
   end
 
   ## USER STORY 34
@@ -36,5 +38,6 @@ RSpec.describe "Admin Invoices Show" do
       expect(page).to have_content(ii.status.capitalize)
     end
   end
+
 
 end

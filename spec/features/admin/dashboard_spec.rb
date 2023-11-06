@@ -7,9 +7,9 @@ RSpec.describe "Admin Dashboard" do
     @customer3 = create(:customer)
     @customer4 = create(:customer)
     @customer5 = create(:customer)
-
+  
     @test_customers = [@customer1, @customer2, @customer3, @customer4, @customer5]
-
+  
     count = 25
     @test_customers.each do |customer|
       invoices = []

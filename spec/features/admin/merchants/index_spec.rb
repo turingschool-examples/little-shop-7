@@ -78,5 +78,12 @@ RSpec.describe "the merchants index" do
       expect(page).to have_current_path("/admin/merchants/new")
     end
   end
+
+  ## USER STORY 27
+  it "when visiting the admin index, next to each merchant there is an option to disable or enable merchant" do
+    visit "/admin/merchants"
+    ##within block testing statements?
+  end
+  
 end
 

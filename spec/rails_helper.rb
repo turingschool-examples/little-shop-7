@@ -55,7 +55,6 @@ def test_data
   create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
 end
 
-
 def test_data_2
   @merchant1 = create(:merchant, name: "Target")
 
@@ -97,6 +96,7 @@ def test_data_2
   @transaction2 = create(:transaction, result: 1, invoice_id: @invoice2.id)
   @transaction3 = create(:transaction, result: 1, invoice_id: @invoice3.id)
 end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
