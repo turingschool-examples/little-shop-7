@@ -21,6 +21,9 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         expect(page).to have_content(@invoice1.created_at.strftime('%A, %B %d, %Y'))
         expect(page).to have_content(@invoice1.customer.name)
       end
+    end
+
+
       it "shows item and invoice_item information on the invoice" do
         # 16. Merchant Invoice Show Page: Invoice Item Information
         # As a merchant
@@ -65,6 +68,7 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         expect(page).to have_content(@invoice_item7.quantity)
         expect(page).to have_content(@invoice_item8.quantity)
       end
+
       it "shows total revenue" do
         # 17. Merchant Invoice Show Page: Total Revenue
         # As a merchant
@@ -76,4 +80,5 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         expect(page).to have_content("$41,417.00")
       end
     end
-  end
+
+
