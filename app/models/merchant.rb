@@ -38,4 +38,10 @@ class Merchant < ApplicationRecord
   def disabled_items
     items.where(status: "disabled")
   end
+
+  def merchant_invoices(merchant_id)
+    invoices.joins(:items)
+    .where(items: {merchant_id: merchant_id})
+    .select("id", "invoices.id as invoice_id").uniq
+  end
 end

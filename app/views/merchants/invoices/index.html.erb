@@ -1,0 +1,5 @@
+<h3>Merchant Invoices index</h3>
+
+<% @merchant.merchant_invoices(@merchant.id).each do |invoice|%>
+  <p> Invoice ID: <%= link_to "#{invoice.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice.invoice_id}" %> </p>
+<% end %>

@@ -15,6 +15,7 @@ RSpec.describe Merchant, type: :model do
 
   before(:each) do
     @merchant = create(:merchant)
+    @merchant2 = create(:merchant)
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
@@ -33,6 +34,7 @@ RSpec.describe Merchant, type: :model do
     @item_4 = create(:item, merchant: @merchant, status: "disabled")
     @item_5 = create(:item, merchant: @merchant, status: "disabled")
     @item_6 = create(:item, merchant: @merchant, status: "disabled")
+    @item_7 = create(:item, merchant: @merchant2)
     @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
     @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2)
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
@@ -79,12 +81,22 @@ RSpec.describe Merchant, type: :model do
     describe "#disabled_items" do
       it "returns an array of items whose status is disabled" do
         expect(@merchant.disabled_items.sort).to eq([@item_4, @item_5, @item_6].sort)
+      end
+    end
 
     describe "#items_to_ship" do
       it "returns an array of merchant's items that are not yet shipped" do
         expected = [@item_5, @item_4, @item_3, @item_2, @item_1]
       
         expect(@merchant.items_to_ship).to eq(expected)
+      end
+    end
+
+    describe "#merchant_invoices(merchant_id)" do
+      it "returns a list of all items assosctiated with the merchant" do
+        expected = [@invoice_1, @invoice_2, @invoice_3, @invoice_4, @invoice_5, @invoice_6]
+        
+        expect(@merchant.merchant_invoices(@merchant.id)).to eq(expected)
       end
     end
   end
