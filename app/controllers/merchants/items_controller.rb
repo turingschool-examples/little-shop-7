@@ -6,7 +6,6 @@ class Merchants::ItemsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @items = @merchant.items
   end
 
   def edit
@@ -24,6 +23,21 @@ class Merchants::ItemsController < ApplicationController
       # should use render here, need to do research on how (can do in refactor)
       redirect_to edit_merchant_item_path(@merchant, @item)
       flash[:alert] = "Error: #{error_message(@item.errors)}"
+    end
+  end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def create
+    merchant = Merchant.find(params[:merchant_id])
+    item = merchant.items.new(item_params)
+    if item.save
+      redirect_to merchant_items_path(merchant)
+    else
+      redirect_to new_merchant_item_path
+      flash[:alert] = "Error: #{error_message(item.errors)}"
     end
   end
   

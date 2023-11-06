@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [] do
     resource :dashboard, only: :show, to: "merchants#show"
 
-    resources :items, controller: "merchants/items", only: [:show, :index, :edit, :update] do
+    resources :items, controller: "merchants/items" do
       resource :status, controller: "merchants/items/status", only: :update
     end
     
