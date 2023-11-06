@@ -24,7 +24,7 @@ RSpec.describe "merchant items index page" do
     @item_6 = create(:item, merchant: @merchant_1)
     @item_7 = create(:item, merchant: @merchant_2)
     @item_8 = create(:item, merchant: @merchant_2, status: 1)
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000, quantity: 1)
     @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2, unit_price: 40000)
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3, unit_price: 30000)
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4, unit_price: 20000)
@@ -155,7 +155,7 @@ RSpec.describe "merchant items index page" do
   it "top 5 item names link to that item's show page" do
     visit merchant_items_path(@merchant_1)
 
-    within("#top-5-items-#{@item_1.id}") do
+    within("section#top-5-items-#{@item_1.id}") do
       click_link "#{@item_1.name}"
     end
 
@@ -167,7 +167,7 @@ RSpec.describe "merchant items index page" do
     visit merchant_items_path(@merchant_1)
 
     within("#top-5-items") do
-      expect(page).to have_content("#{@item_1.name}: $2500.00")
+      expect(page).to have_content("#{@item_1.name} : $2,500.00")
     end
   end
 end
