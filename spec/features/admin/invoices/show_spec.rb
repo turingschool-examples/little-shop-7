@@ -42,7 +42,11 @@ RSpec.describe "Admin Invoices Show" do
   ## USER STORY 35
   it "displays the total potential revenue of the invoice" do
     visit "/admin/invoices/#{@test_invoice.id}"
-
+    expected_total = 0
+    @test_invoice.invoice_items.each do |ii|
+      expected_total+=(ii.unit_price * ii.quantity)
+    end
+    expect(page).to have_content("Total Potential Revenue: #{expected_total}")
   end
 
   ## USER STORY 36
