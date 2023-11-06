@@ -9,6 +9,7 @@
 <p>Invoice ID: <%= @invoice.id %></p>
 <p>Invoice Status: <%= @invoice.status %></p>
 <p>Invoice Date: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+
 <p>Customer Name: <%= @invoice.customer.name %></p>
 
 <p class="solid">Invoice Items</p>
@@ -30,3 +31,4 @@
 
 <p class="solid">Total Revenue</p>
 <p>Total Revenue: <%= number_to_currency(@invoice.total_revenue, unit: "$") %></p>
+
