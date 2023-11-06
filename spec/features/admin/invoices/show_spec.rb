@@ -4,7 +4,7 @@ RSpec.describe "Admin Invoices Show" do
   before(:each) do
     test_data
     @test_invoice = @customer1.invoices.first
-    @test_invoice.update(created_at: Time.new(2021, 12, 30))
+    @test_invoice.update(status: 0, created_at: Time.new(2021, 12, 30))
     create(:invoice_item, item_id: @item1.id, invoice_id: @test_invoice.id, status: 2)
     create(:invoice_item, item_id: @item2.id, invoice_id: @test_invoice.id, status: 2)
     create(:invoice_item, item_id: @item3.id, invoice_id: @test_invoice.id, status: 1)
@@ -21,7 +21,7 @@ RSpec.describe "Admin Invoices Show" do
       visit "/admin/invoices/#{@test_invoice.id}"
 
       expect(page).to have_content(@test_invoice.id)
-      expect(page).to have_content(@test_invoice.status.capitalize)
+      expect(page).to have_content(@test_invoice.status.titleize)
       expect(page).to have_content("Thursday, December 30, 2021")
       expect(page).to have_content(@test_invoice.customer.name)
     end
@@ -39,5 +39,35 @@ RSpec.describe "Admin Invoices Show" do
     end
   end
 
+  ## USER STORY 35
+  it "when visiting the show page, an invoice status can be updated with a select field option, already defaulted as the current status" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    expect(page).to have_content("In Progress")
+    expect(page).to have_select("status_update", :with_options => ["In Progress", "Completed", "Cancelled"])
+  end
+
+  it "can select a new status and update the invoice - Completed" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "Completed", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: Completed")
+  end
+
+  it "can select a new status and update the invoice - In Progress" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "In Progress", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: In Progress")
+  end
+
+  it "can select a new status and update the invoice - Cancelled" do
+    visit "/admin/invoices/#{@test_invoice.id}"
+    select "Cancelled", :from => "status_update"
+    click_button "Update Invoice Status"
+    expect(current_path).to eq("/admin/invoices/#{@test_invoice.id}")
+    expect(page).to have_content("Status: Cancelled")
+  end
 
 end
