@@ -82,7 +82,7 @@ RSpec.describe Merchant, type: :model do
 
     describe "#items_to_ship" do
       it "returns an array of merchant's items that are not yet shipped" do
-        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
+        expected = [@item_5, @item_4, @item_3, @item_2, @item_1]
       
         expect(@merchant.items_to_ship).to eq(expected)
       end

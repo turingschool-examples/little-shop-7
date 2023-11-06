@@ -10,4 +10,8 @@ class Item < ApplicationRecord
   def format_price
     format('%.2f', (self.unit_price / 100.0)).prepend("$")
   end
+
+  def created_format
+    created_at.strftime("%A, %B %d, %Y")
+  end
 end
