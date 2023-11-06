@@ -28,4 +28,7 @@ class Invoice < ApplicationRecord
     total
   end
 
+  def potential_revenue
+    invoice_items.sum("unit_price * quantity * .01")
+  end
 end

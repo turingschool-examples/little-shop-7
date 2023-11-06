@@ -3,6 +3,12 @@ require "rails_helper"
 RSpec.describe Invoice, type: :model do
   before :each do
     test_data
+    @test_invoice = @customer1.invoices.first
+    @test_invoice.update(status: 0, created_at: Time.new(2021, 12, 30))
+    create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 8, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item3.id, unit_price: 2500, quantity: 6, invoice_id: @test_invoice.id, status: 1)
+    create(:invoice_item, item_id: @item4.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
   end
 
   describe "relationships" do
@@ -36,10 +42,14 @@ RSpec.describe Invoice, type: :model do
     end
   end 
 
-  describe "#format_date" do
-    it "should return a new format for date created" do 
-      test_invoice = create(:invoice, created_at: Time.new(2021, 3, 9))
-      expect(test_invoice.format_date).to eq("Tuesday, March  9, 2021")
+  describe "#potential_revenue" do
+    it "should return the total potential revenue of that invoice" do 
+      expected_total = 0
+      @test_invoice.invoice_items.each do |ii|
+        expected_total+=(ii.unit_price * ii.quantity)
+      end
+      expected_total = (0.01 * expected_total.round(2))
+      expect(@test_invoice.potential_revenue).to eq(expected_total)
     end
   end 
 
@@ -49,5 +59,4 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice1.total_revenue).to eq(41417)
     end
   end 
-
 end
