@@ -22,3 +22,6 @@
     <% end %>
   <% end %>
 <% end %>
+
+<p class="solid">Total Revenue</p>
+<p>Total Revenue: <%= number_to_currency(@invoice.total_revenue, unit: "$") %></p>

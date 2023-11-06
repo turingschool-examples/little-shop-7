@@ -20,4 +20,12 @@ class Invoice < ApplicationRecord
     created_at.strftime('%A, %B %e, %Y')
   end
 
+  def total_revenue
+    total = 0
+    invoice_items.each do |invoice_item|
+      total += invoice_item.quantity * invoice_item.unit_price
+    end
+    total
+  end
+
 end
