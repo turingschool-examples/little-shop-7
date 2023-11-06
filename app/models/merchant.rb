@@ -4,6 +4,7 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
 
   validates :name, presence: true
+  validates :enabled, presence: true
   
   def top_5_customers_from_transactions
     customers.joins(invoices: :transactions)
