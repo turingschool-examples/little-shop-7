@@ -147,14 +147,17 @@ RSpec.describe "Dashboard" do
     @ii3 = create(:invoice_item, created_at: 2012-03-27, item: @item4, invoice: @invoice0, status: 2)
     @ii7 = create(:invoice_item, created_at: 2012-03-28, item: @item3, invoice: @invoice0, status: 2)
 
+    @invoice0.update(created_at: '1999-01-01 00:00:00')
+    date = Date.today.strftime('%A, %B %d, %Y')
 
     visit "/merchants/#{@merchant1.id}/dashboard"
+    save_and_open_page
     expect(page).to have_content("Items Ready to Ship")
     within("#Items-Ready-to-Ship") do
-      expect(page).to have_content("Date: Sunday, November 05, 2023")
-      #save_and_open_page
-      expect(page).to have_content("Date: Monday, November 06, 2023")
-      expect("Date: Sunday, November 05, 2023").to appear_before("Date: Monday, November 06, 2023")
+      expect(page).to have_content("Date: Friday, January 01, 1999")
+      
+      expect(page).to have_content("Date: #{date}")
+      expect("Date: Friday, January 01, 1999").to appear_before("Date: #{date}")
     end
   end
 end
