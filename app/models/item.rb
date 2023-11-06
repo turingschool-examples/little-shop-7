@@ -15,4 +15,11 @@ class Item < ApplicationRecord
   def created_format
     created_at.strftime("%A, %B %d, %Y")
   end
+
+  def total_revenue
+    invoice_items.joins(:invoices)
+    .joins(:tranactions)
+    .where(transactions: {result: 0})
+    .sum(invoice_items: :unit_price)
+  end
 end

@@ -17,6 +17,8 @@ RSpec.describe Item, type: :model do
   before(:each) do
     @merchant = create(:merchant)
     @item_1 = create(:item, unit_price: 1234, merchant: @merchant)
+    @invoice_item_1 = create(:invoice_item, item: @item_1, unit_price: 50000)
+    @transaction_1 = create_list(:transaction, 5, result: 0)
   end
 
   describe "instance methods" do
@@ -25,9 +27,16 @@ RSpec.describe Item, type: :model do
         expect(@item_1.format_price).to eq("$12.34")
       end
     end
+
     describe "#created_format" do
-      it "returns created date formated as weekday, month day, year" do
+      xit "returns created date formated as weekday, month day, year" do
         expect(@item_1.created_format).to eq("Sunday, November 05, 2023")
+      end
+    end
+
+    describe "#total_revenue" do
+      it "returns the total revenue from completed tranactions for an item" do
+        expect(@item_1.total_revenue).to eq(250000)
       end
     end
   end

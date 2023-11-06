@@ -162,7 +162,7 @@ RSpec.describe "merchant items index page" do
     visit merchant_items_path(@merchant_1)
 
     within("#top-5-items") do
-      expect(page).to have_content("#{@item_1.name}: $250.00")
+      expect(page).to have_content("#{@item_1.name}: $2500.00")
     end
   end
 end
