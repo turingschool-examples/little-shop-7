@@ -6,4 +6,24 @@
 
 <p class="solid">My Invoice</p>
 
+<p>Invoice ID: <%= @invoice.id %></p>
 <p>Invoice Status: <%= @invoice.status %></p>
+<p>Invoice Date: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+
+<p>Customer Name: <%= @invoice.customer.name %></p>
+
+<p class="solid">Invoice Items</p>
+<% @invoice.items.each do |item| %>
+  <% item.invoice_items.each do |ii| %>
+    <% if ii.invoice_id == @invoice.id %>
+      <p>Item Name: <%= item.name %></p>
+      <p>Item Quantity: <%= ii.quantity %></p>
+      <p>Item Price: <%= item.unit_price %></p>
+      <p>Status: <%= ii.status %></p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<p class="solid">Total Revenue</p>
+<p>Total Revenue: <%= number_to_currency(@invoice.total_revenue, unit: "$") %></p>
+
