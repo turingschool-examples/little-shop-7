@@ -49,5 +49,4 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice1.total_revenue).to eq(41417)
     end
   end 
-
 end
