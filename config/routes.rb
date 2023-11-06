@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
     get "/invoices", to: "invoices#index"
     get "/invoices/:invoice_id", to: "invoices#show"
+    patch "/invoices/:invoice_id", to: "invoices#update"
 
   end
 
