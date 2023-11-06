@@ -46,9 +46,22 @@ RSpec.describe "Dashboard" do
   ## USER STORY 3
   it "has names of the top 5 customers with the count of their successful transactions" do
     visit "/merchants/#{@merchant1.id}/dashboard"
-    save_and_open_page
+    expected_order = [@customer1, @customer2, @customer3, @customer4, @customer5]
+    expect(@customer1.name).to appear_before(@customer2.name)
+    expect(@customer2.name).to appear_before(@customer3.name)
+    expect(@customer3.name).to appear_before(@customer4.name)
+    expect(@customer4.name).to appear_before(@customer5.name)
   end
 
+  it 'includes number of successful transactions beside each customer name' do
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    expected_order = [@customer1, @customer2, @customer3, @customer4, @customer5]
+    expected_order.each do |c|
+      expect(page).to have_content("Transactions: #{c.transactions.count}")
+    end
+  end
+
+  ## USER STORY 4
   it "US4: has section for 'items ready to ship'" do
     # 4. Merchant Dashboard Items Ready to Ship
     # As a merchant

@@ -1,12 +1,12 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
+  has_many :customers, through: :invoices
 
   validates :name, presence: true
   
   def top_5_customers_from_transactions
-    binding.pry
-    Customer.joins(invoices: :transactions)
+    customers.joins(invoices: :transactions)
     .where(transactions: {result: "success"})
     .select("customers.*, COUNT(DISTINCT transactions.*) AS num_transactions")
     .group(:id)

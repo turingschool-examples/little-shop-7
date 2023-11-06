@@ -16,15 +16,21 @@ def test_data
   @merchant1 = create(:merchant, name: "CandyLand")
   @merchant2 = create(:merchant, name: "BeefStickCo")
 
-  @customer1 = create(:customer, first_name: "first")
-  @customer2 = create(:customer, first_name: "second")
-  @customer3 = create(:customer, first_name: "third")
-  @customer4 = create(:customer, first_name: "fourth")
-  @customer5 = create(:customer, first_name: "fifth")
+  @customer1 = create(:customer, first_name: "Winner")
+  @customer2 = create(:customer, first_name: "Silver")
+  @customer3 = create(:customer, first_name: "Bronze")
+  @customer4 = create(:customer, first_name: "Brons-Forth")
+  @customer5 = create(:customer, first_name: "Fifty Cent")
 
   @test_customers = [@customer1, @customer2, @customer3, @customer4, @customer5]
-
-  count = 25
+  
+  @item1 = create(:item, merchant_id: @merchant1.id)
+  @item2 = create(:item, merchant_id: @merchant1.id)
+  @item3 = create(:item, merchant_id: @merchant1.id)
+  @item4 = create(:item, merchant_id: @merchant2.id)
+  @item5 = create(:item, merchant_id: @merchant2.id)
+  
+  count = 5
   @test_customers.each do |customer|
     invoices = []
     count.times do
@@ -32,14 +38,10 @@ def test_data
     end
     invoices = invoices.map{|i| i.id}
     invoices.each{|id| create(:transaction, result: 1, invoice_id: id)}
+    invoices.each{|id| create(:invoice_item, item_id: @item1.id, invoice_id: id)}
     count-=1
   end
 
-  @item1 = create(:item, merchant_id: @merchant1.id)
-  @item2 = create(:item, merchant_id: @merchant1.id)
-  @item3 = create(:item, merchant_id: @merchant1.id)
-  @item4 = create(:item, merchant_id: @merchant2.id)
-  @item5 = create(:item, merchant_id: @merchant2.id)
 
   @incomplete = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 3, 9))
   @incomplete2 = create(:invoice, customer_id: @customer5.id, status: 0, created_at: Time.new(2021, 12, 5))
