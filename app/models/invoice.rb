@@ -12,11 +12,7 @@ class Invoice < ApplicationRecord
     self.created_at.strftime("%A, %B %d, %Y")
   end
 
-
-  
-
   def total_revenue
     self.invoice_items.sum("quantity * unit_price")
   end
-
 end

@@ -11,11 +11,11 @@ Rails.application.routes.draw do
       resource :status, controller: "merchants/items/status", only: :update
     end
     
-    resource :invoices, controller: "merchants/invoices", only: [:show]
+    resources :invoices, controller: "merchants/invoices", only: [:show, :index]
   end
 
   namespace :merchants do
-    resources :invoices, only: :show
+    resources :invoices, only: :index
     resources :items, only: :show
   end
   
