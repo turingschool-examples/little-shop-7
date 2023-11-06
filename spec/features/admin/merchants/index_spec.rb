@@ -78,5 +78,6 @@ RSpec.describe "the merchants index" do
       expect(page).to have_current_path("/admin/merchants/new")
     end
   end
+  
 end
 

@@ -107,11 +107,23 @@ RSpec.describe 'merchant items index page' do
         expect(@item2.name).to appear_before(@item1.name)
         expect(@item1.name).to appear_before(@item7.name)
 
-        expect(page).to have_content("30000")
-        expect(page).to have_content("24200")
-        expect(page).to have_content("4040")
-        expect(page).to have_content("5000")
-        expect(page).to have_content("2225")
+        expect(page).to have_content("300.00")
+        expect(page).to have_content("242.00")
+        expect(page).to have_content("40.40")
+        expect(page).to have_content("50.00")
+        expect(page).to have_content("22.25")
+      end
+
+      it 'shows date of most sales for top 5 popular items' do
+        #US 13
+        
+        visit "/merchants/#{@merchant1.id}/items"
+        
+        expect(page).to have_content("Top selling date for #{@item3.name} was Sunday, January 1, 2023")
+        expect(page).to have_content("Top selling date for #{@item4.name} was Sunday, January 1, 2023")
+        expect(page).to have_content("Top selling date for #{@item2.name} was Tuesday, February 1, 2022")
+        expect(page).to have_content("Top selling date for #{@item1.name} was Monday, March 1, 2021")
+        expect(page).to have_content("Top selling date for #{@item7.name} was Monday, March 1, 2021")
       end
     end
   end

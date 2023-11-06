@@ -5,7 +5,16 @@
 
 <section id="Items-Ready-to-Ship">
 <h3> Items Ready to Ship</h3>
+
 <% @merchant.items_ready_to_ship_ordered_oldest_to_newest.each do |item| %>
       <p>Name: <%= item[:name] %> - Invoice ID: <%= link_to item[:invoice_id], "/merchants/#{@merchant.id}/invoices/#{item[:invoice_id]}" %> - Date: <%= item[:date] %></p>
   <% end %>
 </section>
+
+<h3> Top 5 Customers </h3>
+  <ol>
+<% @merchant.top_5_customers_from_transactions.each do |c| %>
+    <li><b>Name:</b> <%= c.name %> | <b>Transactions: </b><%= c.num_transactions %></li><br>
+<% end %>
+  </ol>
+
