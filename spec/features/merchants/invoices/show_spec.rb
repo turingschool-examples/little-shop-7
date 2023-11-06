@@ -21,7 +21,7 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         expect(page).to have_content(@invoice1.created_at.strftime('%A, %B %d, %Y'))
         expect(page).to have_content(@invoice1.customer.name)
       end
-    end
+    
 
 
       it "shows item and invoice_item information on the invoice" do
@@ -75,10 +75,10 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
         # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
         # Then I see the total revenue that will be generated from all of my items on the invoice
         visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
-        save_and_open_page
+      
         expect(page).to have_content("Total Revenue")
         expect(page).to have_content("$41,417.00")
       end
     end
-
+  end 
 
