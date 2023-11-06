@@ -51,6 +51,7 @@ RSpec.describe "Dashboard" do
   end
 
   it 'includes number of successful transactions beside each customer name' do
+    visit "/merchants/#{@merchant1.id}/dashboard"
     expected_order = [@customer1, @customer2, @customer3, @customer4, @customer5]
     expected_order.each do |c|
       expect(page).to have_content("Transactions: #{c.transactions.count}")
