@@ -112,7 +112,6 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content("40.40")
         expect(page).to have_content("50.00")
         expect(page).to have_content("22.25")
-        save_and_open_page
       end
 
       it 'shows date of most sales for top 5 popular items' do
