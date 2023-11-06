@@ -8,4 +8,8 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true, numericality: true
   validates :merchant_id, presence: true, numericality: true
 
+  def top_sale_date
+    invoice_items.order(quantity: :desc).first.invoice.format_date
+  end
+
 end
