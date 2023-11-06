@@ -103,7 +103,7 @@ RSpec.describe "merchant dashboard index page" do
 
       click_link("#{@invoice_1.id}")
 
-      expect(current_path).to eq("/merchants/invoices/#{@invoice_1.id}")
+      expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
     end
   end
 

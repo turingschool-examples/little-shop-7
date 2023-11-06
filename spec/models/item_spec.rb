@@ -24,7 +24,9 @@ RSpec.describe Item, type: :model do
     end
     describe "#created_format" do
       it "returns created date formated as weekday, month day, year" do
-        expect(@item_1.created_format).to eq("Sunday, November 05, 2023")
+        time = Time.new
+
+        expect(@item_1.created_format).to eq(time.strftime("%A, %B %d, %Y"))
       end
     end
   end
