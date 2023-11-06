@@ -11,32 +11,6 @@ require 'support/faker'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Add additional requires below this line. Rails is not loaded until this point!
 
-def test_data_3
-  @merchant1 = create(:merchant, name: "CandyLand")
-  @customer0 = Customer.create(first_name: "Angus", last_name: "Turing")
-  @invoice0 = @customer0.invoices.create(status: 1)
-  @invoice7 = @customer0.invoices.create(status: 1)
-  @invoice8 = @customer0.invoices.create(status: 1)
-
-  @item2 = @merchant1.items.create(name: "Bat", description: "Bat", unit_price: 200)
-  @item3 = @merchant1.items.create(name: "Cat", description: "Cat", unit_price: 300)
-  @item4 = @merchant1.items.create(name: "Rat", description: "Rat", unit_price: 400)
-  @item8 = @merchant1.items.create(name: "Zat", description: "Zat", unit_price: 500)
-
-  @transaction0 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
-  @transaction7 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
-  @transaction8 = @invoice8.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
-
-  @ii1 = create(:invoice_item, item: @item2, invoice: @invoice0, status: 0)
-  @ii2 = create(:invoice_item, item: @item3, invoice: @invoice0, status: 1)
-  @ii3 = create(:invoice_item, item: @item4, invoice: @invoice0, status: 2)
-  @ii7 = create(:invoice_item, item: @item3, invoice: @invoice0, status: 2)
-  @ii8 = create(:invoice_item, item: @item8, invoice: @invoice8, status: 1)
-
-  @invoice0.update(created_at: '1999-01-01 00:00:00')
-  @invoice8.update(created_at: '2008-08-08 00:00:00')
-  date = Date.today.strftime('%A, %B %d, %Y')
-end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
