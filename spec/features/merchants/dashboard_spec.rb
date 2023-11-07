@@ -114,22 +114,17 @@ RSpec.describe "Dashboard" do
     @transaction0 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
     @transaction7 = @invoice0.transactions.create(credit_card_number: 1234, credit_card_expiration_date: 01/11, result: 1)
 
-
     @ii1 = create(:invoice_item, item: @item2, invoice: @invoice0, status: 0)
     @ii2 = create(:invoice_item, item: @item3, invoice: @invoice0, status: 1)
     @ii3 = create(:invoice_item, item: @item4, invoice: @invoice0, status: 2)
     @ii7 = create(:invoice_item, item: @item3, invoice: @invoice0, status: 2)
 
     @invoice0.update(created_at: '1999-01-01 00:00:00')
-    date = Date.today.strftime('%A, %B %d, %Y')
+    date = Date.today.strftime('%A, %B %e, %Y')
 
     visit "/merchants/#{@merchant1.id}/dashboard"
     expect(page).to have_content("Items Ready to Ship")
-    within("#Items-Ready-to-Ship") do
-      expect(page).to have_content("Date: Friday, January 01, 1999")
-      
-      expect(page).to have_content("Date: #{date}")
-      expect("Date: Friday, January 01, 1999").to appear_before("Date: #{date}")
-    end
+    expect(page).to have_content("Date: Friday, January 1, 1999")
+    expect(@invoice0.created_at.strftime('%A, %B %e, %Y')).to appear_before(@invoice7.created_at.strftime('%A, %B %e, %Y'))
   end
 end

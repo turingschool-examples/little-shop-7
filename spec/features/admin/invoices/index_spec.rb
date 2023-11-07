@@ -32,8 +32,8 @@ RSpec.describe "Admin Invoices Index" do
   describe 'Managing Invoice Statuses' do
     it "when visiting the index, can see each invoice status" do
       visit "/admin/invoices"
-      
-      save_and_open_page
+
+      # save_and_open_page
 
     end
   end
