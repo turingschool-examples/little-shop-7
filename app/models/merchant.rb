@@ -53,4 +53,26 @@ class Merchant < ApplicationRecord
     .order("sum(invoice_items.unit_price) DESC")
     .limit(5)
   end
+
+  def self.top_five_merchants_by_revenue
+    joins(:transactions) # join necessary tables
+    .where('transactions.result = 0') # filter by successful transactions 
+    .group('merchants.id') # group records by merchant
+    .select('merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')  # Calculate total revenue
+    .order('total_revenue DESC')
+    .limit(5)
+  end
+
+  def total_revenue
+    invoices
+    .joins(:transactions)
+    .where(transactions: { result: 0 }) # Filter by successful transactions
+    .sum('invoice_items.unit_price * invoice_items.quantity')
+  end
 end
+
+
+# expect("#{@merchant2.name}: #{@total_revenue2}").to appear_before("#{@merchant3.name}: #{@total_revenue3}")
+#     expect("#{@merchant3.name}: #{@total_revenue3}").to appear_before("#{@merchant4.name}: #{@total_revenue4}")
+#     expect("#{@merchant4.name}: #{@total_revenue4}").to appear_before("#{@merchant5.name}: #{@total_revenue5}")
+#     expect("#{@merchant5.name}: #{@total_revenue5}").to_not appear_before("#{@merchant1.name}: #{@total_revenue1}")

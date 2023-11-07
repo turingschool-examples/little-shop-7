@@ -3,3 +3,11 @@
 <%= @merchants.each do |merchant| %>
   <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
 <% end %>
+
+<h3>Top 5 Merchants by Revenue</h3>
+<%= @merchants.top_five_merchants_by_revenue.each do |merchant| %>
+  <section id="admin-<%= merchant.id %>"></p>
+    <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
+    <p><%= merchant.name%>: <%= merchant.total_revenue %></p>
+  </section>
+<% end %>
