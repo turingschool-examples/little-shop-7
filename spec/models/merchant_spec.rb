@@ -16,6 +16,8 @@ RSpec.describe Merchant, type: :model do
   before(:each) do
     @merchant = create(:merchant)
     @merchant2 = create(:merchant)
+    @merchant3 = create(:merchant, enabled: false)
+    @merchant4 = create(:merchant, enabled: false)
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
@@ -35,12 +37,12 @@ RSpec.describe Merchant, type: :model do
     @item_5 = create(:item, merchant: @merchant, status: "disabled")
     @item_6 = create(:item, merchant: @merchant, status: "disabled")
     @item_7 = create(:item, merchant: @merchant2)
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
-    @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2)
-    @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
-    @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
-    @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5)
-    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6, status: 2)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000, quantity: 1)
+    @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2, unit_price: 40000, quantity: 1)
+    @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3, unit_price: 30000, quantity: 1)
+    @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4, unit_price: 20000, quantity: 1)
+    @invoice_item_5 = create(:invoice_item, invoice: @invoice_5, item: @item_5, unit_price: 10000, quantity: 1)
+    @invoice_item_6 = create(:invoice_item, invoice: @invoice_6, item: @item_6, unit_price: 6000000, status: 2, quantity: 1)
     @transaction_1 = create_list(:transaction, 5, invoice: @invoice_1, result: 0)
     @transaction_2 = create_list(:transaction, 4, invoice: @invoice_2, result: 0)
     @transaction_3 = create_list(:transaction, 3, invoice: @invoice_3, result: 0)
@@ -105,6 +107,28 @@ RSpec.describe Merchant, type: :model do
         expected = [@item_1, @item_2, @item_3, @item_4, @item_5, @item_6]
         
         expect(@merchant.merchant_items(@merchant.id)).to eq(expected)
+      end
+    end
+    
+    describe "'self.enabled_merchants" do
+      it "returns an array of enabled merchant active record objects" do 
+        expected = [@merchant, @merchant2]
+        expect(Merchant.enabled_merchants).to eq(expected)
+      end
+    end
+
+    describe "'self.disabled_merchants" do
+      it "returns an array of disabled merchant active record objects" do 
+        expected = [@merchant3, @merchant4]
+        expect(Merchant.disabled_merchants).to eq(expected)
+      end
+    end
+    
+    describe "#top_five_items" do
+      it "returns an array of 5 of a merchant's items, ordered by total revenue" do
+        expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
+        
+        expect(@merchant.top_five_items).to eq(expected)
       end
     end
   end
