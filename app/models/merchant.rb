@@ -23,6 +23,13 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def self.popular_merchants
+    self.joins(items: :invoice_items)
+    .select('merchants.id, merchants.name, (SUM(invoice_items.quantity * invoice_items.unit_price) /100 )as total_revenue')
+    .group('merchants.id, merchants.name')
+    .order('total_revenue DESC')
+    .limit(5)
+    
   def items_ready_to_ship_ordered_oldest_to_newest
     items_ready_to_ship = []
 
