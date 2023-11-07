@@ -26,11 +26,10 @@ class Item < ApplicationRecord
     invoices.joins(:invoice_items)
     .joins(:transactions)
     .where(transactions: {result: 0})
-    .group("invoices.created_at")
     .select("invoices.created_at, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .group("invoices.created_at")
     .order("revenue DESC")
-    .limit(1)
-
-    strftime("%Y-%m-%d")
+    .first
+    .created_at
   end
 end
