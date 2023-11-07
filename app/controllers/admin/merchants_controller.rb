@@ -3,7 +3,13 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def index
-    @merchants = Merchant.all
+    if params[:order] == "alphabetical"
+      @merchants = Merchant.sort_alphabetical
+    elsif params[:order] == "date"
+      @merchants = Merchant.sort_by_date
+    else
+      @merchants = Merchant.all
+    end
   end
 
   def show

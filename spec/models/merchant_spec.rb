@@ -62,4 +62,27 @@ RSpec.describe Merchant, type: :model do
       ])
     end
   end
-end
+
+  describe "#self.sort_alphabetical" do
+  it "should sort the merchant data alphabetically" do
+    merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
+    merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
+    merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
+    merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
+
+    alphabetical = Merchant.all.sort_by{|m| -m.name}
+    expect(Merchant.sort_alphabetical).to eq(alphabetical)
+  end
+end 
+
+describe "#self.sort_by_date" do
+  it "should sort the invoice data alphabetically" do
+    merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
+    merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
+    merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
+    merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
+
+    order = [merchant4, merchant3, merchant2, merchant1]
+    expect(Merchant.sort_by_date).to eq(order)
+  end
+end 

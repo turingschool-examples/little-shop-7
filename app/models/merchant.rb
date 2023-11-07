@@ -39,4 +39,12 @@ class Merchant < ApplicationRecord
     .group('invoice_items.id', 'items.name', 'invoices.created_at')
     .order("invoices.created_at asc")
   end
+
+  def self.sort_alphabetical
+    Merchant.all.order(name: :asc)
+  end
+
+  def self.sort_by_date
+    Merchant.all.order(created_at: :desc)
+  end
 end
