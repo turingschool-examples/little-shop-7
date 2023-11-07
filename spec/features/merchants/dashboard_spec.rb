@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Dashboard" do
   before :each do
-    test_data
+    test_data 
   end
 
   it "US1: shows the name of the merchant" do
@@ -127,7 +127,7 @@ RSpec.describe "Dashboard" do
     expect(page).to have_content("Items Ready to Ship")
     within("#Items-Ready-to-Ship") do
       expect(page).to have_content("Date: Friday, January 01, 1999")
-      
+      save_and_open_page
       expect(page).to have_content("Date: #{date}")
       expect("Date: Friday, January 01, 1999").to appear_before("Date: #{date}")
     end

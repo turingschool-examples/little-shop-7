@@ -5,10 +5,9 @@ RSpec.describe 'merchant items index page' do
     @merchant11 = create(:merchant, name: "CamelsRUs")
     @merchant22 = create(:merchant, name: "Pickle Store Depot")
 
-    # @item21 = create(:item, merchant_id: @merchant11.id)
+    @item21 = create(:item, merchant_id: @merchant11.id)
     @item22 = create(:item, name: "Pickles", merchant_id: @merchant11.id)
-    # @item23 = create(:item, merchant_id: @merchant11.id)
-    # @item23.update(enable: false)
+    @item23 = create(:item, merchant_id: @merchant11.id, enable: false)
     @item24 = create(:item, merchant_id: @merchant22.id)
     @item25 = create(:item)
     test_data_2
@@ -43,22 +42,22 @@ RSpec.describe 'merchant items index page' do
         #US 9
         visit "/merchants/#{@merchant11.id}/items"
 
-        # within("#enabled_item-#{@item21.id}") do
-        #   expect(page).to have_button("Disable")
-        # end
-save_and_open_page
+        within("#enabled_item-#{@item21.id}") do
+          expect(page).to have_button("Disable")
+        end
+
         within("#enabled_item-#{@item22.id}") do
           expect(page).to have_button("Disable")
           click_button "Disable"
           expect(page).to_not have_content(@item22.name)
         end
 
-        # within("#disabled_item-#{@item23.id}") do
+        within("#disabled_item-#{@item23.id}") do
 
-        #   expect(page).to have_button("Enable")
-        #   click_button "Enable"
-        #   expect(page).to_not have_content(@item23.name)
-        # end
+          expect(page).to have_button("Enable")
+          click_button "Enable"
+          expect(page).to_not have_content(@item23.name)
+        end
         
         expect(current_path).to eq("/merchants/#{@merchant11.id}/items")
       end
