@@ -13,3 +13,13 @@
     </section>
   <% end %>
 </section>
+
+<section id="disabled-merchants">
+  <h3>Disabled Merchants</h3>
+  <% Merchant.disabled_merchants.each do |merchant| %>
+    <section id="<%= merchant.id %>">
+      <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %></br>        
+      <%= button_to "Enable Merchant", admin_merchant_path(merchant.id), method: :patch, params: { enabled: true }, data: { turbo: false }, local: true %></br>
+    </section>
+  <% end %>
+</section>
