@@ -16,12 +16,12 @@ RSpec.describe "merchant items index page" do
     @invoice_4 = create(:invoice, customer: @customer_4)
     @invoice_5 = create(:invoice, customer: @customer_5)
     @invoice_6 = create(:invoice, customer: @customer_6)
-    @item_1 = create(:item, merchant: @merchant_1)
-    @item_2 = create(:item, merchant: @merchant_1)
-    @item_3 = create(:item, merchant: @merchant_1)
-    @item_4 = create(:item, merchant: @merchant_1)
-    @item_5 = create(:item, merchant: @merchant_1)
-    @item_6 = create(:item, merchant: @merchant_1)
+    @item_1 = create(:item, merchant: @merchant_1, status: "enabled")
+    @item_2 = create(:item, merchant: @merchant_1, status: "enabled")
+    @item_3 = create(:item, merchant: @merchant_1, status: "enabled")
+    @item_4 = create(:item, merchant: @merchant_1, status: "enabled")
+    @item_5 = create(:item, merchant: @merchant_1, status: "enabled")
+    @item_6 = create(:item, merchant: @merchant_1, status: "disabled")
     @item_7 = create(:item, merchant: @merchant_2)
     @item_8 = create(:item, merchant: @merchant_2, status: 1)
     @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50000, quantity: 1)
@@ -60,7 +60,9 @@ RSpec.describe "merchant items index page" do
   it "item names link to merchant item show page" do
     visit merchant_items_path(@merchant_1)
 
-    click_link "#{@item_1.name}"
+    within("#enabled-items") do
+      click_link "#{@item_1.name}"
+    end
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
   end
@@ -155,7 +157,7 @@ RSpec.describe "merchant items index page" do
   it "top 5 item names link to that item's show page" do
     visit merchant_items_path(@merchant_1)
 
-    within("section#top-5-items-#{@item_1.id}") do
+    within("#top-5-items") do
       click_link "#{@item_1.name}"
     end
 
