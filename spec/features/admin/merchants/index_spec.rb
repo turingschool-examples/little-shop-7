@@ -17,22 +17,22 @@ RSpec.describe "the merchants index" do
     end
   end
 
-  it "has buttons to enable or disable each merchant and disables when 'Disable' is clicked" do
-    merchant1 = Merchant.create!(name: "Sooyung LLC")
-
-    visit "/admin/merchants"
-
-    expect(page).to have_link(merchant1.name)
-    expect(merchant1.enabled).to be(true)
-    expect(page).to have_button("Disable")
-    click_button("Disable")
-    expect(page).to have_current_path("/admin/merchants")
-
-    merchant1.reload
-    expect(merchant1.enabled).to be(false)
-  end
-
   describe "US27" do
+    it "has buttons to enable or disable each merchant and disables when 'Disable' is clicked" do
+      merchant1 = Merchant.create!(name: "Sooyung LLC")
+
+      visit "/admin/merchants"
+
+      expect(page).to have_link(merchant1.name)
+      expect(merchant1.enabled).to be(true)
+      expect(page).to have_button("Disable")
+      click_button("Disable")
+      expect(page).to have_current_path("/admin/merchants")
+
+      merchant1.reload
+      expect(merchant1.enabled).to be(false)
+    end
+
     it "has buttons to enable or disable each merchant and enables when 'Enable' is clicked" do
       merchant1 = Merchant.create!(name: "Sooyung LLC", enabled: false)
 
@@ -66,7 +66,7 @@ RSpec.describe "the merchants index" do
       @merchant4 = Merchant.create!(name: "Nathan LLC")
     end
     it "has a link to create a new merchant" do
-      visit "admin/merchants"
+      visit "/admin/merchants"
       expect(page).to have_link("Create a new merchant")
       expect(Merchant.count).to eq(4)
     end
@@ -129,3 +129,28 @@ RSpec.describe "the merchants index" do
   end
 end
 
+  describe "US30" do
+    before(:each) do 
+      test_data_joseph
+    end
+    it "displays the top 5 merchants by revenue" do
+      visit "/admin/merchants"
+      expect(page).to have_content("Top 5 Merchants")
+      expect(@merchant1.name).to appear_before(@merchant2.name)
+      expect(@merchant2.name).to appear_before(@merchant3.name)
+      expect(@merchant3.name).to appear_before(@merchant4.name)
+      expect(@merchant4.name).to appear_before(@merchant5.name)
+
+      expect(page).to have_content("$3000 in sales")
+      expect(@merchant1.name).to appear_before("$3000 in sales")
+      expect(page).to have_content("$700 in sales")
+      expect(@merchant2.name).to appear_before("$700 in sales")
+      expect(page).to have_content("$320 in sales")
+      expect(@merchant3.name).to appear_before("$320 in sales")
+      expect(page).to have_content("$150 in sales")
+      expect(@merchant4.name).to appear_before("$150 in sales")
+      expect(page).to have_content("$143 in sales")
+      expect(@merchant5.name).to appear_before("$143 in sales")
+    end
+  end
+end

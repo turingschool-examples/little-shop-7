@@ -5,6 +5,11 @@
 </div>
 <%= link_to "Create a new merchant", "/admin/merchants/new" %>
 
+<h2><u> Top 5 Merchants </u></h2>
+  <% @merchants.popular_merchants.each do |merchant| %>
+    <%= merchant.name %> - $<%= merchant.total_revenue %> in sales<br>
+  <% end %>
+
 <h2><u> Enabled Merchants </u></h2>
 <% @merchants.each do |merchant| %>
   <% if merchant.enabled? %>

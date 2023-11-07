@@ -78,5 +78,4 @@ RSpec.describe Invoice, type: :model do
       expect(Invoice.sort_by_date).to eq(order)
     end
   end 
-
 end
