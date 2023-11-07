@@ -6,7 +6,7 @@ RSpec.describe "Admin Invoices Index" do
   end
 
   ## USER STORY 32
-  describe 'Admin Invoices Index Page' do
+  describe 'Invoice IDs and Individual Links' do
     before :each do
       @testing_invoices = @customer1.invoices.limit(5)
     end
@@ -27,5 +27,17 @@ RSpec.describe "Admin Invoices Index" do
       end
     end
   end
+
+  ## EXTENSION 1-1
+  describe 'Managing Invoice Statuses' do
+    it "when visiting the index, can see each invoice status" do
+      visit "/admin/invoices"
+      
+      save_and_open_page
+
+    end
+  end
+
+
 
 end
