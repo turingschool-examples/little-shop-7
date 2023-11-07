@@ -76,26 +76,26 @@ RSpec.describe "Admin Invoices Index" do
       
       alphabetical = Invoice.all.sort
       count = alphabetical.length
-      check = alphabetical.first
+      check = alphabetical.first.id.to_s
       num = 1
       count-1.times do
-        compare = alphabetical[num]
+        compare = alphabetical[num].id.to_s
         expect(check).to appear_before(compare)
         num+=1
       end
     end
 
-    xit "can sort by date newest to oldest" do
+    it "can sort by date newest to oldest" do
       visit "/admin/invoices"
       click_button "Sort by Date, Newest-Oldest"
       expect(current_path).to eq("/admin/invoices")
 
       order = Invoice.all.sort_by{|i| -i.created_at.to_i}
       count = order.length
-      check = order.first
+      check = order.first.id.to_s
       num = 1
       count-1.times do
-        compare = order[num]
+        compare = order[num].id.to_s
         expect(check).to appear_before(compare)
         num+=1
       end

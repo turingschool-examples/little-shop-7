@@ -31,4 +31,13 @@ class Invoice < ApplicationRecord
   def potential_revenue
     invoice_items.sum("unit_price * quantity * .01")
   end
+
+  def self.sort_alphabetical
+    Invoice.all.order(id: :asc)
+  end
+
+  def self.sort_by_date
+    Invoice.all.order(created_at: :desc)
+  end
+  
 end
