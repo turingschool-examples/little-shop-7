@@ -44,6 +44,7 @@ RSpec.describe Merchant, type: :model do
     it 'list items ready to be shipped ordered by oldest to newest' do
       test_data_3
       expect(@merchant1.items_ready_to_ship_ordered_oldest_to_newest.pluck(:name)).to eq(["Bat", "Cat", "Zat"])
+      expect(@merchant1.items_ready_to_ship_ordered_oldest_to_newest.pluck(:invoice_id)).to eq([@ii1.invoice_id, @ii2.invoice_id, @ii8.invoice_id])
     end
   end
 
