@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
+  has_many :invoice_items, through: :items
 
   validates :name, presence: true
   
@@ -32,15 +33,18 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    revenues = Hash.new(0)
+    require 'pry'; binding.pry
+    self.invoice_items.order('quantity * unit_price DESC')
 
-    invoices.each do |invoice|
-      total_revenue = invoice.invoice_items.sum { |item| item.quantity * item.unit_price }
-      revenues[invoice.created_at.to_date] += total_revenue
-    end
-    top_day = revenues.max_by { |day, revenue| revenue }&.first
+    # revenues = Hash.new(0)
 
-    top_day
+    # invoices.each do |invoice|
+    #   total_revenue = invoice.invoice_items.sum { |item| item.quantity * item.unit_price }
+    #   revenues[invoice.created_at.to_date] += total_revenue
+    # end
+    # top_day = revenues.max_by { |day, revenue| revenue }&.first
+
+    # top_day
   end
     
   def items_ready_to_ship_ordered_oldest_to_newest
