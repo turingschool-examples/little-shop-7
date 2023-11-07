@@ -32,11 +32,11 @@ class Merchant < ApplicationRecord
           items_ready_to_ship << {
             name: item.name,
             invoice_id: invoice_item.invoice_id,
-            date: invoice_item.invoice.created_at.strftime('%A, %B %d, %Y')
+            date: invoice_item.invoice.created_at.strftime('%A, %B %e, %Y')
           }
         end
       end
     end
-    items_ready_to_ship.sort_by! { |item| Date.strptime(item[:date], '%A, %B %d, %Y') }
+    items_ready_to_ship.sort_by! { |item| Date.strptime(item[:date], '%A, %B %e, %Y') }
   end
 end
