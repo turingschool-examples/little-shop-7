@@ -39,27 +39,31 @@ RSpec.describe 'merchant items index page' do
       end
 
       it 'has a button to enable item' do
+        merchant11 = create(:merchant, name: "CamelsRUs")
+        item21 = create(:item, merchant_id: merchant11.id)
+        item22 = create(:item, merchant_id: merchant11.id, enable: false)
+        item23 = create(:item, merchant_id: merchant11.id, enable: false)
+
         #US 9
-        visit "/merchants/#{@merchant11.id}/items"
+        visit "/merchants/#{merchant11.id}/items"
 
-        within("#enabled_item-#{@item21.id}") do
-          expect(page).to have_button("Disable")
-        end
-
-        within("#enabled_item-#{@item22.id}") do
+        within("#enabled_item-#{item21.id}") do
           expect(page).to have_button("Disable")
           click_button "Disable"
-          expect(page).to_not have_content(@item22.name)
-        end
-
-        within("#disabled_item-#{@item23.id}") do
-
-          expect(page).to have_button("Enable")
-          click_button "Enable"
-          expect(page).to_not have_content(@item23.name)
+          expect(page).to_not have_button('Disable')
         end
         
-        expect(current_path).to eq("/merchants/#{@merchant11.id}/items")
+        within("#disabled_item-#{item22.id}") do
+          expect(page).to have_button("Enable")
+        end
+
+        within("#disabled_item-#{item23.id}") do
+          expect(page).to have_button("Enable")
+          click_button "Enable"
+          expect(page).to_not have_content(item23.name)
+        end
+        
+        expect(current_path).to eq("/merchants/#{merchant11.id}/items")
       end
 
       it 'shows two sections, enabled items and disabled items and items listed appropriately' do
