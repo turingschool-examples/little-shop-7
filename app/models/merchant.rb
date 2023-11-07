@@ -50,4 +50,5 @@ class Merchant < ApplicationRecord
 
   def self.sort_by_date
     Merchant.all.order(created_at: :desc)
+  end
 end
