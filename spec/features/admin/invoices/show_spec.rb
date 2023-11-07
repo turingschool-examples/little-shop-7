@@ -5,9 +5,9 @@ RSpec.describe "Admin Invoices Show" do
     test_data
     @test_invoice = @customer1.invoices.first
     @test_invoice.update(status: 0, created_at: Time.new(2021, 12, 30))
-    create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
+    create(:invoice_item, item_id: @item1.id, unit_price: 500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
     create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 8, invoice_id: @test_invoice.id, status: 2)
-    create(:invoice_item, item_id: @item3.id, unit_price: 2500, quantity: 6, invoice_id: @test_invoice.id, status: 1)
+    create(:invoice_item, item_id: @item3.id, unit_price: 1000, quantity: 6, invoice_id: @test_invoice.id, status: 1)
     create(:invoice_item, item_id: @item4.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
   end
 
