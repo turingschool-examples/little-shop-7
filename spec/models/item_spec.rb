@@ -49,7 +49,8 @@ RSpec.describe Item, type: :model do
 
     describe "#top_selling_date" do
       it "returns the date with the most sales for an item" do
-        expect(@item_1.top_selling_date).to eq("2023-11-07 00:04:06.477179000 +0000")
+        # require 'pry'; binding.pry
+        expect(@item_1.top_selling_date).to eq("2023-11-07")
       end
     end
   end
