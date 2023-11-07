@@ -33,10 +33,9 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    require 'pry'; binding.pry
-    self.invoice_items.order('quantity * unit_price DESC')
+      self.invoice_items.select("invoice.id, sum(invoice_items.quantity * invoice_items.unit_price) as revenue").group(:id).order('revenue desc').first
 
-    # revenues = Hash.new(0)
+      # revenues = Hash.new(0)
 
     # invoices.each do |invoice|
     #   total_revenue = invoice.invoice_items.sum { |item| item.quantity * item.unit_price }
