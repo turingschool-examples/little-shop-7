@@ -44,4 +44,12 @@ class Merchant < ApplicationRecord
     .where(items: {merchant_id: merchant_id})
     .select("id", "invoices.id as invoice_id").uniq
   end
+
+  def self.enabled_merchants
+    where(enabled: true)
+  end
+
+  def self.disabled_merchants
+    where(enabled: false)
+  end
 end
