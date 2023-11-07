@@ -3,7 +3,7 @@
   <% @merchant.top_five_items.each do |item| %>
     <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
     : <%= number_to_currency(item.total_revenue / 100) %>
-    <%= "Top selling date for #{item.name} was #{item.top_selling_date}" %></br>
+    <%= "Top selling date for #{item.name} was #{item.top_selling_date.strftime("%Y-%m-%d")}" %></br>
   <% end %>
 </section>
 

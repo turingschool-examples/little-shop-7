@@ -23,7 +23,7 @@ class Item < ApplicationRecord
   end
 
   def top_selling_date
-    invoices.joins(:invoice_items)
+    date = invoices.joins(:invoice_items)
     .joins(:transactions)
     .where(transactions: {result: 0})
     .select("invoices.created_at, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue")
