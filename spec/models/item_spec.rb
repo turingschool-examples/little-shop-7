@@ -34,9 +34,9 @@ RSpec.describe Item, type: :model do
     end
 
     describe "#created_format" do
-      xit "returns created date formated as weekday, month day, year" do
-        time = Time.new
-
+      it "returns created date formated as weekday, month day, year" do
+        time = Time.new.in_time_zone("UTC")
+      
         expect(@item_1.created_format).to eq(time.strftime("%A, %B %d, %Y"))
       end
     end
