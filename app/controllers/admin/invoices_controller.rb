@@ -7,4 +7,16 @@ class Admin::InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:invoice_id])
   end
   
+  def update
+    @invoice = Invoice.find(params[:invoice_id])
+    if params[:status_update] == "Completed"
+      @invoice.update(status: "completed")
+    elsif params[:status_update] == "In Progress"
+      @invoice.update(status: "in progress")
+    else params[:status_update] == "Cancelled"
+      @invoice.update(status: "cancelled")
+    end
+    return redirect_to admin_invoices_path if params[:index] == "true"
+    redirect_to admin_invoice_show_path(@invoice)
+  end
 end

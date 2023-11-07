@@ -1,5 +1,5 @@
 <h1><%= "Invoice ##{@invoice.id}" %></h1>
-<b> Status: </b> <%= @invoice.status.capitalize %><br>
+<b> Status: </b> <%= @invoice.status.titleize %><br>
 <b> Created at: </b> <%= @invoice.format_date %><br>
 <b> Customer Name: </b> <%= @invoice.customer.name %><br>
 
@@ -10,3 +10,11 @@
 <b> Unit Price: </b> $<%= ii.price %><br>
 <b> Status: </b> <%= ii.status.capitalize %><br><br>
 <% end %>
+
+<h4>Total Potential Revenue: <%= number_to_currency(@invoice.potential_revenue) %></h4>
+
+<%= form_with(url: admin_invoice_show_path(@invoice), method: :patch, local: true) do |form| %>
+    <%= form.select :status_update, ["In Progress", "Completed", "Cancelled"], {selected: @invoice.status.titleize} %>
+    <%= form.submit "Update Invoice Status" %>
+<% end%>
+

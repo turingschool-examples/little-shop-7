@@ -11,7 +11,7 @@ class Invoice < ApplicationRecord
 
   def self.incomplete_not_shipped
     Invoice.joins(items: :invoice_items)
-           .where(invoice_items: {status: "pending"})
+           .where(invoice_items: {status: ["pending", "packaged"]})
            .distinct
            .order(created_at: :asc)
   end
@@ -20,4 +20,15 @@ class Invoice < ApplicationRecord
     created_at.strftime('%A, %B %e, %Y')
   end
 
+  def total_revenue
+    total = 0
+    invoice_items.each do |invoice_item|
+      total += invoice_item.quantity * invoice_item.unit_price
+    end
+    total
+  end
+
+  def potential_revenue
+    invoice_items.sum("unit_price * quantity * .01")
+  end
 end

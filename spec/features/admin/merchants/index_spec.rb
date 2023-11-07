@@ -104,4 +104,3 @@ RSpec.describe "the merchants index" do
     end
   end
 end
-
