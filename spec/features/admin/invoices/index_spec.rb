@@ -30,11 +30,20 @@ RSpec.describe "Admin Invoices Index" do
 
   ## EXTENSION 1-1
   describe 'Managing Invoice Statuses' do
+    before :each do
+      @index_invoice_test = @customer1.invoices.first
+      @index_invoice_test.update(status: 0)
+    end
+
     it "when visiting the index, can see each invoice status" do
       visit "/admin/invoices"
-
-      # save_and_open_page
-
+      within("#update_status-#{@index_invoice_test.id}") do
+        expect(page).to have_content("Status: In Progress")
+        select "Completed", :from => "status_update"
+        click_button "Update Invoice Status"
+        expect(current_path).to eq("/admin/invoices")
+        expect(page).to have_content("Status: Completed")
+      end
     end
   end
 
