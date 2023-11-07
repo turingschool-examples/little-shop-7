@@ -32,7 +32,15 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    invoice_items.order(quantity: :desc).first.invoice.format_date
+    revenues = Hash.new(0)
+
+    invoices.each do |invoice|
+      total_revenue = invoice.invoice_items.sum { |item| item.quantity * item.unit_price }
+      revenues[invoice.created_at.to_date] += total_revenue
+    end
+    top_day = revenues.max_by { |day, revenue| revenue }&.first
+
+    top_day
   end
     
   def items_ready_to_ship_ordered_oldest_to_newest

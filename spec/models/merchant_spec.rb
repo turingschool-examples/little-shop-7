@@ -40,6 +40,17 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
+  describe '#best_day' do
+    before(:each) do
+      test_data_joseph
+    end
+    
+    it "returns the top sale date for the merchant" do
+      expect(@merchant1.best_day).to eq("January 2, 2023")
+    end
+  end
+
+
   describe '#items_ready_to_ship_ordered_oldest_to_newest' do
     it 'list items ready to be shipped ordered by oldest to newest' do
       test_data_3

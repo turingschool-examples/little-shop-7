@@ -90,8 +90,8 @@ RSpec.describe "the merchants index" do
       expect(@merchant3.name).to appear_before(@merchant4.name)
       expect(@merchant4.name).to appear_before(@merchant5.name)
 
-      expect(page).to have_content("$3000 in sales")
-      expect(@merchant1.name).to appear_before("$3000 in sales")
+      expect(page).to have_content("$8000 in sales")
+      expect(@merchant1.name).to appear_before("$8000 in sales")
       expect(page).to have_content("$700 in sales")
       expect(@merchant2.name).to appear_before("$700 in sales")
       expect(page).to have_content("$320 in sales")
@@ -109,8 +109,8 @@ RSpec.describe "the merchants index" do
     end
     it "displays the top selling date for each merchant" do
       visit "/admin/merchants"
-      expect(page).to have_content("$3000 in sales")
-      
+      expect(page).to have_content("$8000 in sales")
+      expect(page).to have_content("Top selling date for #{@merchant1.name} was ")
       expect(page).to have_content("$700 in sales")
       expect(page).to have_content("$320 in sales")
       expect(page).to have_content("$150 in sales")
@@ -121,10 +121,10 @@ RSpec.describe "the merchants index" do
   ## EXTENSION 1-2 (ADMIN MERCHANT)
   describe 'Sorting Option on Admin Merchant Index' do
     before :each do
-      merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
-      merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
-      merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
-      merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
+      @merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
+      @merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
+      @merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
+      @merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
     end
 
     it "when visiting the index, have two button options for sorting" do

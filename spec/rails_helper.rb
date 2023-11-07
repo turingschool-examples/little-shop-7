@@ -124,6 +124,7 @@ def test_data_joseph
   @invoice3 = create(:invoice, status: 1, customer_id: @customer3.id, created_at: Time.new(2021, 3, 1)) #Monday
   
   @invoice_item1 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 100000, status: 2)
+  @invoice_item15 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice2.id, quantity: 5, unit_price: 100000, status: 2)
   @invoice_item2 = InvoiceItem.create(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 2, unit_price: 100000, status: 2)
   @invoice_item3 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 3, unit_price: 10000, status: 2)
   @invoice_item4 = InvoiceItem.create(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 10000, status: 2)
