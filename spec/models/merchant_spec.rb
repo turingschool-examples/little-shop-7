@@ -14,10 +14,10 @@ RSpec.describe Merchant, type: :model do
   end
 
   before(:each) do
-    @merchant = create(:merchant)
-    @merchant2 = create(:merchant)
-    @merchant3 = create(:merchant, enabled: false)
-    @merchant4 = create(:merchant, enabled: false)
+    @merchant = create(:merchant, enabled: true)
+    @merchant2 = create(:merchant, enabled: true)
+    @merchant3 = create(:merchant)
+    @merchant4 = create(:merchant)
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
