@@ -29,6 +29,7 @@ class Merchant < ApplicationRecord
     .group('merchants.id, merchants.name')
     .order('total_revenue DESC')
     .limit(5)
+  end
     
   def items_ready_to_ship_ordered_oldest_to_newest
     items_ready_to_ship = []
