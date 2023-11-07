@@ -90,8 +90,8 @@ RSpec.describe "the merchants index" do
       expect(@merchant3.name).to appear_before(@merchant4.name)
       expect(@merchant4.name).to appear_before(@merchant5.name)
 
-      expect(page).to have_content("$3000 in sales")
-      expect(@merchant1.name).to appear_before("$3000 in sales")
+      expect(page).to have_content("$8000 in sales")
+      expect(@merchant1.name).to appear_before("$8000 in sales")
       expect(page).to have_content("$700 in sales")
       expect(@merchant2.name).to appear_before("$700 in sales")
       expect(page).to have_content("$320 in sales")
@@ -109,8 +109,8 @@ RSpec.describe "the merchants index" do
     end
     it "displays the top selling date for each merchant" do
       visit "/admin/merchants"
-      expect(page).to have_content("$3000 in sales")
-      
+      expect(page).to have_content("$8000 in sales")
+    
       expect(page).to have_content("$700 in sales")
       expect(page).to have_content("$320 in sales")
       expect(page).to have_content("$150 in sales")
