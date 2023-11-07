@@ -76,7 +76,7 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
       # Then I see the total revenue that will be generated from all of my items on the invoice
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
       expect(page).to have_content("Total Revenue")
-      expect(page).to have_content("$41,417.00")
+      expect(page).to have_content("$414.17")
     end
 
     it "has select field for each invoice_item status that can be updated" do
