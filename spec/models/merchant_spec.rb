@@ -28,4 +28,27 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
+  describe '#items_ready_to_ship_ordered_oldest_to_newest' do
+    it 'list items ready to be shipped ordered by oldest to newest' do
+      test_data_3
+      expect(@merchant1.items_ready_to_ship_ordered_oldest_to_newest).to eq([
+        {
+          name: @item2.name,
+          invoice_id: @invoice0.id,
+          date: "Friday, January 01, 1999"
+        },
+        {
+          name: @item3.name,
+          invoice_id: @invoice0.id,
+          date: "Friday, January 01, 1999"
+        },
+        {
+          name: @item8.name,
+          invoice_id: @invoice8.id,
+          date: "Friday, August 08, 2008"
+        }
+      ])
+    end
+  end
+
 end

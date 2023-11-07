@@ -11,6 +11,8 @@
 <b> Status: </b> <%= ii.status.capitalize %><br><br>
 <% end %>
 
+<h4>Total Potential Revenue: <%= number_to_currency(@invoice.potential_revenue) %></h4>
+
 <%= form_with(url: admin_invoice_show_path(@invoice), method: :patch, local: true) do |form| %>
     <%= form.select :status_update, ["In Progress", "Completed", "Cancelled"], {selected: @invoice.status.titleize} %>
     <%= form.submit "Update Invoice Status" %>

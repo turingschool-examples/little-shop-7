@@ -24,20 +24,17 @@ RSpec.describe "Dashboard" do
     visit "/merchants/#{@merchant1.id}/dashboard"
     expect(page).to have_link("Merchant Items")
     expect(page).to have_link("Merchant Invoices")
-
     click_link("Merchant Items")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
     click_link("#{@item1.name}")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
     expect(page).to have_content(@item1.name)
-
     visit "/merchants/#{@merchant1.id}/dashboard"
     click_link("Merchant Invoices")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
     expected_invoices = [@incomplete, @incomplete2]
     expect(page).to have_content(@incomplete.id)
     expect(page).to have_content(@incomplete2.id)
-
     click_link("#{@incomplete.id}")
     expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@incomplete.id}")
     expect(page).to have_content(@incomplete.status)
@@ -127,7 +124,6 @@ RSpec.describe "Dashboard" do
     date = Date.today.strftime('%A, %B %d, %Y')
 
     visit "/merchants/#{@merchant1.id}/dashboard"
-
     expect(page).to have_content("Items Ready to Ship")
     within("#Items-Ready-to-Ship") do
       expect(page).to have_content("Date: Friday, January 01, 1999")
