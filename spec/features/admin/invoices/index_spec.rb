@@ -63,14 +63,17 @@ RSpec.describe "Admin Invoices Index" do
       end
     end
 
-    xit "when visiting the index, have two button options for sorting" do
+    it "when visiting the index, have two button options for sorting" do
       visit "/admin/invoices"
       expect(page).to have_button("Sort Alphabetically, A-Z")
       expect(page).to have_button("Sort by Date, Newest-Oldest")      
     end
 
-    xit "can sort alphabetically A-Z" do
+    it "can sort alphabetically A-Z" do
       visit "/admin/invoices"
+      click_button "Sort Alphabetically, A-Z"
+      expect(current_path).to eq("/admin/invoices")
+      
       alphabetical = Invoice.all.sort
       count = alphabetical.length
       check = alphabetical.first
@@ -84,6 +87,9 @@ RSpec.describe "Admin Invoices Index" do
 
     xit "can sort by date newest to oldest" do
       visit "/admin/invoices"
+      click_button "Sort by Date, Newest-Oldest"
+      expect(current_path).to eq("/admin/invoices")
+
       order = Invoice.all.sort_by{|i| -i.created_at.to_i}
       count = order.length
       check = order.first

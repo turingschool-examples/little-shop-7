@@ -1,6 +1,12 @@
 class Admin::InvoicesController < ApplicationController
   def index
-    @invoices = Invoice.all
+    if params[:order] == "alphabetical"
+      @invoices = Invoice.sort_alphabetical
+    elsif params[:order] == "date"
+      @invoices = Invoice.sort_by_date
+    else
+      @invoices = Invoice.all
+    end
   end
 
   def show
