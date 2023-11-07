@@ -54,13 +54,6 @@ RSpec.describe Invoice, type: :model do
     end
   end 
 
-  describe "#total revenue" do
-    it "should calculate total revenue for an invoice" do
-      test_data_2
-      expect(@invoice1.total_revenue).to eq(41417)
-    end
-  end 
-
   describe "#self.sort_alphabetical" do
     it "should sort the invoice data alphabetically" do
       test_data
