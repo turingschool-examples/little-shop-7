@@ -38,7 +38,7 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content("Item Unit Price: #{@item21.unit_price}")
       end
 
-      xit 'has a button to enable item' do
+      it 'has a button to enable item' do
         #US 9
         visit "/merchants/#{@merchant11.id}/items"
 
