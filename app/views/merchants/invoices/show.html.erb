@@ -1,1 +1,6 @@
 <h3>Merchant Invoices show</h3>
+
+<p>Invoice ID: <%= @invoice.id %></p>
+<p>Status: <%= @invoice.status %></p>
+<p>Date Created: <%= @invoice.date_format %></p>
+<p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
