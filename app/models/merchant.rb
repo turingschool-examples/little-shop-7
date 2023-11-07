@@ -45,6 +45,13 @@ class Merchant < ApplicationRecord
     .select("id", "invoices.id as invoice_id").uniq
   end
 
+  def self.enabled_merchants
+    where(enabled: true)
+  end
+
+  def self.disabled_merchants
+    where(enabled: false)
+
   def top_five_items
     items.joins(:transactions)
     .joins(:invoice_items)

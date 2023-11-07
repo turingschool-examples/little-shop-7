@@ -65,7 +65,7 @@ RSpec.describe "admin dashboard index page" do
   end
 
   #user story 21
-  xit "Displays the names of the top 5 customers" do
+  it "Displays the names of the top 5 customers" do
     # visit("/admin")
     visit admin_path
     expect(page).to have_content("1. #{@customer_1.first_name} #{@customer_1.last_name} - 5 transactions")
@@ -78,7 +78,7 @@ RSpec.describe "admin dashboard index page" do
   end
 
   #user story 22 & 23
-  xit "Displays incomplete invoices with oldest first" do
+  it "Displays incomplete invoices with oldest first" do
     visit admin_path
     invoice_1 = find_link(@invoice_item_1.invoice_id)
     invoice_2 = find_link(@invoice_item_2.invoice_id)
@@ -93,6 +93,5 @@ RSpec.describe "admin dashboard index page" do
     expect(page).to have_link("#{@invoice_item_1.invoice_id}")
     click_link("#{@invoice_item_1.invoice_id}")
     expect(current_path).to eq("/admin/invoices/#{@invoice_item_1.invoice_id}")
-  
   end
 end

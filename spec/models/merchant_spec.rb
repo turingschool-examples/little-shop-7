@@ -16,6 +16,8 @@ RSpec.describe Merchant, type: :model do
   before(:each) do
     @merchant = create(:merchant)
     @merchant2 = create(:merchant)
+    @merchant3 = create(:merchant, enabled: false)
+    @merchant4 = create(:merchant, enabled: false)
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
     @customer_3 = create(:customer)
@@ -99,6 +101,18 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant.merchant_invoices(@merchant.id)).to eq(expected)
       end
     end
+
+    describe "'self.enabled_merchants" do
+      it "returns an array of enabled merchant active record objects" do 
+        expected = [@merchant, @merchant2]
+        expect(Merchant.enabled_merchants).to eq(expected)
+      end
+    end
+
+    describe "'self.disabled_merchants" do
+      it "returns an array of disabled merchant active record objects" do 
+        expected = [@merchant3, @merchant4]
+        expect(Merchant.disabled_merchants).to eq(expected)
 
     describe "#top_five_items" do
       it "returns an array of 5 of a merchant's items, ordered by total revenue" do
