@@ -155,7 +155,7 @@ RSpec.describe "merchant items index page" do
   it "top 5 item names link to that item's show page" do
     visit merchant_items_path(@merchant_1)
 
-    within("section#top-5-items-#{@item_1.id}") do
+    within("#top-5-items-#{@item_1.id}") do
       click_link "#{@item_1.name}"
     end
 
