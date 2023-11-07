@@ -99,5 +99,13 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant.merchant_invoices(@merchant.id)).to eq(expected)
       end
     end
+
+    describe "#merchant_items(merchant_id)" do
+      it "returns list of items associated with the invoice and merchant" do
+        expected = [@item_1, @item_2, @item_3, @item_4, @item_5, @item_6]
+        
+        expect(@merchant.merchant_items(@merchant.id)).to eq(expected)
+      end
+    end
   end
 end

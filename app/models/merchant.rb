@@ -44,4 +44,11 @@ class Merchant < ApplicationRecord
     .where(items: {merchant_id: merchant_id})
     .select("id", "invoices.id as invoice_id").uniq
   end
+
+  def merchant_items(merchant_id)
+    items.joins(:invoices)
+    .joins(:invoice_items)
+    .where(items: {merchant_id: merchant_id})
+    .select("id", "name", "invoice_items.quantity as quantity", "unit_price", "invoice_items.status as shipping_status").uniq
+  end
 end

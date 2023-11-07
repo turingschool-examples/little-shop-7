@@ -14,6 +14,8 @@ RSpec.describe Item, type: :model do
   before(:each) do
     @merchant = create(:merchant)
     @item_1 = create(:item, unit_price: 1234, merchant: @merchant)
+    @invoice_1 = create(:invoice)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2, unit_price: 1234)
   end
 
   describe "instance methods" do
@@ -27,6 +29,11 @@ RSpec.describe Item, type: :model do
         time = Time.new.in_time_zone("UTC")
       
         expect(@item_1.created_format).to eq(time.strftime("%A, %B %d, %Y"))
+      end
+    end
+    describe "#price_total" do
+      it "gives the sum of the quantity and cost" do
+        expect(@item_1.price_total).to eq(2468)
       end
     end
   end
