@@ -10,8 +10,8 @@ RSpec.describe "Dashboard" do
     # As a merchant,
     # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
     # Then I see the name of my merchant
-    # visit "/merchants/#{@merchant1.id}/dashboard"
-    visit merchant_dashboard_path
+    visit "/merchants/#{@merchant1.id}/dashboard"
+    # visit merchant_dashboard_index_path
 
     expect(page).to have_content(@merchant1.name)
     expect(page).to_not have_content(@merchant2.name)

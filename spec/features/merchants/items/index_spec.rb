@@ -41,7 +41,7 @@ RSpec.describe 'merchant items index page' do
       it 'has a button to enable item' do
         merchant11 = create(:merchant, name: "CamelsRUs")
         item21 = create(:item, merchant_id: merchant11.id)
-        item22 = create(:item, merchant_id: merchant11.id, enable: false)
+        item22 = create(:item, merchant_id: merchant11.id)
         item23 = create(:item, merchant_id: merchant11.id, enable: false)
 
         #US 9
@@ -53,8 +53,8 @@ RSpec.describe 'merchant items index page' do
           expect(page).to_not have_button('Disable')
         end
         
-        within("#disabled_item-#{item22.id}") do
-          expect(page).to have_button("Enable")
+        within("#enabled_item-#{item22.id}") do
+          expect(page).to have_button("Disable")
         end
 
         within("#disabled_item-#{item23.id}") do
