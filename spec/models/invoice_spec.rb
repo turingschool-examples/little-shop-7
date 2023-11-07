@@ -63,6 +63,7 @@ RSpec.describe Invoice, type: :model do
 
   describe "#self.sort_alphabetical" do
     it "should sort the invoice data alphabetically" do
+      test_data
       alphabetical = Invoice.all.sort
       expect(Invoice.sort_alphabetical).to eq(alphabetical)
     end

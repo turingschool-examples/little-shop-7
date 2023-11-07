@@ -39,4 +39,12 @@ class Merchant < ApplicationRecord
     end
     items_ready_to_ship.sort_by! { |item| Date.strptime(item[:date], '%A, %B %e, %Y') }
   end
+
+  def self.sort_alphabetical
+    Merchant.all.order(id: :asc)
+  end
+
+  def self.sort_by_date
+    Merchant.all.order(created_at: :desc)
+  end
 end

@@ -1,5 +1,9 @@
 <h1>All Merchants</h1>
 <%= link_to "Create a new merchant", "/admin/merchants/new" %>
+<div class="button-container">
+<%= button_to "Sort Alphabetically, A-Z", "/admin/merchants", method: :get, params: {:order => "alphabetical"} %> 
+<%= button_to "Sort by Date, Newest-Oldest", "/admin/merchants", method: :get, params: {:order => "date"} %>
+</div>
 
 <h2><u> Enabled Merchants </u></h2>
 <% @merchants.each do |merchant| %>

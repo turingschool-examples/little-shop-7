@@ -47,7 +47,7 @@ RSpec.describe "Admin Invoices Index" do
     end
   end
 
-  ## EXTENSION 1-2
+  ## EXTENSION 1-2 (ADMIN INVOICE)
   describe 'Sorting Option on Admin Invoice Index' do
     before :each do
       @customer1.invoices.each do |i|

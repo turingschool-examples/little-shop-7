@@ -79,5 +79,53 @@ RSpec.describe "the merchants index" do
     end
   end
   
+  ## EXTENSION 1-2 (ADMIN MERCHANT)
+  describe 'Sorting Option on Admin Merchant Index' do
+    before :each do
+      merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
+      merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
+      merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
+      merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
+    end
+
+    it "when visiting the index, have two button options for sorting" do
+      visit "/admin/merchants"
+      expect(page).to have_button("Sort Alphabetically, A-Z")
+      expect(page).to have_button("Sort by Date, Newest-Oldest")      
+    end
+
+    it "can sort alphabetically A-Z" do
+      visit "/admin/merchants"
+      click_button "Sort Alphabetically, A-Z"
+      expect(current_path).to eq("/admin/merchants")
+      
+      alphabetical = Merchant.all.sort
+      count = alphabetical.length
+      check = alphabetical.first.id.to_s
+      num = 1
+      count-1.times do
+        compare = alphabetical[num].id.to_s
+        expect(check).to appear_before(compare)
+        num+=1
+      end
+    end
+
+    it "can sort by date newest to oldest" do
+      visit "/admin/merchants"
+      click_button "Sort by Date, Newest-Oldest"
+      expect(current_path).to eq("/admin/merchants")
+
+      order = Merchant.all.sort_by{|i| -i.created_at.to_i}
+      count = order.length
+      check = order.first.id.to_s
+      num = 1
+      count-1.times do
+        compare = order[num].id.to_s
+        expect(check).to appear_before(compare)
+        num+=1
+      end
+    end
+
+  end
 end
 
