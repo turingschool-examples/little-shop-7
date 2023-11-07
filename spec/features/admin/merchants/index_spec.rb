@@ -99,7 +99,7 @@ RSpec.describe "the merchants index" do
       click_button "Sort Alphabetically, A-Z"
       expect(current_path).to eq("/admin/merchants")
       
-      alphabetical = Merchant.all.sort
+      alphabetical = Merchant.all.sort_by{|m| -m.name}
       count = alphabetical.length
       check = alphabetical.first.id.to_s
       num = 1

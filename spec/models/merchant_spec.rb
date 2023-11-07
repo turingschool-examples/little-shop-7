@@ -57,7 +57,7 @@ RSpec.describe Merchant, type: :model do
     merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
     merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
 
-    alphabetical = Merchant.all.sort
+    alphabetical = Merchant.all.sort_by{|m| -m.name}
     expect(Merchant.sort_alphabetical).to eq(alphabetical)
   end
 end 

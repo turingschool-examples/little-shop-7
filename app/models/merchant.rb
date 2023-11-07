@@ -41,7 +41,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.sort_alphabetical
-    Merchant.all.order(id: :asc)
+    Merchant.all.order(name: :asc)
   end
 
   def self.sort_by_date
