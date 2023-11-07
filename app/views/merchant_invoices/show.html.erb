@@ -20,6 +20,15 @@
       <p>Item Quantity: <%= ii.quantity %></p>
       <p>Item Price: <%= item.unit_price %></p>
       <p>Status: <%= ii.status %></p>
+
+      <%= form_with url: "/merchants/#{@invoice.items.first.merchant.id}/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |f| %>
+        <%= f.hidden_field :merchant_id, value: item.merchant.id %>
+        <%= f.hidden_field :invoice_id, value: @invoice.id %>
+        <%= f.hidden_field :invoice_item_id, value: ii.id %>
+        <%= f.select :status_update, ["pending", "packaged", "shipped"], selected: ii.status %>
+        <%= f.submit "Update Item Status" %>
+      <% end %>
+
     <% end %>
   <% end %>
 <% end %>
