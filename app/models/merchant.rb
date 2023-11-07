@@ -30,6 +30,10 @@ class Merchant < ApplicationRecord
     .order('total_revenue DESC')
     .limit(5)
   end
+
+  def best_day
+    invoice_items.order(quantity: :desc).first.invoice.format_date
+  end
     
   def items_ready_to_ship_ordered_oldest_to_newest
     self.items
@@ -46,5 +50,4 @@ class Merchant < ApplicationRecord
 
   def self.sort_by_date
     Merchant.all.order(created_at: :desc)
-  end
 end

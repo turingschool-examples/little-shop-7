@@ -153,4 +153,19 @@ end
       expect(@merchant5.name).to appear_before("$143 in sales")
     end
   end
+
+  describe "US31" do
+    before(:each) do 
+      test_data_joseph
+    end
+    it "displays the top selling date for each merchant" do
+      visit "/admin/merchants"
+      expect(page).to have_content("$3000 in sales")
+      
+      expect(page).to have_content("$700 in sales")
+      expect(page).to have_content("$320 in sales")
+      expect(page).to have_content("$150 in sales")
+      expect(page).to have_content("$143 in sales")
+    end
+  end
 end
