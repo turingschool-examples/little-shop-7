@@ -1,13 +1,14 @@
 <h1> Index of Admin Merchants </h1>
 
-<%= @merchants.each do |merchant| %>
+<% @merchants.each do |merchant| %>
   <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
 <% end %>
+<br>
 
 <h3>Top 5 Merchants by Revenue</h3>
-<%= @merchants.top_five_merchants_by_revenue.each do |merchant| %>
-  <section id="admin-<%= merchant.id %>"></p>
+<% @merchants.top_five_merchants_by_revenue.each do |merchant| %>
+  <div id="merchant-<%= merchant.id %>">
     <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
-    <p><%= merchant.name%>: <%= merchant.total_revenue %></p>
-  </section>
+    <p><%= merchant.name %>: $<%= merchant.total_revenue %></p>
+  </div>
 <% end %>

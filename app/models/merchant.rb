@@ -64,15 +64,8 @@ class Merchant < ApplicationRecord
   end
 
   def total_revenue
-    invoices
-    .joins(:transactions)
+    invoices.joins(:transactions)
     .where(transactions: { result: 0 }) # Filter by successful transactions
     .sum('invoice_items.unit_price * invoice_items.quantity')
   end
 end
-
-
-# expect("#{@merchant2.name}: #{@total_revenue2}").to appear_before("#{@merchant3.name}: #{@total_revenue3}")
-#     expect("#{@merchant3.name}: #{@total_revenue3}").to appear_before("#{@merchant4.name}: #{@total_revenue4}")
-#     expect("#{@merchant4.name}: #{@total_revenue4}").to appear_before("#{@merchant5.name}: #{@total_revenue5}")
-#     expect("#{@merchant5.name}: #{@total_revenue5}").to_not appear_before("#{@merchant1.name}: #{@total_revenue1}")

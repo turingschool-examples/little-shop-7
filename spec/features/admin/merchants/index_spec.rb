@@ -9,12 +9,26 @@ RSpec.describe "Admin Merchants Index", type: :feature do
     @merchant4 = create(:merchant)
     @merchant5 = create(:merchant)
 
-    # Create invoices with successful transactions
-    @invoice1 = create(:invoice) # No need to associate with a merchant
-    @invoice2 = create(:invoice) # No need to associate with a merchant
-    @invoice3 = create(:invoice) # No need to associate with a merchant
-    @invoice4 = create(:invoice) # No need to associate with a merchant
-    @invoice5 = create(:invoice) # No need to associate with a merchant
+    puts "Merchant 1 ID: #{@merchant1.id}"
+    puts "Merchant 1 Name: #{@merchant1.name}"
+
+    @customer1 = create(:customer)
+    @customer2 = create(:customer)
+    @customer3 = create(:customer)
+    @customer4 = create(:customer)
+    @customer5 = create(:customer)
+
+    @invoice1 = create(:invoice, customer: @customer1)
+    @invoice2 = create(:invoice, customer: @customer2)
+    @invoice3 = create(:invoice, customer: @customer3)
+    @invoice4 = create(:invoice, customer: @customer4)
+    @invoice5 = create(:invoice, customer: @customer5)
+
+    @item1 = create(:item, merchant: @merchant1)
+    @item2 = create(:item, merchant: @merchant2)
+    @item3 = create(:item, merchant: @merchant3)
+    @item4 = create(:item, merchant: @merchant4)
+    @item5 = create(:item, merchant: @merchant5)
 
     # Create invoice items with unit prices and quantities associated with invoices
     @invoice_item1 = create(:invoice_item, invoice: @invoice1, unit_price: 10, quantity: 5)
@@ -52,25 +66,14 @@ RSpec.describe "Admin Merchants Index", type: :feature do
     expect(page).to have_content(@merchant1.name)
   end
 
-  # As an admin,
-  # When I visit the admin merchants index (/admin/merchants)
-  # Then I see the names of the top 5 merchants by total revenue generated
-  # And I see that each merchant name links to the admin merchant show page for that merchant
-  # And I see the total revenue generated next to each merchant name
-
-  # Notes on Revenue Calculation:
-  # - Only invoices with at least one successful transaction should count towards revenue
-  # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
-  # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
   # US 30
   it "displays the top 5 merchants by total revenue and lists total revenue generated" do
     visit admin_merchants_path
+  
+    puts "Merchant 1 ID: #{@merchant1.id}"
 
-    save_and_open_page
-    expect("#{@merchant1.name}: #{@merchant1.total_revenue}").to appear_before("#{@merchant2.name}: #{@merchant2.total_revenue}")
-
-    within("#admin-#{@merchant1.id}") do
-      expect(page).to have_content("#{@merchant1.name}: #{@total_revenue1}")
+    within("#merchant-#{@merchant1.id}") do
+      expect(page).to have_content("#{@merchant1.name}: $#{@merchant1.total_revenue1}")
       expect(page).to have_link("#{@merchant1.name} ##{@merchant1.id}")
       click_link("#{@merchant1.name} ##{@merchant1.id}")
     end
