@@ -45,12 +45,21 @@ class Merchant < ApplicationRecord
     .select("id", "invoices.id as invoice_id").uniq
   end
 
+  def self.enabled_merchants
+    where(enabled: true)
+  end
+
+  def self.disabled_merchants
+    where(enabled: false)
+  end
+
   def top_five_items
     items.joins(:transactions)
     .joins(:invoice_items)
     .where(transactions: {result: 0})
     .group("items.id")
-    .order("sum(invoice_items.unit_price) DESC")
+    .select("items.*, sum(invoice_items.unit_price * invoice_items.quantity) as revenue")
+    .order("revenue DESC")
     .limit(5)
   end
 

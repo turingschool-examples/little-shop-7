@@ -16,3 +16,25 @@
 <% end %>
 <br>
 
+
+<section id="enabled-merchants">
+  <h3>Enabled Merchants</h3>
+  <% Merchant.enabled_merchants.each do |merchant| %>
+    <section id="merchant-<%= merchant.id %>">
+      <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> status: enabled</br>
+      <%= button_to "Disable Merchant", admin_merchant_path(merchant.id), method: :patch, params: { enabled: false }, data: { turbo: false }, local: true %></br>
+    </section>
+  <% end %>
+</section>
+
+<section id="disabled-merchants">
+  <h3>Disabled Merchants</h3>
+  <% Merchant.disabled_merchants.each do |merchant| %>
+    <section id="merchant-<%= merchant.id %>">
+      <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> status: disabled</br>        
+      <%= button_to "Enable Merchant", admin_merchant_path(merchant.id), method: :patch, params: { enabled: true }, data: { turbo: false }, local: true %></br>
+    </section>
+  <% end %>
+</section>
+
+<%= link_to "create a new merchant", new_admin_merchant_path%><br>
