@@ -102,6 +102,18 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
+    describe "'self.enabled_merchants" do
+      it "returns an array of enabled merchant active record objects" do 
+        expected = [@merchant, @merchant2]
+        expect(Merchant.enabled_merchants).to eq(expected)
+      end
+    end
+
+    describe "'self.disabled_merchants" do
+      it "returns an array of disabled merchant active record objects" do 
+        expected = [@merchant3, @merchant4]
+        expect(Merchant.disabled_merchants).to eq(expected)
+
     describe "#top_five_items" do
       it "returns an array of 5 of a merchant's items, ordered by total revenue" do
         expected = [@item_1, @item_2, @item_3, @item_4, @item_5]
