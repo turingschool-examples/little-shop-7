@@ -4,11 +4,11 @@ class MerchantItemsController < ApplicationController
   end
   
   def show
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
   end
 
   def update
