@@ -6,14 +6,17 @@
 </ul>
 
 <p class="solid"> Items for <%= @merchant.name %> </p>
-
+<div class="two-columns">
+<div>
 <h3>Top 5 Popular Items and Revenue</h3>
 <ol><% @merchant.popular_items.each do |item|%>
   <li><%= item.name %> | <%= number_to_currency(item.total_revenue) %></li><br>
   <p>Top selling date for <%= item.name %> was <%= item.top_sale_date %> </p>
   <% end %>
 </ol>
+</div>
 
+<div>
 <p><h3>Enabled Items</h3></p>
 <% @merchant.items.each do |item| %>
   <div id="enabled_item-<%= item.id %>">
@@ -24,14 +27,21 @@
     <% end %> 
   </div>
 <% end %>
+</div>
 
+<div>
 <p><h3>Disabled Items</h3></p>
 <% @merchant.items.each do |item| %>
   <div id="disabled_item-<%= item.id %>">
     <% if item.enable == false %>
-      <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
+      <ol>
+        <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
       
-      <%= button_to "Enable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Enable" } %></p>
-    <% end %>
-  </div>
+        <%= button_to "Enable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Enable" } %></p>
+      <% end %>
+    </div>
+  </ol>
 <% end %>
+
+</div>
+</div>
