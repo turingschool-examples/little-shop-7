@@ -26,7 +26,7 @@ RSpec.describe "merchant invoice show page" do
     @item_5 = create(:item, merchant: @merchant_1)
     @item_6 = create(:item, merchant: @merchant_1)
     @item_7 = create(:item, merchant: @merchant_2)
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, unit_price: 50_000, quantity: 2)
     @invoice_item_2 = create(:invoice_item, invoice: @invoice_2, item: @item_2)
     @invoice_item_3 = create(:invoice_item, invoice: @invoice_3, item: @item_3)
     @invoice_item_4 = create(:invoice_item, invoice: @invoice_4, item: @item_4)
@@ -44,7 +44,7 @@ RSpec.describe "merchant invoice show page" do
   #US 15
   describe "Merchant Invoice Show Page" do
     it "Shows invoice information" do
-      visit"/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content(@invoice_1.id)
       expect(page).to have_content(@invoice_1.status)
@@ -52,5 +52,11 @@ RSpec.describe "merchant invoice show page" do
       expect(page).to have_content(@invoice_1.customer.first_name)
       expect(page).to have_content(@invoice_1.customer.last_name)
     end
+  end
+
+  it "Shows total revenue generated for an invoice" do
+    visit merchant_invoice_path(@merchant_1, @invoice_1)
+
+    expect(page).to have_content("Total revenue: $1,000.00")
   end
 end
