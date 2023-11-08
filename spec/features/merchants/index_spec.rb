@@ -38,7 +38,7 @@ RSpec.describe "merchant dashboard index page" do
 
   describe "index page" do
     it "shows all merchants and link to the merchant show" do
-      visit
+  
     end
   end
 end
