@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Dashboard" do
   before :each do
-    test_data
+    test_data 
   end
 
   it "US1: shows the name of the merchant" do
@@ -11,6 +11,8 @@ RSpec.describe "Dashboard" do
     # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
     # Then I see the name of my merchant
     visit "/merchants/#{@merchant1.id}/dashboard"
+    # visit merchant_dashboard_index_path
+
     expect(page).to have_content(@merchant1.name)
     expect(page).to_not have_content(@merchant2.name)
   end
