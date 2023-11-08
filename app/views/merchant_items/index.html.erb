@@ -5,43 +5,49 @@
   <li><%= link_to "Create a new item", "/merchants/#{@merchant.id}/items/new" %></li>
 </ul>
 
-<p class="solid"> Items for <%= @merchant.name %> </p>
+<p class="solid"><b> Items for <%= @merchant.name %> </b></p>
 <div class="two-columns">
-<div>
-<h3>Top 5 Popular Items and Revenue</h3>
-<ol><% @merchant.popular_items.each do |item|%>
-  <li><%= item.name %> | <%= number_to_currency(item.total_revenue) %></li><br>
-  <p>Top selling date for <%= item.name %> was <%= item.top_sale_date %> </p>
-  <% end %>
-</ol>
-</div>
 
-<div>
-<p><h3>Enabled Items</h3></p>
-<% @merchant.items.each do |item| %>
-  <div id="enabled_item-<%= item.id %>">
-    <% if item.enable == true %>  
-      <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
-      
-      <%= button_to "Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Disable" } %>
-    <% end %> 
+  <div>
+    <h3>Top 5 Popular Items and Revenue</h3>
+    <div id="popular_items-<%= @merchant.id %>">
+      <ol><% @merchant.popular_items.each do |item|%>
+          <li>
+            <%= item.name %> | <%= number_to_currency(item.total_revenue) %>
+          </li><br> 
+          <p>Top selling date for <%= item.name %> was <%= item.top_sale_date %> </p>
+        <% end %>
+      </ol>
+    </div>
   </div>
-<% end %>
-</div>
 
-<div>
-<p><h3>Disabled Items</h3></p>
-<% @merchant.items.each do |item| %>
-  <div id="disabled_item-<%= item.id %>">
-    <% if item.enable == false %>
-      <ol>
-        <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
-      
-        <%= button_to "Enable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Enable" } %></p>
+  <div>
+    <p><h3>Enabled Items</h3></p>
+    <% @merchant.items.each do |item| %>
+      <div id="enabled_item-<%= item.id %>">
+        <% if item.enable == true %>  
+          <ol>
+            <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
+            
+            <%= button_to "Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Disable" } %>
+          </ol>
+        <% end %> 
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+  <p><h3>Disabled Items</h3></p>
+  <% @merchant.items.each do |item| %>
+    <div id="disabled_item-<%= item.id %>">
+      <% if item.enable == false %>
+        <ol>
+          <p> Item Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> 
+        
+          <%= button_to "Enable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, params: { :commit => "Enable" } %></p>
+        </ol>
       <% end %>
     </div>
-  </ol>
-<% end %>
-
-</div>
+  <% end %>
+  </div>
 </div>

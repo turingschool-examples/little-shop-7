@@ -101,22 +101,36 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content("Jerky")
       end
 
+      it 'gives an error if you do not fill in everything when creating a new item' do
+        #US 11
+        visit "/merchants/#{@merchant11.id}/items/new"
+
+        fill_in("Item Name", with: "Jerky")
+        fill_in("Item Description", with: "")
+        fill_in("Item Unit Price", with: 10)
+
+        click_button("Submit")
+        expect(page).to have_content("Error: Please fill in all the criteria")
+      end
+
+
       it 'shows top 5 popular items ranked by total revenue' do
         #US 12
         visit "/merchants/#{@merchant1.id}/items"
-
+        
         expect(page).to have_content("Top 5 Popular Items and Revenue")
 
-        expect(@item4.name).to appear_before(@item3.name)
-        expect(@item3.name).to appear_before(@item2.name)
-        expect(@item2.name).to appear_before(@item1.name)
-        expect(@item1.name).to appear_before(@item7.name)
-
-        expect(page).to have_content("300.00")
-        expect(page).to have_content("242.00")
-        expect(page).to have_content("40.40")
-        expect(page).to have_content("50.00")
-        expect(page).to have_content("22.25")
+        within("#popular_items-#{@merchant1.id}") do
+          expect(@item4.name).to appear_before(@item3.name)
+          expect(@item3.name).to appear_before(@item2.name)
+          expect(@item2.name).to appear_before(@item1.name)
+          expect(@item1.name).to appear_before(@item7.name)
+          expect(page).to have_content("300.00")
+          expect(page).to have_content("242.00")
+          expect(page).to have_content("40.40")
+          expect(page).to have_content("50.00")
+          expect(page).to have_content("22.25")
+        end
       end
 
       it 'shows date of most sales for top 5 popular items' do

@@ -12,7 +12,7 @@ RSpec.describe "merchant new page" do
     it "redirects me to the merchants index page when I click submit, where I see the newly created company" do
       visit "admin/merchants/new"
 
-      expect(page).to have_content("Create a new company")
+      expect(page).to have_content("Create a New Company")
       expect(page).to have_field(:new_company_name)
       expect(page).to have_button("Submit")
 

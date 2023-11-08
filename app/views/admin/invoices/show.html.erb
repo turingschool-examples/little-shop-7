@@ -1,21 +1,32 @@
-<h1><%= "Invoice ##{@invoice.id}" %></h1>
-<b> Status: </b> <%= @invoice.status.titleize %><br>
-<b> Created at: </b> <%= @invoice.format_date %><br>
-<b> Customer Name: </b> <%= @invoice.customer.name %><br>
+<body>
+<div class="admin_header">Little Esty Shop</div><br>
+<div class ="current_button">Invoices</div>
+<div class ="nav_button"><%= link_to "Merchants", admin_merchants_path %> </div>
+<div class ="nav_button"><%= link_to "Dashboard", admin_root_path %> </div>
+<h3>Admin Dashboard</h3>
+<br><br>
 
-<h3>Attached Invoice Items:</h3>
-<% @invoice.invoice_items.each do |ii| %>
-<b> Item Name: </b> <%= ii.item.name %><br>
-<b> Quantity: </b> <%= ii.quantity %><br>
-<b> Unit Price: </b> $<%= ii.price %><br>
-<b> Status: </b> <%= ii.status.capitalize %><br><br>
-<% end %>
+<div class="admin_sub_header"><%= "Invoice ##{@invoice.id}" %></h2></div>
+<ol>
+  <div class="button-container">
+    Status: <%= render partial: 'form', locals: { 
+                                          path: admin_invoice_show_path(@invoice),
+                                          value: "show",
+                                          selected: @invoice.status.titleize
+                                        } %>
+  </div><br>
 
-<h4>Total Potential Revenue: <%= number_to_currency(@invoice.potential_revenue) %></h4>
+  <b> Created on: </b> <%= @invoice.format_date %><br>
+  <h4>Total Potential Revenue: <%= number_to_currency(@invoice.potential_revenue) %></h4>
+  <h3> <b>Customer Name: </b> <%= @invoice.customer.name %><br></h3>
 
-<%= render partial: 'form', locals: { 
-                                      path: admin_invoice_show_path(@invoice),
-                                      value: "show",
-                                      selected: @invoice.status.titleize
-																		} %>
+  <h3>Items on this Invoice:</h3>
+    <% @invoice.invoice_items.each do |ii| %>
+    <b> Item Name: </b> <%= ii.item.name %><br>
+    <b> Quantity: </b> <%= ii.quantity %><br>
+    <b> Unit Price: </b> $<%= ii.price %><br>
+    <b> Status: </b> <%= ii.status.capitalize %><br><br>
+    <% end %>
 
+</ol>
+</body>

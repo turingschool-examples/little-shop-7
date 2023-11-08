@@ -59,21 +59,21 @@ RSpec.describe "the merchants index" do
   end
 
   describe "US29" do
-    it "has a link to create a new merchant" do
+    it "has a link to New Merchant" do
       @merchant1 = Merchant.create!(name: "Sooyung LLC")
       @merchant2 = Merchant.create!(name: "Joseph LLC")
       @merchant3 = Merchant.create!(name: "Anthea LLC")
       @merchant4 = Merchant.create!(name: "Nathan LLC")
 
       visit "/admin/merchants"
-      expect(page).to have_link("Create a new merchant")
+      expect(page).to have_link("New Merchant")
       expect(Merchant.count).to eq(4)
     end
 
     it "takes me to the create page when I click the link" do
       visit "/admin/merchants"
-      expect(page).to have_link("Create a new merchant")
-      click_link("Create a new merchant")
+      expect(page).to have_link("New Merchant")
+      click_link("New Merchant")
       expect(page).to have_current_path("/admin/merchants/new")
     end
   end
@@ -90,16 +90,16 @@ RSpec.describe "the merchants index" do
       expect(@merchant3.name).to appear_before(@merchant4.name)
       expect(@merchant4.name).to appear_before(@merchant5.name)
 
-      expect(page).to have_content("$8000 in sales")
-      expect(@merchant1.name).to appear_before("$8000 in sales")
-      expect(page).to have_content("$700 in sales")
-      expect(@merchant2.name).to appear_before("$700 in sales")
-      expect(page).to have_content("$320 in sales")
-      expect(@merchant3.name).to appear_before("$320 in sales")
-      expect(page).to have_content("$150 in sales")
-      expect(@merchant4.name).to appear_before("$150 in sales")
-      expect(page).to have_content("$143 in sales")
-      expect(@merchant5.name).to appear_before("$143 in sales")
+      expect(page).to have_content("$8,000.00 in sales")
+      expect(@merchant1.name).to appear_before("$8,000.00 in sales")
+      expect(page).to have_content("$700.00 in sales")
+      expect(@merchant2.name).to appear_before("$700.00 in sales")
+      expect(page).to have_content("$320.00 in sales")
+      expect(@merchant3.name).to appear_before("$320.00 in sales")
+      expect(page).to have_content("$150.00 in sales")
+      expect(@merchant4.name).to appear_before("$150.00 in sales")
+      expect(page).to have_content("$143.00 in sales")
+      expect(@merchant5.name).to appear_before("$143.00 in sales")
     end
   end
 
@@ -109,15 +109,15 @@ RSpec.describe "the merchants index" do
     end
     it "displays the top selling date for each merchant" do
       visit "/admin/merchants"
-      expect(page).to have_content("$8000 in sales")
+      expect(page).to have_content("$8,000.00 in sales")
       expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
-      expect(page).to have_content("$700 in sales")
+      expect(page).to have_content("$700.00 in sales")
       expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
-      expect(page).to have_content("$320 in sales")
+      expect(page).to have_content("$320.00 in sales")
       expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
-      expect(page).to have_content("$150 in sales")
+      expect(page).to have_content("$150.00 in sales")
       expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
-      expect(page).to have_content("$143 in sales")
+      expect(page).to have_content("$143.00 in sales")
       expect(page).to have_content("Top selling date: Monday, March 1, 2021")
     end
   end
