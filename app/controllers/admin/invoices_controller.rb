@@ -22,7 +22,7 @@ class Admin::InvoicesController < ApplicationController
     else params[:status_update] == "Cancelled"
       @invoice.update(status: "cancelled")
     end
-    return redirect_to admin_invoices_path if params[:index] == "true"
-    redirect_to admin_invoice_show_path(@invoice)
+    return redirect_to admin_invoices_path if params[:page] == "index"
+    redirect_to admin_invoice_show_path(@invoice) if params[:page] == "show"
   end
 end
