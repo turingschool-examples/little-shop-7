@@ -14,9 +14,7 @@ class MerchantItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:item_update] == "Update_item"
-      @item.update(item_params)
-      flash[:alert] = "Update successful"
-      redirect_to "/merchants/#{@item.merchant.id}/items/#{@item.id}"
+      update_item(@item)
     else params[:commit].present?
       update_enable(@item)
     end
@@ -45,5 +43,11 @@ class MerchantItemsController < ApplicationController
       item.update(enable: false)
     end
     redirect_to "/merchants/#{item.merchant.id}/items"
+  end
+
+  def update_item(item)
+    item.update(item_params)
+    flash[:alert] = "Update successful"
+    redirect_to "/merchants/#{item.merchant.id}/items/#{item.id}"
   end
 end
