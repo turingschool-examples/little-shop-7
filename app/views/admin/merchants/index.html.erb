@@ -7,7 +7,8 @@
 
 <h2><u> Top 5 Merchants </u></h2>
   <% @merchants.popular_merchants.each do |merchant| %>
-    <%= merchant.name %> - $<%= merchant.total_revenue %> in sales<br>
+    <h4><%= merchant.name %></h4> $<%= merchant.total_revenue %> in sales<br>
+    Top selling date: <%= merchant.best_day%><br>
   <% end %>
 
 <h2><u> Enabled Merchants </u></h2>

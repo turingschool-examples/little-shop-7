@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
+  has_many :invoice_items, through: :items
 
   validates :name, presence: true
   
@@ -32,7 +33,12 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    invoice_items.order(quantity: :desc).first.invoice.format_date
+    self.invoices
+    .select("invoices.id, invoices.created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .group('invoices.id')
+    .order('revenue DESC')
+    .first
+    .format_date
   end
     
   def items_ready_to_ship_ordered_oldest_to_newest

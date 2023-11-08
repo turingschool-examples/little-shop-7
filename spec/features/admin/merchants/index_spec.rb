@@ -110,21 +110,25 @@ RSpec.describe "the merchants index" do
     it "displays the top selling date for each merchant" do
       visit "/admin/merchants"
       expect(page).to have_content("$8000 in sales")
-    
+      expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
       expect(page).to have_content("$700 in sales")
+      expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
       expect(page).to have_content("$320 in sales")
+      expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
       expect(page).to have_content("$150 in sales")
+      expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
       expect(page).to have_content("$143 in sales")
+      expect(page).to have_content("Top selling date: Monday, March 1, 2021")
     end
   end
   
   ## EXTENSION 1-2 (ADMIN MERCHANT)
   describe 'Sorting Option on Admin Merchant Index' do
     before :each do
-      merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
-      merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
-      merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
-      merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
+      @merchant1 = Merchant.create!(name: "Sooyung LLC", created_at: Time.new(2010, 10, 2))
+      @merchant2 = Merchant.create!(name: "Joseph LLC", created_at: Time.new(2011, 10, 2))
+      @merchant3 = Merchant.create!(name: "Anthea LLC", created_at: Time.new(2012, 10, 2))
+      @merchant4 = Merchant.create!(name: "Nathan LLC", created_at: Time.new(2013, 10, 2))
     end
 
     it "when visiting the index, have two button options for sorting" do
