@@ -25,6 +25,6 @@ Rails.application.routes.draw do
     get "/", to: "dashboards#welcome"
 
     resources :invoices, only: [:index, :show, :update]
-    resources :merchants, only: [:index, :show, :edit, :update]
+    resources :merchants, only: [:index, :show, :edit, :update, :new, :create]
   end
 end

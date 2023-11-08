@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Admin Merchants Index", type: :feature do
   before :each do
-    @merchant1 = create(:merchant)
-    @merchant2 = create(:merchant)
-    @merchant3 = create(:merchant)
+    @merchant1 = create(:merchant, enabled: true)
+    @merchant2 = create(:merchant, enabled: true)
+    @merchant3 = create(:merchant, enabled: true)
+    @merchant4 = create(:merchant)
   end
 
   # US 24
@@ -29,7 +30,8 @@ RSpec.describe "Admin Merchants Index", type: :feature do
   #US 27/28
   it "displays a button to disable or enable a merchant" do 
     visit admin_merchants_path
-    within("##{@merchant1.id}") do
+    within("#merchant-#{@merchant1.id}") do
+      expect(page).to have_content("status: enabled")
       expect(page).to have_button("Disable Merchant")
       click_on("Disable Merchant")
       expect(current_path).to eq(admin_merchants_path)
@@ -37,6 +39,20 @@ RSpec.describe "Admin Merchants Index", type: :feature do
       click_on("Enable Merchant")
       expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_button("Disable Merchant")
+    end
+    
+    visit admin_merchants_path
+    within("#enabled-merchants") do
+    expect(page).to have_content("status: enabled")
+    expect(page).to_not have_button("Enable Merchant")
+    expect(page).to_not have_content("status: disabled")
+    end
+
+    visit admin_merchants_path
+    within("#disabled-merchants") do
+      expect(page).to have_content("status: disabled")
+      expect(page).to_not have_button("Disable Merchant")
+      expect(page).to_not have_content("status: enabled")
     end
   end
 end

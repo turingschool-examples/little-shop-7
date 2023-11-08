@@ -60,7 +60,7 @@ class Merchant < ApplicationRecord
   def self.disabled_merchants
     where(enabled: false)
   end
-  
+
   def top_five_items
     items.joins(:transactions)
     .joins(:invoice_items)

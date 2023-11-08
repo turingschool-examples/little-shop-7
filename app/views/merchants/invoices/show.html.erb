@@ -3,8 +3,8 @@
 <p>Invoice ID: <%= @invoice.id %></p>
 <p>Status: <%= @invoice.status %></p>
 <p>Date Created: <%= @invoice.date_format %></p>
+<p>Total revenue: <%= number_to_currency(@invoice.total_revenue / 100) %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-<br>
 <p>Items on the invoice: <% @merchant.merchant_items(@merchant.id).each do |item|%></p>
   <p>Name: <%= item.name %></p>
   <p>Quantity sold: <%= item.quantity %></p>
@@ -18,4 +18,5 @@
              <% end %>
   <br>
 <%end%>
+
 
