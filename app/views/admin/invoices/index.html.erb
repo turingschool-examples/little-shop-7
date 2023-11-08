@@ -1,18 +1,34 @@
-<h2><%= "All Admin Invoices" %></h2>
+<body>
+<div class="admin_header">Little Esty Shop</div><br>
+<div class ="current_button">Invoices</div>
+<div class ="nav_button"><%= link_to "Merchants", admin_merchants_path %> </div>
+<div class ="nav_button"><%= link_to "Dashboard", admin_path %> </div>
+<h3>Admin Dashboard</h3>
+<br><br>
+
 <div class="button-container">
 <%= button_to "Sort Alphabetically, A-Z", "/admin/invoices", method: :get, params: {:order => "alphabetical"} %> 
 <%= button_to "Sort by Date, Newest-Oldest", "/admin/invoices", method: :get, params: {:order => "date"} %>
 </div>
+<br>
+<div class="admin_sub_header"><%= "Invoices" %></h2></div>
+
 
 <ol><% @invoices.each do |i| %>
-<div id="update_status-<%= i.id %>">
-<%= link_to "Invoice ##{i.id}", "/admin/invoices/#{i.id}" %> | <%= i.format_date %> | <b>Status:</b> <%= i.status.titleize %>
-<%= render partial: 'form', locals: { 
-                                      path: admin_invoice_show_path(i),
-                                      value: "index",
-                                      selected: i.status.titleize
-																		} %>
+    <div class="button-container">
+        <div id="update_status-<%= i.id %>">
+        <%= link_to "Invoice ##{i.id}", "/admin/invoices/#{i.id}" %> | 
+        <%= i.format_date %> | 
+        <b>Status:</b> <%= i.status.titleize %>
+        <%= render partial: 'form', locals: {   path: admin_invoice_show_path(i),
+                                                value: "index",
+                                                selected: i.status.titleize } %>
+            </div>
+        <br>
     </div>
-<br>
 <% end %>
 </ol>
+
+
+
+</body>

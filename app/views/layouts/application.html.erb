@@ -63,6 +63,7 @@
         margin-right: 1200px;
       }
 
+      /* USED FOR SPLITTING INDEX COLUMNS */
       .two-columns{
         display:flex;
       }
@@ -70,6 +71,15 @@
       .two-columns > * {
         width: 50%;
         padding: 1rem;
+      }
+
+      /* USED FOR SHORTENING A PAGE WITH MULTIPLE COLUMNS */
+      /* Create two equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
       }
 
       .button-container {
@@ -84,9 +94,18 @@
         /* Add some spacing between the buttons */
       }
 
+      /* ADMIN FORMATTING CSS */
       .admin_header {
         font-family: Arial;
         font-size:30px;
+        font-weight: bold;
+        background-color: #bcb0eb;
+        padding: 20px;
+        text-align: center;
+      }
+      .admin_sub_header {
+        font-family: Arial;
+        font-size:21px;
         font-weight: bold;
         background-color: #bcb0eb;
         padding: 20px;
