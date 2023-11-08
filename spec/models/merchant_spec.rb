@@ -47,7 +47,7 @@ RSpec.describe Merchant, type: :model do
     end
     
     it "returns the top sale date for the merchant" do
-      expect(@merchant1.best_day).to eq("January 2, 2023")
+      expect(@merchant1.best_day).to eq("Tuesday, February  1, 2022")
     end
   end
 

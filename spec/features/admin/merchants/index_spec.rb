@@ -110,11 +110,15 @@ RSpec.describe "the merchants index" do
     it "displays the top selling date for each merchant" do
       visit "/admin/merchants"
       expect(page).to have_content("$8000 in sales")
-      expect(page).to have_content("Top selling date for #{@merchant1.name} was ")
+      expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
       expect(page).to have_content("$700 in sales")
+      expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
       expect(page).to have_content("$320 in sales")
+      expect(page).to have_content("Top selling date: Sunday, January 1, 2023")
       expect(page).to have_content("$150 in sales")
+      expect(page).to have_content("Top selling date: Tuesday, February 1, 2022")
       expect(page).to have_content("$143 in sales")
+      expect(page).to have_content("Top selling date: Monday, March 1, 2021")
     end
   end
   

@@ -33,17 +33,12 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-      self.invoice_items.select("invoice.id, sum(invoice_items.quantity * invoice_items.unit_price) as revenue").group(:id).order('revenue desc').first
-
-      # revenues = Hash.new(0)
-
-    # invoices.each do |invoice|
-    #   total_revenue = invoice.invoice_items.sum { |item| item.quantity * item.unit_price }
-    #   revenues[invoice.created_at.to_date] += total_revenue
-    # end
-    # top_day = revenues.max_by { |day, revenue| revenue }&.first
-
-    # top_day
+    self.invoices
+    .select("invoices.id, invoices.created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .group('invoices.id')
+    .order('revenue DESC')
+    .first
+    .format_date
   end
     
   def items_ready_to_ship_ordered_oldest_to_newest
