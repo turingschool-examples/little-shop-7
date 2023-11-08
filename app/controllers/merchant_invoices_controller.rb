@@ -7,7 +7,4 @@ class MerchantInvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
   end
 
-  def update
-    @invoice = Invoice.find(params[:invoices])
-  end
 end
