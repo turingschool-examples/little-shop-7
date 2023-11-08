@@ -20,15 +20,16 @@ class Invoice < ApplicationRecord
     created_at.strftime('%A, %B %e, %Y')
   end
 
-  def total_revenue
-    total = 0
-    invoice_items.each do |invoice_item|
-      total += invoice_item.quantity * invoice_item.unit_price
-    end
-    total
+  def potential_revenue
+    invoice_items.sum("unit_price * quantity * .01").round(2)
   end
 
-  def potential_revenue
-    invoice_items.sum("unit_price * quantity * .01")
+  def self.sort_alphabetical
+    Invoice.all.order(id: :asc)
   end
+
+  def self.sort_by_date
+    Invoice.all.order(created_at: :desc)
+  end
+  
 end

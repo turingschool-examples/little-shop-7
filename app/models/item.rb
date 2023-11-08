@@ -11,5 +11,4 @@ class Item < ApplicationRecord
   def top_sale_date
     invoice_items.order(quantity: :desc).first.invoice.format_date
   end
-
 end
