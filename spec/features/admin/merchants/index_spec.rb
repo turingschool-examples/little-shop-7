@@ -2,15 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Admin Merchants Index", type: :feature do
   before :each do
-    # Create merchants
     @merchant1 = create(:merchant)
     @merchant2 = create(:merchant)
     @merchant3 = create(:merchant)
     @merchant4 = create(:merchant)
     @merchant5 = create(:merchant)
-
-    puts "Merchant 1 ID: #{@merchant1.id}"
-    puts "Merchant 1 Name: #{@merchant1.name}"
 
     @customer1 = create(:customer)
     @customer2 = create(:customer)
@@ -31,11 +27,11 @@ RSpec.describe "Admin Merchants Index", type: :feature do
     @item5 = create(:item, merchant: @merchant5)
 
     # Create invoice items with unit prices and quantities associated with invoices
-    @invoice_item1 = create(:invoice_item, invoice: @invoice1, unit_price: 10, quantity: 5)
-    @invoice_item2 = create(:invoice_item, invoice: @invoice2, unit_price: 15, quantity: 3)
-    @invoice_item3 = create(:invoice_item, invoice: @invoice3, unit_price: 8, quantity: 5)
-    @invoice_item4 = create(:invoice_item, invoice: @invoice4, unit_price: 9, quantity: 4)
-    @invoice_item5 = create(:invoice_item, invoice: @invoice5, unit_price: 9, quantity: 2)
+    @invoice_item1 = create(:invoice_item, item: @item1, invoice: @invoice1, unit_price: 10, quantity: 5)
+    @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice2, unit_price: 15, quantity: 3)
+    @invoice_item3 = create(:invoice_item, item: @item3, invoice: @invoice3, unit_price: 8, quantity: 5)
+    @invoice_item4 = create(:invoice_item, item: @item4, invoice: @invoice4, unit_price: 9, quantity: 4)
+    @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice5, unit_price: 9, quantity: 2)
 
     # Create successful transactions for invoices
     @transaction1 = create(:transaction, invoice: @invoice1, result: 0) # Successful
@@ -58,26 +54,31 @@ RSpec.describe "Admin Merchants Index", type: :feature do
   it "clicking the name redirects to merchant admin show page and displays the name" do
     visit admin_merchants_path
 
-    expect(page).to have_link("#{@merchant1.name} ##{@merchant1.id}")
-    click_link("#{@merchant1.name} ##{@merchant1.id}")
-
-    expect(current_path).to eq(admin_merchant_path(@merchant1.id))
+    within("#merchant-#{@merchant1.id}") do
+      expect(page).to have_link("#{@merchant1.name} ##{@merchant1.id}")
+      click_link("#{@merchant1.name} ##{@merchant1.id}")
+      expect(current_path).to eq(admin_merchant_path(@merchant1.id))
+    end
 
     expect(page).to have_content(@merchant1.name)
   end
 
   # US 30
   it "displays the top 5 merchants by total revenue and lists total revenue generated" do
+    puts "Merchant 1 ID: #{@merchant1.id}"
     visit admin_merchants_path
   
-    puts "Merchant 1 ID: #{@merchant1.id}"
+    expect("#{@merchant1.name}: $50").to appear_before("#{@merchant2.name}: $45")
+    expect("#{@merchant2.name}: $45").to appear_before("#{@merchant3.name}: $40")
+    expect("#{@merchant3.name}: $40").to appear_before("#{@merchant4.name}: $36")
+    expect("#{@merchant4.name}: $36").to appear_before("#{@merchant5.name}: $18")
+    expect("#{@merchant5.name}: $18").to_not appear_before("#{@merchant1.name}: $50")
 
-    within("#merchant-#{@merchant1.id}") do
-      expect(page).to have_content("#{@merchant1.name}: $#{@merchant1.total_revenue1}")
+    within("#top_5-#{@merchant1.id}") do
+      expect(page).to have_content("#{@merchant1.name}: $50")
       expect(page).to have_link("#{@merchant1.name} ##{@merchant1.id}")
       click_link("#{@merchant1.name} ##{@merchant1.id}")
+      expect(current_path).to eq(admin_merchant_path(@merchant1.id))
     end
-
-    expect(current_path).to eq(admin_merchant_path(@merchant1.id))
   end
 end
