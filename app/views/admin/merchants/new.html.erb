@@ -1,4 +1,11 @@
-<h1> Create a new company </h1>
+<body>
+<div class="admin_header">Little Esty Shop</div><br>
+<div class ="nav_button"><%= link_to "Invoices", admin_invoices_path %> </div>
+<div class ="current_button">Merchants</div>
+<div class ="nav_button"><%= link_to "Dashboard", admin_root_path %> </div>
+<h3>Admin Dashboard</h3>
+
+<h3><u>Create a New Company</u></h3>
 
 <%= form_with url: "/admin/merchants", method: :post, data: {turbo: false}, local: true do |m| %>
   <%= m.hidden_field :item_add, value: "Add_item" %>

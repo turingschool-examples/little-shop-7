@@ -14,20 +14,20 @@ RSpec.describe "Admin Dashboard" do
   ## USER STORY 20
   it "when visiting the admin dashboard, it has a link for the admin merchants index" do
     visit "/admin"
-    click_link("Admin Merchants Index")
+    click_link("Merchants")
     expect(current_path).to eq("/admin/merchants")
   end
 
   it "has a link for the admin invoices index" do
     visit "/admin"
-    click_link("Admin Invoices Index")
+    click_link("Invoices")
     expect(current_path).to eq("/admin/invoices")
   end
 
   ## USER STORY 21
   it "when visiting the dashboard, the names of the top 5 customers with the largest number of successful transactions appears" do
     visit "/admin"
-    expect(page).to have_content("Top 5 Customers with the Most Successful Transactions")
+    expect(page).to have_content("Top 5 Customers")
     expect(@customer1.name).to appear_before(@customer2.name)
     expect(@customer2.name).to appear_before(@customer3.name)
     expect(@customer3.name).to appear_before(@customer4.name)
