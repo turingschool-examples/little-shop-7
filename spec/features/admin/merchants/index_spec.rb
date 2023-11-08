@@ -59,21 +59,21 @@ RSpec.describe "the merchants index" do
   end
 
   describe "US29" do
-    it "has a link to create a new merchant" do
+    it "has a link to New Merchant" do
       @merchant1 = Merchant.create!(name: "Sooyung LLC")
       @merchant2 = Merchant.create!(name: "Joseph LLC")
       @merchant3 = Merchant.create!(name: "Anthea LLC")
       @merchant4 = Merchant.create!(name: "Nathan LLC")
 
       visit "/admin/merchants"
-      expect(page).to have_link("Create a new merchant")
+      expect(page).to have_link("New Merchant")
       expect(Merchant.count).to eq(4)
     end
 
     it "takes me to the create page when I click the link" do
       visit "/admin/merchants"
-      expect(page).to have_link("Create a new merchant")
-      click_link("Create a new merchant")
+      expect(page).to have_link("New Merchant")
+      click_link("New Merchant")
       expect(page).to have_current_path("/admin/merchants/new")
     end
   end
