@@ -1,6 +1,7 @@
 <h1> Index of Admin Merchants </h1>
 <br>
 <h3>Top 5 Merchants by Revenue</h3>
+<section id="all_top_5">
 <% @merchants.top_five_merchants_by_revenue.each do |merchant| %>
   <div id="top_5-<%= merchant.id %>"> 
     <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
@@ -9,7 +10,8 @@
   </div>
 <% end %>
 <br>
-<h3>
+</section>
+</section>
 
 <section id="enabled-merchants">
   <h3>Enabled Merchants</h3>

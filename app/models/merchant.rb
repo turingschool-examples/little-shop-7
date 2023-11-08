@@ -77,6 +77,7 @@ class Merchant < ApplicationRecord
     .select('merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')  # Calculate total revenue
     .group('merchants.id') # group records by merchant
     .order('total_revenue DESC')
+    .limit(5) #added because the server was returning more than 5
   end
 
   def best_day
