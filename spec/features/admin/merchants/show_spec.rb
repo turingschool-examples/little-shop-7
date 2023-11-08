@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Admin Merchant Shoe Page", type: :feature do
+RSpec.describe "Admin Merchant Show Page", type: :feature do
   before :each do
     @merchant1 = create(:merchant)
     @merchant2 = create(:merchant)
