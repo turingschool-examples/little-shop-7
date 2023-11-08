@@ -7,11 +7,12 @@
 <ol><% @invoices.each do |i| %>
 <div id="update_status-<%= i.id %>">
 <%= link_to "Invoice ##{i.id}", "/admin/invoices/#{i.id}" %> | <%= i.format_date %> | <b>Status:</b> <%= i.status.titleize %>
-<%= form_with(url: admin_invoice_show_path(i), method: :patch, local: true) do |form| %>
-    <%= form.hidden_field :index, value: "true" %>
-    <%= form.select :status_update, ["In Progress", "Completed", "Cancelled"], {selected: i.status.titleize} %>
-    <%= form.submit "Update Invoice Status" %>
+<%= render partial: 'form', locals: { 
+                                      path: admin_invoice_show_path(i),
+                                      value: "index",
+                                      selected: i.status.titleize
+																		} %>
     </div>
-<% end%><br>
+<br>
 <% end %>
 </ol>

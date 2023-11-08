@@ -1,0 +1,5 @@
+<%= form_with(url: path, method: :patch, local: true) do |form| %>
+  <%= form.hidden_field :page, value: value %>
+    <%= form.select :status_update, ["In Progress", "Completed", "Cancelled"], {selected: selected} %>
+    <%= form.submit "Update Invoice Status" %>
+<% end%>
