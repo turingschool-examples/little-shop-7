@@ -16,9 +16,9 @@ RSpec.describe Item, type: :model do
 
   before(:each) do
     @merchant = create(:merchant)
-    @item_1 = create(:item, unit_price: 1234, merchant: @merchant)
+    @item_1 = create(:item, unit_price: 1_234, merchant: @merchant)
     @invoice_1 = create(:invoice)
-    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2, unit_price: 1234)
+    @invoice_item_1 = create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2, unit_price: 1_234)
     @customer_1 = create(:customer)
     @invoice_1 = create(:invoice, customer: @customer_1, created_at: "2023-11-07 00:04:06.477179000 +0000")
     @invoice_2 = create(:invoice, customer: @customer_1, created_at: "2000-01-01 00:04:06.477179000 +0000")
@@ -46,7 +46,7 @@ RSpec.describe Item, type: :model do
 
     describe "#price_total" do
       it "gives the sum of the quantity and cost" do
-        expect(@item_1.price_total).to eq(2468)
+        expect(@item_1.price_total).to eq(500_000)
       end
     end
 
