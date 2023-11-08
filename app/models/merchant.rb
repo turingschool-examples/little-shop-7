@@ -78,4 +78,12 @@ class Merchant < ApplicationRecord
     .group('merchants.id') # group records by merchant
     .order('total_revenue DESC')
   end
+
+  def best_day
+    invoices.joins(:items)
+      .group("invoices.created_at")
+      .sum("invoice_items.quantity * items.unit_price")
+      .max_by { |date, sales| sales }
+      .first
+  end
 end

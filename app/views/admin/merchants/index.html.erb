@@ -5,6 +5,7 @@
   <div id="top_5-<%= merchant.id %>"> 
     <%= link_to "#{merchant.name} ##{merchant.id}", admin_merchant_path(merchant.id) %><br>
     <p><%= merchant.name %>: $<%= merchant.total_revenue %></p>
+    <p><%="top selling date #{merchant.best_day.strftime("%m/%d/%y")}" %>
   </div>
 <% end %>
 <br>
