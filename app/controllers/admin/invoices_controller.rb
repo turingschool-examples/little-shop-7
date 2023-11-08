@@ -14,7 +14,7 @@ class Admin::InvoicesController < ApplicationController
   end
   
   def update
-    @invoice = Invoice.find(params[:invoice_id])
+    @invoice = Invoice.find(params[:id])
     if params[:status_update] == "Completed"
       @invoice.update(status: "completed")
     elsif params[:status_update] == "In Progress"
