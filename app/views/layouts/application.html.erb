@@ -163,10 +163,22 @@
         line-height: 1.5;
       }
 
+      .flash_message {
+        font-family: Arial;
+        font-size:15px;
+        border: 2px solid #f50a0a;
+        font-weight: bold;
+        background-color: #f8cef7;
+        padding: 5px;
+        text-align: center;
+      }
+
     </style>
+
     <% flash.each do |type, message| %>
-      <h3><p><%= message %></p></h3>
+      <div class="flash_message"> ** <%= message %> **</div>
     <% end %>
     <%= yield %>
+
   </body>
 </html>

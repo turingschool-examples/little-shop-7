@@ -1,2 +1,13 @@
-<h2><u><%= @merchant.name %></u></h2>
-<h4><%= link_to "Update Merchant", "/admin/merchants/#{@merchant.id}/edit" %> </h4><br>
+<body>
+<div class="admin_header">Little Esty Shop</div><br>
+<div class ="nav_button"><%= link_to "Invoices", admin_invoices_path %> </div>
+<div class ="current_button">Merchants</div>
+<div class ="nav_button"><%= link_to "Dashboard", admin_path %> </div>
+<h3>Admin Dashboard</h3>
+<br><br>
+
+<div class="admin_sub_header"><%= @merchant.name %></div><br>
+<ol><h4><%= link_to "Update Merchant", "/admin/merchants/#{@merchant.id}/edit" %> </h4><br>
+</ol>
+
+</body>
