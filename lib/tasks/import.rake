@@ -7,44 +7,44 @@ end
 # order of operations and relations matter when creating. parent classes must be made first
 namespace :csv_load do
   desc "imports merchants csv into database"
-  puts "Building merchant objects" 
+  # puts "Building merchant objects" 
   task :merchants => [:environment] do
-    file_path = "db/data/merchants_test.csv"
+    file_path = "db/data/merchants.csv"
     importCSV(file_path, Merchant)
   end
   
   desc "imports customers csv into database"
-  puts "Building customer objects" 
+  # puts "Building customer objects" 
   task :customers => [:environment] do
-    file_path = "db/data/customer_test.csv"
+    file_path = "db/data/customers.csv"
     importCSV(file_path, Customer)
   end
   
   desc "imports items csv into database"
-  puts "Building item objects" 
+  # puts "Building item objects" 
   task :items => [:environment] do
-    file_path = "db/data/items_test.csv"
+    file_path = "db/data/items.csv"
     importCSV(file_path, Item)
   end
 
   desc "imports invoices csv into database"
-  puts "Building invoice objects" 
+  # puts "Building invoice objects" 
   task :invoices => [:environment] do
-    file_path = "db/data/invoices_test.csv"
+    file_path = "db/data/invoices.csv"
     importCSV(file_path, Invoice)
   end
   
-  desc "imports tansactions csv into database"
-  puts "Building tansaction objects" 
-  task :tansactions => [:environment] do
-    file_path = "db/data/transactions_test.csv"
+  desc "imports transactions csv into database"
+  # puts "Building tansaction objects" 
+  task :transactions => [:environment] do
+    file_path = "db/data/transactions.csv"
     importCSV(file_path, Transaction)
   end
   
   desc "imports invoice_items csv into database"
-  puts "Building invoice_item objects" 
+  # puts "Building invoice_item objects" 
   task :invoice_items => [:environment] do
-    file_path = "db/data/invoice_items_test.csv"
+    file_path = "db/data/invoice_items.csv"
     importCSV(file_path, InvoiceItem)
   end
 
@@ -52,6 +52,7 @@ namespace :csv_load do
   task :all => [:environment] do
     table = ["merchants", "customers", "items", "invoices", "transactions", "invoice_items"]
     table.each { |t| Rake::Task["csv_load:#{t}"].invoke }
+    Rake::Task["reset_sequences"].invoke
   end
 end
 
