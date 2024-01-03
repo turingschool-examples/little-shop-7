@@ -141,8 +141,6 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.0-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.0-x86_64-linux)
-      racc (~> 1.4)
     orderly (0.1.1)
       capybara (>= 1.1)
       rspec (>= 2.14)
@@ -253,13 +251,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  arm64-darwin-21
-<<<<<<< HEAD
-  arm64-darwin-22
-=======
   arm64-darwin-23
->>>>>>> 7c82b22c0a053344a0180dff8a87466b115f8cf3
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -288,4 +280,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.10
+   2.4.17
