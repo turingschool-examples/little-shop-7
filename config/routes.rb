@@ -6,4 +6,15 @@ Rails.application.routes.draw do
 
 get "/merchants/:id/dashboard", to: "merchants#show"
 
+
+
+
+
+#Admin 
+
+  namespace :admin do 
+    get "/", to: "dashboards#welcome"
+    resources :merchants
+    resources :invoices
+  end 
 end
