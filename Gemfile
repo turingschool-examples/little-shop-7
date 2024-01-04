@@ -60,6 +60,8 @@ group :development, :test do
   
   gem "simplecov"
   gem "shoulda-matchers"
+
+  gem "faker"
 end
 
 group :development do
