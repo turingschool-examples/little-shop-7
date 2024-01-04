@@ -1,1 +1,6 @@
-<%= @merchant.name %>
+<h1><%= @merchant.name %></h1>
+
+<h2><ul>
+  <li><%= link_to "Items", "/merchants/#{@merchant.id}/items" %></li>
+  <li><%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices" %></li>
+</ul></h2>
