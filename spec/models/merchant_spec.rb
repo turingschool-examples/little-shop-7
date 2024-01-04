@@ -1,8 +1,8 @@
 require "rails_helper"
 
-Rspec.describe Merchant, type: :model do
+RSpec.describe Merchant, type: :model do
   describe "relationships" do
     it { should have_many(:items)}
-    it { should have_many(:invoice_items)}
+    it { should have_many(:invoices).through(:items)}
   end
 end
