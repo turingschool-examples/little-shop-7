@@ -1,8 +1,8 @@
 module Admin
   class DashboardController < ApplicationController
-    
+    layout 'admin/layouts/admin'
+
     def index
-      render 'index'
     end
   end
 end
