@@ -14,13 +14,14 @@ RSpec.describe Invoice, type: :model do
 
   describe "enums" do
     it "has an enum for status" do
-      invoice1 = Invoice.create(status: 0)
-      invoice2 = Invoice.create(status: 1)
-      invoice3 = Invoice.create(status: 2)
+      bob = Customer.create!(first_name: "Bob", last_name: "Smith")
+      invoice1 = bob.invoices.create!(status: 0)
+      invoice2 = bob.invoices.create!(status: 1)
+      invoice3 = bob.invoices.create!(status: 2)
 
-      expect(invoice1.status).to eq("in_progress")
-      expect(invoice2.status).to eq("cancelled")
-      expect(invoice3.status).to eq("completed")
+      expect(invoice1.in_progress?).to be true
+      expect(invoice2.cancelled?).to be true
+      expect(invoice3.completed?).to be true
     end
   end
 end

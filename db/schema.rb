@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_03_183301) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_151709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,12 +21,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_183301) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dummies", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "born_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "invoice_items", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "invoice_id", null: false
     t.integer "quantity"
     t.integer "unit_price"
-    t.string "status"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
@@ -35,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_183301) do
 
   create_table "invoices", force: :cascade do |t|
     t.bigint "customer_id", null: false
-    t.string "status"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
@@ -61,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_183301) do
     t.bigint "invoice_id", null: false
     t.string "credit_card_number"
     t.string "credit_card_expiration_date"
-    t.string "result"
+    t.integer "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
