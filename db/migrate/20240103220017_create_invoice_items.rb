@@ -1,7 +1,6 @@
 class CreateInvoiceItems < ActiveRecord::Migration[7.0]
   def change
-    create_table :invoice_items, id: false do |t|
-      t.integer :id
+    create_table :invoice_items do |t|
       t.integer :item_id
       t.integer :invoice_id
       t.integer :quantity
