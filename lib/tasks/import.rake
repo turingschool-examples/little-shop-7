@@ -1,48 +1,56 @@
 require "csv"
 
 def importCSV(file_path, model)
-  CSV.foreach(file_path, headers: true) { |row| model.create!(row.to_hash) }
+  CSV.foreach(file_path, headers: true) do |row|
+    row_hash = row.to_hash
+    # Convert Invoice and InvoiceItem status from string to integer
+    if [Invoice, InvoiceItem].include?(model) && row_hash['status']
+      # Replace spaces with underscores for the status
+      formatted_status = row_hash['status'].tr(' ', '_').downcase
+      row_hash['status'] = model.statuses[formatted_status]
+    end
+    model.create!(row_hash)
+  end
 end
-
 # order of operations and relations matter when creating. parent classes must be made first
 namespace :csv_load do
   desc "imports merchants csv into database"
-  # puts "Building merchant objects" 
+  # puts "Building merchant objects"
   task :merchants => [:environment] do
     file_path = "db/data/merchants.csv"
     importCSV(file_path, Merchant)
   end
-  
+
   desc "imports customers csv into database"
-  # puts "Building customer objects" 
+  # puts "Building customer objects"
   task :customers => [:environment] do
     file_path = "db/data/customers.csv"
     importCSV(file_path, Customer)
   end
-  
+
   desc "imports items csv into database"
-  # puts "Building item objects" 
+  # puts "Building item objects"
   task :items => [:environment] do
     file_path = "db/data/items.csv"
     importCSV(file_path, Item)
   end
 
   desc "imports invoices csv into database"
-  # puts "Building invoice objects" 
+  # puts "Building invoice objects"
   task :invoices => [:environment] do
     file_path = "db/data/invoices.csv"
     importCSV(file_path, Invoice)
   end
-  
+
   desc "imports transactions csv into database"
-  # puts "Building tansaction objects" 
+  # puts "Building tansaction objects"
   task :transactions => [:environment] do
     file_path = "db/data/transactions.csv"
     importCSV(file_path, Transaction)
   end
-  
+
   desc "imports invoice_items csv into database"
-  # puts "Building invoice_item objects" 
+  # puts "Building invoice_item objects"
   task :invoice_items => [:environment] do
     file_path = "db/data/invoice_items.csv"
     importCSV(file_path, InvoiceItem)
@@ -56,7 +64,7 @@ namespace :csv_load do
   end
 end
 
-# set up primary key squence 
+# set up primary key squence
 desc 'Resets Postgres auto-increment ID column sequences to fix duplicate ID errors'
 task :reset_sequences => :environment do
   Rails.application.eager_load!
