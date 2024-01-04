@@ -2,13 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "Admin Dashboard Index" do
   before (:each) do
-    
-
+    @merchant = create(:merchant) 
+    @customer = create(:customer)
+    @item = create(:item)
+    # invoice = create!(:invoice, customer_id: customer.id)
+    @invoice = create(:invoice)
+    @transaction = create(:transaction)
+    # @invoice_item = create() #look into this later
+    # @item.invoice << [@shoe, @towel]
   end
 
   it "has a header indicating you are on the admin dashboard" do
-    require 'pry'; binding.pry
-
+    # require 'pry'; binding.pry
     # 19. Admin Dashboard
 
     # As an admin,
@@ -30,30 +35,30 @@ RSpec.describe "Admin Dashboard Index" do
     expect(page).to have_link("Admin Invoices Index")
   end
 
-  it "displays top 5 customers with the largest number of successful transactions" do
-    # 21. Admin Dashboard Statistics - Top Customers
+  # it "displays top 5 customers with the largest number of successful transactions" do
+  #   # 21. Admin Dashboard Statistics - Top Customers
 
-    # As an admin,
-    # When I visit the admin dashboard (/admin)
-    visit "/"
-    # Then I see the names of the top 5 customers
-    expect(page).to have_content("Top 5 Customers")
-    # who have conducted the largest number of successful transactions
-    expect(page).to have_content()
-    # And next to each customer name I see the number of successful transactions they have conducted
-    expect(page).to have_content(.first_name)
-    expect(page).to have_content(.last_name)
+  #   # As an admin,
+  #   # When I visit the admin dashboard (/admin)
+  #   visit "/"
+  #   # Then I see the names of the top 5 customers
+  #   expect(page).to have_content("Top 5 Customers")
+  #   # who have conducted the largest number of successful transactions
+  #   expect(page).to have_content()
+  #   # And next to each customer name I see the number of successful transactions they have conducted
+  #   expect(page).to have_content(.first_name)
+  #   expect(page).to have_content(.last_name)
 
-    expect(page).to have_content(.first_name)
-    expect(page).to have_content(.last_name)
+  #   expect(page).to have_content(.first_name)
+  #   expect(page).to have_content(.last_name)
 
-    expect(page).to have_content(.first_name)
-    expect(page).to have_content(.last_name)
+  #   expect(page).to have_content(.first_name)
+  #   expect(page).to have_content(.last_name)
 
-    expect(page).to have_content(.first_name)
-    expect(page).to have_content(.last_name)
+  #   expect(page).to have_content(.first_name)
+  #   expect(page).to have_content(.last_name)
 
-    expect(page).to_not have_content(.first_name)
-    expect(page).to_not have_content(.last_name)
-  end
+  #   expect(page).to_not have_content(.first_name)
+  #   expect(page).to_not have_content(.last_name)
+  # end
 end
