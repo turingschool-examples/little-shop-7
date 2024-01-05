@@ -5,5 +5,10 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :admin do 
     resources :merchants, only: [:index]
+
+  # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
+
+  resources :merchants do
+    resources :dashboard
   end
 end
