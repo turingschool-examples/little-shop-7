@@ -59,6 +59,9 @@ RSpec.describe "Merchants Index Page" do
       merchant_12 = Merchant.create!(name: "Jill", status: "enabled")
 
       visit admin_merchants_path
+      
+      expect(page).to have_content("Enabled Merchants")
+      expect(page).to have_content("Disabled Merchants")
 
       within "#enabled-merchants" do
         expect(page).to have_content("Jack")
