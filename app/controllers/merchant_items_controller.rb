@@ -6,6 +6,6 @@ class MerchantItemsController < ApplicationController
     private
 
     def merchant_params
-        params.permit(:id)
+        params.permit(:merchant_id)
     end
 end
