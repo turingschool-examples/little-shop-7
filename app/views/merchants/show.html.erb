@@ -4,3 +4,11 @@
   <li><%= link_to "Items", "/merchants/#{@merchant.id}/items" %></li>
   <li><%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices" %></li>
 </ul></h2>
+
+<h1>Top 5 Customers:</h1>
+
+<h2><ul>
+  <% @top_customers.each do |customer| %>
+    <li><%= customer.first_name %> <%= customer.last_name %>... Successful Purchases: <%= customer.transactions_count %></li>
+  <% end %>
+</ul></h2>
