@@ -7,6 +7,7 @@ RSpec.describe "MerchantItem index", type: :feature do
 
         @merchant_2 = Merchant.create(name: "McDonalds")
         @item_2 = @merchant_2.items.create(name: "Big Mac", description: "Juicy", unit_price: 29, merchant_id: @merchant_2.id)
+        require 'pry'; binding.pry
     end
 
     it "User Story 6. Merchant Items Index Page" do
@@ -18,5 +19,5 @@ RSpec.describe "MerchantItem index", type: :feature do
         expect(page).to have_content("Moldy Cheese")
         # And I do not see items for any other merchant
         expect(page).to_not have_content("Big Mac")
-    end 
+    end
 end
