@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :merchants do
+    resources :dashboard
+  end
+  get "/merchants/:id/invoices", to: "merchants#invoices"
+  
 end
