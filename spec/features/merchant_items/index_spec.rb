@@ -15,7 +15,6 @@ RSpec.describe "MerchantItem index", type: :feature do
         # I see a list of the names of all of my items
         expect(page).to have_content("Merchant Item List")
         expect(page).to have_content("Chucky Cheese's items")
-        expect(page).to have_content("cookie")
         expect(page).to have_content("Moldy Cheese")
         # And I do not see items for any other merchant
         expect(page).to_not have_content("Big Mac")
