@@ -1,0 +1,17 @@
+<h1>Admin Dashboard</h1>
+
+<%= link_to 'Admin Merchants', admin_merchants_path %>
+
+<%= link_to 'Admin Invoices', admin_invoices_path %>
+
+<section class="top-five">
+  <h3> Top Customers </h3>
+  
+    <ol>
+        <% @customers.each do |customer| %>
+            <li><%= "#{customer.full_name} - "  "#{customer.success_count} purchases" %></li>
+        <% end %>
+    </ol>
+</section>
+
+   
