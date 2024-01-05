@@ -3,6 +3,6 @@ FactoryBot.define do
     association :invoice
     credit_card_number { Faker::Business.credit_card_number }
     credit_card_expiration_date { Faker::Business.credit_card_expiry_date }
-    traits_for_enum :result, [:success, :failed]
+    result { Transaction.results.values.sample }
   end
 end
