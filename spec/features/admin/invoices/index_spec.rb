@@ -40,7 +40,7 @@ RSpec.describe "admin/invoices/index_spec.rb", type: :feature do
     # As an admin,
     # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
     visit admin_invoice_path(invoice)
-    save_and_open_page
+
     # Then I see information related to that invoice including:
     # Invoice id
     expect(page).to have_content(invoice.id)
