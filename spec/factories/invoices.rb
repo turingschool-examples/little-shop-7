@@ -6,7 +6,7 @@ FactoryBot.define do
 
   factory :invoice_with_transactions, parent: :invoice do
     after(:create) do |invoice, evaluator|
-      create_list(:transaction, 3, invoice: invoice) # Adjust the number as needed
+      create_list(:transaction, 5, invoice: invoice) # change number of transactions if needed
     end
   end
 end
