@@ -9,14 +9,16 @@ RSpec.describe "MerchantItem index", type: :feature do
         @item_2 = @merchant_2.items.create(name: "Big Mac", description: "Juicy", unit_price: 29, merchant_id: @merchant_2.id)
     end
 
-    it "User Story 6. Merchant Items Index Page" do
-        # When I visit my merchant items index page (merchants/:merchant_id/items)
+    it "7. Merchant Items Show Page" do
+        # (merchants/:merchant_id/items)
         visit "/merchants/#{@merchant_1.id}/items"
-        # I see a list of the names of all of my items
-        expect(page).to have_content("Merchant Item List")
-        expect(page).to have_content("Chucky Cheese's items")
+        # When I click on the name of an item from the merchant items index page, 
+        click_on("Moldy Cheese")
+        # Then I am taken to that merchant's item's show page (/merchants/:merchant_id/items/:item_id)
+        expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+        # And I see all of the item's attributes including: Name, Description, Current Selling Price
         expect(page).to have_content("Moldy Cheese")
-        # And I do not see items for any other merchant
-        expect(page).to_not have_content("Big Mac")
+        expect(page).to have_content("ew")
+        expect(page).to have_content("1199")
     end
 end
