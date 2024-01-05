@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body>
-    <h1>Admin Dashboard</h1>
-    <%= yield %>
-  </body>
-</html>
+<body>
+  <h1>Little Esty Shop</h1>
+  <nav>
+    <%= link_to 'Dashboard', admin_dashboard_path %>
+    <%= link_to 'Merchants', admin_merchants_path %>
+    <%= link_to 'Invoices', admin_invoices_path %>
+  </nav>
+  <%= yield %>
+</body>
+
