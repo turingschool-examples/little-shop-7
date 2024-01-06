@@ -1,0 +1,12 @@
+<h1>Admin::Invoice Show Page</h1>
+
+<h2>List of Invoices w/Customers</h2>
+  <p>Invoice ID: <%= @invoice.id %>
+  <br>
+  <p>Invoice Status: $<%= @invoice.status %>
+  <br>
+  <p>Invoice Date: <%= @invoice.format_created_at %>
+  <br>
+  <p>Customer's First Name: <%= @invoice.customer.first_name %>
+  <br>
+  <p>Customer's Last Name: <%= @invoice.customer.last_name %>
