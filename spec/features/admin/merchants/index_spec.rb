@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "admin merchant index" do
   before(:each) do 
+    @merchant = create(:merchant)
     @merchants = create_list(:merchant, 10)
   end
 
