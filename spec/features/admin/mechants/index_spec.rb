@@ -1,7 +1,9 @@
-require 'rails_helper'
 
-RSpec.describe "admin dashboard" do
-  before(:each) do 
+require 'rails_helper'
+ 
+ RSpec.describe 'Admin Merchants', type: :feature do
+  
+  before(:each) do
     @merch_1 = Merchant.create!(name: "Walmart")
     @merch_2 = Merchant.create!(name: "Target")
 
@@ -51,82 +53,16 @@ RSpec.describe "admin dashboard" do
     @ii_17 = InvoiceItem.create!(invoice: @inv_6, item: @item_2, quantity: 10, unit_price: 1, status: :shipped)
     @ii_18= InvoiceItem.create!(invoice: @inv_6, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
     @ii_19 = InvoiceItem.create!(invoice: @inv_6, item: @item_4, quantity: 10, unit_price: 1, status: :pending )
+ 
   end
 
-  describe 'it exists' do
-    it 'has a header' do
+  it 'displays the name of each merchant' do
 
-      visit admin_root_path
+    visit admin_merchants_path
 
-      expect(page).to have_content("Admin Dashboard")
-    end
-
-    it "has links to admin merchants and routes a user" do 
-
-      visit admin_root_path
-
-      expect(page).to have_link("Admin Merchants")
-
-      click_link ("Admin Merchants")
-
-      expect(current_path).to eq(admin_merchants_path)
-    end 
-
-    it "has links to admin invoices and routes a user" do 
-
-      visit admin_root_path
-
-      expect(page).to have_link("Admin Invoices")
-
-      click_link ("Admin Invoices")
-
-      expect(current_path).to eq(admin_invoices_path)
-    end 
-
-    # 21. Admin Dashboard Statistics - Top Customers
-    it "shows the top 5 customers and the amount of their transactions" do 
-      # require 'pry'; binding.pry
-      # As an admin,
-      # When I visit the admin dashboard (/admin)
-      visit admin_root_path
-      # Then I see the names of the top 5 customers
-      # who have conducted the largest number of successful transactions
-      # And next to each customer name I see the number of successful transactions they have conducted
-      within '.top-five' do
-        expect(page).to have_content("#{@cust_1.first_name} #{@cust_1.last_name} - 1 purchases")
-        expect(page).to have_content("#{@cust_2.first_name} #{@cust_2.last_name} - 1 purchases")
-        expect(page).to have_content("#{@cust_3.first_name} #{@cust_3.last_name} - 1 purchases")
-        expect(page).to have_content("#{@cust_4.first_name} #{@cust_4.last_name} - 1 purchases")
-        expect(page).to have_content("#{@cust_5.first_name} #{@cust_5.last_name} - 1 purchases")
-        expect(page).to_not have_content("#{@cust_6.first_name} #{@cust_6.last_name} - 1 purchases")
-      end
-    end
-
-    it "see a section for Incomplete Invoices that have not yet been shipped" do
-
-      visit admin_root_path
-
-      
-
-      expect(page).to have_content("Invoice#-#{@ii_15.invoice_id}")
-      expect(page).to_not have_content(@ii_2.invoice_id)
-
-      expect(page).to have_link(@ii_15.invoice_id)
-
-      click_link @ii_15.invoice_id
-
-      expect(current_path).to eq(admin_invoice_path(@ii_15.invoice))
-
-    
-
-
-    end
-
-    it "list the date in order" do 
-      visit admin_root_path
-
-      expect("Invoice#-#{@ii_19.invoice_id}").to appear_before("Invoice#-#{@ii_15.invoice_id}")
-
+    within '.merchants-index' do
+      expect(page).to have_content("Walmart")
+      expect(page).to have_content("Target")
     end
   end
 end
