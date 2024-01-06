@@ -4,15 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-get "/merchants/:id/dashboard", to: "merchants#show"
-
-#Admin 
-  namespace :admin do 
-    root to: "dashboard#index"
-    resources :merchants
-    resources :invoices
-  end
-  
   # get "/merchants/:id/dashboard", to: "merchants#show"
   # get "/merchants/:id/items", to: "merchant_items#index"
   resources :merchants, only: [] do
@@ -25,10 +16,11 @@ get "/merchants/:id/dashboard", to: "merchants#show"
   end
   # patch "/merchants/:merchant_id/items/:id", to: "merchant_items#update" i think we can delete this
 
-  #Admin
-  # namespace :admin do
-  #   root to: "dashboard#index"
-  #   resources :merchants
-  #   resources :invoices
-  # end
+get "/merchants/:id/dashboard", to: "merchants#show"
+#Admin
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :merchants
+    resources :invoices
+  end
 end

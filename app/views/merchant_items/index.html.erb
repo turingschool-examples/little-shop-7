@@ -1,21 +1,57 @@
 <h1><%= @merchant.name %>'s Items</h1>
 
-<% @items.each do |item| %>
-<section id=<%="item-#{item.id}" %>>
-  <ul>
-    <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
-  
-  <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
-    <%= form.hidden_field :enabled, value: "enabled" %>
-    <%= form.submit "enable" %>
+================================================================
+
+<section id="enabled-items">
+
+  <h2> Enabled Items </h2>
+
+  <% @items.each do |item| %>
+    <% if item.status == "enabled" %> 
+      <section id=<%="item-#{item.id}" %>>
+        <ul>
+          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
+        
+        <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+          <%= form.hidden_field :enabled, value: "enabled" %>
+          <%= form.submit "enable" %>
+        <% end %>
+
+        <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+          <%= form.hidden_field :disabled, value: "disabled" %>
+          <%= form.submit "disable" %>
+        <% end %>
+        </ul>
+    <% end %>  
   <% end %>
 
-  <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
-    <%= form.hidden_field :disabled, value: "disabled" %>
-    <%= form.submit "disable" %>
-  <% end %>
-  </ul>
-<% end %>
+      </section>
+</section>
 
-<section>
+================================================================
+<section id="disabled-items">
+
+  <h2> Disabled Items </h2>
+
+  <% @items.each do |item| %>
+    <% if item.status == "disabled" %>
+      <section id=<%="item-#{item.id}" %>>
+        <ul>
+          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
+        
+        <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+          <%= form.hidden_field :enabled, value: "enabled" %>
+          <%= form.submit "enable" %>
+        <% end %>
+
+        <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+          <%= form.hidden_field :disabled, value: "disabled" %>
+          <%= form.submit "disable" %>
+        <% end %>
+        </ul>
+    <% end %>  
+  <% end %>
+
+      </section>
+</section>
 
