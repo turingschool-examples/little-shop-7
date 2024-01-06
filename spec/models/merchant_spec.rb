@@ -60,7 +60,7 @@ RSpec.describe Merchant, type: :model do
       expect(merchant.top_customers).to_not include(customer6)
     end
 
-    it "has a #not_shipped_yet method" do
+    it "has a #not_yet_shipped_ascending method" do
       merchant = Merchant.create!(name: "Walmart")
       item1 = merchant.items.create!(name: "popcan", description: "fun", unit_price: 100)
       item2 = merchant.items.create!(name: "popper", description: "fun", unit_price: 156)
@@ -112,11 +112,11 @@ RSpec.describe Merchant, type: :model do
       transaction4 = invoice4.transactions.create!(credit_card_number: 1238567876567476, credit_card_expiration_date: "04/26", result: 0)
       transaction5 = invoice5.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/26", result: 0)
 
-      expected = merchant.not_yet_shipped.map { |x| x.invoice_id }
+      expected = merchant.not_yet_shipped_ascending.map { |x| x.invoice_id }
 
       expect(expected).to include(invoice_item1.invoice_id, invoice_item8.invoice_id, invoice_item10.invoice_id)
 
-      expected = merchant.not_yet_shipped.map { |x| x.name }
+      expected = merchant.not_yet_shipped_ascending.map { |x| x.name }
 
       expect(expected).to include(item1.name, item2.name, item3.name)
     end
