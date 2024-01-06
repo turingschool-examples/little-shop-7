@@ -3,14 +3,17 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  
+  resources :merchants, only: :index do 
+    resources :dashboard, only: [:index], controller: "merchant/dashboard"
+    resources :items, only: [:index, :show], controller: "merchant/items"
+    resources :invoices, only: [:index, :show], controller: "merchant/invoices"
+  end
 
   namespace :admin do
     get '/', to: 'dashboard#index'
     resources :merchants, only: :index
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
   end
-
-  get "/merchants/:merchant_id/items", to: "merchant_items#index"
-  get "/merchants/:id/dashboard", to: "merchants#show"
 
 end
