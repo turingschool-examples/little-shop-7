@@ -6,12 +6,12 @@ RSpec.describe "Merchants Index Page" do
     @merchant_2 = Merchant.create!(name: "Jacob")
     @merchant_3 = Merchant.create!(name: "Jingleheimer")
     @merchant_4 = Merchant.create!(name: "Schmidt")
-    @merchant_5 = Merchant.create!(name: Faker::Name.first_name)
-    @merchant_6 = Merchant.create!(name: Faker::Name.first_name)
-    @merchant_7 = Merchant.create!(name: Faker::Name.first_name)
-    @merchant_8 = Merchant.create!(name: Faker::Name.first_name)
-    @merchant_9 = Merchant.create!(name: Faker::Name.first_name)
-    @merchant_10 = Merchant.create!(name: Faker::Name.first_name)
+    @merchant_5 = create(:merchant)
+    @merchant_6 = create(:merchant)
+    @merchant_7 = create(:merchant)
+    @merchant_8 = create(:merchant)
+    @merchant_9 = create(:merchant)
+    @merchant_10 = create(:merchant)
   end
 
   describe "User Story 24" do
@@ -82,7 +82,7 @@ RSpec.describe "Merchants Index Page" do
 
       expect(page).to have_no_content("Johnny")
       expect(page).to have_link("New Merchant")
-      
+
       click_link("New Merchant")
 
       expect(page.current_path).to eq(new_admin_merchant_path)
@@ -90,7 +90,10 @@ RSpec.describe "Merchants Index Page" do
       click_button("Submit")
 
       expect(page.current_path).to eq(admin_merchants_path)
-      expect(page).to have_content("Johnny")
+
+      within "#disabled-merchants" do
+        expect(page).to have_content("Johnny")
+      end
     end
   end
 end
