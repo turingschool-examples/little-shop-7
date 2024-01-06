@@ -1,0 +1,10 @@
+<h1>Merchants</h1>
+
+<section class = "merchants-index">
+  <% @merchants.each do |merchant| %>
+    <div id="merchant-<%= merchant.id %>">
+      <p><%= merchant.name %></p>
+    </div>
+  <% end %>
+</section>
+

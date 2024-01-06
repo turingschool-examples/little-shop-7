@@ -8,7 +8,7 @@ get "/merchants/:id/dashboard", to: "merchants#show"
 
 #Admin 
   namespace :admin do 
-     root to: "dashboard#index"
+    root to: "dashboard#index"
     resources :merchants
     resources :invoices
   end
