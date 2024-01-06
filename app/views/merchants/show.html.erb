@@ -17,5 +17,6 @@
 <p><ul>
   <% @not_shipped.each do |item| %>
     <li><%= item.name %>... Item's Invoice ID: <%= link_to item.invoice_id, "/merchants/#{@merchant.id}/invoices/id" %></li>
+    Date Created: <%= item.created_at.strftime("%A, %B %d, %Y") %>
   <% end %>
 </ul></p>
