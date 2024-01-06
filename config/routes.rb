@@ -5,9 +5,12 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :admin do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#index', as: :dashboard
+
     resources :merchants, only: [:index, :new, :create]
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
+    
+    resources :invoices, only: :index
   end
 
   get "/merchants/:merchant_id/items", to: "merchant_items#index"
