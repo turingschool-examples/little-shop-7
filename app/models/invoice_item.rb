@@ -8,4 +8,8 @@ class InvoiceItem < ApplicationRecord
 
   enum status: { pending: 0, packaged: 1, shipped: 2 }
   # enum status: ["pending", "packaged", "shipped"]
+
+  def self.incomplete_invoices
+    InvoiceItem.where.not(status: :shipped).order(created_at: :desc)
+  end
 end
