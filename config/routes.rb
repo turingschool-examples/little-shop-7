@@ -12,10 +12,11 @@ Rails.application.routes.draw do
     end
     # I added a MerchantItems controller for User Story 6:
     resources :items, controller: 'merchant_items', only: [:index, :show, :edit, :update]
-
     #(when we need items index page, we can add this)= resources :items, only: [:index]
   end
-#Admin
+  # patch "/merchants/:merchant_id/items/:id", to: "merchant_items#update" i think we can delete this
+
+  #Admin
   namespace :admin do
     root to: "dashboard#index"
     resources :merchants
