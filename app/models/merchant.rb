@@ -22,16 +22,20 @@ class Merchant < ApplicationRecord
             .limit(5)
   end
 
-  def not_yet_shipped
+  def not_yet_shipped_ascending
     InvoiceItem.find_by_sql ["SELECT
     items.name,
-    invoice_items.invoice_id
+    invoice_items.invoice_id,
+    invoice_items.status,
+    invoices.created_at
   FROM
     items
     JOIN invoice_items ON items.id = invoice_items.item_id
+    JOIN invoices ON invoices.id = invoice_items.invoice_id
   WHERE
-    items.merchant_id = #{self.id}
+    items.merchant_id = #{id}
     AND (invoice_items.status = '0'
-      OR invoice_items.status = '1')"]
+    OR invoice_items.status = '1')
+    ORDER BY invoices.created_at;"]
   end
 end
