@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
 get "/merchants/:id/dashboard", to: "merchants#show"
+
 #Admin 
   namespace :admin do 
     root to: "dashboard#index"
