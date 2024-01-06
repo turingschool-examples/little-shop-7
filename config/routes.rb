@@ -26,9 +26,9 @@ get "/merchants/:id/dashboard", to: "merchants#show"
   # patch "/merchants/:merchant_id/items/:id", to: "merchant_items#update" i think we can delete this
 
   #Admin
-  namespace :admin do
-    root to: "dashboard#index"
-    resources :merchants
-    resources :invoices
-  end
+  # namespace :admin do
+  #   root to: "dashboard#index"
+  #   resources :merchants
+  #   resources :invoices
+  # end
 end
