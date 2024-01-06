@@ -207,7 +207,7 @@ RSpec.describe "show page" do
     transaction5 = invoice5.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/26", result: 0)
 
     visit "/merchants/#{@merchant_1.id}/dashboard"
-save_and_open_page
+
     expect(page).to have_content(invoice1.created_at.strftime("%A, %B %d, %Y"))
     expect(page).to have_content(invoice2.created_at.strftime("%A, %B %d, %Y"))
     expect(page).to have_content(invoice3.created_at.strftime("%A, %B %d, %Y"))
