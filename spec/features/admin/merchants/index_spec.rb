@@ -75,4 +75,25 @@ RSpec.describe "Merchants Index Page" do
       end
     end
   end
+
+  describe "User Story 29" do
+    it "has a link that lets you create a new merchant" do
+      visit admin_merchants_path
+
+      expect(page).to have_no_content("Johnny")
+      expect(page).to have_link("New Merchant")
+
+      click_link("New Merchant")
+
+      expect(page.current_path).to eq(new_admin_merchant_path)
+      fill_in("merchant_name", with: "Johnny")
+      click_button("Submit")
+
+      expect(page.current_path).to eq(admin_merchants_path)
+
+      within "#disabled-merchants" do
+        expect(page).to have_content("Johnny")
+      end
+    end
+  end
 end
