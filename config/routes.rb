@@ -4,11 +4,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-get "/merchants/:id/dashboard", to: "merchants#show"
-#Admin 
-  namespace :admin do 
+  # get "/merchants/:id/dashboard", to: "merchants#show"
+  # get "/merchants/:id/items", to: "merchant_items#index"
+  resources :merchants, only: [] do
+    member do
+      get 'dashboard', to: 'merchants#show'
+    end
+    # I added a MerchantItems controller for User Story 6:
+    resources :items, controller: 'merchant_items', only: [:index]
+    #(when we need items index page, we can add this)= resources :items, only: [:index]
+  end
+#Admin
+  namespace :admin do
     root to: "dashboard#index"
     resources :merchants
     resources :invoices
-  end 
+  end
 end
