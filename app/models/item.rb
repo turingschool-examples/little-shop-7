@@ -9,5 +9,5 @@ class Item < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
-
+  enum status: { enabled: 0, disabled: 1 }
 end

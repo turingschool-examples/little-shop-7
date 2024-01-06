@@ -1,7 +1,21 @@
 <h1><%= @merchant.name %>'s Items</h1>
 
 <% @items.each do |item| %>
+<section id=<%="item-#{item.id}" %>>
   <ul>
-    <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %></li>
+    <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
+  
+  <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+    <%= form.hidden_field :enabled, value: "enabled" %>
+    <%= form.submit "enable" %>
+  <% end %>
+
+  <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
+    <%= form.hidden_field :disabled, value: "disabled" %>
+    <%= form.submit "disable" %>
+  <% end %>
   </ul>
 <% end %>
+
+<section>
+
