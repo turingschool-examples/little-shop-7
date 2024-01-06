@@ -11,7 +11,8 @@ Rails.application.routes.draw do
       get 'dashboard', to: 'merchants#show'
     end
     # I added a MerchantItems controller for User Story 6:
-    resources :items, controller: 'merchant_items', only: [:index, :show]
+    resources :items, controller: 'merchant_items', only: [:index, :show, :edit, :update]
+
     #(when we need items index page, we can add this)= resources :items, only: [:index]
   end
 #Admin
