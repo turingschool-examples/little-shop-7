@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    name { Faker::Commerce.product_name }
+    sequence(:name) { |n| "#{Faker::Commerce.product_name} #{n}" }
     description { Faker::Commerce.department }
     unit_price { Faker::Number.number(digits: 4) }
   end
