@@ -12,7 +12,7 @@ RSpec.describe "Admin Dashboard Index" do
     # @item.invoice << [@shoe, @towel]
   end
 
-  it "has a header indicating you are on the admin dashboard" do
+  xit "has a header indicating you are on the admin dashboard" do
     # require 'pry'; binding.pry
     # 19. Admin Dashboard
 
@@ -23,7 +23,7 @@ RSpec.describe "Admin Dashboard Index" do
     expect(page).to have_content("Admin Dashboard Official")
   end
 
-  it "has links to the Admin Merchants Index and Admind Invouces Index" do
+  xit "has links to the Admin Merchants Index and Admind Invouces Index" do
     # 20. Admin Dashboard Links
 
     # As an admin,

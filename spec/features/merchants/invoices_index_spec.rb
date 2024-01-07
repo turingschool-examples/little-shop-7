@@ -14,24 +14,26 @@ RSpec.describe "the merchant invoices index" do
     @invoice_item_2 = InvoiceItem.create(item_id: @item_1.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 100, status: "packaged")
   end
 
-  it "lists all invoices that include at least one of a given merchant's items" do
+  describe "User Story 14" do
+    # As a merchant,
     # When I visit my merchant's invoices index (/merchants/:merchant_id/invoices)
-    visit "/merchants/#{@merchant_1.id}/invoices"
-
-    save_and_open_page
-
     # Then I see all of the invoices that include at least one of my merchant's items
     # And for each invoice I see its id
-    expect(page).to have_link("Invoice ##{@invoice_1.id}")
-    expect(page).to have_link("Invoice ##{@invoice_2.id}")
-
     # And each id links to the merchant invoice show page
-    click_link("Invoice ##{@invoice_1.id}")
 
-    expect(current_path).to eq("/invoices/#{@invoice_1.id}")
+    it "lists all invoices that include at least one of a given merchant's items" do
+      visit "/merchants/#{@merchant_1.id}/invoices"
 
-    click_link("Invoice ##{@invoice_2.id}")
+      expect(page).to have_link("Invoice ##{@invoice_1.id}")
+      expect(page).to have_link("Invoice ##{@invoice_2.id}")
 
-    expect(current_path).to eq("/invoices/#{@invoice_2.id}")
+      click_link("Invoice ##{@invoice_1.id}")
+
+      expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+
+      click_link("Invoice ##{@invoice_2.id}")
+
+      expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}")
+    end
   end
 end

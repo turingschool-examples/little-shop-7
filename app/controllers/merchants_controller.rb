@@ -4,7 +4,7 @@ class MerchantsController < ApplicationController
   end
 
   def invoices
-    @merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find(params[:merchant_id])
     @item_ids = Item.where(merchant_id: @merchant.id).pluck(:id)
     @invoice_items = InvoiceItem.where(item_id: @item_ids)
   end
