@@ -16,29 +16,10 @@ class MerchantItemsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    item = Item.create({
-      name: params[:item][:name],
-      description: params[:item][:description],
-      unit_price: params[:item][:unit_price],
-      merchant_id: merchant.id,
-      status: 1,
-      created_at: Time.now,
-      updated_at: Time.now
-    })
+    item = merchant.items.create(item_params)
+    item.update(status: 1)
     redirect_to "/merchants/#{merchant.id}/items"
-#     merchant = Merchant.find(params[:merchant_id])
-#     item = Item.create(item_params)
-#  redirect_to "/merchants/#{merchant.id}/items"
-
-
-    # if item.save
-    #   redirect_to "/merchants/#{merchant.id}/items"
-    # elsif !item.save
-    #   flash[:notice] = "All essential information not provided, please try again."
-    #   redirect_to "/merchants/#{merchant.id}/items/new"
-    # end
   end
-
 
   def edit
     @merchant = Merchant.find(params[:merchant_id])
@@ -52,32 +33,18 @@ class MerchantItemsController < ApplicationController
     if params[:commit].starts_with?("Update")
       redirect_to "/merchants/#{merchant.id}/items/#{item.id}"
       flash[:alert] = "Information has been successfully updated"
-    # elsif params[:commit] == 0 || 1
-    #   require 'pry'; binding.pry
-    #   params[:item][:enabled] || params[:item][:disabled]
-    #   item.update(status: params[:commit])
-    #   redirect_to "/merchants/#{merchant.id}/items"
-      elsif params[:item][:enabled]
-        item.update(status: 0)
-        # item.update(status: params[:item][:enabled])
-        redirect_to "/merchants/#{merchant.id}/items"
-      else params[:item][:disabled]
-        item.update(status: 1)
-        # item.update(status: params[:item][:disabled])
-        redirect_to "/merchants/#{merchant.id}/items"
-      end
-    # else
-    #   redirect_to "/merchants/#{merchant.id}/items/#{item.id}"
-    #   flash[:alert] = "Information has been successfully updated"
-    
-
+    elsif params[:item][:enabled]
+      item.update(status: 0)
+      redirect_to "/merchants/#{merchant.id}/items"
+    else params[:item][:disabled]
+      item.update(status: 1)
+      redirect_to "/merchants/#{merchant.id}/items"
+    end
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:id, :name, :description, :unit_price)
-    
+    params.require(:item).permit(:name, :description, :unit_price, :status)
   end
-
 end
