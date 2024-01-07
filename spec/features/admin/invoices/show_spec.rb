@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
 
   it "tests User Story 33: Admin Invoice Show Page" do
-    # customer = create(:customer) # <----- don't even need this bit!
     invoice = create(:invoice)
 
     # As an admin,
@@ -21,5 +20,24 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
     expect(page).to have_content(invoice.customer.first_name)
     expect(page).to have_content(invoice.customer.last_name)
   end
+  
+  it "tests User Story 34:  Admin Invoice Show Page: Invoice Item Information" do
+    invoice = create(:invoice)
+    item = create(:item)
+    invoice_item = create(:invoice_item, invoice: invoice, item: item)
+    
+    # As an admin
+    # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+    visit admin_invoice_path(invoice)
 
+    # Then I see all of the items on the invoice including:
+    # - Item name
+    expect(page).to have_content(item.name)
+    # - The quantity of the item ordered
+    expect(page).to have_content(invoice_item.quantity)
+    # - The price the Item sold for
+    expect(page).to have_content(invoice_item.unit_price)
+    # - The Invoice Item status
+    expect(page).to have_content(invoice_item.status)
+  end
 end
