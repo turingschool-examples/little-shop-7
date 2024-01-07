@@ -9,4 +9,8 @@ class Invoice < ApplicationRecord
   def format_created_date
     created_at.to_date.to_formatted_s(:weekday_month_day_year)
   end
+
+  def total_revenue
+    invoice_items.sum(:unit_price)
+  end
 end
