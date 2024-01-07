@@ -13,12 +13,12 @@ RSpec.describe "Admin Dashboard Index" do
     save_and_open_page
   end
 
-  xit "has links to the Admin Merchants Index and Admind Invouces Index" do
+  it "has links to the Admin Merchants Index and Admind Invouces Index" do
     # 20. Admin Dashboard Links
 
     # As an admin,
     # When I visit the admin dashboard (/admin)
-    visit root_path
+    visit admin_root_path
 
     # Then I see a link to the admin merchants index (/admin/merchants)
     expect(page).to have_link("Admin Merchants Index")
