@@ -10,3 +10,14 @@
   <p>Customer's First Name: <%= @invoice.customer.first_name %>
   <br>
   <p>Customer's Last Name: <%= @invoice.customer.last_name %>
+
+<h2>Items Associated w/Invoice</h2>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <p>Name: <%= invoice_item.item.name %>
+    <br>
+    <p>Quantity: <%= invoice_item.quantity %>
+    <br>
+    <p>Sold Price: <%= invoice_item.unit_price %>
+    <br>
+    <p>Status: <%= invoice_item.status %>
+  <% end %>
