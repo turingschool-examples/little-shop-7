@@ -1,5 +1,8 @@
 <h1><%= @merchant.name %>'s Items</h1>
 
+
+<p> <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %> </p>
+<br>
 ================================================================
 
 <section id="enabled-items">
@@ -10,7 +13,7 @@
     <% if item.status == "enabled" %> 
       <section id=<%="item-#{item.id}" %>>
         <ul>
-          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
+          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %>, Price: $<%= item.unit_price/100.00 %>, Status: <%= item.status %></li>
         
         <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
           <%= form.hidden_field :enabled, value: "enabled" %>
@@ -37,7 +40,7 @@
     <% if item.status == "disabled" %>
       <section id=<%="item-#{item.id}" %>>
         <ul>
-          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %> Status: <%= item.status %></li>
+          <li>Name: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Description: <%= item.description %>, Price: $<%= item.unit_price/100.00 %>, Status: <%= item.status %></li>
         
         <%= form_with model: [@merchant, item], method: :patch, local: true do |form| %>
           <%= form.hidden_field :enabled, value: "enabled" %>
