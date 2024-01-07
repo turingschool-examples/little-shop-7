@@ -87,4 +87,30 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
       end
     end
   end
+
+  it "has a link to a page with a form to create a new item and it works" do
+    merchant = Merchant.create!(name: "Snow-Globes and Used Clothing")
+    items1 = create_list(:item, 23, merchant_id: merchant.id, status: "enabled")
+    items2 = create_list(:item, 17, merchant_id: merchant.id, status: "disabled")
+    items3 = create_list(:item, 11, merchant_id: merchant.id, status: "enabled")
+    items4 = create_list(:item, 13, merchant_id: merchant.id, status: "disabled")
+
+    visit "/merchants/#{merchant.id}/items"
+    expect(page).to have_link("Create New Item")
+    click_link "Create New Item"
+
+    expect(current_path).to eq("/merchants/#{merchant.id}/items/new")
+    expect(page).to have_selector('form#New_Item')
+
+    fill_in("Name", with: "Tiny toy")
+    fill_in('Description', with: 'The teeniest tiniest toy you ever saw')
+    fill_in('Unit price', with: 1501)
+    click_button "Create Item"
+    save_and_open_page
+
+    expect(current_path).to eq("/merchants/#{merchant.id}/items")
+    expect(page).to have_content('Tiny toy')
+    expect(page).to have_content('The teeniest tiniest toy you ever saw')
+    expect(page).to have_content(15.01)
+  end
 end
