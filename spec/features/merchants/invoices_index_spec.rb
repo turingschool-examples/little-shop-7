@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "the invoices index" do
+RSpec.describe "the merchant invoices index" do
   before(:each) do
     @merchant_1 = create(:merchant)
     @item_1 = create(:item, merchant_id: @merchant_1.id)
@@ -15,8 +15,10 @@ RSpec.describe "the invoices index" do
   end
 
   it "lists all invoices that include at least one of a given merchant's items" do
-    # When I visit my merchant's invoices index
+    # When I visit my merchant's invoices index (/merchants/:merchant_id/invoices)
     visit "/merchants/#{@merchant_1.id}/invoices"
+
+    save_and_open_page
 
     # Then I see all of the invoices that include at least one of my merchant's items
     # And for each invoice I see its id
