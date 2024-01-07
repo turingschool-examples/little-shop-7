@@ -106,11 +106,11 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     fill_in('Description', with: 'The teeniest tiniest toy you ever saw')
     fill_in('Unit price', with: 1501)
     click_button "Create Item"
-    save_and_open_page
 
     expect(current_path).to eq("/merchants/#{merchant.id}/items")
     expect(page).to have_content('Tiny toy')
     expect(page).to have_content('The teeniest tiniest toy you ever saw')
     expect(page).to have_content(15.01)
+    expect(page).to have_content("Name: Tiny toy Description: The teeniest tiniest toy you ever saw, Price: $15.01, Status: disabled")
   end
 end
