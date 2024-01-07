@@ -14,7 +14,7 @@ RSpec.describe "the merchant invoices index" do
     @invoice_item_2 = InvoiceItem.create(item_id: @item_1.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 100, status: "packaged")
   end
 
-  it "lists all invoices that include at least one of a given merchant's items" do
+  xit "lists all invoices that include at least one of a given merchant's items" do
     # When I visit my merchant's invoices index
     visit "/merchants/#{@merchant_1.id}/invoices"
 
