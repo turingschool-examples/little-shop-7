@@ -11,4 +11,13 @@ RSpec.describe Invoice, type: :model do
   describe "enums" do
     it { should define_enum_for(:status).with_values([:"in progress", :completed, :cancelled]) }
   end
+
+  describe "methods" do
+    it "formats created_at date" do
+      @customer = create(:customer)
+      @invoice = create(:invoice, created_at: "2019-07-18 00:00:00")
+    
+      expect(@invoice.format_created_date).to eq("Thursday, July 18, 2019")
+    end
+  end
 end

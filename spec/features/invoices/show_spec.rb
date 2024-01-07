@@ -19,7 +19,7 @@ RSpec.describe "the merchant invoices show page" do
 
     expect(page).to have_content("Invoice ##{@invoice_1.id}")
     expect(page).to have_content("Status: #{@invoice_1.status}")
-    expect(page).to have_content("Created On: #{@invoice_1.created_at}") # alter test to include date format in the story
+    expect(page).to have_content("Created On: #{@invoice_1.format_created_date}")
     expect(page).to have_content("Status: #{@invoice_1.status}")
     expect(page).to have_content("Customer: #{@invoice_1.customer_id.first_name} #{@invoice_1.customer_id.last_name}")
   end
