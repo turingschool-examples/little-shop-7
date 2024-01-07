@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Merchants/Items Edit Page", type: :feature do
   it "has a link to update/edit item information on merchant item show page " do
-    merchant_1 = Merchant.create!(name: "Walmart")
-    merchant_2 = Merchant.create!(name: "Amazon")
+    merchant_1 = Merchant.create!(name: "Walmart", status: :enabled)
+    merchant_2 = Merchant.create!(name: "Amazon", status: :enabled)
     walmart_items = create_list(:item, 37, merchant_id: merchant_1.id)
     amazon_items = create_list(:item, 43, merchant_id: merchant_2.id)
 

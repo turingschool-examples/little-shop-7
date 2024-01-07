@@ -4,8 +4,8 @@ require 'rails_helper'
  RSpec.describe 'Admin Merchants', type: :feature do
   
   before(:each) do
-    @merch_1 = Merchant.create!(name: "Walmart")
-    @merch_2 = Merchant.create!(name: "Target")
+    @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
+    @merch_2 = Merchant.create!(name: "Target", status: :disabled)
 
     @item_1 = @merch_1.items.create!(name: "Apple", description: "red apple", unit_price:1)
     @item_2 = @merch_1.items.create!(name: "Orange", description: "orange orange", unit_price:1)
@@ -62,6 +62,31 @@ require 'rails_helper'
     within '.merchants-index' do
       expect(page).to have_content("Walmart")
       expect(page).to have_content("Target")
+    end
+  end
+
+  # 27. Admin Merchant Enable/Disable
+  it "can disable the merchant" do
+    # When I visit the admin merchants index (/admin/merchants)
+    visit admin_merchants_path
+    # Then next to each merchant name I see a button to disable or enable that merchant.
+    within "#merchant-#{@merch_1.id}" do
+      expect(page).to have_button("disable")
+      expect(page).to have_content("Status: Enabled")
+    end
+    within "#merchant-#{@merch_2.id}" do
+      expect(page).to have_button("enable")
+    end
+    # When I click this button
+    within "#merchant-#{@merch_1.id}" do
+      click_button("disable")
+    end
+    # Then I am redirected back to the admin merchants index
+    expect(current_path).to eq(admin_merchants_path)
+    # And I see that the merchant's status has changed
+    within "#merchant-#{@merch_1.id}" do
+      expect(page).to have_button("enable")
+      expect(page).to have_content("Status: Disabled")
     end
   end
 end
