@@ -28,4 +28,19 @@ class Admin::MerchantsController < ApplicationController
       flash[:notice] = 'Update Successful'
     end
   end
+
+  def create 
+    merchant = Merchant.new(merchant_params)
+    if merchant.save 
+      redirect_to admin_merchants_path
+    else 
+      flash[:error] = "Error: All fields must be filled in to submit"
+      redirect_to new_admin_merchant_path
+    end
+  end
+
+  private
+  def merchant_params
+    params.permit(:name, :id, :status)
+  end
 end
