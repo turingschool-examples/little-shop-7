@@ -7,6 +7,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
+  
 
   def transactions
     Transaction.joins(invoice: { invoice_items: :item }).where(items: { merchant_id: id })

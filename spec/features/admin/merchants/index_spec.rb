@@ -6,6 +6,8 @@ require 'rails_helper'
   before(:each) do
     @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
     @merch_2 = Merchant.create!(name: "Target", status: :disabled)
+    @merch_3 = Merchant.create!(name: "PetSmart", status: :disabled)
+    @merch_4 = Merchant.create!(name: "GameStop", status: :enabled)
 
     @item_1 = @merch_1.items.create!(name: "Apple", description: "red apple", unit_price:1)
     @item_2 = @merch_1.items.create!(name: "Orange", description: "orange orange", unit_price:1)
@@ -53,6 +55,8 @@ require 'rails_helper'
     @ii_17 = InvoiceItem.create!(invoice: @inv_6, item: @item_2, quantity: 10, unit_price: 1, status: :shipped )
     @ii_18= InvoiceItem.create!(invoice: @inv_6, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
     @ii_19 = InvoiceItem.create!(invoice: @inv_6, item: @item_4, quantity: 10, unit_price: 1, status: :pending )
+
+    visit admin_merchants_path
   end
 
   it 'displays the name of each merchant' do
@@ -87,6 +91,28 @@ require 'rails_helper'
     within "#merchant-#{@merch_1.id}" do
       expect(page).to have_button("enable")
       expect(page).to have_content("Status: Disabled")
+    end
+  end
+
+  # User 28 
+  it "I see a section for Enabled Merchants" do 
+    within "#enabled_merch" do 
+      expect(page).to have_content(@merch_1.name)
+      expect(page).to have_content(@merch_4.name)
+      save_and_open_page
+      expect(page).to_not have_content(@merch_2.name)
+      expect(page).to_not have_content(@merch_3.name)
+    end
+  end
+
+  it "I see a section for disabled Merchants" do 
+    within "#disabled_merch" do 
+      expect(page).to have_content(@merch_2.name)
+      expect(page).to have_content(@merch_3.name)
+
+      expect(page).to_not have_content(@merch_1.name)
+      expect(page).to_not have_content(@merch_4.name)
+      
     end
   end
 end
