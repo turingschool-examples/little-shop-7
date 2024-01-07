@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-  namespace :admin do 
+  namespace :admin do
+     root to: "dashboard#index"
     resources :merchants, only:[:index,:show]
-  end
+    resources :invoices, only: [:index, :show]
+  end  
+
   # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
 
   resources :merchants do
    resources :dashboard
   end
+  get "/merchants/:id/invoices", to: "merchants#invoices"
 end
