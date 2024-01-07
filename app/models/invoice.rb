@@ -9,4 +9,8 @@ class Invoice < ApplicationRecord
   def format_created_at
     created_at.strftime("%A, %B %d, %Y")
   end
+
+  def total_revenue
+    invoice_items.sum(:unit_price)
+  end
 end
