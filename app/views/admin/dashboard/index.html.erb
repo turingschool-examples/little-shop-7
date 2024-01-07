@@ -11,7 +11,9 @@
     <div class="top-customers">
       <h2>Top Customers</h2>
       <ol>
-        Under Construction
+        <% @top_customers.each do |customer| %>
+          <li><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transactions_count %> purchases</li>
+        <% end %>      
       </ol>
     </div>
   </div>
