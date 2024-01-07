@@ -14,15 +14,15 @@ RSpec.describe "Merchant Dashboards", type: :feature do
   it "has links to the merchant items index and the merchant invoices index" do 
     visit "/merchants/#{@merchant.id}/dashboard"
     
-    expect(page).to have_link("Merchant items")
-    expect(page).to have_link("Merchant invoices")
+    expect(page).to have_link("Invoices")
+    expect(page).to have_link("Items")
 
-    click_link "Merchant items" 
+    click_link "Items" 
     expect(current_path).to eq("/merchants/#{@merchant.id}/items")
 
     visit "/merchants/#{@merchant.id}/dashboard"
 
-    click_link "Merchant invoices" 
+    click_link "Invoices" 
     expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
   end
   
