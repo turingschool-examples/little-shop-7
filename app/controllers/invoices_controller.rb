@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.create!(invoice_params)
   end
 
-  def show # created for us-15
+  def show
     @invoice = Invoice.find(params[:id])
   end
 

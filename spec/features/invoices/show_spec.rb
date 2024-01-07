@@ -15,8 +15,13 @@ RSpec.describe "the merchant invoices show page" do
   end
 
   it "displays information about a given invoice" do
-    visit /
-    
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_content("Invoice ##{@invoice_1.id}")
+    expect(page).to have_content("Status: #{@invoice_1.status}")
+    expect(page).to have_content("Created On: #{@invoice_1.created_at}") # alter test to include date format in the story
+    expect(page).to have_content("Status: #{@invoice_1.status}")
+    expect(page).to have_content("Customer: #{@invoice_1.customer_id.first_name} #{@invoice_1.customer_id.last_name}")
   end
 
 end
