@@ -14,3 +14,29 @@
   <% end %>
 </section>
 
+<section id = "enabled_merch">
+    <p>Enabled Merchants:</p>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "enabled" %>
+    <ul>
+      <li><%= merchant.name%></li></br>
+    </ul>
+    <% end %>
+  <% end %>
+</section>
+
+<section id = "disabled_merch">
+    <p>Disabled Merchants:</p>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "disabled" %>
+    <ul>
+      <li><%= merchant.name%></li></br>
+    </ul>
+    <% end %>
+  <% end %>
+</section>
+
+<%= link_to 'Create Merchant',  new_admin_merchant_path %>
+
+
+
