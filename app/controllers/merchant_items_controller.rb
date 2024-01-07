@@ -9,6 +9,37 @@ class MerchantItemsController < ApplicationController
     @item = @merchant.items.find(params[:id])
   end
 
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new
+  end
+
+  def create
+    merchant = Merchant.find(params[:merchant_id])
+    item = Item.create({
+      name: params[:item][:name],
+      description: params[:item][:description],
+      unit_price: params[:item][:unit_price],
+      merchant_id: merchant.id,
+      status: 1,
+      created_at: Time.now,
+      updated_at: Time.now
+    })
+    redirect_to "/merchants/#{merchant.id}/items"
+#     merchant = Merchant.find(params[:merchant_id])
+#     item = Item.create(item_params)
+#  redirect_to "/merchants/#{merchant.id}/items"
+
+
+    # if item.save
+    #   redirect_to "/merchants/#{merchant.id}/items"
+    # elsif !item.save
+    #   flash[:notice] = "All essential information not provided, please try again."
+    #   redirect_to "/merchants/#{merchant.id}/items/new"
+    # end
+  end
+
+
   def edit
     @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.find(params[:id])
@@ -46,6 +77,7 @@ class MerchantItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:id, :name, :description, :unit_price)
+    
   end
 
 end
