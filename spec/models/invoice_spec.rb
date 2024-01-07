@@ -28,10 +28,10 @@ RSpec.describe Invoice, type: :model do
 
     invoice = create(:invoice)
 
-    invoice_item_1 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_1)
-    invoice_item_2 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_2)
+    invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
+    invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
     invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
 
-    expect(invoice.total_revenue).to eq(6)
+    expect(invoice.total_revenue).to eq(10)
   end
 end
