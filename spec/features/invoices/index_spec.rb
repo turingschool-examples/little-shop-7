@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "the merchant invoices index" do
+RSpec.describe "the merchant invoices index page" do
   before(:each) do
     @merchant_1 = create(:merchant)
     @item_1 = create(:item, merchant_id: @merchant_1.id)
@@ -31,6 +31,8 @@ RSpec.describe "the merchant invoices index" do
 
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
 
+      # Return to merchant invoices index page
+      visit "/merchants/#{@merchant_1.id}/invoices"
       click_link("Invoice ##{@invoice_2.id}")
 
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}")
