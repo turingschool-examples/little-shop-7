@@ -1,0 +1,5 @@
+<h3><%= "Invoice ##{@invoice.id}" %></h3>
+
+<p><%= "Status: #{@invoice.status.titleize}" %></p>
+<p><%= "Created on: #{@invoice.format_created_date}" %></p>
+<p><%= "Customer: #{@invoice.customer.full_name}" %></p>
