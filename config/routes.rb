@@ -2,14 +2,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
+    resources :merchants, only:[:index, :show]
     resources :invoices, only: [:index, :show]
-    resources :merchants, only: [:index]
-  end
+  end  
 
   # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
 
   resources :merchants do
-    resources :dashboard
+   resources :dashboard
   end
   get "/merchants/:id/invoices", to: "merchants#invoices"
 end
