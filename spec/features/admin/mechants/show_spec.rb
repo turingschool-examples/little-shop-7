@@ -62,9 +62,35 @@ RSpec.describe 'Admin merchant show', type: :feature do
       click_link("#{@merch_1.name}")
       
       # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
-      expect(current_path).to eq(admin_merchant_path(@merch_1.id))
+      expect(current_path).to eq(admin_merchant_path(@merch_1))
       # And I see the name of that merchant
       expect(page).to have_content("Merchant: Walmart")
+    end
+
+    # 26. Admin Merchant Update
+    it "can update merchant info" do 
+      # When I visit a merchant's admin show page (/admin/merchants/:merchant_id)
+      visit admin_merchant_path(@merch_1)
+      # Then I see a link to update the merchant's information.
+      expect(page).to have_link("Update #{@merch_1.name} Info")
+      # When I click the link
+      click_link("Update #{@merch_1.name} Info") 
+      # Then I am taken to a page to edit this merchant
+      expect(current_path).to eq(edit_admin_merchant_path(@merch_1))
+      # And I see a form filled in with the existing merchant attribute information
+      
+      expect(page).to have_field("Merchant Name:", with: "#{@merch_1.name}")
+     
+      fill_in "name", with: "Amazon"
+      # When I update the information in the form and I click ‘submit’
+      click_button("submit")
+      # Then I am redirected back to the merchant's admin show page where I see the updated information
+      expect(current_path).to eq(admin_merchant_path(@merch_1))
+      # And I see a flash message stating that the information has been successfully updated.
+      
+      expect(page).to have_content("Amazon")
+      expect(page).to have_content("Update Successful")
+      
     end
   end
 end
