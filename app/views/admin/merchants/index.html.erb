@@ -4,6 +4,12 @@
   <% @merchants.each do |merchant| %>
     <div id="merchant-<%= merchant.id %>">
       <p><%= link_to "#{merchant.name}", admin_merchant_path(merchant.id)  %></p>
+      <p> Status: <%= merchant.status.capitalize %></p>
+      <% if merchant.status == "enabled" %>
+        <p><%= button_to "disable", admin_merchant_path(merchant.id, update_status: "disable"), method: :patch  %></p>
+      <% else %>
+        <p><%= button_to "enable", admin_merchant_path(merchant.id, update_status: "enable"), method: :patch  %></p>
+      <% end %>  
     </div>
   <% end %>
 </section>

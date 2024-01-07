@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Merchants Items Show Page", type: :feature do
   it "shows the item's attributes including name, description and current price" do
-    merchant_1 = Merchant.create!(name: "Walmart")
+    merchant_1 = Merchant.create!(name: "Walmart", status: :enabled)
     walmart_items = create_list(:item, 3, merchant_id: merchant_1.id)
 
     visit "/merchants/#{merchant_1.id}/items"

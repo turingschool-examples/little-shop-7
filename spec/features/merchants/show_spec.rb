@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "show page" do
   before (:each) do
-    @merchant_1 = Merchant.create!(name: "Walmart")
+    @merchant_1 = Merchant.create!(name: "Walmart", status: :enabled)
     @items = create_list(:item, 31, merchant: @merchant_1)
     @customers = create_list(:customer, 13)
     @customers_with_transactions = create_list(:customer_with_transactions, 13)

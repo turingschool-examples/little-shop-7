@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "admin dashboard" do
   before(:each) do 
-    @merch_1 = Merchant.create!(name: "Walmart")
-    @merch_2 = Merchant.create!(name: "Target")
+    @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
+    @merch_2 = Merchant.create!(name: "Target", status: :enabled)
 
     @item_1 = @merch_1.items.create!(name: "Apple", description: "red apple", unit_price:1)
     @item_2 = @merch_1.items.create!(name: "Orange", description: "orange orange", unit_price:1)
