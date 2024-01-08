@@ -6,5 +6,4 @@ class MerchantsController < ApplicationController
     @transactions = @merchant.transactions
     @not_shipped = @merchant.not_yet_shipped_ascending
   end
-
 end
