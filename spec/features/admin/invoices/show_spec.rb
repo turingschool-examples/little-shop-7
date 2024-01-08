@@ -15,7 +15,7 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
     # Invoice status
     expect(page).to have_content(invoice.status)
     # Invoice created_at date in the format "Monday, July 18, 2019"
-    expect(page).to have_content(invoice.format_created_at)
+    expect(page).to have_content(invoice.format_created_date)
     # Customer first and last name
     expect(page).to have_content(invoice.customer.first_name)
     expect(page).to have_content(invoice.customer.last_name)
