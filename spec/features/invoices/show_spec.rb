@@ -49,30 +49,32 @@ RSpec.describe "the merchant invoices show page" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content("Items on this Invoice:")
-      expect(page).to have_css('table')
-      expect(page).to have_content("Item Name")
-      expect(page).to have_content("Quantity")
-      expect(page).to have_content("Unit Price")
-      expect(page).to have_content("Status")
+      within('table') do
+        expect(page).to have_content('Item Name')
+        expect(page).to have_content('Quantity')
+        expect(page).to have_content('Unit Price')
+        expect(page).to have_content('Status')
+  
+        invoice.invoice_items.each do |invoice_item|
+          expect(page).to have_content(invoice_item.item.name)
+          expect(page).to have_content(invoice_item.quantity)
+          expect(page).to have_content(invoice_item.unit_price)
+          expect(page).to have_content(invoice_item.status)
+        end
+      end
     end
 
     it "displays the correct items in the table based on the merchant who is viewing" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-      expect(page).to have_content(@invoice_item_1.item.name)
-      expect(page).to have_content(@invoice_item_1.quantity)
-      expect(page).to have_content(@invoice_item_1.unit_price)
-      expect(page).to have_content(@invoice_item_1.status)
-      expect(page).to_not have_content(@invoice_item_2.item.name) # should not see item 2 because item 2 does not belong to merchant 1
+      expect(page).to have_content(@invoice_item_1.item.name) # should see item 1 because it belongs to merchant 1
+      expect(page).to_not have_content(@invoice_item_2.item.name) # should NOT see item 2 because it does NOT belong to merchant 1
 
       # Visit the same invoice page, but view as a different merchant
       visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
 
-      expect(page).to have_content(@invoice_item_2.item.name)
-      expect(page).to have_content(@invoice_item_2.quantity)
-      expect(page).to have_content(@invoice_item_2.unit_price)
-      expect(page).to have_content(@invoice_item_2.status)
-      expect(page).to_not have_content(@invoice_item_1.item.name) # should not see item 1 because item 1 does not belong to merchant 2
+      expect(page).to have_content(@invoice_item_2.item.name) # should see item 2 because it belongs to merchant 2
+      expect(page).to_not have_content(@invoice_item_1.item.name) # should NOT see item 1 because is does NOT belong to merchant 2
     end
   end
 end
