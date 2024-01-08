@@ -178,7 +178,7 @@ RSpec.describe Merchant, type: :model do
 
     expect(merchant_1.top_earning_items.count).to eq(5)
     expect(merchant_1.top_earning_items.first.name).to eq("elephant")
-    expect(merchant_1.top_earning_items.last.name).to eq("zoozah")
+    expect(merchant_1.top_earning_items.last.name).to eq("stash")
     expect(merchant_1.top_earning_items.first.total_revenue).to eq(11725500)
   end
 end
