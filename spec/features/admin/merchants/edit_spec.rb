@@ -36,7 +36,21 @@ RSpec.describe "Admin Merchant Update" do
     expect(page).to have_content("Information has succesfully been updated")
   end
 
-  xit "throws an error if update doesn't work :)" do
-    # sad path test here
+  it "throws an error if update doesn't work :)" do
+    #As an admin
+    # when I visit admin merchants edit page
+    merchant_1 = create(:merchant)
+
+    visit edit_admin_merchant_path(merchant_1.id)
+    # And I input invalid data (blank field)
+    fill_in("Merchant Name", with: "")
+    # and click submit
+    click_button("Submit")
+    # I am taken back to the admin merchants edit page
+    expect(current_path).to eq(edit_admin_merchant_path(merchant_1))
+    # And I see a flash message that tells me name can't be blank
+    expect(page).to have_content("Name can't be blank")
+    # And the merchant data was not changed
+    expect(page).to have_content(merchant_1.name)
   end
 end
