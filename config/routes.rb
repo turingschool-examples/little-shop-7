@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    root to: "dashboard#index"
-    resources :merchants, only:[:index, :show]
-    resources :invoices, only: [:index, :show]
-  end  
-
-  # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
+namespace :admin do
+  root to: "dashboard#index"
+  resources :merchants, only:[:index, :show]
+  resources :invoices, only: [:index, :show]
+end 
 
   resources :merchants do
-   resources :dashboard
+    resources :dashboard
+    resources :invoices, only: [:index, :show]
   end
-  get "/merchants/:id/invoices", to: "merchants#invoices"
+  get "/merchants/:merchant_id/invoices", to: "invoices#index"
+  get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
 end
