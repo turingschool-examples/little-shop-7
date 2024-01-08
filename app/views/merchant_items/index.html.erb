@@ -3,9 +3,15 @@
 <p> <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %> </p>
 <br>
 ================================================================
-
+<h1>Top 5 Money-Makers:</h1>
+  <ul>
+    <% @top_earning_items.each do |item| %>
+      <li>Product: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Earned: $<%= item.total_revenue.to_f / 100 %></li>
+    <% end %>
+  </ul>
+  
 <section id="enabled-items">
-
+================================================================
   <h2> Enabled Items </h2>
 
   <% @items.each do |item| %>
