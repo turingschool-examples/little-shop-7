@@ -56,9 +56,9 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
       item_1 = create(:item, unit_price: 1)
       item_2 = create(:item, unit_price: 2)
       item_3 = create(:item, unit_price: 3)
-    
+      
       invoice = create(:invoice)
-    
+      
       invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
       invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
       invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
@@ -68,7 +68,7 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
       expect(page).to have_content(invoice.total_revenue)
     end
   end
-
+  
   describe "User Story 36" do
     # As an admin     
     # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
@@ -80,8 +80,23 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
     # When I click this button
     # I am taken back to the admin invoice show page
     # And I see that my Invoice's status has now been updated
-
+    
     it "adds the functionality to update the invoice's status" do
+      item = create(:item)
+      invoice = create(:invoice)
+      invoice_item = create(:invoice_item, invoice: invoice, item: item)
+      # require 'pry'; binding.pry
+      visit admin_invoice_path(invoice)
+# need to hardcode the status to packaged, so shipped can be tested
+      expect(page).to have_content(invoice.status)
+      expect(page).to have_select("invoice_status", with_options: ["", "pending", "packaged", "shipped"])
+      expect(page).to have_button("Update Invoice")
+      # save_and_open_page
+      select("shipped", from: "invoice_status")
+      click_button("Update Invoice")
+      
+      expect(page).to have_button("Update Invoice")
+      expect(page).to have_content(invoice.status = "shipped")
 
     end
 
