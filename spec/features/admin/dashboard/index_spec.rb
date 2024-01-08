@@ -13,14 +13,15 @@ RSpec.describe "Admin Dashboard Index" do
   end
 
   xit "has a header indicating you are on the admin dashboard" do
-    # require 'pry'; binding.pry
     # 19. Admin Dashboard
 
     # As an admin,
     # When I visit the admin dashboard (/admin)
-    visit "/"
+    visit admin_root_path
+
     # Then I see a header indicating that I am on the admin dashboard
     expect(page).to have_content("Admin Dashboard Official")
+    # save_and_open_page
   end
 
   xit "has links to the Admin Merchants Index and Admind Invouces Index" do
@@ -28,7 +29,8 @@ RSpec.describe "Admin Dashboard Index" do
 
     # As an admin,
     # When I visit the admin dashboard (/admin)
-    visit "/"
+    visit admin_root_path
+
     # Then I see a link to the admin merchants index (/admin/merchants)
     expect(page).to have_link("Admin Merchants Index")
     # And I see a link to the admin invoices index (/admin/invoices)
@@ -40,7 +42,8 @@ RSpec.describe "Admin Dashboard Index" do
 
   #   # As an admin,
   #   # When I visit the admin dashboard (/admin)
-  #   visit "/"
+  #   visit root_path
+
   #   # Then I see the names of the top 5 customers
   #   expect(page).to have_content("Top 5 Customers")
   #   # who have conducted the largest number of successful transactions
