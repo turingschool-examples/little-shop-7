@@ -40,4 +40,23 @@ RSpec.describe "admin/invoices/show_spec.rb", type: :feature do
     # - The Invoice Item status
     expect(page).to have_content(invoice_item.status)
   end
+
+  it "tests User Story 35: Admin Invoice Show Page: Total Revenue" do
+    item_1 = create(:item, unit_price: 1)
+    item_2 = create(:item, unit_price: 2)
+    item_3 = create(:item, unit_price: 3)
+  
+    invoice = create(:invoice)
+  
+    invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
+    invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
+    invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
+    
+    # As an admin
+    # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+    visit admin_invoice_path(invoice)
+    
+    # Then I see the total revenue that will be generated from this invoice.
+    expect(page).to have_content(invoice.total_revenue)
+  end
 end

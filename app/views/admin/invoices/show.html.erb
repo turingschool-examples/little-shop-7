@@ -3,7 +3,7 @@
 <h2>List of Invoices w/Customers</h2>
   <p>Invoice ID: <%= @invoice.id %>
   <br>
-  <p>Invoice Status: $<%= @invoice.status %>
+  <p>Invoice Status: <%= @invoice.status %>
   <br>
   <p>Invoice Date: <%= @invoice.format_created_at %>
   <br>
@@ -21,3 +21,5 @@
     <br>
     <p>Status: <%= invoice_item.status %>
   <% end %>
+
+  <h2 style="color: red;">Total Revenue: <%= @invoice.total_revenue %> </h2>

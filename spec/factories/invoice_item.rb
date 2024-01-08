@@ -3,7 +3,7 @@ FactoryBot.define do
     association :invoice
     association :item
     quantity { [1,2,3,4,5].sample }
-    unit_price { Faker::Commerce.price(range: 0..10000.0) }
+    unit_price { item.unit_price }
     status { [0,1,2].sample }
   end
 end
