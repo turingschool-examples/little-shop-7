@@ -14,7 +14,6 @@ RSpec.describe "the merchant dashboard index page" do
 
     visit "/merchants/#{merchant.id}/dashboard"
 
-    save_and_open_page
 
     expect(page).to have_link 'View Items', href: "/merchants/#{merchant.id}/items"
     expect(page).to have_link 'View Invoices', href: "/merchants/#{merchant.id}/invoices"

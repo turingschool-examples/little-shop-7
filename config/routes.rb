@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   end  
 
   # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
+
   resources :merchants do
-   resources :dashboard
+    resources :dashboard
+    resources :invoices, only: [:index, :show]
   end
-  get "/merchants/:id/invoices", to: "merchants#invoices"
+  get "/merchants/:merchant_id/invoices", to: "invoices#index"
+  get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
 end
