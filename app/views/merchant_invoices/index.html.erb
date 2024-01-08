@@ -1,0 +1,11 @@
+<h1>Invoices for <%= @merchant.name %></h1>
+
+<h2>
+  <% @merchant_invoices.each_with_index do |invoice, i| %>
+    <tr>
+      <td><%= "#{i}." %></td> 
+      <td>Invoice ID: <%= link_to invoice.id, "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %></td>
+    </tr>
+    <br>
+  <% end %>
+</h2>
