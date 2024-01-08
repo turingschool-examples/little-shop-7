@@ -17,7 +17,7 @@ class Merchant < ApplicationRecord
             .joins("JOIN invoice_items ON invoice_items.invoice_id = invoices.id")
             .joins("JOIN items ON items.id = invoice_items.item_id AND items.merchant_id = #{id}")
             .select('customers.*, COUNT(transactions.id) AS transactions_count')
-            .where(transactions: { result: 'success' })  # Adjust based on how you define a successful transaction
+            .where(transactions: { result: 'success' })
             .group('customers.id')
             .order('transactions_count DESC')
             .limit(5)
@@ -38,5 +38,15 @@ class Merchant < ApplicationRecord
     AND (invoice_items.status = '0'
     OR invoice_items.status = '1')
     ORDER BY invoices.created_at;"]
+  end
+
+  def top_earning_items
+    Item.find_by_sql(["SELECT items.*, SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue
+    FROM items
+    INNER JOIN invoice_items ON items.id = invoice_items.item_id
+    WHERE items.merchant_id = ?
+    GROUP BY items.id
+    ORDER BY total_revenue DESC
+    LIMIT 5", id])
   end
 end
