@@ -45,7 +45,7 @@ RSpec.describe "the merchant invoices show page" do
     # The Invoice Item status
     # And I do not see any information related to Items for other merchants
 
-    xit "displays a table of items" do
+    it "displays a table of items" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content("Items on this Invoice:")
@@ -71,7 +71,6 @@ RSpec.describe "the merchant invoices show page" do
 
       it "displays total revenue generated from my items on the invoice" do
         visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-        save_and_open_page
 
         expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_1)}")
 
