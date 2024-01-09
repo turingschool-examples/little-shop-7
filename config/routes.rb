@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
 
@@ -13,7 +12,8 @@ Rails.application.routes.draw do
     resources :invoices, only: :index
   end
 
-  get "/merchants/:merchant_id/items", to: "merchant_items#index"
-  get "/merchants/:id/dashboard", to: "merchants#show"
+  get "/merchants/:id/dashboard",               to: "merchants#show"
+  get "/merchants/:merchant_id/items",          to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/:item_id", to: "items#show"
 
 end
