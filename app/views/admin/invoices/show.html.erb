@@ -1,7 +1,7 @@
 <h1><%=@invoice.id%></h1>
 <p><%=@invoice.status%></p>
 <p><%=@invoice.created_at.strftime("%A, %B %d, %Y")%></p>
-<p><%=@invoice.customer.full_name%></p>
+<p><%=@invoice.customer.first_name%> <%=@invoice.customer.last_name  %></p>
 
 
 <section class = "status-update">
