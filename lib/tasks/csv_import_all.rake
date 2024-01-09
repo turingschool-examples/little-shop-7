@@ -19,7 +19,7 @@ namespace :csv_import do
     filename = 'db/data/customers.csv'
     Customer.destroy_all
 
-    CSV.foreach(filename, headers: true) do |row| 
+    CSV.foreach(filename, headers: true) do |row|
       Customer.create!(row.to_hash)
     end
 
