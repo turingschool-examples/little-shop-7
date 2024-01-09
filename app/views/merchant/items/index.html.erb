@@ -2,5 +2,7 @@
 <h1><%= @merchant.name %>'s items</h1>
 
 <% @merchant.items.each do |item| %>
-    <h3><%= item.name %></h3>
+    <div>
+        <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
+    </div>
 <% end %>
