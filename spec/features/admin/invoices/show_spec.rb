@@ -111,5 +111,11 @@ RSpec.describe 'Admin Show Spec', type: :feature do
         expect(page).to have_content(@ii_3.status)
       end
     end
+
+    it 'Shows an invoices total revenue' do
+      visit admin_invoice_path(@inv_1)
+
+      expect(page).to have_content(@inv_1.total_revenue)
+    end
   end
 end
