@@ -26,4 +26,16 @@ class Item < ApplicationRecord
     LIMIT 1;"])
     date.first.date.to_fs(:long)
   end
+
+  def quantity_ordered(item_id, invoice_id)
+    invoice_items.where(item_id: item_id, invoice_id: invoice_id)
+      .pluck(:quantity)
+      .first
+  end
+
+  def invoice_status(item_id, invoice_id)
+    invoice_items.where(item_id: item_id, invoice_id: invoice_id)
+      .pluck(:status)
+      .first
+  end
 end

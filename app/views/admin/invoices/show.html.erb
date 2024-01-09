@@ -12,3 +12,12 @@
     <%=f.submit "Update"%>
   <% end %>
 </section>
+
+<% @invoice.items.each do |item| %>
+  <section id="item-details-<%= item.id %>">
+    <p><%= item.name %></p>
+    <p><%= item.quantity_ordered(item.id, @invoice.id) %></p>
+    <p><%= item.unit_price %></p>
+    <p><%= item.invoice_status(item.id, @invoice.id) %></p>
+  </section>
+<% end %>
