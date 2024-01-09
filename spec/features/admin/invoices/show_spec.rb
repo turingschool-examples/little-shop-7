@@ -80,5 +80,36 @@ RSpec.describe 'Admin Show Spec', type: :feature do
         expect(page).to have_content("Current Status: cancelled")
       end 
     end
+
+    # 34. Admin Invoice Show Page: Invoice Item Information
+    it "displays item info" do 
+      # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+      visit admin_invoice_path(@inv_1)
+      # Then I see all of the items on the invoice including:
+      # - Item name
+      # - The quantity of the item ordered
+      # - The price the Item sold for
+      # - The Invoice Item status
+      within "#item-details-#{@item_1.id}" do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@ii_1.quantity)
+        expect(page).to have_content(@item_1.unit_price)
+        expect(page).to have_content(@ii_1.status)
+      end
+
+      within "#item-details-#{@item_2.id}" do
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content(@ii_2.quantity)
+        expect(page).to have_content(@item_2.unit_price)
+        expect(page).to have_content(@ii_2.status)
+      end
+
+      within "#item-details-#{@item_3.id}" do
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@ii_1.quantity)
+        expect(page).to have_content(@item_3.unit_price)
+        expect(page).to have_content(@ii_3.status)
+      end
+    end
   end
 end
