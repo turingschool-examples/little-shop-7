@@ -1,8 +1,6 @@
-
 require 'rails_helper'
 
- RSpec.describe 'Admin Merchants', type: :feature do
-
+RSpec.describe 'Admin Invoices Index', type: :feature do
   before(:each) do
     @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
     @merch_2 = Merchant.create!(name: "Target", status: :disabled)
@@ -70,102 +68,23 @@ require 'rails_helper'
     @ii_23 = InvoiceItem.create!(invoice: @inv_6, item: @item_11, quantity: 2, unit_price: 1, status: :shipped )
   end
 
-  it 'displays the name of each merchant' do
-    visit admin_merchants_path
-    within '.merchants-index' do
-      expect(page).to have_content("Walmart")
-      expect(page).to have_content("Target")
-    end
-  end
-
-  # 27. Admin Merchant Enable/Disable
-  it "can disable the merchant" do
-    # When I visit the admin merchants index (/admin/merchants)
-    visit admin_merchants_path
-    # Then next to each merchant name I see a button to disable or enable that merchant.
-    within "#merchant-#{@merch_1.id}" do
-      expect(page).to have_button("disable")
-      expect(page).to have_content("Status: Enabled")
-    end
-    within "#merchant-#{@merch_2.id}" do
-      expect(page).to have_button("enable")
-    end
-    # When I click this button
-    within "#merchant-#{@merch_1.id}" do
-      click_button("disable")
-    end
-    # Then I am redirected back to the admin merchants index
-    expect(current_path).to eq(admin_merchants_path)
-    # And I see that the merchant's status has changed
-    within "#merchant-#{@merch_1.id}" do
-      expect(page).to have_button("enable")
-      expect(page).to have_content("Status: Disabled")
-    end
-  end
-
-  # User 28
-  it "I see a section for Enabled Merchants" do
-    visit admin_merchants_path
-
-    within "#enabled_merch" do
-      expect(page).to have_content(@merch_1.name)
-      expect(page).to have_content(@merch_4.name)
-
-      expect(page).to_not have_content(@merch_2.name)
-      expect(page).to_not have_content(@merch_3.name)
-    end
-  end
-
-  it "I see a section for disabled Merchants" do
-    visit admin_merchants_path
-    within "#disabled_merch" do
-      expect(page).to have_content(@merch_2.name)
-      expect(page).to have_content(@merch_3.name)
-
-      expect(page).to_not have_content(@merch_1.name)
-      expect(page).to_not have_content(@merch_4.name)
-    end
-  end
-
-  # US 30
-  it " sees the top 5 merchants by revenue" do 
-    
-    inv1 = @cust_1.invoices.create!(status: :completed)
-    inv2 = @cust_2.invoices.create!(status: :completed)
-    inv3 = @cust_3.invoices.create!(status: :completed)
-    inv4 = @cust_4.invoices.create!(status: :completed)
-    inv5 = @cust_5.invoices.create!(status: :completed)
-    inv6 = @cust_6.invoices.create!(status: :completed)
-   
-    tran1 = inv1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
-    tran2 = inv2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
-    tran3 = inv3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
-    tran4 = inv4.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "04/2024", result: :success )
-    tran5 = inv5.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "05/2025", result: :success )
-    tran6 = inv6.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "06/2026", result: :success )
-
-    ii1 = InvoiceItem.create!(invoice: inv1, item: @item_1, quantity: 1000, unit_price: 1, status: :shipped )
-    ii2 = InvoiceItem.create!(invoice: inv2, item: @item_3, quantity: 250, unit_price: 1, status: :shipped )
-    ii3 = InvoiceItem.create!(invoice: inv3, item: @item_5, quantity: 300, unit_price: 1, status: :shipped )
-    ii4 = InvoiceItem.create!(invoice: inv4, item: @item_7, quantity: 100, unit_price: 1, status: :shipped )
-    ii5 = InvoiceItem.create!(invoice: inv5, item: @item_9, quantity: 600, unit_price: 1, status: :shipped )
-    ii6 = InvoiceItem.create!(invoice: inv6, item: @item_11, quantity: 10, unit_price: 1, status: :shipped )
-
-    visit admin_merchants_path
-
-    within ".top_5_revenue" do 
-      expect(page).to have_content("Walmart Revenue: $14300")
-      expect(page).to have_content("Target Revenue: $2400")
-      expect(page).to have_content("PetSmart Revenue: $600")
-      expect(page).to have_content("GameStop Revenue: $200")
-      expect(page).to have_content("Sams Revenue: $1200")
-      expect(page).to_not have_content("Costco")
-      
-      expect(page).to have_link(@merch_1.name)
-      expect(page).to have_link(@merch_2.name)
-      expect(page).to have_link(@merch_3.name)
-      expect(page).to have_link(@merch_4.name)
-      expect(page).to have_link(@merch_5.name)
-    end
+  # 32. Admin Invoices Index Page
+  it 'can show all invoice ids with links' do
+    # When I visit the admin Invoices index (/admin/invoices)
+    visit admin_invoices_path
+    # Then I see a list of all Invoice ids in the system
+    expect(page).to have_content(@inv_1.id)
+    expect(page).to have_content(@inv_2.id)
+    expect(page).to have_content(@inv_3.id)
+    expect(page).to have_content(@inv_4.id)
+    expect(page).to have_content(@inv_5.id)
+    expect(page).to have_content(@inv_6.id)
+    # Each id links to the admin invoice show page
+    expect(page).to have_link(@inv_1.id)
+    expect(page).to have_link(@inv_2.id)
+    expect(page).to have_link(@inv_3.id)
+    expect(page).to have_link(@inv_4.id)
+    expect(page).to have_link(@inv_5.id)
+    expect(page).to have_link(@inv_6.id)
   end
 end

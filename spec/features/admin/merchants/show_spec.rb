@@ -58,8 +58,9 @@ RSpec.describe 'Admin merchant show', type: :feature do
     it 'clickable links on admin merchant' do
       # When I click on the name of a merchant from the admin merchants index page (/admin/merchants),
       visit admin_merchants_path
-
-      click_link("#{@merch_1.name}")
+      within ".merchants-index" do 
+        click_link("#{@merch_1.name}")
+      end
       
       # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
       expect(current_path).to eq(admin_merchant_path(@merch_1))

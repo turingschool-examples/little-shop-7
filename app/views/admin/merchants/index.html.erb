@@ -15,7 +15,7 @@
 </section>
 
 <section id = "enabled_merch">
-    <p>Enabled Merchants:</p>
+    <h2>Enabled Merchants:</h2>
   <% @merchants.each do |merchant| %>
     <% if merchant.status == "enabled" %>
     <ul>
@@ -26,11 +26,11 @@
 </section>
 
 <section id = "disabled_merch">
-    <p>Disabled Merchants:</p>
+    <h2>Disabled Merchants:</h2>
   <% @merchants.each do |merchant| %>
     <% if merchant.status == "disabled" %>
     <ul>
-      <li><%= merchant.name%></li></br>
+      <li><%= merchant.name%></li><br>
     </ul>
     <% end %>
   <% end %>
@@ -38,5 +38,13 @@
 
 <%= link_to 'Create Merchant',  new_admin_merchant_path %>
 
+
+<section class = "top_5_revenue">
+    <h3>Top 5 Merchants by Revenue</h3>
+  <% @top_5_merch.each do |merchant| %>
+      <p><%= link_to "#{merchant.name}", admin_merchant_path(merchant)%>  Revenue: $<%= merchant.revenue%> </p>
+
+  <% end %>
+</section>
 
 
