@@ -1,8 +1,8 @@
 
 require 'rails_helper'
- 
+
  RSpec.describe 'Admin Merchants', type: :feature do
-  
+
   before(:each) do
     @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
     @merch_2 = Merchant.create!(name: "Target", status: :disabled)
@@ -37,7 +37,7 @@ require 'rails_helper'
     @inv_4 = @cust_4.invoices.create!(status: :completed)
     @inv_5 = @cust_5.invoices.create!(status: :in_progress,created_at:Time.new(2024, 02, 1))
     @inv_6 = @cust_6.invoices.create!(status: :cancelled, created_at:Time.new(2021, 10, 31))
-   
+
     @tran_1 = @inv_1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
     @tran_2 = @inv_2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
     @tran_3 = @inv_3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
@@ -108,7 +108,9 @@ require 'rails_helper'
 
     visit admin_merchants_path
 
-    within "#enabled_merch" do 
+  # User 28
+  it "I see a section for Enabled Merchants" do
+    within "#enabled_merch" do
       expect(page).to have_content(@merch_1.name)
       expect(page).to have_content(@merch_4.name)
 
@@ -117,10 +119,9 @@ require 'rails_helper'
     end
   end
 
-  it "I see a section for disabled Merchants" do 
-
+  it "I see a section for disabled Merchants" do
     visit admin_merchants_path
-    within "#disabled_merch" do 
+    within "#disabled_merch" do
       expect(page).to have_content(@merch_2.name)
       expect(page).to have_content(@merch_3.name)
 

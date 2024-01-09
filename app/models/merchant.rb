@@ -7,7 +7,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
-  
+
 
   def transactions
     Transaction.joins(invoice: { invoice_items: :item }).where(items: { merchant_id: id })
@@ -42,10 +42,14 @@ class Merchant < ApplicationRecord
   end
 
   def top_earning_items
+    #self.items.joins(invoices: :transactions).where("transactions.result = 1").group("items.id").select("SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue, items.*").order("total_revenue desc").limit(5)
     Item.find_by_sql(["SELECT items.*, SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue
-    FROM items
-    INNER JOIN invoice_items ON items.id = invoice_items.item_id
-    WHERE items.merchant_id = ?
+    FROM
+    items
+    JOIN invoice_items ON items.id = invoice_items.item_id
+    JOIN invoices ON invoice_items.invoice_id = invoices.id
+    JOIN transactions ON invoices.id = transactions.invoice_id
+    WHERE items.merchant_id = #{self.id} AND transactions.result = 0
     GROUP BY items.id
     ORDER BY total_revenue DESC
     LIMIT 5", id])
@@ -58,5 +62,8 @@ class Merchant < ApplicationRecord
       .group("merchants.id")
       .order("revenue DESC")
       .limit(5)
-  end
+end
+
+def merchant_invoices
+    Invoice.joins(:items).where("#{self.id} = items.merchant_id").distinct #US-13 NKL
 end

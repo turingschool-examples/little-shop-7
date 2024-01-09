@@ -152,7 +152,7 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     invoice_item5 = invoice2.invoice_items.create!(item_id: item5.id, quantity: 4, unit_price: 4, status: 2)
     invoice_item6 = invoice3.invoice_items.create!(item_id: item6.id, quantity: 1, unit_price: 1030, status: 2)
     invoice_item7 = invoice3.invoice_items.create!(item_id: item7.id, quantity: 4, unit_price: 1070, status: 2)
-    invoice_item8 = invoice4.invoice_items.create!(item_id: item8.id, quantity: 3, unit_price: 1200, status: 2)
+    invoice_item8 = invoice4.invoice_items.create!(item_id: item8.id, quantity: 3, unit_price: 1200000, status: 2)
     invoice_item9 = invoice4.invoice_items.create!(item_id: item9.id, quantity: 5, unit_price: 600, status: 2)
     invoice_item10 = invoice4.invoice_items.create!(item_id: item10.id, quantity: 1, unit_price: 2100, status: 2)
     invoice_item11 = invoice5.invoice_items.create!(item_id: item11.id, quantity: 5, unit_price: 2345100, status: 2)
@@ -176,18 +176,8 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     expect(page).to have_content("Product: car seat cooler Earned: $1617.0")
     expect(page).to have_content("Product: sorry notes Earned: $312.9")
     expect(page).to have_content("Product: syrup Earned: $260.8")
-    expect(page).to have_content("Product: zoozah Earned: $63.72")
-    
-    expect("Earned: $117255.0").to appear_before("Earned: $63.72")
+    expect(page).to have_content("Product: stash Earned: $42.8")
+
+    expect("Earned: $117255.0").to appear_before("Earned: $42.8")
   end
 end
-# Merchant Items Index: 5 most popular items. As a merchant When I visit my items index page
-  # Then I see the names of the top 5 most popular items ranked by total revenue generated
-  # And I see that each item name links to my merchant item show page for that item
-  # And I see the total revenue generated next to each item name
-
-  # Notes on Revenue Calculation:
-  # - Only invoices with at least one successful transaction should count towards revenue -
-  # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items -
-  # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity
-  # (do not use the item unit price)
