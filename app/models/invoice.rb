@@ -15,6 +15,7 @@ class Invoice < ApplicationRecord
       .where(invoice_items: { status: [:packaged, :pending] })
       .where(status: "in progress") 
       .distinct
+      .order(created_at: :asc) 
   end
 
 end
