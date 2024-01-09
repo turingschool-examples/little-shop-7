@@ -1,7 +1,7 @@
 require "rails_helper"
 
 
-RSpec.describe "the admin dashboard show" do
+RSpec.describe "the admin invoices show" do
   before :each do
     @test_customer = Customer.create!(first_name: "Test", last_name: "Customer")
     @merchant = Merchant.create!(name: "Test Merchant")
