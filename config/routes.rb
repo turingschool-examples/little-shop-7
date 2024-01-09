@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
   end
 
-  get "/merchants/:id/dashboard",               to: "merchants#show"
-  get "/merchants/:merchant_id/items",          to: "merchant_items#index"
-  get "/merchants/:merchant_id/items/:item_id", to: "items#show"
-
+  get   "/merchants/:id/dashboard",                     to: "merchants#show"
+  get   "/merchants/:merchant_id/items",                to: "merchant_items#index"
+  get   "/merchants/:merchant_id/items/:item_id",       to: "items#show"
+  patch "/merchants/:merchant_id/items/:item_id",       to: "items#update"
+  get   "/merchants/:merchant_id/items/:item_id/edit",  to: "items#edit"
 end
