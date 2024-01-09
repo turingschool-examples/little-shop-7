@@ -169,7 +169,7 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     transaction7 = invoice7.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/23", result: 0)
 
     visit merchant_items_path(merchant_1)
-save_and_open_page
+
     expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
     expect(page).to have_content("Top 5 Money-Makers:")
     expect(page).to have_content("Product: elephant Earned: $117255.0")
@@ -187,7 +187,7 @@ save_and_open_page
   item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 10)
   item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 10)
   item3 = merchant_1.items.create!(name: "zipper", description: "pants", unit_price: 10)
-  
+
   customer1 = Customer.create!(first_name: "John", last_name: "Smith")
   customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
   customer3 = Customer.create!(first_name: "Jaques", last_name: "Snipes")

@@ -54,7 +54,7 @@ class Merchant < ApplicationRecord
     ORDER BY total_revenue DESC
     LIMIT 5", id])
   end
-  
+
   def merchant_invoices
     Invoice.joins(:items).where("#{self.id} = items.merchant_id").distinct #US-13 NKL
   end
@@ -66,6 +66,10 @@ class Merchant < ApplicationRecord
       .group("merchants.id")
       .order("revenue DESC")
       .limit(5)
-  end  
-
+  end
+  def total_invoice_revenue(invoice)
+    invoice.invoice_items.joins(:item)
+      .where("items.merchant_id = #{self.id}")
+      .sum("quantity * invoice_items.unit_price")
+  end
 end
