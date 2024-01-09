@@ -64,7 +64,21 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       expect(page).to have_content(@inv_1.id)
       expect(page).to have_content(@inv_1.status)
       expect(page).to have_content(@inv_1.created_at.strftime("%A, %B %d, %Y"))
-      expect(page).to have_content(@inv_1.customer.full_name)
+      expect(page).to have_content("#{@inv_1.customer.first_name} #{@inv_1.customer.last_name}")
+      save_and_open_page
+    end
+
+    it "Update invoice status" do 
+      visit admin_invoice_path(@inv_3)
+
+      within ".status-update" do 
+        expect(page).to have_content("Current Status: completed")
+
+        select("cancelled", from: "status")
+        click_button "Update"
+      
+        expect(page).to have_content("Current Status: cancelled")
+      end 
     end
   end
 end

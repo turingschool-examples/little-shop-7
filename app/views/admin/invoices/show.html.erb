@@ -1,4 +1,14 @@
 <h1><%=@invoice.id%></h1>
 <p><%=@invoice.status%></p>
 <p><%=@invoice.created_at.strftime("%A, %B %d, %Y")%></p>
-<p><%=@invoice.customer.full_name%></p>
+<p><%=@invoice.customer.first_name%> <%=@invoice.customer.last_name  %></p>
+
+
+<section class = "status-update">
+  <p>Current Status: <%=@invoice.status %></p>
+  <%= form_with url: admin_invoice_path(@invoice) , method: :patch , local: true do |f| %>
+    <%=f.label :status%>
+    <%=f.select :status, ["in progress", "completed", "cancelled"]%>
+    <%=f.submit "Update"%>
+  <% end %>
+</section>
