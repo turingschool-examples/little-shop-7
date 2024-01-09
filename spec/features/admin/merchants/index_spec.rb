@@ -112,7 +112,10 @@ RSpec.describe "Merchants Index Page" do
       shorts = Item.create!(name: "Shorts", description: "Makes the wearer look relaxed", unit_price: 5000, merchant_id: @merchant_3.id)
       jacket = Item.create!(name: "Jacket", description: "Makes the wearer look stuffy", unit_price: 20000, merchant_id: @merchant_4.id)
 
-      create(:item)
+      create_list(:invoice, 50)
+      create_list(:invoice_item, 50)
+      create_list(:transaction, 100)
+      create_list(:customer, 20)
 
       require 'pry'; binding.pry
       expect(page).to have_content("Top Merchants")
@@ -123,7 +126,36 @@ RSpec.describe "Merchants Index Page" do
         expect(@merchant_3.name).to appear_before(@merchant_2.name)
         expect(@merchant_2.name).to appear_before(@merchant_1.name)
       end
+    end
 
+    it "has the total revenue generated for each merchant listed, and a link to each merchant's admin show page" do
+      visit admin_merchants_path
+
+      within "#top-merchant-#{@merchant_1.id}" do
+        expect(page).to have_content("$xxx,xxx in sales")
+        page.assert_selector(link: "#{@merchant_1.name}", href: admin_merchant(@merchant_1.id))
+      end
+
+      within "#top-merchant-#{@merchant_2.id}" do
+        expect(page).to have_content("$xxx,xxx in sales")
+        page.assert_selector(link: "#{@merchant_2.name}", href: admin_merchant(@merchant_2.id))
+
+      end
+
+      within "#top-merchant-#{@merchant_3.id}" do
+        expect(page).to have_content("$xxx,xxx in sales")
+        page.assert_selector(link: "#{@merchant_3.name}", href: admin_merchant(@merchant_3.id))
+      end
+
+      within "#top-merchant-#{@merchant_4.id}" do
+        expect(page).to have_content("$xxx,xxx in sales")
+        page.assert_selector(link: "#{@merchant_4.name}", href: admin_merchant(@merchant_4.id))
+      end
+
+      within "#top-merchant-#{@merchant_5.id}" do
+        expect(page).to have_content("$xxx,xxx in sales")
+        page.assert_selector(link: "#{@merchant_5.name}", href: admin_merchant(@merchant_5.id))
+      end
     end
   end
 end
