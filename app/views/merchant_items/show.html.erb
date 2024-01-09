@@ -1,0 +1,15 @@
+<% if flash[:alert] %>
+  <div class="alert alert-info">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<h1><%= @item.name %> info:</h1>
+
+<h2><ul>
+  <li>Description: <%= @item.description %></li>
+  <li>Unit Price: <%= @item.unit_price %></li>
+</ul></h2>
+
+
+<p><%= link_to "Update Item", "/merchants/#{@merchant.id}/items/#{@item.id}/edit" %>

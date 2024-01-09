@@ -1,0 +1,50 @@
+<h1>Merchants</h1>
+
+<section class = "merchants-index">
+  <% @merchants.each do |merchant| %>
+    <div id="merchant-<%= merchant.id %>">
+      <p><%= link_to "#{merchant.name}", admin_merchant_path(merchant.id)  %></p>
+      <p> Status: <%= merchant.status.capitalize %></p>
+      <% if merchant.status == "enabled" %>
+        <p><%= button_to "disable", admin_merchant_path(merchant.id, update_status: "disable"), method: :patch  %></p>
+      <% else %>
+        <p><%= button_to "enable", admin_merchant_path(merchant.id, update_status: "enable"), method: :patch  %></p>
+      <% end %>  
+    </div>
+  <% end %>
+</section>
+
+<section id = "enabled_merch">
+    <h2>Enabled Merchants:</h2>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "enabled" %>
+    <ul>
+      <li><%= merchant.name%></li></br>
+    </ul>
+    <% end %>
+  <% end %>
+</section>
+
+<section id = "disabled_merch">
+    <h2>Disabled Merchants:</h2>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "disabled" %>
+    <ul>
+      <li><%= merchant.name%></li><br>
+    </ul>
+    <% end %>
+  <% end %>
+</section>
+
+<%= link_to 'Create Merchant',  new_admin_merchant_path %>
+
+
+<section class = "top_5_revenue">
+    <h3>Top 5 Merchants by Revenue</h3>
+  <% @top_5_merch.each do |merchant| %>
+      <p><%= link_to "#{merchant.name}", admin_merchant_path(merchant)%>  Revenue: $<%= merchant.revenue%> </p>
+
+  <% end %>
+</section>
+
+
