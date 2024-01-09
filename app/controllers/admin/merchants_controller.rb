@@ -1,6 +1,6 @@
 class Admin::MerchantsController < ApplicationController
   layout 'admin/layouts/admin'
-  
+
   def index
     @merchants = Merchant.all
   end

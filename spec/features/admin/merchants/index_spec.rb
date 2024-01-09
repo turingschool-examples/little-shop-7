@@ -99,8 +99,6 @@ RSpec.describe "Merchants Index Page" do
 
   describe "User Story 30" do
     it "displays the top 5 merchants by total revenue generated" do
-      visit admin_merchants_path
-
       hat = Item.create!(name: "Hat", description: "Makes the wearer look fancy", unit_price: 15000, merchant_id: @merchant_1.id)
       shirt = Item.create!(name: "Shirt", description: "Makes the wearer look kind", unit_price: 5000, merchant_id: @merchant_2.id)
       pants = Item.create!(name: "Pants", description: "Makes the wearer look strong", unit_price: 20000, merchant_id: @merchant_3.id)
@@ -112,15 +110,23 @@ RSpec.describe "Merchants Index Page" do
       shorts = Item.create!(name: "Shorts", description: "Makes the wearer look relaxed", unit_price: 5000, merchant_id: @merchant_3.id)
       jacket = Item.create!(name: "Jacket", description: "Makes the wearer look stuffy", unit_price: 20000, merchant_id: @merchant_4.id)
 
-      create_list(:invoice, 50)
-      create_list(:invoice_item, 50)
-      create_list(:transaction, 100)
-      create_list(:customer, 20)
+      Item.all.each do |item|
+        create(:invoice_item, item_id: item.id, quantity: 1)
+      end
 
-      require 'pry'; binding.pry
+      InvoiceItem.all.each do |invoice_item|
+        create(:invoice, id: invoice_item.item_id)
+      end
+
+      Invoice.all.each do |invoice|
+        create(:transaction, result: "success", invoice_id: invoice.id)
+      end
+      
+      visit admin_merchants_path
+
       expect(page).to have_content("Top Merchants")
-
-      within ".top-merchants" do
+      within "#top-merchants" do
+        save_and_open_page
         expect(@merchant_4.name).to appear_before(@merchant_5.name)
         expect(@merchant_5.name).to appear_before(@merchant_3.name)
         expect(@merchant_3.name).to appear_before(@merchant_2.name)
