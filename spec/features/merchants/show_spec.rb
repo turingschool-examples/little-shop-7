@@ -88,7 +88,7 @@ RSpec.describe "show page" do
   it "has a section for Items Ready to Ship, where there is a list of my items that have been ordered but not shipped" do
     item1 = @merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 100)
     item2 = @merchant_1.items.create!(name: "popper", description: "fun", unit_price: 156)
-    item3 = @m erchant_1.items.create!(name: "zipper", description: "pants", unit_price: 340)
+    item3 = @merchant_1.items.create!(name: "zipper", description: "pants", unit_price: 340)
     item4 = @merchant_1.items.create!(name: "zoozah", description: "doot", unit_price: 354)
     item5 = @merchant_1.items.create!(name: "oiko", description: "zeelk", unit_price: 4)
     item6 = @merchant_1.items.create!(name: "onion pillow", description: "kids", unit_price: 1030)
