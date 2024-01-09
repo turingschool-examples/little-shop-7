@@ -11,10 +11,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get "/", to: "dashboard#index", as: :dashboard
-    resources :merchants, only: :index
+    get '/', to: 'dashboard#index', as: :dashboard
+    resources :merchants, only: [:index, :new, :create]
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
     resources :invoices, only: [:index, :show]
   end
-
 end
