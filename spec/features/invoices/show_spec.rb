@@ -63,6 +63,24 @@ RSpec.describe "the merchant invoices show page" do
         end
       end
     end
+    
+    describe "User Story 17" do
+      # As a merchant
+      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+      # Then I see the total revenue that will be generated from all of my items on the invoice
+
+      it "displays total revenue generated from my items on the invoice" do
+        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+        save_and_open_page
+
+        expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_1)}")
+
+        # Visit the same invoice page, but view as a different merchant
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+        expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_2)}")
+      end
+    end
 
     it "displays the correct items in the table based on the merchant who is viewing" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"

@@ -11,10 +11,17 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue
-    invoice_items.sum("unit_price * quantity")
+    invoice_items.sum("unit_price * quantity") # do we need to convert this from cents to dollars?
   end
 
-  def total_revenue
-    invoice_items.sum("unit_price * quantity")
+  def total_revenue_by_merchant(merchant)
+    merchant_id = merchant.id
+    item_ids = merchant.items.pluck(:id)
+    merchant_invoice_items = InvoiceItem.where(item_id: item_ids, invoice_id: id)
+
+    total_revenue_in_cents = merchant_invoice_items.sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+      '%.2f' % "#{total_revenue_in_cents/100}"
   end
 end

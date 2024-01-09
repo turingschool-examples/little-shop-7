@@ -35,17 +35,20 @@ RSpec.describe Invoice, type: :model do
     expect(invoice.total_revenue).to eq(10)
   end
 
-  it "calculates the total revenue" do
-    item_1 = create(:item, unit_price: 1)
-    item_2 = create(:item, unit_price: 2)
-    item_3 = create(:item, unit_price: 3)
+  it "calculates the total revenue by merchant" do
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant_1.id)
+    item_2 = create(:item, merchant_id: merchant_2.id)
+    item_3 = create(:item, merchant_id: merchant_1.id)
 
-    invoice = create(:invoice)
+    invoice_1 = create(:invoice)
 
-    invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
-    invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
-    invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
+    invoice_item_1 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_1.id, quantity: 2, unit_price: 100)
+    invoice_item_2 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_2.id, quantity: 2, unit_price: 200)
+    invoice_item_3 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_3.id, quantity: 3, unit_price: 100)
 
-    expect(invoice.total_revenue).to eq(10)
+    expect(invoice_1.total_revenue_by_merchant(merchant_1)).to eq("5.00")
+    expect(invoice_1.total_revenue_by_merchant(merchant_2)).to eq("4.00")
   end
 end
