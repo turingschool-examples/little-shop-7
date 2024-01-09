@@ -54,4 +54,8 @@ class Merchant < ApplicationRecord
     ORDER BY total_revenue DESC
     LIMIT 5", id])
   end
+
+  def merchant_invoices
+    Invoice.joins(:items).where("#{self.id} = items.merchant_id").distinct #US-13 NKL
+  end
 end
