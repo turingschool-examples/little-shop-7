@@ -93,4 +93,27 @@ RSpec.describe "merchant's invoice page", type: :feature do
 
     expect(page).to have_content("Total Expected Revenue: $#{merchant_1.total_invoice_revenue(invoice1).to_f / 100}") #365
   end
+
+  it "the invoice item status is a select box and can change the invoice_items status" do
+    merchant_1 = Merchant.create!(name: "Walmart")
+    merchant_2 = Merchant.create!(name: "Temu")
+    item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 100)
+    item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 156)
+    item3 = merchant_2.items.create!(name: "copper", description: "money", unit_price: 243)
+    customer1 = Customer.create!(first_name: "John", last_name: "Smith")
+    customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
+    invoice1 = customer1.invoices.create!(status: 2)
+    invoice2 = customer2.invoices.create!(status: 2)
+    invoice_item1 = invoice1.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 99, status: 0)
+
+    visit merchant_invoice_path(merchant_1, invoice1)
+    expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice1.id}")
+    expect(page).to have_content("Update Item Status")
+    expect(page).to have_content("pending")
+
+    select "Packaged", from: :status
+    click_button "Update Item Status"
+    expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice1.id}")
+    expect(page).to have_content("Pending")
+  end
 end
