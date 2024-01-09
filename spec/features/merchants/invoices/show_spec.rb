@@ -57,7 +57,7 @@ RSpec.describe "merchant's invoice page", type: :feature do
     visit merchant_invoice_path(merchant_1, invoice1)
 
     expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice1.id}")
-save_and_open_page
+
     expect(page).to have_content("Item Information:")
     expect(page).to have_content(item1.name)
     expect(page).to have_content(item2.name)
@@ -68,5 +68,29 @@ save_and_open_page
     expect(page).to have_content(invoice_item2.unit_price.to_f / 100)
     expect(page).to have_content(invoice_item1.status)
     expect(page).to have_content(invoice_item2.status)
+  end
+
+  it "shows the total revenue that will be generated from all of my items on the invoice" do
+    merchant_1 = Merchant.create!(name: "Walmart")
+    merchant_2 = Merchant.create!(name: "Temu")
+    item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 100)
+    item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 156)
+    item3 = merchant_2.items.create!(name: "copper", description: "money", unit_price: 243)
+    customer1 = Customer.create!(first_name: "John", last_name: "Smith")
+    customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
+    invoice1 = customer1.invoices.create!(status: 2)
+    invoice2 = customer2.invoices.create!(status: 2)
+    invoice_item1 = invoice1.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 99, status: 0)
+    invoice_item2 = invoice1.invoice_items.create!(item_id: item2.id, quantity: 2, unit_price: 133, status: 1)
+    invoice_item3 = invoice1.invoice_items.create!(item_id: item3.id, quantity: 1, unit_price: 210, status: 2)
+    invoice_item4 = invoice2.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 340, status: 2)
+    transaction1 = invoice1.transactions.create!(credit_card_number: 1238567890123476, credit_card_expiration_date: "04/26", result: 0)
+    transaction2 = invoice2.transactions.create!(credit_card_number: 1238567590123476, credit_card_expiration_date: "04/26", result: 0)
+
+    visit merchant_invoice_path(merchant_1, invoice1)
+
+    expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice1.id}")
+save_and_open_page
+    expect(page).to have_content("Total Expected Revenue: $#{merchant_1.total_invoice_revenue(invoice1).to_f / 100}") #365
   end
 end
