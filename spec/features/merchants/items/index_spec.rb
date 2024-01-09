@@ -169,7 +169,6 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     transaction7 = invoice7.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/23", result: 0)
 
     visit merchant_items_path(merchant_1)
-save_and_open_page
     expect(current_path).to eq("/merchants/#{merchant_1.id}/items")
     expect(page).to have_content("Top 5 Money-Makers:")
     expect(page).to have_content("Product: elephant Earned: $117255.0")
@@ -180,14 +179,45 @@ save_and_open_page
 
     expect("Earned: $117255.0").to appear_before("Earned: $42.8")
   end
-end
-# Merchant Items Index: 5 most popular items. As a merchant When I visit my items index page
-  # Then I see the names of the top 5 most popular items ranked by total revenue generated
-  # And I see that each item name links to my merchant item show page for that item
-  # And I see the total revenue generated next to each item name
 
-  # Notes on Revenue Calculation:
-  # - Only invoices with at least one successful transaction should count towards revenue -
-  # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items -
-  # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity
-  # (do not use the item unit price)
+
+  it "has a top items best day for each top item" do
+  merchant_1 = Merchant.create!(name: "Walmart")
+  item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 10)
+  item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 10)
+  item3 = merchant_1.items.create!(name: "zipper", description: "pants", unit_price: 10)
+  
+  customer1 = Customer.create!(first_name: "John", last_name: "Smith")
+  customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
+  customer3 = Customer.create!(first_name: "Jaques", last_name: "Snipes")
+  customer4 = Customer.create!(first_name: "Jay", last_name: "Snape")
+  customer5 = Customer.create!(first_name: "Tom", last_name: "Bullocks")
+  customer6 = Customer.create!(first_name: "Jimmy", last_name: "Dirt")
+  customer7 = Customer.create!(first_name: "Helva", last_name: "Harrock")
+  invoice1 = customer1.invoices.create!(created_at: Time.new(2018, 1, 1), status:2)
+  invoice2 = customer2.invoices.create!(created_at: Time.new(2018, 2, 2), status: 2)
+  invoice3 = customer3.invoices.create!(created_at: Time.new(2018, 3, 3), status: 2)
+  invoice4 = customer4.invoices.create!(created_at: Time.new(2018, 4, 4), status: 2)
+  invoice5 = customer5.invoices.create!(created_at: Time.new(2018, 5, 5), status: 2)
+  invoice6 = customer6.invoices.create!(created_at: Time.new(2018, 6, 6), status: 2)
+  invoice7 = customer7.invoices.create!(created_at: Time.new(2018, 7, 7), status: 2)#13567
+  invoice_item1 = invoice1.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 10, status: 2)
+  invoice_item2 = invoice1.invoice_items.create!(item_id: item2.id, quantity: 2, unit_price: 3, status: 2)
+  invoice_item3 = invoice1.invoice_items.create!(item_id: item3.id, quantity: 1, unit_price: 10, status: 2)
+  invoice_item4 = invoice2.invoice_items.create!(item_id: item1.id, quantity: 2, unit_price: 10, status: 2)
+  invoice_item5 = invoice2.invoice_items.create!(item_id: item2.id, quantity: 1, unit_price: 3, status: 2)
+  invoice_item6 = invoice2.invoice_items.create!(item_id: item3.id, quantity: 2, unit_price: 10, status: 2)
+  transaction1 = invoice1.transactions.create!(credit_card_number: 1238567890123476, credit_card_expiration_date: "04/30", result: 0)
+  transaction2 = invoice2.transactions.create!(credit_card_number: 1238567590123476, credit_card_expiration_date: "04/28", result: 1)
+  transaction3 = invoice3.transactions.create!(credit_card_number: 1238634646123476, credit_card_expiration_date: "04/15", result: 0)
+  transaction4 = invoice4.transactions.create!(credit_card_number: 1238567876567476, credit_card_expiration_date: "04/12", result: 1)
+  transaction5 = invoice5.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/25", result: 0)
+  transaction6 = invoice6.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/24", result: 0)
+  transaction7 = invoice7.transactions.create!(credit_card_number: 1238553460128476, credit_card_expiration_date: "04/23", result: 0)
+
+  visit merchant_items_path(merchant_1)
+  expect(page).to have_content("Top Selling Date for popcan was February 02, 2018")
+  expect(page).to have_content("Top Selling Date for popper was January 01, 2018")
+  expect("Top Selling Date for popcan was February 02, 2018").to appear_before("Top Selling Date for popper was January 01, 2018")
+  end
+end
