@@ -12,4 +12,8 @@ class Customer < ApplicationRecord
       .order("success_count DESC")
       .limit(5)
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
