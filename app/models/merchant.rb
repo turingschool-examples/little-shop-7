@@ -66,5 +66,6 @@ class Merchant < ApplicationRecord
       .group("merchants.id")
       .order("revenue DESC")
       .limit(5)
-  end   
+  end  
+
 end

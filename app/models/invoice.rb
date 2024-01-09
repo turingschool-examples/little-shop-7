@@ -9,6 +9,13 @@ class Invoice < ApplicationRecord
 
   enum status: { in_progress: 0, cancelled: 1, completed: 2 }
 
-  
+  def self.best_day
+    self.joins(:invoice_items)
+      .select("SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue, invoices.created_at")
+      .group(:id)
+      .order("revenue DESC")
+      .first
+    # require 'pry'; binding.pry
+  end
 
 end
