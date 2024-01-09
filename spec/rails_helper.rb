@@ -8,6 +8,8 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'simplecov'
 require "faker"
+require "helper_methods"
+
 SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!
 
