@@ -2,7 +2,16 @@ require "rails_helper"
 
 RSpec.describe "Merchant Dashboards", type: :feature do
   before(:each) do 
-    @merchant = create(:merchant)
+    @merchants = create_list(:merchant, 5)
+    @merchants.first.items = create_list(:item, 5)
+    # @merchant_2 = create(:merchant)
+    # @merchants = create_list(:merchant, 10)
+    # @merchants.each do |merch|
+    #   Merchant.create!(name: merch.name)
+    # end
+    require 'pry'; binding.pry
+    # @items_merch_1.createcreate_list(:item, 10)
+   
   end
 
   it "shows the name of the merchant" do 
@@ -24,6 +33,12 @@ RSpec.describe "Merchant Dashboards", type: :feature do
 
     click_link "Invoices" 
     expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
+  end
+
+  it "has a list of the top five customers who have conducted the largest number of transactions with a merchant" do 
+    visit "/merchants/#{@merchant.id}/dashboard"
+
+    expect(page).to have
   end
   
 end 
