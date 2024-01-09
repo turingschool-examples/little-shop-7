@@ -7,6 +7,8 @@
   <ul>
     <% @top_earning_items.each do |item| %>
       <li>Product: <%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Earned: $<%= item.total_revenue.to_f / 100 %></li>
+   <p>Top Selling Date for <%= item.name %> was <%= item.top_sales_date %> </p>
+    
     <% end %>
   </ul>
   
