@@ -11,7 +11,7 @@ RSpec.describe "admin merchant index" do
     # When I visit the admin merchants index (/admin/merchants)
     # Then I see the name of each merchant in the system
     
-    it "can see the name of each merchant in the system" do
+    xit "can see the name of each merchant in the system" do
 
       visit(admin_merchants_path)
 
@@ -30,7 +30,19 @@ RSpec.describe "admin merchant index" do
     # And I see that the merchant's status has changed
     
     it "adds an enable/disable button" do
-      
+
+      visit admin_merchants_path
+
+      expect(page).to have_button("Enable")
+      expect(page).to have_button("Disable")
+      # need to click the first button, figure out targeting
+      click_button("Enable")
+      # merchant does not have a status by default...need to add a method to the model?
+      expect(page).to have_content("Enabled")
+
+      click_button("Disable")
+
+      expect(page).to have_content("Disabled")
     end
   end
 

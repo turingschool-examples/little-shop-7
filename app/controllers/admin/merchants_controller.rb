@@ -21,4 +21,11 @@ class Admin::MerchantsController < ApplicationController
       flash[:failure] = merchant.errors.full_messages.join(' , ')
     end
   end
+
+  private
+# the above "update" method needs to be updated to handle this
+  def admin_merchants_params
+    params.permit(:name)
+  end
+  
 end
