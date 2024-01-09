@@ -96,7 +96,6 @@ RSpec.describe "the admin dashboard show" do
     it "lists the incomplete invoices in order from oldest to newest" do
       visit admin_dashboard_path
 
-
       within(".incomplete-invoices") do
         expect(page).to have_content(@incomplete_invoice1.id)
         expect(page).to have_content(@incomplete_invoice2.id)
@@ -106,5 +105,16 @@ RSpec.describe "the admin dashboard show" do
         expect(@incomplete_invoice2.id.to_s).to appear_before(@incomplete_invoice3.id.to_s)
       end
     end
+
+    it "displays the created_at date" do
+      visit admin_dashboard_path
+
+      within(".incomplete-invoices") do
+        expect(page).to have_content(@incomplete_invoice3.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@incomplete_invoice2.created_at.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@incomplete_invoice3.created_at.strftime("%A, %B %d, %Y"))
+      end
+    end
   end
+  
 end
