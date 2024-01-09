@@ -11,7 +11,7 @@ class Admin::InvoicesController < ApplicationController
   def update
     @invoice = Invoice.find(params[:id])
     if @invoice.update(admin_invoice_params)
-      redirect_to @invoice
+      redirect_to admin_invoice_path(@invoice)
       flash[:success] = "Information has succesfully been updated"
     else
       render :edit
