@@ -2,3 +2,21 @@
 <h2>Status: <%= @invoice.status %></h2>
 <h2>Date Created: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></h2>
 <h2>Customer: <%= @customer.first_name + " " + @customer.last_name %>
+
+<h1>Item Information:</h1>
+<h2>
+  <% @invoice.items.each do |item| %>
+    <% if item.merchant_id == @merchant.id %> 
+      <ul>
+        <li>Name: <%= item.name %></li>
+        <% @invoice.invoice_items.each do |invoice_item| %>
+          <% if invoice_item.item_id == item.id %> <!-- see line 8 -->  
+            <li>Quantity: <%= invoice_item.quantity %></li>
+            <li>Final Price: $<%= invoice_item.unit_price / 100.00 %></li>
+            <li>Status: <%= invoice_item.status %></li>
+          <% end %>
+        <% end %>
+      </ul> 
+    <% end %>
+  <% end %>
+</h2>
