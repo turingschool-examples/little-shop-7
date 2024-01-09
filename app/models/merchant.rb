@@ -54,6 +54,10 @@ class Merchant < ApplicationRecord
     ORDER BY total_revenue DESC
     LIMIT 5", id])
   end
+  
+  def merchant_invoices
+    Invoice.joins(:items).where("#{self.id} = items.merchant_id").distinct #US-13 NKL
+  end
 
   def self.top_five_merchants
     self.joins([invoices: :transactions], :invoice_items)
@@ -62,8 +66,5 @@ class Merchant < ApplicationRecord
       .group("merchants.id")
       .order("revenue DESC")
       .limit(5)
-end
-
-def merchant_invoices
-    Invoice.joins(:items).where("#{self.id} = items.merchant_id").distinct #US-13 NKL
+  end   
 end
