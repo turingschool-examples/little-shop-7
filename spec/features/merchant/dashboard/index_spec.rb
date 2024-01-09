@@ -1,10 +1,11 @@
 require "rails_helper"
+
 RSpec.describe "Merchant Dashboards", type: :feature do
   before(:each) do 
     @merchants = create_list(:merchant, 10)
+    @items = create_list(:item, 5)
     @customers = create_list(:customer, 10)
     @invoices = create_list(:invoice, 20)
-    @items = create_list(:item, 5)
     @invoice_items = create_list(:invoice_item, 20)
     @transactions = create_list(:transaction, 5)
   end 
@@ -32,10 +33,10 @@ RSpec.describe "Merchant Dashboards", type: :feature do
 
   it "has a list of the top five customers who have conducted the largest number of transactions with a merchant" do 
     load_data
-
     visit "/merchants/#{@merchants.first.id}/dashboard"
+    # create_transactions(num_success, num_transactions)
+    transax = create_transactions(4, 6)
     require 'pry'; binding.pry
-    create_transaction(5, 10)
     
   end
 
