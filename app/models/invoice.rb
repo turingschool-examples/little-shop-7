@@ -24,4 +24,5 @@ class Invoice < ApplicationRecord
     end
       '%.2f' % "#{total_revenue_in_cents/100}"
   end
+
 end

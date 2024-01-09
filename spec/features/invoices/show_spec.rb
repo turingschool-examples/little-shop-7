@@ -10,8 +10,8 @@ RSpec.describe "the merchant invoices show page" do
     @customer_1 = create(:customer)
     @invoice_1 = create(:invoice, customer_id: @customer_1.id)
 
-    @invoice_item_1 = InvoiceItem.create(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: "packaged")
-    @invoice_item_2 = InvoiceItem.create(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: "packaged")
+    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id)
+    @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_1.id)
   end
 
   describe "User Story 15" do
@@ -55,9 +55,7 @@ RSpec.describe "the merchant invoices show page" do
         expect(page).to have_content('Unit Price')
         expect(page).to have_content('Status')
 
-        
-        @invoice_items.each do |invoice_item|
-          binding.pry
+        InvoiceItem.where(item_id: @merchant_1.item_ids).each do |invoice_item|
           expect(page).to have_content(invoice_item.item.name)
           expect(page).to have_content(invoice_item.quantity)
           expect(page).to have_content(invoice_item.format_unit_price)
