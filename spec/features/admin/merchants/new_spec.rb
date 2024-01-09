@@ -17,7 +17,7 @@ RSpec.describe 'Admin Merchants Create', type: :feature do
     
     click_on "Submit"
     
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq(admin_merchants_path)
 
     within "#disabled_merch" do 
@@ -32,7 +32,7 @@ RSpec.describe 'Admin Merchants Create', type: :feature do
     fill_in :name, with: ""
     
     click_on "Submit"
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq(new_admin_merchant_path)
 
     expect(page).to have_content("Error: All fields must be filled in to submit")

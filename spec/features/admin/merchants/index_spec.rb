@@ -8,12 +8,21 @@ require 'rails_helper'
     @merch_2 = Merchant.create!(name: "Target", status: :disabled)
     @merch_3 = Merchant.create!(name: "PetSmart", status: :disabled)
     @merch_4 = Merchant.create!(name: "GameStop", status: :enabled)
+    @merch_5 = Merchant.create!(name: "Sams", status: :enabled)
+    @merch_6 = Merchant.create!(name: "Costco", status: :enabled)
 
     @item_1 = @merch_1.items.create!(name: "Apple", description: "red apple", unit_price:1)
     @item_2 = @merch_1.items.create!(name: "Orange", description: "orange orange", unit_price:1)
-
     @item_3 = @merch_2.items.create!(name: "Blood Orange", description: "blood orange", unit_price:1)
     @item_4 = @merch_2.items.create!(name: "Grape", description: "Red Grape", unit_price:1)
+    @item_5 = @merch_3.items.create!(name: "Dragon fruit", description: "Red", unit_price:1)
+    @item_6 = @merch_3.items.create!(name: "plum", description: "Good", unit_price:1)
+    @item_7 = @merch_4.items.create!(name: "tacos", description: "tortilla", unit_price:1)
+    @item_8 = @merch_4.items.create!(name: "gum", description: "mint", unit_price:1)
+    @item_9 = @merch_5.items.create!(name: "pasta", description: "Italian", unit_price:1)
+    @item_10 = @merch_5.items.create!(name: "Rum", description: "Yum", unit_price:1)
+    @item_11 = @merch_6.items.create!(name: "Vodka", description: "White", unit_price:1)
+    @item_12 = @merch_6.items.create!(name: "Cat Toy", description: "toy", unit_price:1)
 
     @cust_1 = Customer.create!(first_name: "Larry", last_name: "Johnson")
     @cust_2 = Customer.create!(first_name: "Pam", last_name: "Nelson")
@@ -53,16 +62,16 @@ require 'rails_helper'
     @ii_15 = InvoiceItem.create!(invoice: @inv_5, item: @item_3, quantity: 10, unit_price: 1, status: :pending )
     @ii_16 = InvoiceItem.create!(invoice: @inv_6, item: @item_1, quantity: 10, unit_price: 1, status: :shipped )
     @ii_17 = InvoiceItem.create!(invoice: @inv_6, item: @item_2, quantity: 10, unit_price: 1, status: :shipped )
-    @ii_18= InvoiceItem.create!(invoice: @inv_6, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
+    @ii_18 = InvoiceItem.create!(invoice: @inv_6, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
     @ii_19 = InvoiceItem.create!(invoice: @inv_6, item: @item_4, quantity: 10, unit_price: 1, status: :pending )
-
-    visit admin_merchants_path
+    @ii_20 = InvoiceItem.create!(invoice: @inv_6, item: @item_5, quantity: 15, unit_price: 1, status: :shipped )
+    @ii_21 = InvoiceItem.create!(invoice: @inv_6, item: @item_7, quantity: 13, unit_price: 1, status: :shipped )
+    @ii_22 = InvoiceItem.create!(invoice: @inv_6, item: @item_9, quantity: 17, unit_price: 1, status: :shipped )
+    @ii_23 = InvoiceItem.create!(invoice: @inv_6, item: @item_11, quantity: 2, unit_price: 1, status: :shipped )
   end
 
   it 'displays the name of each merchant' do
-
     visit admin_merchants_path
-
     within '.merchants-index' do
       expect(page).to have_content("Walmart")
       expect(page).to have_content("Target")
@@ -96,23 +105,69 @@ require 'rails_helper'
 
   # User 28 
   it "I see a section for Enabled Merchants" do 
+
+    visit admin_merchants_path
+
     within "#enabled_merch" do 
       expect(page).to have_content(@merch_1.name)
       expect(page).to have_content(@merch_4.name)
-      save_and_open_page
+
       expect(page).to_not have_content(@merch_2.name)
       expect(page).to_not have_content(@merch_3.name)
     end
   end
 
   it "I see a section for disabled Merchants" do 
+
+    visit admin_merchants_path
     within "#disabled_merch" do 
       expect(page).to have_content(@merch_2.name)
       expect(page).to have_content(@merch_3.name)
 
       expect(page).to_not have_content(@merch_1.name)
       expect(page).to_not have_content(@merch_4.name)
+    end
+  end
+
+  # US 30
+  it " sees the top 5 merchants by revenue" do 
+    
+    inv1 = @cust_1.invoices.create!(status: :completed)
+    inv2 = @cust_2.invoices.create!(status: :completed)
+    inv3 = @cust_3.invoices.create!(status: :completed)
+    inv4 = @cust_4.invoices.create!(status: :completed)
+    inv5 = @cust_5.invoices.create!(status: :completed)
+    inv6 = @cust_6.invoices.create!(status: :completed)
+   
+    tran1 = inv1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
+    tran2 = inv2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
+    tran3 = inv3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
+    tran4 = inv4.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "04/2024", result: :success )
+    tran5 = inv5.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "05/2025", result: :success )
+    tran6 = inv6.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "06/2026", result: :success )
+
+    ii1 = InvoiceItem.create!(invoice: inv1, item: @item_1, quantity: 1000, unit_price: 1, status: :shipped )
+    ii2 = InvoiceItem.create!(invoice: inv2, item: @item_3, quantity: 250, unit_price: 1, status: :shipped )
+    ii3 = InvoiceItem.create!(invoice: inv3, item: @item_5, quantity: 300, unit_price: 1, status: :shipped )
+    ii4 = InvoiceItem.create!(invoice: inv4, item: @item_7, quantity: 100, unit_price: 1, status: :shipped )
+    ii5 = InvoiceItem.create!(invoice: inv5, item: @item_9, quantity: 600, unit_price: 1, status: :shipped )
+    ii6 = InvoiceItem.create!(invoice: inv6, item: @item_11, quantity: 10, unit_price: 1, status: :shipped )
+
+    visit admin_merchants_path
+
+    within ".top_5_revenue" do 
+      expect(page).to have_content("Walmart Revenue: $14300")
+      expect(page).to have_content("Target Revenue: $2400")
+      expect(page).to have_content("PetSmart Revenue: $600")
+      expect(page).to have_content("GameStop Revenue: $200")
+      expect(page).to have_content("Sams Revenue: $1200")
+      expect(page).to_not have_content("Costco")
       
+      expect(page).to have_link(@merch_1.name)
+      expect(page).to have_link(@merch_2.name)
+      expect(page).to have_link(@merch_3.name)
+      expect(page).to have_link(@merch_4.name)
+      expect(page).to have_link(@merch_5.name)
     end
   end
 end
