@@ -42,7 +42,8 @@ RSpec.describe Invoice, type: :model do
     item_2 = create(:item, merchant_id: merchant_2.id)
     item_3 = create(:item, merchant_id: merchant_1.id)
 
-    invoice_1 = create(:invoice)
+    customer_1 = create(:customer)
+    invoice_1 = create(:invoice, customer_id: customer_1.id)
 
     invoice_item_1 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_1.id, quantity: 2, unit_price: 100)
     invoice_item_2 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_2.id, quantity: 2, unit_price: 200)

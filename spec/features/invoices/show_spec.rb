@@ -54,30 +54,15 @@ RSpec.describe "the merchant invoices show page" do
         expect(page).to have_content('Quantity')
         expect(page).to have_content('Unit Price')
         expect(page).to have_content('Status')
-  
-        invoice.invoice_items.each do |invoice_item|
+
+        
+        @invoice_items.each do |invoice_item|
+          binding.pry
           expect(page).to have_content(invoice_item.item.name)
           expect(page).to have_content(invoice_item.quantity)
           expect(page).to have_content(invoice_item.format_unit_price)
           expect(page).to have_content(invoice_item.status)
         end
-      end
-    end
-    
-    describe "User Story 17" do
-      # As a merchant
-      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
-      # Then I see the total revenue that will be generated from all of my items on the invoice
-
-      it "displays total revenue generated from my items on the invoice" do
-        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-
-        expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_1)}")
-
-        # Visit the same invoice page, but view as a different merchant
-        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
-
-        expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_2)}")
       end
     end
 
@@ -92,6 +77,23 @@ RSpec.describe "the merchant invoices show page" do
 
       expect(page).to have_content(@invoice_item_2.item.name) # should see item 2 because it belongs to merchant 2
       expect(page).to_not have_content(@invoice_item_1.item.name) # should NOT see item 1 because is does NOT belong to merchant 2
+    end
+  end
+
+  describe "User Story 17" do
+    # As a merchant
+    # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+    # Then I see the total revenue that will be generated from all of my items on the invoice
+
+    it "displays total revenue generated from my items on the invoice" do
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+      expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_1)}")
+
+      # Visit the same invoice page, but view as a different merchant
+      visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+      expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_2)}")
     end
   end
 end
