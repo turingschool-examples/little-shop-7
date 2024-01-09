@@ -14,6 +14,11 @@
             <li>Quantity: <%= invoice_item.quantity %></li>
             <li>Final Price: $<%= invoice_item.unit_price / 100.00 %></li>
             <li>Status: <%= invoice_item.status %></li>
+              <%= form_with url: "/merchants/#{@merchant.id}/invoices/#{@invoice.id}?invoice_item_id=#{invoice_item.id}", method: :patch, data: {turbo: false} do |f| %>
+                <%= f.label :update_item, "Update Item Status" %>
+                <%= f.select :status, [["Pending", "pending"], ["Packaged", "packaged"], ["Shipped", "shipped"]], selected: invoice_item.status %>
+                <%= f.submit "Update Item Status" %>
+              <% end %>
           <% end %>
         <% end %>
       </ul> 
@@ -22,3 +27,4 @@
 </h2>
 
 <h3><%= "Total Expected Revenue: $#{@merchant.total_invoice_revenue(@invoice).to_f / 100}" %></h3>
+
