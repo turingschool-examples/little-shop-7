@@ -32,11 +32,11 @@ require 'rails_helper'
     @cust_6 = Customer.create!(first_name: "Isaac", last_name: "Mitchell")
 
     @inv_1 = @cust_1.invoices.create!(status: :completed, created_at:Time.new(2021, 10, 31) )
-    @inv_2 = @cust_2.invoices.create!(status: :completed)
-    @inv_3 = @cust_3.invoices.create!(status: :completed)
-    @inv_4 = @cust_4.invoices.create!(status: :completed)
-    @inv_5 = @cust_5.invoices.create!(status: :in_progress,created_at:Time.new(2024, 02, 1))
-    @inv_6 = @cust_6.invoices.create!(status: :cancelled, created_at:Time.new(2021, 10, 31))
+    @inv_2 = @cust_2.invoices.create!(status: :completed,created_at:Time.new(2024, 12, 12))
+    @inv_3 = @cust_3.invoices.create!(status: :completed, created_at:Time.new(2016, 10, 31))
+    @inv_4 = @cust_4.invoices.create!(status: :completed,created_at:Time.new(1998, 10, 31))
+    @inv_5 = @cust_5.invoices.create!(status: :in_progress,created_at:Time.new(2001, 02, 1))
+    @inv_6 = @cust_6.invoices.create!(status: :cancelled, created_at:Time.new(2005, 10, 31))
 
     @tran_1 = @inv_1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
     @tran_2 = @inv_2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
@@ -168,4 +168,46 @@ require 'rails_helper'
       expect(page).to have_link(@merch_5.name)
     end
   end
+
+  it 'top_merchants best day' do 
+    inv1 = @cust_1.invoices.create!(status: :completed)
+    inv2 = @cust_2.invoices.create!(status: :completed)
+    inv3 = @cust_3.invoices.create!(status: :completed)
+    inv4 = @cust_4.invoices.create!(status: :completed, created_at: Time.new(2011, 06, 03))
+    inv5 = @cust_5.invoices.create!(status: :completed)
+    inv6 = @cust_6.invoices.create!(status: :completed)
+   
+    tran1 = inv1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
+    tran2 = inv2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
+    tran3 = inv3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
+    tran4 = inv4.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "04/2024", result: :success )
+    tran5 = inv5.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "05/2025", result: :success )
+    tran6 = inv6.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "06/2026", result: :success )
+
+    ii1 = InvoiceItem.create!(invoice: inv1, item: @item_1, quantity: 1000, unit_price: 1, status: :shipped )
+    ii2 = InvoiceItem.create!(invoice: inv2, item: @item_3, quantity: 250, unit_price: 1, status: :shipped )
+    ii3 = InvoiceItem.create!(invoice: inv3, item: @item_5, quantity: 300, unit_price: 1, status: :shipped )
+    ii4 = InvoiceItem.create!(invoice: inv4, item: @item_7, quantity: 100, unit_price: 1, status: :shipped )
+    ii5 = InvoiceItem.create!(invoice: inv5, item: @item_9, quantity: 600, unit_price: 1, status: :shipped )
+    ii6 = InvoiceItem.create!(invoice: inv6, item: @item_11, quantity: 10, unit_price: 1, status: :shipped )
+
+    #   When I visit the admin merchants index
+    visit admin_merchants_path
+    #   Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant.
+    expect(page).to have_content("Top selling date for #{@merch_1.name} was #{inv1.created_at.strftime("%m/%d/%y")}")
+    expect(page).to have_content("Top selling date for #{@merch_2.name} was #{inv2.created_at.strftime("%m/%d/%y")}")
+    expect(page).to have_content("Top selling date for #{@merch_3.name} was #{inv3.created_at.strftime("%m/%d/%y")}")
+    expect(page).to have_content("Top selling date for #{@merch_4.name} was #{@inv_6.created_at.strftime("%m/%d/%y")}")
+    expect(page).to have_content("Top selling date for #{@merch_5.name} was #{inv5.created_at.strftime("%m/%d/%y")}")
+
+    expect(page).to have_content("Top selling date for GameStop was 10/31/05")
+    expect(page).to have_content("Top selling date for Target was 01/09/24")
+
+
+  end 
+
+#   And I see a label “Top selling date for <merchant name> was <date with most sales>"
+
+# Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+
 end
