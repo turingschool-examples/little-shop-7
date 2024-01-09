@@ -4,14 +4,20 @@
     <div class="incomplete-invoices">
       <h2>Incomplete Invoices</h2>
       <ul>
-        Under Construction
+        <% @incomplete_invoices.each do |invoice| %>
+          <li>
+            <%= link_to "Invoice ##{invoice.id}", admin_invoice_path(invoice) %>
+          </li>
+        <% end %>
       </ul>
     </div>
 
     <div class="top-customers">
       <h2>Top Customers</h2>
       <ol>
-        Under Construction
+        <% @top_customers.each do |customer| %>
+          <li><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transactions_count %> purchases</li>
+        <% end %>      
       </ol>
     </div>
   </div>
