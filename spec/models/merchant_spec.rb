@@ -5,6 +5,10 @@ RSpec.describe Merchant, type: :model do
     it { should have_many :items }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+  end
+
   describe "methods" do
     it "finds item ids for a given merchant" do
       merchant_1 = create(:merchant)
@@ -17,5 +21,4 @@ RSpec.describe Merchant, type: :model do
       expect(merchant_1.item_ids).to eq([item_1.id, item_2.id])
       expect(merchant_2.item_ids).to eq([item_3.id, item_4.id])
     end
-  end
 end
