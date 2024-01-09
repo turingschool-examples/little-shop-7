@@ -18,4 +18,10 @@ class Invoice < ApplicationRecord
     # require 'pry'; binding.pry
   end
 
+
+  def total_revenue
+    self.invoice_items.joins(:item)
+      .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
 end
