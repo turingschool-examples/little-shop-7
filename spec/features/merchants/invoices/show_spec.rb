@@ -90,7 +90,7 @@ RSpec.describe "merchant's invoice page", type: :feature do
     visit merchant_invoice_path(merchant_1, invoice1)
 
     expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice1.id}")
-save_and_open_page
+
     expect(page).to have_content("Total Expected Revenue: $#{merchant_1.total_invoice_revenue(invoice1).to_f / 100}") #365
   end
 end
