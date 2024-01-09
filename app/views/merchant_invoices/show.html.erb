@@ -20,3 +20,5 @@
     <% end %>
   <% end %>
 </h2>
+
+<h3><%= "Total Expected Revenue: $#{@merchant.total_invoice_revenue(@invoice).to_f / 100}" %></h3>
