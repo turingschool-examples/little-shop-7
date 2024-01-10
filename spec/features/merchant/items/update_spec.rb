@@ -37,4 +37,18 @@ RSpec.describe "MerchantItem index", type: :feature do
         # And I see a flash message stating that the information has been successfully updated.
         expect(page).to have_content("Update successful!")
     end
+
+    it "9. Merchant Item Disable/Enable" do
+        # When I visit my items index page (/merchants/:merchant_id/items)
+        visit "/merchants/#{@merchant_1.id}/items"
+        # Next to each item name I see a button to disable or enable that item.
+        expect(page).to have_content("Enabled")
+        expect(page).to have_button("Enable/Disable")
+        # When I click this button
+        click_on("Enable/Disable")
+        # Then I am redirected back to the items index
+        expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+        # And I see that the items status has changed
+        expect(page).to have_content("Disabled")
+    end
 end
