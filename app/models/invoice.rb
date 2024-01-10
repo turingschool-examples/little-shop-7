@@ -14,6 +14,15 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity") # do we need to convert this from cents to dollars?
   end
 
+  def self.incomplete_invoices
+    Invoice.joins(:invoice_items)
+      .where(invoice_items: {status: [0,1]})
+    # start with Invoice
+    # join invoice_items table
+    # filter for not-shipped invoice_items
+    # 
+  end
+  
   def total_revenue_by_merchant(merchant)
     total_revenue_in_cents = InvoiceItem.joins(:item)
                                         .where(items: { merchant_id: merchant.id }, invoice_id: id)
@@ -21,5 +30,4 @@ class Invoice < ApplicationRecord
 
     total_revenue_in_dollars = format('%.2f', total_revenue_in_cents / 100.0)
   end
-
 end
