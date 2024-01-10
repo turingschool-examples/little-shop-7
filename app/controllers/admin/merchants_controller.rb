@@ -22,6 +22,10 @@ class Admin::MerchantsController < ApplicationController
     redirect_to admin_merchants_path
   end
 
+  def show
+    @merchant = Merchant.find(params[:id])
+  end
+
   private
 
   def merchant_params
