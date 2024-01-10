@@ -50,5 +50,9 @@ RSpec.describe "MerchantItem index", type: :feature do
         expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
         # And I see that the items status has changed
         expect(page).to have_content("Disabled")
+
+        click_on("Enable/Disable")
+        expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items")
+        expect(page).to have_content("Enabled")
     end
 end
