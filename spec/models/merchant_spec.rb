@@ -24,6 +24,27 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
+    it "finds enabled item ids" do
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_2 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_3 = create(:item, merchant_id: merchant_1.id)
+      item_4 = create(:item, merchant_id: merchant_1.id)
+
+      expect(merchant_1.enabled_item_ids).to eq([item_1.id, item_2.id])
+    end
+
+    it "finds disabled item ids" do 
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_2 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_3 = create(:item, merchant_id: merchant_1.id)
+      item_4 = create(:item, merchant_id: merchant_1.id)
+
+      expect(merchant_1.disabled_item_ids).to eq([item_3.id, item_4.id])
+    end
+  end
+
   describe "instance methods" do
     describe "#top_five_customers (User Story 3)" do
       # As a merchant,
@@ -49,7 +70,8 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "#items_ready_to_ship (User Story 4)" do
+    describe "#items_ready_to_ship (User Story 4 and 5)" do
+      ## USER STORY 4: MERCHANT DASHBOARD ITEMS READY TO SHIP
       # As a merchant
       # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
       # Then I see a section for "Items Ready to Ship"
@@ -62,6 +84,20 @@ RSpec.describe Merchant, type: :model do
 
         expect(@merchant.items_ready_to_ship.sort).to eq([@invoice_item_1, @invoice_item_2, @invoice_item_3, @invoice_item_4, @invoice_item_5, @invoice_item_6, @invoice_item_7, @invoice_item_8, @invoice_item_9].sort)
       end
-    end 
+
+      ## USER STORY 5: MERCHANT DASHBOARD 
+      # As a merchant
+      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+      # In the section for "Items Ready to Ship",
+      # Next to each Item name I see the date that the invoice was created
+      # And I see the date formatted like "Monday, July 18, 2019"
+      # And I see that the list is ordered from oldest to newest
+
+      it "sorts the list from oldest to newest" do
+        load_test_data_us_4
+
+        expect(@merchant.items_ready_to_ship).to eq([@invoice_item_1, @invoice_item_2, @invoice_item_3, @invoice_item_4, @invoice_item_5, @invoice_item_6, @invoice_item_7, @invoice_item_8, @invoice_item_9])
+      end
+    end
   end
 end

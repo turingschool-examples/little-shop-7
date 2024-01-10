@@ -107,4 +107,29 @@ RSpec.describe "the merchant dashboard index page" do
       expect(page).to_not have_link "Invoice ##{@invoice_item_11.invoice.id}", href: merchant_invoice_path(merchant_id: @merchant.id, id: @invoice_item_11.invoice.id)
     end
   end
+
+  describe "User Story 5" do
+    # As a merchant
+    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+    # In the section for "Items Ready to Ship",
+    # Next to each Item name I see the date that the invoice was created
+    # And I see the date formatted like "Monday, July 18, 2019"
+    # And I see that the list is ordered from oldest to newest
+
+    it "displays each invoice's date in the format: Monday, January 8th, 2024" do
+      load_test_data_us_4
+
+      visit merchant_dashboard_index_path(merchant_id: @merchant.id)
+
+      expect(page).to have_content("#{@invoice_item_1.invoice.created_at.strftime("%A, %B #{@invoice_item_1.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_2.invoice.created_at.strftime("%A, %B #{@invoice_item_2.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_3.invoice.created_at.strftime("%A, %B #{@invoice_item_3.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_4.invoice.created_at.strftime("%A, %B #{@invoice_item_4.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_5.invoice.created_at.strftime("%A, %B #{@invoice_item_5.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_6.invoice.created_at.strftime("%A, %B #{@invoice_item_6.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_7.invoice.created_at.strftime("%A, %B #{@invoice_item_7.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_8.invoice.created_at.strftime("%A, %B #{@invoice_item_8.invoice.created_at.day.ordinalize}, %Y")}")
+      expect(page).to have_content("#{@invoice_item_9.invoice.created_at.strftime("%A, %B #{@invoice_item_9.invoice.created_at.day.ordinalize}, %Y")}")
+    end
+  end
 end

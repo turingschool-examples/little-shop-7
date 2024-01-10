@@ -21,7 +21,8 @@ class ItemsController < ApplicationController
     item = Item.find(params[:item_id])
     merchant = Merchant.find(params[:merchant_id])
     if item.update(item_params)
-      redirect_to "/merchants/#{merchant.id}/items/#{item.id}"
+      @item.update(status: params[:status]) if params[:status].present?
+      redirect_to "/merchants/#{@item.merchant_id}/items"
       flash[:alert] = "Update Successful"
     else
       redirect_to "/merchants/#{merchant.id}/items/#{item.id}/edit"
