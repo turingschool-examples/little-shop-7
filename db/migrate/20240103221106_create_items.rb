@@ -5,6 +5,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :description
       t.integer :unit_price
       t.integer :merchant_id
+      t.integer :status
       t.datetime :created_at
       t.datetime :updated_at
 
