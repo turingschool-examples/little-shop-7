@@ -10,4 +10,10 @@ class Merchant < ApplicationRecord
             .group(:id)
             .limit(5)
   end
+
+  def items_ready_to_ship
+    InvoiceItem.joins(:invoice, { item: :merchant })
+               .where("invoice_items.status < 2 AND merchants.id = #{self.id}")
+               .order("invoice_items.created_at")
+  end
 end
