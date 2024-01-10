@@ -15,13 +15,13 @@ RSpec.describe "admin merchant index" do
       @merchants = create_list(:merchant, 10)
       
       visit(admin_merchants_path)
-
+      
       @merchants.each do |merchant|
         expect(page).to have_content(merchant.name)
       end
     end
   end
-
+  
   describe "User Story 27" do
     # As an admin,
     # When I visit the admin merchants index (/admin/merchants)
@@ -32,15 +32,17 @@ RSpec.describe "admin merchant index" do
     
     it "adds an enable/disable button" do
       merchant = create(:merchant)
+      # @merchants = create_list(:merchant, 10)
 
       visit admin_merchants_path
 
       expect(page).to have_content(merchant.name)
+      expect(page).to have_content(merchant.status)
       expect(merchant.status).to_not have_content("Enabled")
       expect(page).to have_button("Enable")
-      expect(page).to have_button("Disable")
-      
+      # expect(page).to have_button("Disable")
       click_button("Enable")
+      save_and_open_page
       
       expect(page).to have_content("Enabled")
       

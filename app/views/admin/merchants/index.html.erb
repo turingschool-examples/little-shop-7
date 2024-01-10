@@ -3,9 +3,13 @@
 <% @merchants.each do |merchant| %>
   <ul>
     <%= link_to merchant.name, admin_merchant_path(merchant)%>
+    <%= link_to merchant.status, admin_merchant_path(merchant)%>
     <%= form_with url: admin_merchant_path(merchant), method: :patch do |form| %>
-      <%= form.button "Enable", value: "enabled" %>
-      <%= form.button "Disable", value: "" %>
-    <%end%>
+      <% if merchant.status == "" %>
+        <%= form.button "Enable", name: "merchant[status]", value: "enabled" %>
+      <% else %>
+        <%= form.button "Disable", name: "merchant[status]", value: "" %>
+      <%end%>
   </ul>
-  <%end%>
+    <%end%>
+<%end%>
