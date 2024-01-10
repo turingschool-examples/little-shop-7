@@ -17,9 +17,15 @@ class MerchantItemsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    item = merchant.items.create(item_params)
+    item = merchant.items.new(item_params)
     item.update(status: 1)
-    redirect_to "/merchants/#{merchant.id}/items"
+    if item.save
+      redirect_to "/merchants/#{merchant.id}/items"
+      flash[:alert] = "Item created successfully"
+    else
+      redirect_to "/merchants/#{merchant.id}/items/new"
+      flash[:alert] = "Item not created successfully"
+    end
   end
 
   def edit
