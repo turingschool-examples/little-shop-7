@@ -13,6 +13,6 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :merchants, only: [:index, :new, :create, :show]
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
-    resources :invoices, only: [:index, :show]
+    resources :invoices, only: [:index, :show, :update]
   end
 end
