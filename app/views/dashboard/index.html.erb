@@ -3,9 +3,15 @@
 <h3><%= link_to "View Items", "/merchants/#{@merchant.id}/items" %></h3>
 <h3><%= link_to "View Invoices", "/merchants/#{@merchant.id}/invoices" %></h3>
 
-<h2><%= "Best Customers:" %></h2>
+<h2><%= "Best Customers" %></h2>
 <ul>
     <% @merchant.top_five_customers.each do |customer| %>
         <h3><li><%= "#{customer.first_name} #{customer.last_name} (#{customer.number_of_transactions} Transactions)" %></li></h3>
+    <% end %>
+</ul>
+<h2><%= "Items Ready To Ship" %></h2>
+<ul>
+    <% @merchant.items_ready_to_ship.each do |invoice_item| %>
+        <h3><li><%= "#{invoice_item.item.name}" %>, <%= link_to "Invoice ##{invoice_item.invoice.id}", merchant_invoice_path(merchant_id: @merchant.id, id: invoice_item.invoice.id) %></li></h3>
     <% end %>
 </ul>
