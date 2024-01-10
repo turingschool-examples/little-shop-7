@@ -64,7 +64,7 @@ RSpec.describe "Admin Dashboard Index" do
 
   #   expect(page).to_not have_content(.first_name)
   #   expect(page).to_not have_content(.last_name)
-  # end
+  end
 
   it "shows invoices that have not shipped" do
     #     22. Admin Dashboard Incomplete Invoices
