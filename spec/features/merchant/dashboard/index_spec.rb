@@ -1,43 +1,39 @@
 require "rails_helper"
 
 RSpec.describe "Merchant Dashboards", type: :feature do
-  before(:each) do 
-    @merchants = create_list(:merchant, 10)
-    @items = create_list(:item, 5)
-    @customers = create_list(:customer, 10)
-    @invoices = create_list(:invoice, 20)
-    @invoice_items = create_list(:invoice_item, 20)
-    @transactions = create_list(:transaction, 5)
+  before(:each) do
+    load_data
   end 
 
   it "shows the name of the merchant" do 
-    visit "/merchants/#{@merchants.first.id}/dashboard"
+    visit "/merchants/#{@merchant.id}/dashboard"
 
-    expect(page).to have_content(@merchants.first.name)
+    expect(page).to have_content(@merchant.name)
   end
 
   it "has links to the merchant items index and the merchant invoices index" do 
-    visit "/merchants/#{@merchants.last.id}/dashboard"
+    visit "/merchants/#{@merchant.id}/dashboard"
     
     expect(page).to have_link("Invoices")
     expect(page).to have_link("Items")
 
     click_link "Items" 
-    expect(current_path).to eq("/merchants/#{@merchants.last.id}/items")
+    expect(current_path).to eq("/merchants/#{@merchant.id}/items")
 
-    visit "/merchants/#{@merchants.first.id}/dashboard"
+    visit "/merchants/#{@merchant.id}/dashboard"
 
     click_link "Invoices" 
-    expect(current_path).to eq("/merchants/#{@merchants.first.id}/invoices")
+    expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
   end
 
   it "has a list of the top five customers who have conducted the largest number of transactions with a merchant" do 
-    load_data
-    visit "/merchants/#{@merchants.first.id}/dashboard"
-    # create_transactions(num_success, num_transactions)
-    transax = create_transactions(4, 6)
-    require 'pry'; binding.pry
-    
+    visit "/merchants/#{@merchant.id}/dashboard"
+    within ".top-five-cust" do 
+      expect("#{@customers[4].last_name}, #{@customers[4].first_name}").to appear_before("#{@customers[7].last_name}, #{@customers[7].first_name}")
+      expect("#{@customers[7].last_name}, #{@customers[7].first_name}").to appear_before("#{@customers[1].last_name}, #{@customers[1].first_name}")
+      expect("#{@customers[1].last_name}, #{@customers[1].first_name}").to appear_before("#{@customers[3].last_name}, #{@customers[3].first_name}")
+      expect("#{@customers[3].last_name}, #{@customers[3].first_name}").to appear_before("#{@customers[5].last_name}, #{@customers[5].first_name}")
+    end
   end
 
 end 
