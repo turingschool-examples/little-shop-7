@@ -11,6 +11,4 @@ class InvoiceItem < ApplicationRecord
   def self.revenue
     InvoiceItem.sum("invoice_items.quantity * invoice_items.unit_price")
   end
-  
-
 end

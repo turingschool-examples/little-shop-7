@@ -1,0 +1,30 @@
+<head>
+  <title>Merchant Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <div class="shop-title">
+      <h1>Little Esty Shop</h1>
+    </div>
+    <header class="merchant-dashboard-header">
+      <div class="merchant-title">
+        <h1><%= @merchant.name %></h1>
+      </div>
+      <nav class="merchant-nav">
+        <%= link_to 'Dashboard', merchant_dashboard_index_path %>
+        <%= link_to 'Items', merchant_items_path %>
+        <%= link_to 'Invoices', merchant_invoices_path %>
+      </nav>
+    </header>
+    <div class="merchant-content">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+

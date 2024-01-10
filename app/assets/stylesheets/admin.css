@@ -59,6 +59,18 @@ body {
   width: 45%;
   border: 1.5px solid #000000;
   padding: 10px;
+  text-align: left;
+}
+
+.admin-dashboard .incomplete-invoices h2,
+.admin-dashboard .top-customers h2 {
+  text-align: center;
+}
+
+.admin-dashboard .incomplete-invoices ul,
+.admin-dashboard .top-customers ol {
+  padding-left: 10;
+  text-align: left;
 }
 
 .admin-dashboard h2 {

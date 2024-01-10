@@ -9,4 +9,12 @@ class Invoice < ApplicationRecord
     "in progress": 1,
     "completed": 2
   }
+  def self.incomplete_invoices
+    joins(:invoice_items)
+      .where(invoice_items: { status: [:packaged, :pending] })
+      .where(status: "in progress")
+      .distinct
+      .order(created_at: :asc)
+  end
+
 end

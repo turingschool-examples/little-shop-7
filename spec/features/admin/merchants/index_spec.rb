@@ -126,7 +126,6 @@ RSpec.describe "Merchants Index Page" do
 
       expect(page).to have_content("Top Merchants")
       within "#top-merchants" do
-        save_and_open_page
         expect(@merchant_4.name).to appear_before(@merchant_5.name)
         expect(@merchant_5.name).to appear_before(@merchant_3.name)
         expect(@merchant_3.name).to appear_before(@merchant_2.name)

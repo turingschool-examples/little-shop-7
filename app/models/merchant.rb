@@ -17,8 +17,4 @@ class Merchant < ApplicationRecord
       # Merchant.joins(invoice_items: :item)
     Merchant.joins(invoice_items: [invoice: :transactions]).select("merchants.*", "sum(invoice_items.quantity * invoice_items.unit_price) as sales").where("transactions.result = ?", "1").group("merchants.id").order("sales desc").limit(5)
   end
-
-  def sales
-    Merchant.joins(invoice_items: [invoice: :transactions]).select("merchants.*", "sum(invoice_items.quantity * invoice_items.unit_price) as sales").where("transactions.result = ?", "1").group("merchants.id")
-  end
 end
