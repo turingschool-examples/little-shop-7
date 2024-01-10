@@ -5,7 +5,7 @@
     <%= link_to merchant.name, admin_merchant_path(merchant)%>
     <%= form_with url: admin_merchant_path(merchant), method: :patch do |form| %>
       <%= form.button "Enable", value: "enabled" %>
-      <%= form.button "Disable", value: "disabled" %>
+      <%= form.button "Disable", value: "" %>
     <%end%>
   </ul>
   <%end%>

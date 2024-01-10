@@ -1,18 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "admin merchant index" do
-  before(:each) do 
-    @merchant = create(:merchant)
-    @merchants = create_list(:merchant, 10)
-  end
-
+  # moved because I couldn't figure out how to target one instance of a button
+  # before(:each) do 
+  # end
+  
   describe "User Story 24" do
     # As an admin,
     # When I visit the admin merchants index (/admin/merchants)
     # Then I see the name of each merchant in the system
     
-    xit "can see the name of each merchant in the system" do
-
+    it "can see the name of each merchant in the system" do
+      @merchant = create(:merchant)
+      @merchants = create_list(:merchant, 10)
+      
       visit(admin_merchants_path)
 
       @merchants.each do |merchant|
@@ -30,19 +31,22 @@ RSpec.describe "admin merchant index" do
     # And I see that the merchant's status has changed
     
     it "adds an enable/disable button" do
+      merchant = create(:merchant)
 
       visit admin_merchants_path
 
+      expect(page).to have_content(merchant.name)
+      expect(merchant.status).to_not have_content("Enabled")
       expect(page).to have_button("Enable")
       expect(page).to have_button("Disable")
-      # need to click the first button, figure out targeting
+      
       click_button("Enable")
-      # merchant does not have a status by default...need to add a method to the model?
+      
       expect(page).to have_content("Enabled")
-
+      
       click_button("Disable")
-
-      expect(page).to have_content("Disabled")
+      
+      expect(merchant.status).to_not have_content("Enabled")
     end
   end
 
