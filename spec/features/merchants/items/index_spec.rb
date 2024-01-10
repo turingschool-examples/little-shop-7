@@ -112,6 +112,18 @@ RSpec.describe "Merchants/Items Index Page", type: :feature do
     expect(page).to have_content('The teeniest tiniest toy you ever saw')
     expect(page).to have_content(15.01)
     expect(page).to have_content("Name: Tiny toy Description: The teeniest tiniest toy you ever saw, Price: $15.01, Status: disabled")
+    expect(page).to have_content("Item created successfully")
+
+    visit "/merchants/#{merchant.id}/items/new"
+    expect(page).to have_content("Create New Item:")
+    fill_in("Name", with: "nmame")
+    fill_in('Description', with: "")
+    fill_in('Unit price', with: 1501)
+    click_button "Create Item"
+
+    expect(current_path).to eq("/merchants/#{merchant.id}/items/new")
+    expect(page).to have_content("Create New Item:")
+    expect(page).to have_content("Item not created successfully")
   end
 
   it "shows top 5 items that made the most money and shows the total amount made for each item" do
