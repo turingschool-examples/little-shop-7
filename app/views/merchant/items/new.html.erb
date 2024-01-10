@@ -1,0 +1,13 @@
+<%= form_with url: "/merchants/#{@merchant.id}/items", method: :post, data: { turbo: false } do |form| %>
+  <%= form.hidden_field :merchant_id, value: @merchant.id %>
+  <%= form.label :name, "Name" %>
+  <%= form.text_field :name, value: "Name" %>
+  <br>
+  <%= form.label :description, "Description" %>
+  <%= form.text_field :description, value: "Description" %>
+  <br>
+  <%= form.label :unit_price, "Price" %>
+  <%= form.text_field :unit_price, value: "Price" %>
+  <br>
+  <%= form.submit "Submit" %>
+<% end %>
