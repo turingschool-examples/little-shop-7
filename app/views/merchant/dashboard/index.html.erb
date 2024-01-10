@@ -18,8 +18,8 @@
         <h2>Favorite Customers</h2>
       </div>
       <ol class=<%= "top-five-cust" %>>
-        <% @customers.top_five_by_transaction.each do |customer| %>
-          <li><%= "#{customer.last_name}, #{customer.first_name}" %>&nbsp&nbsp<%= customer.num_trans %></li>
+        <% @customers.top_five_cust_per_merchant(@merchant.id).each do |customer| %>
+          <li><%= "#{customer.last_name}, #{customer.first_name}" %>&nbsp&nbsp<%= customer.transactions_count %></li>
         <% end %>
       </ol>
     </div>
