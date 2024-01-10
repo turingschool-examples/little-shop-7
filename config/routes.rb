@@ -3,12 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-<<<<<<< HEAD
-  
-  resources :merchants, only: :index do 
-=======
   resources :merchants, only: :index do
->>>>>>> main
     resources :dashboard, only: [:index], controller: "merchant/dashboard"
     resources :items, only: [:index, :show], controller: "merchant/items"
     resources :invoices, only: [:index, :show], controller: "merchant/invoices"
@@ -20,8 +15,4 @@ Rails.application.routes.draw do
     patch "/merchants/:id", to: "merchants#update", as: :update_merchant
     resources :invoices, only: [:index, :show]
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 end
