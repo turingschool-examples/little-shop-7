@@ -1,18 +1,32 @@
 class ItemsController < ApplicationController
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
+    @merchant = Merchant.find(params[:merchant_id])
   end
 
   def create
     @item = Item.create!(item_params)
   end
 
-  # def show
-  #   @item = Item.find(params[:id])
-  # end
-
   def index
     @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def edit
+    @item = Item.find(params[:item_id])
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def update
+    item = Item.find(params[:item_id])
+    merchant = Merchant.find(params[:merchant_id])
+    if item.update(item_params)
+      redirect_to "/merchants/#{merchant.id}/items/#{item.id}"
+      flash[:alert] = "Update Successful"
+    else
+      redirect_to "/merchants/#{merchant.id}/items/#{item.id}/edit"
+      flash[:alert] = "Error: Update Unsuccessful"
+    end
   end
 
   private
