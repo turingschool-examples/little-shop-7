@@ -12,7 +12,7 @@ RSpec.describe "MerchantItem index", type: :feature do
     it "7. Merchant Items Show Page" do
         # (merchants/:merchant_id/items)
         visit "/merchants/#{@merchant_1.id}/items"
-        # When I click on the name of an item from the merchant items index page, 
+        # When I click on the name of an item from the merchant items index page,
         click_on("Moldy Cheese")
         # Then I am taken to that merchant's item's show page (/merchants/:merchant_id/items/:item_id)
         expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")

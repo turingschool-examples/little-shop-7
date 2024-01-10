@@ -7,7 +7,9 @@
   <ul>
   <% @merchants.each do |merchant| %>
     <% if merchant.enabled? %>
-        <li id="merchant-<%= merchant.id %>"><%= merchant.name %> <%= button_to "Disable Merchant", admin_update_merchant_path(merchant.id), method: :patch %></li>
+      <li id="merchant-<%= merchant.id %>">
+        <%= merchant.name %> <%= button_to "Disable Merchant", admin_update_merchant_path(merchant.id), method: :patch %>
+      </li>
     <% end %>
   <% end %>
   </ul>
@@ -19,8 +21,22 @@
   <ul>
     <% @merchants.each do |merchant| %>
       <% if merchant.disabled? %>
-        <li id="merchant-<%= merchant.id %>"><%= merchant.name %> <%= button_to "Enable Merchant", admin_update_merchant_path(merchant.id), method: :patch %></li>
+        <li id="merchant-<%= merchant.id %>">
+          <%= merchant.name %> <%= button_to "Enable Merchant", admin_update_merchant_path(merchant.id), method: :patch %>
+        </li>
+      <% end %>
     <% end %>
-  <%end %>
   </ul>
+</section>
+
+<section id="top-merchants">
+  <h2>Top Merchants</h2>
+  <ol>
+
+    <% @merchants.top_5_merchants.each do |merchant| %>
+      <li id="top-merchant-<%= merchant.id %>">
+        <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= number_to_currency(merchant.invoice_items.revenue) %> in sales
+      </li>
+    <% end %>
+  </ol>
 </section>
