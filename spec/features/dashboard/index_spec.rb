@@ -105,8 +105,6 @@ RSpec.describe "the merchant dashboard index page" do
       expect(page).to have_link "Invoice ##{@invoice_item_9.invoice.id}", href: merchant_invoice_path(merchant_id: @merchant.id, id: @invoice_item_9.invoice.id)
       expect(page).to_not have_link "Invoice ##{@invoice_item_10.invoice.id}", href: merchant_invoice_path(merchant_id: @merchant.id, id: @invoice_item_10.invoice.id)
       expect(page).to_not have_link "Invoice ##{@invoice_item_11.invoice.id}", href: merchant_invoice_path(merchant_id: @merchant.id, id: @invoice_item_11.invoice.id)
-
-      save_and_open_page
     end
   end
 end
