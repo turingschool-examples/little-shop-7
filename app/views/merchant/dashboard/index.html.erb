@@ -1,0 +1,27 @@
+<div class="merchant-dashboard">
+  
+  <div class="dashboard-sections">
+    <div class="ship-items">
+      <div id="border-adjust">
+        <h2>Items Ready to Ship</h2>
+      </div>
+      <ul>
+        <li>Favorite Customer #1</li>
+        <li>Favorite Customer #2</li>
+        <li>Favorite Customer #3</li>
+        <li>Favorite Customer #4</li>
+        <li>Favorite Customer #5</li>
+      </ul>
+    </div>
+    <div class="favorite-customers">
+      <div id="border-adjust">
+        <h2>Favorite Customers</h2>
+      </div>
+      <ol class=<%= "top-five-cust" %>>
+        <% @customers.top_five_cust_per_merchant(@merchant.id).each do |customer| %>
+          <li><%= "#{customer.last_name}, #{customer.first_name}" %>&nbsp&nbsp<%= customer.transactions_count %></li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

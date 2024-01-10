@@ -1,0 +1,9 @@
+<% flash.each do |type, message| %>
+    <p><%= message %></p>
+<% end %>
+<div>
+    <h1><%= @item.name %></h1>
+    <h3><%= @item.description %></h3>
+    <h3><%= @item.unit_price %></h3>
+    <%=button_to "Update item information", "/merchants/#{@item.merchant_id}/items/#{@item.id}/edit", method: :get%>
+</div>

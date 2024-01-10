@@ -1,0 +1,30 @@
+<head>
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <div class="shop-title">
+      <h1>Little Esty Shop</h1>
+    </div>
+    <header class="admin-dashboard-header">
+      <div class="admin-title">
+        <h1>Admin Dashboard</h1>
+      </div>
+      <nav class="admin-nav">
+        <%= link_to 'Dashboard', admin_dashboard_path %>
+        <%= link_to 'Merchants', admin_merchants_path %>
+        <%= link_to 'Invoices', admin_invoices_path %>
+      </nav>
+    </header>
+    <div class="admin-content">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+
