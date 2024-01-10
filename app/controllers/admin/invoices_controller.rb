@@ -1,4 +1,4 @@
-class Admin::InvoicesController < ApplicationController 
+class Admin::InvoicesController < ApplicationController
   def index
     @invoices = Invoice.all
   end
@@ -15,7 +15,8 @@ class Admin::InvoicesController < ApplicationController
       invoice.update!(status: :completed)
     elsif params[:status] == "in progress"
       invoice.update!(status: :in_progress)
-    end 
+    end
     redirect_to admin_invoice_path(invoice)
+    flash[:alert] = "Update Successful"
   end
- end
+end

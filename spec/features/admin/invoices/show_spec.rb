@@ -9,7 +9,7 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       @merch_4 = Merchant.create!(name: "GameStop", status: :enabled)
       @merch_5 = Merchant.create!(name: "Sams", status: :enabled)
       @merch_6 = Merchant.create!(name: "Costco", status: :enabled)
-  
+
       @item_1 = @merch_1.items.create!(name: "Apple", description: "red apple", unit_price:1)
       @item_2 = @merch_1.items.create!(name: "Orange", description: "orange orange", unit_price:1)
       @item_3 = @merch_2.items.create!(name: "Blood Orange", description: "blood orange", unit_price:1)
@@ -22,28 +22,28 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       @item_10 = @merch_5.items.create!(name: "Rum", description: "Yum", unit_price:1)
       @item_11 = @merch_6.items.create!(name: "Vodka", description: "White", unit_price:1)
       @item_12 = @merch_6.items.create!(name: "Cat Toy", description: "toy", unit_price:1)
-  
+
       @cust_1 = Customer.create!(first_name: "Larry", last_name: "Johnson")
       @cust_2 = Customer.create!(first_name: "Pam", last_name: "Nelson")
       @cust_3 = Customer.create!(first_name: "Logan", last_name: "Finnegan")
       @cust_4 = Customer.create!(first_name: "Nate", last_name: "Lambertson")
       @cust_5 = Customer.create!(first_name: "Martin", last_name: "chavez")
       @cust_6 = Customer.create!(first_name: "Isaac", last_name: "Mitchell")
-  
+
       @inv_1 = @cust_1.invoices.create!(status: :completed, created_at:Time.new(2021, 10, 31) )
       @inv_2 = @cust_2.invoices.create!(status: :completed)
       @inv_3 = @cust_3.invoices.create!(status: :completed)
       @inv_4 = @cust_4.invoices.create!(status: :completed)
       @inv_5 = @cust_5.invoices.create!(status: :in_progress,created_at:Time.new(2024, 02, 1))
       @inv_6 = @cust_6.invoices.create!(status: :cancelled, created_at:Time.new(2021, 10, 31))
-  
+
       @tran_1 = @inv_1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
       @tran_2 = @inv_2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
       @tran_3 = @inv_3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
       @tran_4 = @inv_4.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "04/2024", result: :success )
       @tran_5 = @inv_5.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "05/2025", result: :success )
       @tran_6 = @inv_6.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "06/2026", result: :failed )
-  
+
       @ii_1 = InvoiceItem.create!(invoice: @inv_1, item: @item_1, quantity: 10, unit_price: 1, status: :shipped )
       @ii_2 = InvoiceItem.create!(invoice: @inv_1, item: @item_2, quantity: 10, unit_price: 1, status: :shipped )
       @ii_3 = InvoiceItem.create!(invoice: @inv_1, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
@@ -51,7 +51,7 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       @ii_5 = InvoiceItem.create!(invoice: @inv_2, item: @item_2, quantity: 10, unit_price: 1, status: :shipped )
       @ii_6 = InvoiceItem.create!(invoice: @inv_2, item: @item_3, quantity: 10, unit_price: 1, status: :shipped )
     end
-    
+
     # 33. Admin Invoice Show Page
     it 'shows invoice data' do
       # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
@@ -67,21 +67,35 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       expect(page).to have_content("#{@inv_1.customer.first_name} #{@inv_1.customer.last_name}")
     end
 
-    it "Update invoice status" do 
+    it "Update invoice status" do
       visit admin_invoice_path(@inv_3)
 
-      within ".status-update" do 
+      within ".status-update" do
+        select("completed", from: "status")
+        click_button "Update"
+
+        expect(current_path).to eq(admin_invoice_path(@inv_3))
         expect(page).to have_content("Current Status: completed")
+        expect(page).to_not have_content("Update Successful")
 
         select("cancelled", from: "status")
         click_button "Update"
-      
+
+        expect(current_path).to eq(admin_invoice_path(@inv_3))
         expect(page).to have_content("Current Status: cancelled")
-      end 
+        expect(page).to_not have_content("Update Successful")
+
+        select("in progress", from: "status")
+        click_button "Update"
+
+        expect(current_path).to eq(admin_invoice_path(@inv_3))
+        expect(page).to have_content("Current Status: in_progress")
+        expect(page).to_not have_content("Update Successful")
+      end
     end
 
     # 34. Admin Invoice Show Page: Invoice Item Information
-    it "displays item info" do 
+    it "displays item info" do
       # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
       visit admin_invoice_path(@inv_1)
       # Then I see all of the items on the invoice including:
