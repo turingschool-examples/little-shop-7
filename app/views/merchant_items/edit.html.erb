@@ -1,12 +1,3 @@
-<%= form_with model: [@merchant, @item], local: true, html: { id: 'Update_Item' } do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
+<h1> Edit Item: </h1>
 
-  <%= form.label :description %>
-  <%= form.text_field :description %>
-
-  <%= form.label :unit_price %>
-  <%= form.text_field :unit_price %>
-
-  <%= form.submit %>
-<% end %>
+<%= render 'form', merchant: @merchant, item: @item, form_id: 'Update_Item' %>
