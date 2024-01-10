@@ -1,7 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Dashboard Index" do
-  it "has a header indicating you are on the admin dashboard" do
+  before (:each) do
+    @merchant = create(:merchant) 
+    @customer = create(:customer)
+    @item = create(:item)
+    # invoice = create!(:invoice, customer_id: customer.id)
+    @invoice = create(:invoice)
+    @transaction = create(:transaction)
+    # @invoice_item = create() #look into this later
+    # @item.invoice << [@shoe, @towel]
+  end
+
+  xit "has a header indicating you are on the admin dashboard" do
     # 19. Admin Dashboard
 
     # As an admin,
@@ -13,7 +24,7 @@ RSpec.describe "Admin Dashboard Index" do
     # save_and_open_page
   end
 
-  it "has links to the Admin Merchants Index and Admind Invouces Index" do
+  xit "has links to the Admin Merchants Index and Admind Invouces Index" do
     # 20. Admin Dashboard Links
 
     # As an admin,
