@@ -12,26 +12,65 @@ RSpec.describe Invoice, type: :model do
     it { should define_enum_for(:status).with_values([:"in progress", :completed, :cancelled]) }
   end
 
-  describe "methods" do
+  describe "instance methods" do
     it "formats created_at date" do
       @customer = create(:customer)
       @invoice = create(:invoice, created_at: "2019-07-18 00:00:00")
     
       expect(@invoice.format_created_date).to eq("Thursday, July 18, 2019")
     end
+
+    it "calculates the total revenue" do
+      item_1 = create(:item, unit_price: 1)
+      item_2 = create(:item, unit_price: 2)
+      item_3 = create(:item, unit_price: 3)
+  
+      invoice = create(:invoice)
+  
+      invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
+      invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
+      invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
+  
+      expect(invoice.total_revenue).to eq(10)
+    end
   end
 
-  it "calculates the total revenue" do
-    item_1 = create(:item, unit_price: 1)
-    item_2 = create(:item, unit_price: 2)
-    item_3 = create(:item, unit_price: 3)
+  describe "class methods" do
+    describe "#incomplete_invoices" do
+      it "returns invoices that are pending or packaged but not shipped" do
+        pending = create_list(:invoice_item, 5, status: 0)
+        packaged = create_list(:invoice_item, 5, status: 1)
+        shipped = create_list(:invoice_item, 5, status: 2)
+    
+        expected_invoices = []
+        pending.each do |invoice_item|
+          expected_invoices << invoice_item.invoice
+        end
+    
+        packaged.each do |invoice_item|
+          expected_invoices << invoice_item.invoice
+        end
 
-    invoice = create(:invoice)
+        expect(Invoice.incomplete_invoices).to match_array(expected_invoices)
+      end
+    end
+  end
 
-    invoice_item_1 = create(:invoice_item, quantity: 3, invoice: invoice, item: item_1)
-    invoice_item_2 = create(:invoice_item, quantity: 2, invoice: invoice, item: item_2)
-    invoice_item_3 = create(:invoice_item, quantity: 1, invoice: invoice, item: item_3)
+  it "calculates the total revenue by merchant" do
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant_1.id)
+    item_2 = create(:item, merchant_id: merchant_2.id)
+    item_3 = create(:item, merchant_id: merchant_1.id)
 
-    expect(invoice.total_revenue).to eq(10)
+    customer_1 = create(:customer)
+    invoice_1 = create(:invoice, customer_id: customer_1.id)
+
+    invoice_item_1 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_1.id, quantity: 2, unit_price: 100)
+    invoice_item_2 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_2.id, quantity: 2, unit_price: 200)
+    invoice_item_3 = create(:invoice_item, invoice_id: invoice_1.id, item_id: item_3.id, quantity: 3, unit_price: 100)
+
+    expect(invoice_1.total_revenue_by_merchant(merchant_1)).to eq("5.00")
+    expect(invoice_1.total_revenue_by_merchant(merchant_2)).to eq("4.00")
   end
 end
