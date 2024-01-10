@@ -47,16 +47,18 @@ RSpec.describe "the merchant items index page" do
       click_link("Update Item")
 
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
-      expect(page).to have_content("Name: #{@item_1.name}") # this is working in the server but failing tests - I'm not sure why
-      expect(page).to have_content("Description: #{@item_1.description}") # same as above
-      expect(page).to have_content("Current Price: #{@item_1.unit_price}") # same as above
+      expect(page).to have_field("name", with: @item_1.name)
+      expect(page).to have_field("description", with: @item_1.description)
+      expect(page).to have_field("unit_price", with: @item_1.unit_price)
       expect(page).to have_button("Submit")
 
       fill_in "name", with: "Black Shoelaces"
+      fill_in "description", with: "long black shoelaces"
       click_button("Submit")
 
       expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
       expect(page).to have_content("Black Shoelaces")
+      expect(page).to have_content("Description: long black shoelaces")
     end
   end
 end
