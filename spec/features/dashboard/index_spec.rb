@@ -121,8 +121,6 @@ RSpec.describe "the merchant dashboard index page" do
 
       visit merchant_dashboard_index_path(merchant_id: @merchant.id)
 
-      save_and_open_page
-
       expect(page).to have_content("#{@invoice_item_1.invoice.created_at.strftime("%A, %B #{@invoice_item_1.invoice.created_at.day.ordinalize}, %Y")}")
       expect(page).to have_content("#{@invoice_item_2.invoice.created_at.strftime("%A, %B #{@invoice_item_2.invoice.created_at.day.ordinalize}, %Y")}")
       expect(page).to have_content("#{@invoice_item_3.invoice.created_at.strftime("%A, %B #{@invoice_item_3.invoice.created_at.day.ordinalize}, %Y")}")
