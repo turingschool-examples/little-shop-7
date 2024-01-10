@@ -1,7 +1,7 @@
 <h1> Merchant Edit Page </h1>
 
 <%= @merchant.name%>
-<%= form_with url: admin_merchant_path(@merchant), method: :patch, data: { turbo: false } do |form| %>
+<%= form_with model: @merchant, url: admin_merchant_path(@merchant), method: :patch, data: { turbo: false } do |form| %>
   <%= form.label :name %> 
   <%= form.text_field :name %>
   <%= form.submit 'Submit' %>
