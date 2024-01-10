@@ -13,9 +13,8 @@ RSpec.describe "Merchant Dashboards", type: :feature do
 
   it "has links to the merchant items index and the merchant invoices index" do 
     visit "/merchants/#{@merchant.id}/dashboard"
-    
-    expect(page).to have_link("Invoices")
     expect(page).to have_link("Items")
+    expect(page).to have_link("Invoices")
 
     click_link "Items" 
     expect(current_path).to eq("/merchants/#{@merchant.id}/items")
@@ -30,9 +29,9 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     visit "/merchants/#{@merchant.id}/dashboard"
     within ".top-five-cust" do 
       expect("#{@customers[4].last_name}, #{@customers[4].first_name}").to appear_before("#{@customers[7].last_name}, #{@customers[7].first_name}")
-      expect("#{@customers[7].last_name}, #{@customers[7].first_name}").to appear_before("#{@customers[1].last_name}, #{@customers[1].first_name}")
-      expect("#{@customers[1].last_name}, #{@customers[1].first_name}").to appear_before("#{@customers[3].last_name}, #{@customers[3].first_name}")
-      expect("#{@customers[3].last_name}, #{@customers[3].first_name}").to appear_before("#{@customers[5].last_name}, #{@customers[5].first_name}")
+      expect("#{@customers[7].last_name}, #{@customers[7].first_name}").to appear_before("#{@customers[3].last_name}, #{@customers[3].first_name}")
+      expect("#{@customers[3].last_name}, #{@customers[3].first_name}").to appear_before("#{@customers[1].last_name}, #{@customers[1].first_name}")
+      expect("#{@customers[1].last_name}, #{@customers[1].first_name}").to appear_before("#{@customers[5].last_name}, #{@customers[5].first_name}")
     end
   end
 
