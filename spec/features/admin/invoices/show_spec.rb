@@ -65,7 +65,6 @@ RSpec.describe 'Admin Show Spec', type: :feature do
       expect(page).to have_content(@inv_1.status)
       expect(page).to have_content(@inv_1.created_at.strftime("%A, %B %d, %Y"))
       expect(page).to have_content("#{@inv_1.customer.first_name} #{@inv_1.customer.last_name}")
-      save_and_open_page
     end
 
     it "Update invoice status" do 

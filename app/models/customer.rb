@@ -13,3 +13,4 @@ class Customer < ApplicationRecord
       .limit(5)
   end
 end
+

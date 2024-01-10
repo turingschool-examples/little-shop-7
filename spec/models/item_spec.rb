@@ -11,6 +11,8 @@ RSpec.describe Item, type: :model do
     it { should belong_to :merchant }
     it { should have_many(:invoice_items) }
     it { should have_many(:invoices).through :invoice_items }
+    it { should have_many(:customers).through(:invoices) }
+    it { should have_many(:transactions).through(:invoices) }
   end
 
   describe "enums" do
@@ -46,6 +48,47 @@ RSpec.describe Item, type: :model do
       expect(item1.top_sales_date).to eq("February 02, 2018")
       expect(item2.top_sales_date).to eq("January 01, 2018")
     end
-  end
 
+    it "#quantity_ordered" do 
+      merchant_1 = Merchant.create!(name: "Walmart")
+      customer1 = Customer.create!(first_name: "John", last_name: "Smith")
+      customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
+      customer3 = Customer.create!(first_name: "Jaques", last_name: "Snipes")
+      item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 10)
+      item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 10)
+      item3 = merchant_1.items.create!(name: "zipper", description: "pants", unit_price: 10)
+      invoice1 = customer1.invoices.create!(created_at: Time.new(2018, 1, 1), status:2)
+      invoice2 = customer2.invoices.create!(created_at: Time.new(2018, 2, 2), status: 2)
+      invoice3 = customer3.invoices.create!(created_at: Time.new(2018, 3, 3), status: 2)
+      invoice_item1 = invoice1.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 10, status: 2)
+      invoice_item2 = invoice1.invoice_items.create!(item_id: item2.id, quantity: 2, unit_price: 3, status: 2)
+      invoice_item3 = invoice1.invoice_items.create!(item_id: item3.id, quantity: 1, unit_price: 10, status: 2)
+      invoice_item4 = invoice2.invoice_items.create!(item_id: item1.id, quantity: 2, unit_price: 10, status: 2)
+      invoice_item5 = invoice2.invoice_items.create!(item_id: item2.id, quantity: 1, unit_price: 3, status: 2)
+      invoice_item6 = invoice2.invoice_items.create!(item_id: item3.id, quantity: 2, unit_price: 10, status: 2)
+
+     expect(item1.quantity_ordered(item1, invoice1)).to eq(1)
+    end
+
+    it "#invoice_status" do
+      merchant_1 = Merchant.create!(name: "Walmart")
+      customer1 = Customer.create!(first_name: "John", last_name: "Smith")
+      customer2 = Customer.create!(first_name: "Jane", last_name: "Sornes")
+      customer3 = Customer.create!(first_name: "Jaques", last_name: "Snipes")
+      item1 = merchant_1.items.create!(name: "popcan", description: "fun", unit_price: 10)
+      item2 = merchant_1.items.create!(name: "popper", description: "fun", unit_price: 10)
+      item3 = merchant_1.items.create!(name: "zipper", description: "pants", unit_price: 10)
+      invoice1 = customer1.invoices.create!(created_at: Time.new(2018, 1, 1), status:2)
+      invoice2 = customer2.invoices.create!(created_at: Time.new(2018, 2, 2), status: 2)
+      invoice3 = customer3.invoices.create!(created_at: Time.new(2018, 3, 3), status: 2)
+      invoice_item1 = invoice1.invoice_items.create!(item_id: item1.id, quantity: 1, unit_price: 10, status: 2)
+      invoice_item2 = invoice1.invoice_items.create!(item_id: item2.id, quantity: 2, unit_price: 3, status: 2)
+      invoice_item3 = invoice1.invoice_items.create!(item_id: item3.id, quantity: 1, unit_price: 10, status: 2)
+      invoice_item4 = invoice2.invoice_items.create!(item_id: item1.id, quantity: 2, unit_price: 10, status: 2)
+      invoice_item5 = invoice2.invoice_items.create!(item_id: item2.id, quantity: 1, unit_price: 3, status: 2)
+      invoice_item6 = invoice2.invoice_items.create!(item_id: item3.id, quantity: 2, unit_price: 10, status: 2)
+
+      expect(item1.invoice_status(item1, invoice1)).to eq("shipped")
+    end
+  end
 end
