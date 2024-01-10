@@ -64,4 +64,39 @@ RSpec.describe "Admin Dashboard Index" do
   #   expect(page).to_not have_content(.first_name)
   #   expect(page).to_not have_content(.last_name)
   # end
+
+  it "shows invoices that have not shipped" do
+    #     22. Admin Dashboard Incomplete Invoices
+    pending = create_list(:invoice_item, 5, status: 0)
+    packaged = create_list(:invoice_item, 5, status: 1)
+    shipped = create_list(:invoice_item, 5, status: 2)
+
+    expected_ids = []
+    pending.each do |invoice_item|
+      expected_ids << invoice_item.invoice_id
+    end
+
+    packaged.each do |invoice_item|
+      expected_ids << invoice_item.invoice_id
+    end
+
+    # As an admin,
+    # When I visit the admin dashboard (/admin)
+    visit admin_root_path
+    # Then I see a section for "Incomplete Invoices"
+    expect(page).to have_content("Incomplete Invoices")
+    within(".incomplete_invoices") do
+      # In that section I see a list of the ids of all invoices
+      # That have items that have not yet been shipped
+      # And each invoice id links to that invoice's admin show page
+      expected_ids.each do |id|
+        expect(page).to have_link("Invoice ##{id}", href: admin_invoice_path(id))
+      end
+
+      shipped.each do |invoice_item|
+        expect(page).to_not have_content("Invoice ##{invoice_item.invoice_id}")
+      end
+
+    end
+  end
 end
