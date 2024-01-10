@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :dashboard
     resources :invoices, only: [:index, :show]
     resources :items, param: :item_id, only: [:index, :show, :update]
+    resources :invoice_items, only: [:update]
   end
-
 end
