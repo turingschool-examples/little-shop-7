@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 
   def create
@@ -13,6 +13,12 @@ class ItemsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def update
+    @item = Item.find(params[:item_id])
+    @item.update(status: params[:status]) if params[:status].present?
+    redirect_to "/merchants/#{@item.merchant_id}/items"
   end
 
   private
