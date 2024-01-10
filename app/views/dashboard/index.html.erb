@@ -12,6 +12,6 @@
 <h2><%= "Items Ready To Ship" %></h2>
 <ul>
     <% @merchant.items_ready_to_ship.each do |invoice_item| %>
-        <h3><li><%= "#{invoice_item.item.name}" %>, <%= link_to "Invoice ##{invoice_item.invoice.id}", merchant_invoice_path(merchant_id: @merchant.id, id: invoice_item.invoice.id) %></li></h3>
+        <h3><li><%= "#{invoice_item.item.name}" %>, <%= link_to "Invoice ##{invoice_item.invoice.id}", merchant_invoice_path(merchant_id: @merchant.id, id: invoice_item.invoice.id) %>  (<%= "#{invoice_item.invoice.created_at.strftime("%A, %B #{invoice_item.invoice.created_at.day.ordinalize}, %Y")}" %>)</li></h3>
     <% end %>
 </ul>
