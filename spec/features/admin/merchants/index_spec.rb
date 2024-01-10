@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
- RSpec.describe 'Admin Merchants', type: :feature do
+RSpec.describe 'Admin Merchants', type: :feature do
 
   before(:each) do
     @merch_1 = Merchant.create!(name: "Walmart", status: :enabled)
@@ -87,6 +87,7 @@ require 'rails_helper'
       expect(page).to have_button("disable")
       expect(page).to have_content("Status: Enabled")
     end
+
     within "#merchant-#{@merch_2.id}" do
       expect(page).to have_button("enable")
     end
@@ -96,6 +97,7 @@ require 'rails_helper'
     end
     # Then I am redirected back to the admin merchants index
     expect(current_path).to eq(admin_merchants_path)
+    expect(page).to have_content("Update Successful")
     # And I see that the merchant's status has changed
     within "#merchant-#{@merch_1.id}" do
       expect(page).to have_button("enable")
@@ -128,15 +130,15 @@ require 'rails_helper'
   end
 
   # US 30
-  it " sees the top 5 merchants by revenue" do 
-    
+  it " sees the top 5 merchants by revenue" do
+
     inv1 = @cust_1.invoices.create!(status: :completed)
     inv2 = @cust_2.invoices.create!(status: :completed)
     inv3 = @cust_3.invoices.create!(status: :completed)
     inv4 = @cust_4.invoices.create!(status: :completed)
     inv5 = @cust_5.invoices.create!(status: :completed)
     inv6 = @cust_6.invoices.create!(status: :completed)
-   
+
     tran1 = inv1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
     tran2 = inv2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
     tran3 = inv3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
@@ -153,14 +155,14 @@ require 'rails_helper'
 
     visit admin_merchants_path
 
-    within ".top_5_revenue" do 
+    within ".top_5_revenue" do
       expect(page).to have_content("Walmart Revenue: $14300")
       expect(page).to have_content("Target Revenue: $2400")
       expect(page).to have_content("PetSmart Revenue: $600")
       expect(page).to have_content("GameStop Revenue: $200")
       expect(page).to have_content("Sams Revenue: $1200")
       expect(page).to_not have_content("Costco")
-      
+
       expect(page).to have_link(@merch_1.name)
       expect(page).to have_link(@merch_2.name)
       expect(page).to have_link(@merch_3.name)
@@ -169,14 +171,14 @@ require 'rails_helper'
     end
   end
 
-  it 'top_merchants best day' do 
+  it 'top_merchants best day' do
     inv1 = @cust_1.invoices.create!(status: :completed)
     inv2 = @cust_2.invoices.create!(status: :completed, created_at: Time.new(2022, 02, 02))
     inv3 = @cust_3.invoices.create!(status: :completed)
     inv4 = @cust_4.invoices.create!(status: :completed, created_at: Time.new(2011, 06, 03))
     inv5 = @cust_5.invoices.create!(status: :completed)
     inv6 = @cust_6.invoices.create!(status: :completed)
-   
+
     tran1 = inv1.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "01/2021", result: :success )
     tran2 = inv2.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "02/2022", result: :success )
     tran3 = inv3.transactions.create!(credit_card_number: "2222 2222 2222 2222", credit_card_expiration_date: "03/2023", result: :success )
@@ -202,7 +204,7 @@ require 'rails_helper'
 
     expect(page).to have_content("Top selling date for GameStop was 10/31/05")
     expect(page).to have_content("Top selling date for Target was 02/02/22")
-  end 
+  end
 
 #   And I see a label “Top selling date for <merchant name> was <date with most sales>"
 
