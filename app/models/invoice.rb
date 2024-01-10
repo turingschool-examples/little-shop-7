@@ -15,14 +15,11 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue_by_merchant(merchant)
-    merchant_id = merchant.id
-    item_ids = merchant.items.pluck(:id)
-    merchant_invoice_items = InvoiceItem.where(item_id: item_ids, invoice_id: id)
+    total_revenue_in_cents = InvoiceItem.joins(:item)
+                                        .where(items: { merchant_id: merchant.id }, invoice_id: id)
+                                        .sum("invoice_items.unit_price * invoice_items.quantity")
 
-    total_revenue_in_cents = merchant_invoice_items.sum do |invoice_item|
-      invoice_item.unit_price * invoice_item.quantity
-    end
-      '%.2f' % "#{total_revenue_in_cents/100}"
+    total_revenue_in_dollars = format('%.2f', total_revenue_in_cents / 100.0)
   end
 
 end
