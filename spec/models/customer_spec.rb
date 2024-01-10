@@ -28,7 +28,9 @@ RSpec.describe Customer, type: :model do
 
         expect(Customer.top_5_spenders).to eq(top_5_customers)
       end
-
+    end
+  end
+  
   describe "instance methods" do
     it "can display customer first and last name" do
       @customer = Customer.create(first_name: "John", last_name: "Doe")
