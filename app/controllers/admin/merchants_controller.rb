@@ -1,6 +1,6 @@
 class Admin::MerchantsController < ApplicationController
   layout 'admin/layouts/admin'
-  
+
   def index
     @merchants = Merchant.all
   end
@@ -20,6 +20,10 @@ class Admin::MerchantsController < ApplicationController
     merchant = Merchant.create(merchant_params)
 
     redirect_to admin_merchants_path
+  end
+
+  def show
+    @merchant = Merchant.find(params[:id])
   end
 
   private
