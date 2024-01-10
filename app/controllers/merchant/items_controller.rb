@@ -8,5 +8,5 @@ class Merchant::ItemsController < ApplicationController
       @item = Item.find(params[:id])
       @merchant = @item.merchant
     end
-
+    
 end
