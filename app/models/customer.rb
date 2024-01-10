@@ -16,7 +16,7 @@ class Customer < ApplicationRecord
     .where(transactions: { result: 1 })
     .group("customers.id")
     .select("customers.*, count(transactions.id) AS successful_transactions")
-    .order(count: :desc) 
+    .order(successful_transactions: :desc) 
     .limit(5)
   end
 end
