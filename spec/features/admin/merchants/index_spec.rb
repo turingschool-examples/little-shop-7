@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "admin merchant index" do
-  # moved because I couldn't figure out how to target one instance of a button
+  # moved because I couldn't figure out how to target one instance of a button for US#27
   # before(:each) do 
   # end
   
@@ -11,7 +11,7 @@ RSpec.describe "admin merchant index" do
     # Then I see the name of each merchant in the system
     
     it "can see the name of each merchant in the system" do
-      @merchant = create(:merchant)
+      merchant_1 = create(:merchant)
       @merchants = create_list(:merchant, 10)
       
       visit(admin_merchants_path)
@@ -42,7 +42,6 @@ RSpec.describe "admin merchant index" do
       expect(page).to have_button("Enable")
       # expect(page).to have_button("Disable")
       click_button("Enable")
-      save_and_open_page
       
       expect(page).to have_content("Enabled")
       

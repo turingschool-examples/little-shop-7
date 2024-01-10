@@ -14,42 +14,42 @@ RSpec.describe "admin/merchants/edit_spec.rb" do
     # And I see a flash message stating that the information has been successfully updated.
     
     it " can update the admin merchant" do 
-      @merchant_1 = create(:merchant)
+      @merchant = create(:merchant)
 
-      visit admin_merchant_path(@merchant_1)
+      visit admin_merchant_path(@merchant)
 
       expect(page).to have_link("Update Merchant Information")
-
       click_on("Update Merchant Information")
-
-      expect(current_path).to eq(edit_admin_merchant_path(@merchant_1.id))
-      expect(page).to have_field(:"Merchant Name", :with => @merchant_1.name)
-
-      fill_in "Merchant Name", with: "Updated Merchant Name"
+      
+      expect(current_path).to eq(edit_admin_merchant_path(@merchant))
+      expect(page).to have_content(@merchant.name)
+      
+      save_and_open_page
+      fill_in "Name", with: "Gonzo Gazeebo"
       click_on('Submit')
 
-      expect(current_path).to eq(admin_merchant_path(@merchant_1))
-      expect(page).to have_content("Updated Merchant Name")
-      expect(page).to_not have_content(@merchant_1.name)
+      expect(current_path).to eq(admin_merchant_path(@merchant))
+      expect(page).to have_content("Gonzo Gazeebo")
+      expect(page).to_not have_content(@merchant.name)
       expect(page).to have_content("Information has succesfully been updated")
     end
 
     it "US26-soft failure test: throws an error if update doesn't work :)" do
       #As an admin
       # when I visit admin merchants edit page
-      merchant_1 = create(:merchant)
+      merchant = create(:merchant)
 
-      visit edit_admin_merchant_path(merchant_1.id)
+      visit admin_merchant_path(merchant.id)
       # And I input invalid data (blank field)
-      fill_in("Merchant Name", with: "")
+      fill_in(@merchant.name, with: "")
       # and click submit
       click_button("Submit")
       # I am taken back to the admin merchants edit page
-      expect(current_path).to eq(edit_admin_merchant_path(merchant_1))
+      expect(current_path).to eq(admin_merchant_path(merchant))
       # And I see a flash message that tells me name can't be blank
       expect(page).to have_content("Name can't be blank")
       # And the merchant data was not changed
-      expect(page).to have_content(merchant_1.name)
+      expect(page).to have_content(merchant.name)
     end
   end
 end
