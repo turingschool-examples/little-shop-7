@@ -6,6 +6,14 @@ class Merchant < ApplicationRecord
     Item.where(merchant_id: id).pluck(:id)
   end
 
+  def enabled_item_ids # add a test
+    Item.where(merchant_id: id, status: "enabled").pluck(:id)
+  end
+
+  def disabled_item_ids # add a test
+    Item.where(merchant_id: id, status: "disabled").pluck(:id)
+  end
+
   def top_five_customers
     Customer.joins(invoices: [{ items: :merchant }, :transactions] )
             .select("customers.*, count(customers.id) as number_of_transactions")

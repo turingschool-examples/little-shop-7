@@ -41,14 +41,22 @@ RSpec.describe "the merchant items index page" do
 
     it "displays enable and disable buttons to update the item status" do
       visit "/merchants/#{@merchant_1.id}/items"
+  
+      within("tr:contains('#{@item_1.name}')") do
+        expect(page).to have_button("Enable")
 
-      expect(page).to have_button("Enable")
+        click_button("Enable")
 
-      click_button("Enable")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
 
-      expect(current_path).to_eq("/merchants/#{@merchant_1.id}/items")
+        expect(page).to have_button("Disable")
 
-      expect(page).to have_button("Disable")
+        click_button("Disable")
+
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+
+        expect(page).to have_button("Enable")
+      end
     end
   end
 end
