@@ -21,12 +21,6 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:invoice_items).through(:items)}
   end
 
-  describe "#revenue" do
-    it "can calculate the total amount of sales for a merchant" do
-
-    end
-  end
-
   describe "#top_5_merchants" do
     it "returns the top merchants with the highest revenue generated" do
       hat = Item.create!(name: "Hat", description: "Makes the wearer look fancy", unit_price: 15000, merchant_id: @merchant_1.id)

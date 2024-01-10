@@ -19,7 +19,6 @@ class Merchant < ApplicationRecord
   end
 
   def sales
-    require 'pry'; binding.pry
-    Merchant.joins(invoice_items: [invoice: :transactions]).select("sum(invoice_items.quantity * invoice_items.unit_price) as sales").where("transactions.result = ?", "1").order("sales desc")
+    Merchant.joins(invoice_items: [invoice: :transactions]).select("merchants.*", "sum(invoice_items.quantity * invoice_items.unit_price) as sales").where("transactions.result = ?", "1").group("merchants.id")
   end
 end
