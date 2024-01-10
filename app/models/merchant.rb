@@ -6,11 +6,11 @@ class Merchant < ApplicationRecord
     Item.where(merchant_id: id).pluck(:id)
   end
 
-  def enabled_item_ids # add a test
+  def enabled_item_ids
     Item.where(merchant_id: id, status: "enabled").pluck(:id)
   end
 
-  def disabled_item_ids # add a test
+  def disabled_item_ids
     Item.where(merchant_id: id, status: "disabled").pluck(:id)
   end
 

@@ -22,6 +22,26 @@ RSpec.describe Merchant, type: :model do
       expect(merchant_1.item_ids).to eq([item_1.id, item_2.id])
       expect(merchant_2.item_ids).to eq([item_3.id, item_4.id])
     end
+
+    it "finds enabled item ids" do
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_2 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_3 = create(:item, merchant_id: merchant_1.id)
+      item_4 = create(:item, merchant_id: merchant_1.id)
+
+      expect(merchant_1.enabled_item_ids).to eq([item_1.id, item_2.id])
+    end
+
+    it "finds disabled item ids" do 
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_2 = create(:item, merchant_id: merchant_1.id, status: "enabled")
+      item_3 = create(:item, merchant_id: merchant_1.id)
+      item_4 = create(:item, merchant_id: merchant_1.id)
+
+      expect(merchant_1.disabled_item_ids).to eq([item_3.id, item_4.id])
+    end
   end
 
   describe "instance methods" do
