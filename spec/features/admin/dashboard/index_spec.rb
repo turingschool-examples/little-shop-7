@@ -1,20 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Dashboard Index" do
-  before (:each) do
-    @merchant = create(:merchant) 
-    @customer = create(:customer)
-    @item = create(:item)
-    # invoice = create!(:invoice, customer_id: customer.id)
-    @invoice = create(:invoice)
-    @transaction = create(:transaction)
-    # @invoice_item = create() #look into this later
-    # @item.invoice << [@shoe, @towel]
+  before(:each) do
+    customer_1 = create(:customer)
+    customer_2 = create(:customer)
+    customer_3 = create(:customer)
+    customer_4 = create(:customer)
+    customer_5 = create(:customer)
+    @customer_6 = create(:customer, first_name: "Not a Name", last_name: "Not a Last Name")
+
+    @top_5_customers = [customer_1, customer_2, customer_3, customer_4, customer_5]
+
+    @top_5_customers.each do |customer|
+      invoice = create(:invoice, customer: customer)
+      create_list(:transaction, 10, invoice: invoice, result: 1)
+    end
+
+    invoice = create(:invoice, customer: @customer_6)
+    create_list(:transaction, 10, invoice: invoice, result: 0)
+    create_list(:transaction, 5, invoice: invoice, result: 1)
+
   end
 
-  xit "has a header indicating you are on the admin dashboard" do
+  it "has a header indicating you are on the admin dashboard" do
     # 19. Admin Dashboard
-
     # As an admin,
     # When I visit the admin dashboard (/admin)
     visit admin_root_path
@@ -24,7 +33,7 @@ RSpec.describe "Admin Dashboard Index" do
     # save_and_open_page
   end
 
-  xit "has links to the Admin Merchants Index and Admind Invouces Index" do
+  it "has links to the Admin Merchants Index and Admind Invouces Index" do
     # 20. Admin Dashboard Links
 
     # As an admin,
@@ -37,31 +46,24 @@ RSpec.describe "Admin Dashboard Index" do
     expect(page).to have_link("Admin Invoices Index")
   end
 
-  # it "displays top 5 customers with the largest number of successful transactions" do
-  #   # 21. Admin Dashboard Statistics - Top Customers
+  it "displays top 5 customers with the largest number of successful transactions" do
+    # 21. Admin Dashboard Statistics - Top Customers
 
-  #   # As an admin,
-  #   # When I visit the admin dashboard (/admin)
-  #   visit root_path
+    # As an admin,
+    # When I visit the admin dashboard (/admin)
+    visit admin_root_path
 
-  #   # Then I see the names of the top 5 customers
-  #   expect(page).to have_content("Top 5 Customers")
-  #   # who have conducted the largest number of successful transactions
-  #   expect(page).to have_content()
-  #   # And next to each customer name I see the number of successful transactions they have conducted
-  #   expect(page).to have_content(.first_name)
-  #   expect(page).to have_content(.last_name)
+    # Then I see the names of the top 5 customers
+    expect(page).to have_content("Top 5 Customers")
+    # who have conducted the largest number of successful transactions
+    @top_5_customers.each do |customer|
+      expect(page).to have_content(customer.first_name)
+      expect(page).to have_content(customer.last_name)
+      expect(page).to have_content(10)
+    end
 
-  #   expect(page).to have_content(.first_name)
-  #   expect(page).to have_content(.last_name)
-
-  #   expect(page).to have_content(.first_name)
-  #   expect(page).to have_content(.last_name)
-
-  #   expect(page).to have_content(.first_name)
-  #   expect(page).to have_content(.last_name)
-
-  #   expect(page).to_not have_content(.first_name)
-  #   expect(page).to_not have_content(.last_name)
-  # end
+    expect(page).to_not have_content(@customer_6.first_name)
+    expect(page).to_not have_content(@customer_6.last_name)
+    # And next to each customer name I see the number of successful transactions they have conducted
+  end
 end

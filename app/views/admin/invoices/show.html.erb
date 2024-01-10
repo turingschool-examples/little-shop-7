@@ -22,4 +22,11 @@
     <p>Status: <%= invoice_item.status %>
   <% end %>
 
-  <h2 style="color: red;">Total Revenue: <%= @invoice.total_revenue %> </h2>
+<h2 style="color: red;">Total Revenue: <%= @invoice.total_revenue %> </h2>
+
+<%# it seemed that this user story would overwrite the previous story by being on line 6? %>
+<%# that didnt feel right so I am leaving it here %>
+<%= form_with model: @invoice, url: admin_invoice_path(@invoice) do |form| %>
+  <p>Change Status to: <%= form.select :status, ["in progress", "completed", "cancelled"] %>
+  <%= form.submit %>
+  <% end %>
