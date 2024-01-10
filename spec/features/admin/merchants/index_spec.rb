@@ -48,6 +48,19 @@ RSpec.describe "Merchants Index Page" do
     end
   end
 
+  describe "User Story 25" do
+    it "when I click on the name of a merchant from the admin merchants index page then I am taken to that merchant's admin show page" do
+      visit admin_merchants_path
+
+      expect(page).to have_link(@merchant_1.name)
+      expect(page).to have_link(@merchant_2.name)
+
+      click_link @merchant_1.name
+
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
+    end
+  end
+
   describe "User Story 27" do
     it "has a button to enable or disable every Merchant next to their name" do
       visit admin_merchants_path
