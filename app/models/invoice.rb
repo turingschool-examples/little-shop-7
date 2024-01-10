@@ -15,7 +15,6 @@ class Invoice < ApplicationRecord
       .group(:id)
       .order("revenue DESC")
       .first
-    # require 'pry'; binding.pry
   end
 
 end

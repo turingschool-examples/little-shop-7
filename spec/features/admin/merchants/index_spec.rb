@@ -171,7 +171,7 @@ require 'rails_helper'
 
   it 'top_merchants best day' do 
     inv1 = @cust_1.invoices.create!(status: :completed)
-    inv2 = @cust_2.invoices.create!(status: :completed)
+    inv2 = @cust_2.invoices.create!(status: :completed, created_at: Time.new(2022, 02, 02))
     inv3 = @cust_3.invoices.create!(status: :completed)
     inv4 = @cust_4.invoices.create!(status: :completed, created_at: Time.new(2011, 06, 03))
     inv5 = @cust_5.invoices.create!(status: :completed)
@@ -201,9 +201,7 @@ require 'rails_helper'
     expect(page).to have_content("Top selling date for #{@merch_5.name} was #{inv5.created_at.strftime("%m/%d/%y")}")
 
     expect(page).to have_content("Top selling date for GameStop was 10/31/05")
-    expect(page).to have_content("Top selling date for Target was 01/09/24")
-
-
+    expect(page).to have_content("Top selling date for Target was 02/02/22")
   end 
 
 #   And I see a label “Top selling date for <merchant name> was <date with most sales>"
