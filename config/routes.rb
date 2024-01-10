@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     resources :invoices, only:[:index, :show, :edit, :update]
   end 
 
-  # get "/merchants/:id/dashboard", to: "merchants/dashboard#show"
-
   resources :merchants do
     resources :dashboard
     resources :invoices, only: [:index, :show]
