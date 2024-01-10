@@ -35,7 +35,8 @@
 
     <% @merchants.top_5_merchants.each do |merchant| %>
       <li id="top-merchant-<%= merchant.id %>">
-        <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= number_to_currency(merchant.invoice_items.revenue) %> in sales
+        <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= number_to_currency(merchant.invoice_items.revenue) %> in sales <br>
+        Top selling date for <%= merchant.name %> was <%= merchant.date_with_most_sales %>
       </li>
     <% end %>
   </ol>
