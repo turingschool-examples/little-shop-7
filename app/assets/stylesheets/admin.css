@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.shop-title h1 {
+  font-size: 50px; 
+  font-weight: bold;
+  text-align: center;
+  margin: 0; 
+  padding: 10px 0; 
+}
+
+.admin-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.admin-dashboard-header .admin-title h1 {
+  margin-left: 20px;
+  padding-bottom: 5px;
+}
+
+.admin-dashboard-header .admin-nav a {
+  font-size: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.admin-content {
+  margin: 20px;
+}
+
+.site-wrapper {
+  border: 2px solid #000; 
+  margin: 20px; 
+  padding: 20px; 
+  min-height: calc(100vh - 40px); 
+}
+
+/* DASHBOARD STYLING */
+
+.admin-dashboard {
+  text-align: center;
+  margin: 20px;
+}
+
+.admin-dashboard .dashboard-sections {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.admin-dashboard .incomplete-invoices,
+.admin-dashboard .top-customers {
+  width: 45%;
+  border: 1.5px solid #000000;
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-dashboard .incomplete-invoices h2,
+.admin-dashboard .top-customers h2 {
+  text-align: center;
+}
+
+.admin-dashboard .incomplete-invoices ul,
+.admin-dashboard .top-customers ol {
+  padding-left: 10;
+  text-align: left;
+}
+
+.admin-dashboard h2 {
+  font-size: 25px;
+  border-bottom: 1.5px solid #000000;
+  padding-bottom: 5px;
+}
+
+.admin-dashboard ul,
+.admin-dashboard ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+.admin-dashboard li {
+  margin-bottom: 5px;
+}
+
