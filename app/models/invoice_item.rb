@@ -9,6 +9,6 @@ class InvoiceItem < ApplicationRecord
   }
 
   def self.revenue
-    InvoiceItem.sum("invoice_items.quantity * invoice_items.unit_price")
+    InvoiceItem.sum("invoice_items.quantity * invoice_items.unit_price")/100
   end
 end

@@ -47,9 +47,9 @@ RSpec.describe InvoiceItem, type: :model do
 
       merchant_top = Merchant.top_5_merchants.first
       merchant_last = Merchant.top_5_merchants.last
-      
-      expect(merchant_top.invoice_items.revenue).to eq(50000)
-      expect(merchant_last.invoice_items.revenue).to eq(15000)
+
+      expect(merchant_top.invoice_items.revenue).to eq(500)
+      expect(merchant_last.invoice_items.revenue).to eq(150)
     end
   end
 end

@@ -160,27 +160,27 @@ RSpec.describe "Merchants Index Page" do
       visit admin_merchants_path
 
       within "#top-merchant-#{@merchant_1.id}" do
-        expect(page).to have_content("15000 in sales")
+        expect(page).to have_content("150.00 in sales")
         expect(page).to have_link(nil, href: admin_merchant_path(@merchant_1.id))
       end
 
       within "#top-merchant-#{@merchant_2.id}" do
-        expect(page).to have_content("$20000 in sales")
+        expect(page).to have_content("$200.00 in sales")
         expect(page).to have_link(nil, href: admin_merchant_path(@merchant_2.id))
       end
 
       within "#top-merchant-#{@merchant_3.id}" do
-        expect(page).to have_content("$25000 in sales")
+        expect(page).to have_content("$250.00 in sales")
         expect(page).to have_link(nil, href: admin_merchant_path(@merchant_3.id))
       end
 
       within "#top-merchant-#{@merchant_4.id}" do
-        expect(page).to have_content("$50000 in sales")
+        expect(page).to have_content("$500.00 in sales")
         expect(page).to have_link(nil, href: admin_merchant_path(@merchant_4.id))
       end
 
       within "#top-merchant-#{@merchant_5.id}" do
-        expect(page).to have_content("$30000 in sales")
+        expect(page).to have_content("$300.00 in sales")
         expect(page).to have_link(nil, href: admin_merchant_path(@merchant_5.id))
       end
     end
