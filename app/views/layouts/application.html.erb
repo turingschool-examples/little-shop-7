@@ -8,6 +8,13 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <h1 style="text-align: center;">Little Esty Shop</h1>
+    <h2>Ray's Handmade Jewelry</h2>
+      <section style="text-align: right;">
+        <p><%= link_to "Dashboard", "/merchants/:merchant_id/dashboard" %></p>
+        <p><%= link_to "My Items", "/merchants/:merchant_id/items" %></p>
+        <p><%= link_to "My Invoices", "/merchants/:merchant_id/invoices" %></p>
+      </section>
   </head>
 
   <body>
@@ -19,3 +26,12 @@
     <%= yield %>
   </body>
 </html>
+
+
+<style>
+  .menu{width: 300px; height: 25; font-size: 18px;}
+  .menu li{list-style: none; float: left; margin-right: 4px; padding: 5px;}
+  .menu li:hover, .menu li.active {
+        background-color: #f90;
+    }
+</style>
