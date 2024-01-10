@@ -36,19 +36,22 @@ RSpec.describe "admin merchant index" do
 
       visit admin_merchants_path
 
+      expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_content(merchant.name)
       expect(page).to have_content(merchant.status)
       expect(merchant.status).to_not have_content("Enabled")
       expect(page).to have_button("Enable")
-      # expect(page).to have_button("Disable")
-      click_button("Enable")
       
+      click_button("Enable")
+      merchant.reload
       expect(page).to have_content("Enabled")
       
       click_button("Disable")
+      merchant.reload
       
+      expect(current_path).to eq(admin_merchants_path)
+      expect(merchant.status).to eq("")
       expect(merchant.status).to_not have_content("Enabled")
     end
   end
-
 end
