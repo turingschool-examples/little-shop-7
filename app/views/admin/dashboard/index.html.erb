@@ -2,3 +2,17 @@
 
 <%= link_to "Admin Merchants Index", admin_merchants_path %>
 <%= link_to "Admin Invoices Index", admin_invoices_path %>
+
+<div class="incomplete_invoices">
+  <h3>Incomplete Invoices</h3>
+  <% @invoices.each do |invoice| %>
+    <%= link_to "Invoice ##{invoice.id}", admin_invoice_path(invoice) %>
+  <% end %>
+</div>
+
+<h3>Top 5 Customers</h3>
+<% @top_5_customers.each do |customer|  %>
+  <%= customer.first_name %>
+  <%= customer.last_name %> Succesful Transactions: <%= customer.successful_transactions %>
+<% end  %>
+

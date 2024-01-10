@@ -10,8 +10,8 @@ RSpec.describe "the merchant invoices show page" do
     @customer_1 = create(:customer)
     @invoice_1 = create(:invoice, customer_id: @customer_1.id)
 
-    @invoice_item_1 = InvoiceItem.create(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: "packaged")
-    @invoice_item_2 = InvoiceItem.create(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: "packaged")
+    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id)
+    @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_1.id)
   end
 
   describe "User Story 15" do
@@ -45,7 +45,7 @@ RSpec.describe "the merchant invoices show page" do
     # The Invoice Item status
     # And I do not see any information related to Items for other merchants
 
-    xit "displays a table of items" do
+    it "displays a table of items" do
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content("Items on this Invoice:")
@@ -54,11 +54,11 @@ RSpec.describe "the merchant invoices show page" do
         expect(page).to have_content('Quantity')
         expect(page).to have_content('Unit Price')
         expect(page).to have_content('Status')
-  
-        invoice.invoice_items.each do |invoice_item|
+
+        InvoiceItem.where(item_id: @merchant_1.item_ids).each do |invoice_item|
           expect(page).to have_content(invoice_item.item.name)
           expect(page).to have_content(invoice_item.quantity)
-          expect(page).to have_content(invoice_item.unit_price)
+          expect(page).to have_content(invoice_item.format_unit_price)
           expect(page).to have_content(invoice_item.status)
         end
       end
@@ -75,6 +75,23 @@ RSpec.describe "the merchant invoices show page" do
 
       expect(page).to have_content(@invoice_item_2.item.name) # should see item 2 because it belongs to merchant 2
       expect(page).to_not have_content(@invoice_item_1.item.name) # should NOT see item 1 because is does NOT belong to merchant 2
+    end
+  end
+
+  describe "User Story 17" do
+    # As a merchant
+    # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+    # Then I see the total revenue that will be generated from all of my items on the invoice
+
+    it "displays total revenue generated from my items on the invoice" do
+      visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+      expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_1)}")
+
+      # Visit the same invoice page, but view as a different merchant
+      visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+      expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue_by_merchant(@merchant_2)}")
     end
   end
 end
