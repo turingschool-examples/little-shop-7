@@ -22,6 +22,7 @@ RSpec.describe Merchant, type: :model do
       expect(merchant_1.item_ids).to eq([item_1.id, item_2.id])
       expect(merchant_2.item_ids).to eq([item_3.id, item_4.id])
     end
+  end
 
     it "finds enabled item ids" do
       merchant_1 = create(:merchant)
