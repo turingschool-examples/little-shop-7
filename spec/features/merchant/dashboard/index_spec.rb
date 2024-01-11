@@ -1,17 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "Merchant Dashboards", type: :feature do
-  before(:each) do
-    load_data
-  end 
-
   it "shows the name of the merchant" do 
+    load_data
     visit "/merchants/#{@merchant.id}/dashboard"
 
     expect(page).to have_content(@merchant.name)
   end
 
   it "has links to the merchant items index and the merchant invoices index" do 
+    load_data
+
     visit "/merchants/#{@merchant.id}/dashboard"
     expect(page).to have_link("Items")
     expect(page).to have_link("Invoices")
@@ -26,6 +25,8 @@ RSpec.describe "Merchant Dashboards", type: :feature do
   end
 
   it "has a list of the top five customers who have conducted the largest number of transactions with a merchant" do 
+    load_data
+
     visit "/merchants/#{@merchant.id}/dashboard"
     within ".top-five-cust" do 
       expect("#{@customers[4].last_name}, #{@customers[4].first_name}").to appear_before("#{@customers[7].last_name}, #{@customers[7].first_name}")
@@ -35,4 +36,35 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     end
   end
 
+  it "has a section that displays the names of all items that have been ordered but not yet shipped called 'Items Ready to Ship'" do 
+    merchant = create(:merchant)
+    merchant.items = create_list(:item, 5)
+
+    5.times do
+      create(:invoice_item, status: rand(0..1), item_id: merchant.items.sample.id)
+    end
+    3.times do
+      create(:invoice_item, status: 2, item_id: merchant.items.sample.id)
+    end
+
+    visit "/merchants/#{merchant.id}/dashboard"
+
+    within ".items-to-ship" do 
+      expect(page).to have_content("Items Ready to Ship")
+      merchant.items.ready_to_ship.each do |item|
+        expect(page).to have_content(item.name)
+        expect(page).to have_content(item.invoice_id)
+      end
+    end
+    
+    within ".items-to-ship" do 
+      merchant.items.each do |item|
+        if !merchant.items.ready_to_ship.include? (item)
+          item.invoice_items.each do |inv_item|
+            expect(page).to_not have_content(inv_item.invoice_id)
+          end
+        end
+      end
+    end
+  end
 end 
