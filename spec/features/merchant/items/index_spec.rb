@@ -286,7 +286,6 @@ RSpec.describe "MerchantItem index", type: :feature do
 		@transaction_25 = create(:transaction, result: "success", invoice_id: @invoice_13.id)
 
 		visit "/merchants/#{@merchant.id}/items"
-		save_and_open_page
 		top_5 = @merchant.items.top_5_by_revenue
 		top_5.each do |item| 
 			within "#top-item-#{item.id}" do 
