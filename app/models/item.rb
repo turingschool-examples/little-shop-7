@@ -10,10 +10,19 @@ class Item < ApplicationRecord
   attribute :status, default: -> { 0 }
 
   enum status: {"Disabled" => 0, "Enabled" => 1}
-
   def self.ready_to_ship
     self.joins(invoice_items: :invoice)
-      .select("items.*, invoices.id AS invoice_id")
+      .select("items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_date")
       .where("invoice_items.status != 2")
   end
+
+  def self.top_5_by_revenue 
+    self.joins(invoice_items: { invoice: :transactions })
+      .select("items.*, MAX(invoice_items.unit_price * quantity) AS max_rev")
+      .where("transactions.result = 1")
+      .group("items.id")
+      .order("max_rev DESC")
+      .limit(5)
+  end
+
 end
