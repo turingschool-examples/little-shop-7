@@ -45,8 +45,8 @@ RSpec.describe Merchant, type: :model do
       Invoice.all.each do |invoice|
         create(:transaction, result: "success", invoice_id: invoice.id)
       end
-
       expect(Merchant.top_5_merchants).to eq([@merchant_4, @merchant_5, @merchant_3, @merchant_2, @merchant_1])
     end
   end
+  
 end
