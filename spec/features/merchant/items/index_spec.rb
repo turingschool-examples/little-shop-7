@@ -63,19 +63,19 @@ RSpec.describe "MerchantItem index", type: :feature do
 		@items = create_list(:item, 8, merchant_id: @merchant.id)
 		@customers = create_list(:customer, 8)
 
-		@invoice_1 = create(:invoice, status: rand(0..1), customer_id: @customers[5].id)
-		@invoice_2 = create(:invoice, status: rand(0..1), customer_id: @customers[1].id)
-		@invoice_3 = create(:invoice, status: rand(0..1), customer_id: @customers[2].id)
-		@invoice_4 = create(:invoice, status: rand(0..1), customer_id: @customers[7].id)
-		@invoice_5 = create(:invoice, status: rand(0..1), customer_id: @customers[7].id)
-		@invoice_6 = create(:invoice, status: rand(0..1), customer_id: @customers[7].id)
-		@invoice_7 = create(:invoice, status: rand(0..1), customer_id: @customers[1].id)
-		@invoice_8 = create(:invoice, status: rand(0..1), customer_id: @customers[0].id)
-		@invoice_9 = create(:invoice, status: rand(0..1), customer_id: @customers[3].id)
-		@invoice_10 = create(:invoice, status: rand(0..1), customer_id: @customers[4].id)
-		@invoice_11 = create(:invoice, status: rand(0..1), customer_id: @customers[4].id)
-		@invoice_12 = create(:invoice, status: rand(0..1), customer_id: @customers[4].id)
-		@invoice_13 = create(:invoice, status: rand(0..1), customer_id: @customers[6].id)
+		@invoice_1 = create(:invoice, status: rand(1..2), customer_id: @customers[5].id)
+		@invoice_2 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id)
+		@invoice_3 = create(:invoice, status: rand(1..2), customer_id: @customers[2].id)
+		@invoice_4 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id)
+		@invoice_5 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id)
+		@invoice_6 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id)
+		@invoice_7 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id)
+		@invoice_8 = create(:invoice, status: rand(1..2), customer_id: @customers[0].id)
+		@invoice_9 = create(:invoice, status: rand(1..2), customer_id: @customers[3].id)
+		@invoice_10 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id)
+		@invoice_11 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id)
+		@invoice_12 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id)
+		@invoice_13 = create(:invoice, status: rand(1..2), customer_id: @customers[6].id)
 
 		@invoice_item_1 = create(:invoice_item, unit_price: 9000, quantity: 5, invoice_id: @invoice_1.id, item_id: @items[0].id)
 		@invoice_item_2 = create(:invoice_item, unit_price: 2000, quantity: 3, invoice_id: @invoice_1.id, item_id: @items[2].id)
@@ -142,7 +142,7 @@ RSpec.describe "MerchantItem index", type: :feature do
 		@items = create_list(:item, 8, merchant_id: @merchant.id)
 		@customers = create_list(:customer, 8)
 
-		@invoice_1 = create(:invoice, status: rand(0..1), customer_id: @customers[5].id, created_at: Date.today-rand(3..200))
+		@invoice_1 = create(:invoice, status: rand(1..2), customer_id: @customers[5].id, created_at: Date.today-rand(3..200))
 		@invoice_2 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id, created_at: Date.today-rand(3..200))
 		@invoice_3 = create(:invoice, status: rand(1..2), customer_id: @customers[2].id, created_at: Date.today-rand(3..200))
 		@invoice_4 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Date.today-rand(3..200))
@@ -286,6 +286,7 @@ RSpec.describe "MerchantItem index", type: :feature do
 		@transaction_25 = create(:transaction, result: "success", invoice_id: @invoice_13.id)
 
 		visit "/merchants/#{@merchant.id}/items"
+		save_and_open_page
 		top_5 = @merchant.items.top_5_by_revenue
 		top_5.each do |item| 
 			within "#top-item-#{item.id}" do 
