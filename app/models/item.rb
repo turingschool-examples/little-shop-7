@@ -16,7 +16,7 @@ class Item < ApplicationRecord
       .where("invoice_items.status != 2")
   end
 
-  def self.top_5_by_revenue 
+  def self.top_5_by_revenue
     self.joins(invoice_items: { invoice: :transactions })
       .select("items.*, MAX(invoice_items.unit_price * quantity) AS max_rev")
       .where("transactions.result = 1")
