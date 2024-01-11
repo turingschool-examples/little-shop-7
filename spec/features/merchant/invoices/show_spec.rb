@@ -43,7 +43,7 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     # - The price the Item sold for
     expect(page).to have_content(@item_1.unit_price)
     # - The Invoice Item status
-    expect(page).to have_content(@item_1.status)
+    expect(page).to have_content("packaged")
     # And I do not see any information related to Items for other merchants
     expect(page).to_not have_content(@item_2.name)
   end
@@ -53,7 +53,53 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     visit "merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
     # Then I see the total revenue that will be generated from all of my items on the invoice
     expect(page).to have_content("6195")
+  end
 
-    save_and_open_page
+  it "18. Merchant Invoice Show Page: Update Item Status" do
+    # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+    visit "merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+    # I see that each invoice item status is a select field
+    # And I see that the invoice item's current status is selected
+    # When I click this select field,
+    # Then I can select a new status for the Item,
+    within '.items' do
+        within "#item-#{@item_1.id}" do
+            expect(page).to have_content("Status packaged")
+            page.select "shipped"
+        end
+    end
+    # And next to the select field I see a button to "Update Item Status"
+    within '.items' do
+        within "#item-#{@item_1.id}" do
+            expect(page).to have_button("Update Item Status")
+        end
+    end
+    # When I click this button
+    within '.items' do
+        within "#item-#{@item_1.id}" do
+            click_button "Update Item Status"
+        end
+    end
+    # I am taken back to the merchant invoice show page
+    expect(page).to have_current_path("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+    # And I see that my Item's status has now been updated
+    within '.items' do
+        within "#item-#{@item_1.id}" do
+            expect(page).to have_content("Status shipped")
+            expect(page).to_not have_content("Status packaged")
+        end
+        within "#item-#{@item_3.id}" do
+            page.select "pending"
+            click_button "Update Item Status"
+        end
+    end
+
+    expect(page).to have_current_path("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+    within '.items' do
+        within "#item-#{@item_3.id}" do
+            expect(page).to have_content("Status pending")
+            expect(page).to_not have_content("Status packaged")
+        end
+    end
   end
 end 
