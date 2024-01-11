@@ -6,4 +6,10 @@ class Item < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :unit_price, presence: true, numericality: true
+
+  def self.ready_to_ship
+    self.joins(invoice_items: :invoice)
+      .select("items.*, invoices.id AS invoice_id")
+      .where("invoice_items.status != 2")
+  end
 end
