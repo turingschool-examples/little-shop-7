@@ -35,7 +35,9 @@ class Merchant::ItemsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    merchant.items.create(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id])
+    if params[:name].length > 0 && params[:description].length > 0 && params[:unit_price].length > 0
+      merchant.items.create(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id])
+    end
     redirect_to "/merchants/#{params[:merchant_id]}/items"
   end
 end

@@ -38,6 +38,35 @@ RSpec.describe "MerchantItem index", type: :feature do
         expect(page).to have_content("Update successful!")
     end
 
+    it "8. Merchant Item Update [SAD PATH]" do
+        # When I visit the merchant show page of an item
+        visit "/merchants/#{@merchant_1.id}/items/#{@item_1.id}"
+        # I see a link to update the item information.
+        expect(page).to have_content("Update item information")
+        # When I click the link
+        click_on("Update item information")
+        # Then I am taken to a page to edit this item
+        expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
+        # And I see a form filled in with the existing item attribute information
+        expect(page).to have_field("New name", with: "Moldy Cheese")
+        expect(page).to have_field("New description", with: "ew")
+        expect(page).to have_field("New price", with: "1199")
+        # When I update the information in the form and I click ‘submit’
+        fill_in "New name", with: ""
+        fill_in "New description", with: ""
+        fill_in "New price", with: ""
+        expect(page).to have_button("Submit")
+        click_on("Submit")
+        #sleep(0.5)
+        # Then I am redirected back to the item show page where I see the updated information
+        expect(page).to have_current_path("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+        expect(page).to have_content("Moldy Cheese")
+        expect(page).to have_content("ew")
+        expect(page).to have_content("1199")
+        # And I see a flash message stating that the information has been successfully updated.
+        #expect(page).to have_content("Update failed.")
+    end
+
     it "9. Merchant Item Disable/Enable" do
         # When I visit my items index page (/merchants/:merchant_id/items)
         visit "/merchants/#{@merchant_1.id}/items"
