@@ -8,7 +8,7 @@
         </div>
         <ul>
           <% @merchant.items.ready_to_ship.each do |item| %>
-            <li><%= item.name %> &nbsp&nbsp&nbsp <%= item.invoice_id %></li>
+            <li><%= item.name %> &nbsp&nbsp&nbsp <%= link_to item.invoice_id, merchant_invoice_path(id: item.invoice_id) %></li>
           <% end %>
         </ul>
       </section>
