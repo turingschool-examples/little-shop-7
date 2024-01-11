@@ -15,6 +15,7 @@
 </div>
 
 <div>
+  <p><strong>Invoice #:</strong> <%= @invoice.id %></p>
   <p><strong>Created On:</strong> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
   <p><strong>Total Revenue:</strong> <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
   <p><strong>Customer Name:</strong> <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
