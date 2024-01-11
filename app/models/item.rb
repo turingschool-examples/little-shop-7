@@ -25,4 +25,14 @@ class Item < ApplicationRecord
       .limit(5)
   end
 
+  def top_selling_date 
+    self.invoice_items.joins(invoice: :transactions)
+      .select("MAX(invoice_items.unit_price * invoice_items.quantity) AS max_rev, invoices.created_at AS sale_date")
+      .where("transactions.result = 1")
+      .group("invoices.created_at")
+      .order("max_rev DESC")
+      .limit(1)
+      .first
+  end
+
 end
