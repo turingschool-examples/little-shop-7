@@ -55,8 +55,8 @@ RSpec.describe Merchant, type: :model do
   describe "#date_with_most_sales" do
     it "will return the date with the most sales for a merchant" do
 
-      expect(@merchant_1.date_with_most_sales).to eq("2024-01-11")
-      expect(@merchant_2.date_with_most_sales).to eq("2024-01-11")
+      expect(@merchant_1.date_with_most_sales).to eq("2021-07-04")
+      expect(@merchant_2.date_with_most_sales).to eq("2021-07-04")
     end
   end
 end
