@@ -67,4 +67,27 @@ RSpec.describe "Merchant Dashboards", type: :feature do
       end
     end
   end
+  
+  it "each invoice ID displayed next to an item to be shipped is a link to that invoice's show page" do 
+    merchant = create(:merchant)
+    merchant.items = create_list(:item, 5)
+
+    5.times do
+      create(:invoice_item, status: rand(0..1), item_id: merchant.items.sample.id)
+    end
+    3.times do
+      create(:invoice_item, status: 2, item_id: merchant.items.sample.id)
+    end
+    
+    visit "/merchants/#{merchant.id}/dashboard"
+    
+    within ".items-to-ship" do 
+      merchant.items.ready_to_ship.each do |item|
+        visit "/merchants/#{merchant.id}/dashboard"
+        expect(page).to have_link(item.invoice_id)
+        click_link "#{item.invoice_id}"
+        expect(current_path).to eq(merchant_invoice_path(merchant_id: item.merchant.id, id: item.invoice_id))
+      end
+    end
+  end
 end 
