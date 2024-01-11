@@ -26,3 +26,14 @@
         <% end %>
     <% end %>
 <h2><%= link_to "Create new item", "/merchants/#{@merchant.id}/items/new" %></h2>
+
+<section class="top-5-rev">
+  <h1>Top 5 Items by Total Revenue</h1>
+    <ol>
+      <% @merchant.items.top_5_by_revenue.each do |item| %>
+      <li>
+        <%= item.name %>&nbsp&nbsp&nbsp <%= number_to_currency(item.max_rev, precision: 0) %>
+      </li>
+      <% end %>
+    </ol>
+</section>
