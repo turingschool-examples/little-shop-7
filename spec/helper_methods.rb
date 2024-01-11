@@ -36,7 +36,7 @@ def load_data
   @invoice_item_16 = create(:invoice_item, unit_price: 43000, quantity: 25, invoice_id: @invoice_12.id, item_id: @items[0].id)
   @invoice_item_17 = create(:invoice_item, unit_price: 99999, quantity: 15, invoice_id: @invoice_12.id, item_id: @items[2].id)
   @invoice_item_18 = create(:invoice_item, unit_price: 100000, quantity: 20, invoice_id: @invoice_12.id, item_id: @items[4].id)
-  @invoice_item_18 = create(:invoice_item, unit_price: 50000, quantity: 8, invoice_id: @invoice_13.id, item_id: @items[4].id)
+  @invoice_item_19 = create(:invoice_item, unit_price: 50000, quantity: 8, invoice_id: @invoice_13.id, item_id: @items[4].id)
 
   @transaction_1 = create(:transaction, result: "failed", invoice_id: @invoice_1.id)
   @transaction_2 = create(:transaction, result: "success", invoice_id: @invoice_1.id)
