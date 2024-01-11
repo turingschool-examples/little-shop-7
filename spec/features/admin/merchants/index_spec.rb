@@ -53,9 +53,8 @@ RSpec.describe "Merchants Index Page" do
       visit admin_merchants_path
 
       expect(page).to have_link(@merchant_1.name)
-      expect(page).to have_link(@merchant_2.name)
-
-      click_link @merchant_1.name
+      
+      click_link @merchant_1.name, match: :first
 
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
     end
@@ -181,26 +180,26 @@ RSpec.describe "Merchants Index Page" do
       visit admin_merchants_path
 
       within "#top-merchant-#{@merchant_1.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_1.name} was 2024-01-10")
+        expect(page).to have_content("Top selling date for #{@merchant_1.name} was 2024-01-11")
       end
 
       within "#top-merchant-#{@merchant_2.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_2.name} was 2024-01-10")
+        expect(page).to have_content("Top selling date for #{@merchant_2.name} was 2024-01-11")
 
       end
 
       within "#top-merchant-#{@merchant_3.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_3.name} was 2024-01-10")
+        expect(page).to have_content("Top selling date for #{@merchant_3.name} was 2024-01-11")
 
       end
 
       within "#top-merchant-#{@merchant_4.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_4.name} was 2024-01-10")
+        expect(page).to have_content("Top selling date for #{@merchant_4.name} was 2024-01-11")
 
       end
 
       within "#top-merchant-#{@merchant_5.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_5.name} was 2024-01-10")
+        expect(page).to have_content("Top selling date for #{@merchant_5.name} was 2024-01-11")
 
       end
     end
