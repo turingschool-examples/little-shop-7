@@ -31,8 +31,9 @@
   <h1>Top 5 Items by Total Revenue</h1>
     <ol>
       <% @merchant.items.top_5_by_revenue.each do |item| %>
-      <li>
-        <%= item.name %>&nbsp&nbsp&nbsp <%= number_to_currency(item.max_rev, precision: 0) %>
+      <li id=<%= "top-item-#{item.id}" %>>
+        <%= item.name %>&nbsp&nbsp&nbsp <%= number_to_currency(item.max_rev, precision: 0) %>&nbsp&nbsp&nbsp
+        <%= "Top selling date for #{item.name} was #{item.top_selling_date.sale_date.strftime('%A, %B %d, %Y')}" %>
       </li>
       <% end %>
     </ol>
