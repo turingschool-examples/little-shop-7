@@ -44,6 +44,7 @@ RSpec.configure do |config|
   # instead of true.
 
   config.include Capybara::DSL
+  config.include ActionView::Helpers::NumberHelper
 
   config.use_transactional_fixtures = true
 
