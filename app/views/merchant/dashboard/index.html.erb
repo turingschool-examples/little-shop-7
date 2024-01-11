@@ -2,16 +2,19 @@
   
   <div class="dashboard-sections">
     <div class="ship-items">
-      <div id="border-adjust">
-        <h2>Items Ready to Ship</h2>
-      </div>
-      <ul>
-        <li>Favorite Customer #1</li>
-        <li>Favorite Customer #2</li>
-        <li>Favorite Customer #3</li>
-        <li>Favorite Customer #4</li>
-        <li>Favorite Customer #5</li>
-      </ul>
+      <section class="items-to-ship">
+        <div id="border-adjust">
+          <h2>Items Ready to Ship</h2>
+        </div>
+        <ul>
+          <% @merchant.items.ready_to_ship.each do |item| %>
+            <li><%= item.name %> &nbsp&nbsp&nbsp 
+              <%= link_to item.invoice_id, merchant_invoice_path(id: item.invoice_id) %> &nbsp&nbsp&nbsp
+              <%= item.invoice_date.strftime("%A, %B %d, %Y") %>
+            </li>
+          <% end %>
+        </ul>
+      </section>
     </div>
     <div class="favorite-customers">
       <div id="border-adjust">
