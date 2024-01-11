@@ -53,7 +53,5 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     visit "merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
     # Then I see the total revenue that will be generated from all of my items on the invoice
     expect(page).to have_content("6195")
-
-    save_and_open_page
   end
 end 
