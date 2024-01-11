@@ -3,6 +3,8 @@
 
 <% @merchant.items.each do |item| %>
     <div>
-        <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
+        <h2><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></h2>
+        <h3><%= item.status %></h3>
+        <%= button_to "Enable/Disable", "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false }, params: { status: 0 } %>
     </div>
 <% end %>
