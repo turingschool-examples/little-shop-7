@@ -5,5 +5,7 @@ class Merchant::InvoicesController < ApplicationController
   end
   
   def show
+    @invoice = Invoice.find(params[:id])
+    @customer = Customer.find(@invoice.customer_id)
   end
 end
