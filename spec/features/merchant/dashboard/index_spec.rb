@@ -90,4 +90,29 @@ RSpec.describe "Merchant Dashboards", type: :feature do
       end
     end
   end
+
+  it "within the 'Items to Ship' section, next to the Invoice ID link is the date on which the invoice was created (formatted like - Monday, July 18, 2019)" do 
+    merchant = create(:merchant)
+    merchant.items = create_list(:item, 5)
+
+    5.times do
+      create(:invoice_item, status: rand(0..1), item_id: merchant.items.sample.id)
+    end
+    3.times do
+      create(:invoice_item, status: 2, item_id: merchant.items.sample.id)
+    end
+
+    Invoice.all.each do |invoice| 
+      invoice.update!(created_at: Date.today - rand(1..180))
+    end
+
+    visit "/merchants/#{merchant.id}/dashboard"
+
+    within ".items-to-ship" do 
+      merchant.items.ready_to_ship.each do |item|
+        visit "/merchants/#{merchant.id}/dashboard"
+        expect(page).to have_content(item.invoice_date.strftime("%A, %B %d, %Y"))
+      end
+    end
+  end
 end 
