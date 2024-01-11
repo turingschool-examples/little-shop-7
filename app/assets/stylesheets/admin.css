@@ -12,6 +12,11 @@ body {
   padding: 10px 0; 
 }
 
+.admin-invoice-title {
+  background-color: #d9d9d9;
+  text-align: center;
+}
+
 .admin-dashboard-header {
   display: flex;
   justify-content: space-between;

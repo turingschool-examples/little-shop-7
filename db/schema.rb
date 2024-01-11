@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_203318) do
     t.string "description"
     t.integer "unit_price"
     t.integer "merchant_id"
+    t.integer "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

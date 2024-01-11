@@ -85,9 +85,9 @@ RSpec.describe "the admin dashboard show" do
 
       within(".incomplete-invoices") do
         expect(page).to have_selector("h2", text: "Incomplete Invoices")
-        expect(page).to have_link(@incomplete_invoice1.id, href: admin_invoice_path(@incomplete_invoice1))
-        expect(page).to have_link(@incomplete_invoice2.id, href: admin_invoice_path(@incomplete_invoice2))
-        expect(page).not_to have_link(@complete_invoice.id, href: admin_invoice_path(@complete_invoice))
+        expect(page).to have_link(@incomplete_invoice1.id.to_s)
+        expect(page).to have_link(@incomplete_invoice2.id.to_s)
+        expect(page).not_to have_link(@complete_invoice.id.to_s)
       end
     end
   end

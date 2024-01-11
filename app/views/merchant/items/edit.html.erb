@@ -1,0 +1,12 @@
+<%= form_with url: "/merchants/#{@item.merchant_id}/items/#{@item.id}", method: :patch, data: { turbo: false } do |form| %>
+  <%= form.label :name, "New name" %>
+  <%= form.text_field :name, value: @item.name %>
+  <br>
+  <%= form.label :description, "New description" %>
+  <%= form.text_field :description, value: @item.description %>
+  <br>
+  <%= form.label :unit_price, "New price" %>
+  <%= form.text_field :unit_price, value: @item.unit_price %>
+  <br>
+  <%= form.submit "Submit" %>
+<% end %>
