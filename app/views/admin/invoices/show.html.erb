@@ -1,9 +1,23 @@
 <h1>Invoice Details</h1>
 
 <div>
-  <p><strong>Invoice ID:</strong> <%= @invoice.id %></p>
-  <p><strong>Status:</strong> <%= @invoice.status %></p>
-  <p><strong>Created At:</strong> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
+<div>
+  
+<div>
+  <%= form_with model: [@invoice], url: admin_invoice_path(@invoice), method: :patch do |form| %>
+    <strong><%= form.label :status, "Status" %></strong>
+    <%= form.select :status, Invoice.statuses.keys.map { |status| [status.humanize, status] }, selected: @invoice.status %>
+    <%= form.submit "Update Invoice Status" %>
+  <% end %>
+</div>
+
+<div>
+  <p><strong>Invoice #:</strong> <%= @invoice.id %></p>
+  <p><strong>Created On:</strong> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+  <p><strong>Total Revenue:</strong> <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
   <p><strong>Customer Name:</strong> <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 </div>
 
@@ -13,7 +27,7 @@
     <tr>
       <th>Item Name</th>
       <th>Quantity</th>
-      <th>Price Sold For</th>
+      <th>Sale value</th>
       <th>Status</th>
     </tr>
   </thead>

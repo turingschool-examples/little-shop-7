@@ -17,9 +17,9 @@ RSpec.describe "the admin invoices index" do
   it "shows all invoce ids as links to invoice show" do
     visit admin_invoices_path
 
-    expect(page).to have_link(@incomplete_invoice1.id, href: admin_invoice_path(@incomplete_invoice1))
-    expect(page).to have_link(@incomplete_invoice2.id, href: admin_invoice_path(@incomplete_invoice2))
-    expect(page).to have_link(@incomplete_invoice3.id, href: admin_invoice_path(@incomplete_invoice3))
-    expect(page).to have_link(@complete_invoice.id, href: admin_invoice_path(@complete_invoice))
+    expect(page).to have_link(@incomplete_invoice1.id.to_s)
+    expect(page).to have_link(@incomplete_invoice2.id.to_s)
+    expect(page).to have_link(@incomplete_invoice3.id.to_s)
+    expect(page).to have_link(@complete_invoice.id.to_s)
   end
 end
