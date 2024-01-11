@@ -1,6 +1,8 @@
-<% flash.each do |type, message| %>
-    <p><%= message %></p>
-<% end %>
+<div>
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
+<div>
 <div>
     <h1><%= @item.name %></h1>
     <h3><%= @item.description %></h3>
