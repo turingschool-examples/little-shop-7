@@ -19,20 +19,18 @@ class Item < ApplicationRecord
   def self.top_5_by_revenue
     self.joins(invoice_items: { invoice: :transactions })
       .select("items.*, MAX(invoice_items.unit_price * quantity) AS max_rev")
-      .distinct
       .where("transactions.result = 1")
       .group("items.id")
-      .order("max_rev DESC")
+      .order("max_rev DESC, items.id")
       .limit(5)
   end
 
   def top_selling_date 
     self.invoice_items.joins(invoice: :transactions)
       .select("MAX(invoice_items.unit_price * invoice_items.quantity) AS max_rev, invoices.created_at AS sale_date")
-      .distinct
       .where("transactions.result = 1")
-      .group("invoices.created_at")
-      .order("max_rev DESC")
+      .group("invoices.created_at, invoices.id")
+      .order("max_rev DESC, invoices.id DESC")
       .limit(1)
       .first
   end
