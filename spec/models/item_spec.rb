@@ -108,19 +108,19 @@ RSpec.describe Item, type: :model do
         @items = create_list(:item, 8, merchant_id: @merchant.id)
         @customers = create_list(:customer, 8)
 
-        @invoice_1 = create(:invoice, status: rand(1..2), customer_id: @customers[5].id, created_at: Timecop.freeze(Date.today - 64))
-        @invoice_2 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id, created_at: Timecop.freeze(Date.today - 2))
-        @invoice_3 = create(:invoice, status: rand(1..2), customer_id: @customers[2].id, created_at: Timecop.freeze(Date.today - 23))
-        @invoice_4 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(Date.today - 56))
-        @invoice_5 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(Date.today - 0))
-        @invoice_6 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(Date.today - 3))
-        @invoice_7 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id, created_at: Timecop.freeze(Date.today - 10))
-        @invoice_8 = create(:invoice, status: rand(1..2), customer_id: @customers[0].id, created_at: Timecop.freeze(Date.today - 98))
-        @invoice_9 = create(:invoice, status: rand(1..2), customer_id: @customers[3].id, created_at: Timecop.freeze(Date.today - 12))
-        @invoice_10 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(Date.today - 43))
-        @invoice_11 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(Date.today - 77))
-        @invoice_12 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(Date.today - 39))
-        @invoice_13 = create(:invoice, status: rand(1..2), customer_id: @customers[6].id, created_at: Timecop.freeze(Date.today - 21))
+        @invoice_1 = create(:invoice, status: rand(1..2), customer_id: @customers[5].id, created_at: Timecop.freeze(DateTime.new(2023, 8, 24)))
+        @invoice_2 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id, created_at: Timecop.freeze(DateTime.new(2023, 8, 24)))
+        @invoice_3 = create(:invoice, status: rand(1..2), customer_id: @customers[2].id, created_at: Timecop.freeze(DateTime.new(2023, 8, 24)))
+        @invoice_4 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(DateTime.new(2024, 1, 3)))
+        @invoice_5 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(DateTime.new(2024, 1, 3)))
+        @invoice_6 = create(:invoice, status: rand(1..2), customer_id: @customers[7].id, created_at: Timecop.freeze(DateTime.new(2024, 1, 3)))
+        @invoice_7 = create(:invoice, status: rand(1..2), customer_id: @customers[1].id, created_at: Timecop.freeze(DateTime.new(2023, 6, 4)))
+        @invoice_8 = create(:invoice, status: rand(1..2), customer_id: @customers[0].id, created_at: Timecop.freeze(DateTime.new(2023, 6, 4)))
+        @invoice_9 = create(:invoice, status: rand(1..2), customer_id: @customers[3].id, created_at: Timecop.freeze(DateTime.new(2023, 6, 4)))
+        @invoice_10 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(DateTime.new(2023, 3, 26)))
+        @invoice_11 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(DateTime.new(2023, 3, 26)))
+        @invoice_12 = create(:invoice, status: rand(1..2), customer_id: @customers[4].id, created_at: Timecop.freeze(DateTime.new(2023, 10, 23)))
+        @invoice_13 = create(:invoice, status: rand(1..2), customer_id: @customers[6].id, created_at: Timecop.freeze(DateTime.new(2023, 10, 23)))
 
         @invoice_item_1 = create(:invoice_item, unit_price: 9000, quantity: 5, invoice_id: @invoice_1.id, item_id: @items[0].id)
         @invoice_item_2 = create(:invoice_item, unit_price: 2000, quantity: 3, invoice_id: @invoice_1.id, item_id: @items[2].id)
@@ -174,11 +174,11 @@ RSpec.describe Item, type: :model do
 
         top_5 = @merchant.items.top_5_by_revenue
 
-        expect(top_5[0].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, July 26, 2021")
-        expect(top_5[1].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, July 26, 2021")
-        expect(top_5[2].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, July 26, 2021")
-        expect(top_5[3].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Tuesday, January 04, 2022")
-        expect(top_5[4].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Saturday, September 04, 2021")
+        expect(top_5[0].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, October 23, 2023")
+        expect(top_5[1].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, October 23, 2023")
+        expect(top_5[2].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Monday, October 23, 2023")
+        expect(top_5[3].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Sunday, June 04, 2023")
+        expect(top_5[4].top_selling_date.sale_date.strftime('%A, %B %d, %Y')).to eq("Sunday, March 26, 2023")
       end
     end
   end

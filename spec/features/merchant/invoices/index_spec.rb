@@ -17,7 +17,7 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     # And for each invoice I see its id
     expect(page).to have_content(@invoice_1.id)
     # And each id links to the merchant invoice show page
-    click_on(@invoice_1.id)
+    click_on(@invoice_1.id.to_s)
     expect(page).to have_current_path("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
   end
 end 

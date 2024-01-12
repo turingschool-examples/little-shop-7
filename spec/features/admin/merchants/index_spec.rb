@@ -178,28 +178,26 @@ RSpec.describe "Merchants Index Page" do
   describe "User Story 31" do
     it "has the date with the most revenue for each merchant" do
       visit admin_merchants_path
-
       within "#top-merchant-#{@merchant_1.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_1.name} was 2024-01-11")
+        expect(page).to have_content("#{@merchant_1.name} - $150.00 in sales Top selling date for #{@merchant_1.name} was 2024-01-12")
       end
 
       within "#top-merchant-#{@merchant_2.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_2.name} was 2024-01-11")
+        expect(page).to have_content("#{@merchant_2.name} - $200.00 in sales Top selling date for #{@merchant_2.name} was 2024-01-12")
 
       end
-
       within "#top-merchant-#{@merchant_3.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_3.name} was 2024-01-11")
+        expect(page).to have_content("#{@merchant_3.name} - $250.00 in sales Top selling date for #{@merchant_3.name} was 2024-01-12")
 
       end
 
       within "#top-merchant-#{@merchant_4.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_4.name} was 2024-01-11")
+        expect(page).to have_content("#{@merchant_4.name} - $500.00 in sales Top selling date for #{@merchant_4.name} was 2024-01-12")
 
       end
 
       within "#top-merchant-#{@merchant_5.id}" do
-        expect(page).to have_content("Top selling date for #{@merchant_5.name} was 2024-01-11")
+        expect(page).to have_content("#{@merchant_5.name} - $300.00 in sales Top selling date for #{@merchant_5.name} was 2024-01-12")
 
       end
     end
