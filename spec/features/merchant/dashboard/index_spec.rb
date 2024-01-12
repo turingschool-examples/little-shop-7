@@ -84,7 +84,7 @@ RSpec.describe "Merchant Dashboards", type: :feature do
     within ".items-to-ship" do 
       merchant.items.ready_to_ship.each do |item|
         visit "/merchants/#{merchant.id}/dashboard"
-        expect(page).to have_link(item.invoice_id)
+        expect(page).to have_link(item.invoice_id.to_s)
         click_link "#{item.invoice_id}"
         expect(current_path).to eq(merchant_invoice_path(merchant_id: item.merchant.id, id: item.invoice_id))
       end
