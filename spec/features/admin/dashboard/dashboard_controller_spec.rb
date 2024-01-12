@@ -59,8 +59,15 @@ RSpec.describe "the admin dashboard show" do
 
       expect(page).to have_selector("h1", text: "Little Esty Shop")
       expect(page).to have_selector("h1", text: "Admin Dashboard")
-      expect(page).to have_link("Merchants", href: admin_merchants_path)
-      expect(page).to have_link("Invoices", href: admin_invoices_path)
+      expect(page).to have_link("Merchants")
+      
+      click_link "Merchants" 
+      expect(current_path).to eq("/admin/merchants")
+
+      visit admin_dashboard_path
+
+      click_link "Invoices"
+      expect(current_path).to eq("/admin/invoices")
     end
   end
 
