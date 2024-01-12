@@ -208,7 +208,7 @@ RSpec.describe "MerchantItem index", type: :feature do
 
 		visit "/merchants/#{@merchant.id}/items"
 		
-		top_5 = @merchant.items._revenue
+		top_5 = @merchant.items.top_5_by_revenue
 		top_5.each do |item| 
 			within "#top-item-#{item.id}" do 
 				expect(page).to have_content(item.top_selling_date.sale_date.strftime('%A, %B %d, %Y'))
