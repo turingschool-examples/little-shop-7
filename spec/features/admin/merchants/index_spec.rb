@@ -23,13 +23,14 @@ RSpec.describe "Merchants Index Page" do
     watch = Item.create!(name: "Watch", description: "Makes the wearer look reliable", unit_price: 15000, merchant_id: @merchant_2.id)
     shorts = Item.create!(name: "Shorts", description: "Makes the wearer look relaxed", unit_price: 5000, merchant_id: @merchant_3.id)
     jacket = Item.create!(name: "Jacket", description: "Makes the wearer look stuffy", unit_price: 20000, merchant_id: @merchant_4.id)
-
+    
     Item.all.each do |item|
       create(:invoice_item, item_id: item.id, quantity: 1)
     end
 
-    InvoiceItem.all.each do |invoice_item|
-      create(:invoice, id: invoice_item.item_id)
+    InvoiceItem.all.each.with_index do |invoice_item, idx|
+      dates = [DateTime.new(2023, 8, 24), DateTime.new(2024, 1, 3), DateTime.new(2023, 6, 4)]
+      invoice_item.invoice.update!(created_at: dates[idx % 3], updated_at: dates[idx % 3] + rand(0..2))
     end
 
     Invoice.all.each do |invoice|
@@ -179,25 +180,25 @@ RSpec.describe "Merchants Index Page" do
     it "has the date with the most revenue for each merchant" do
       visit admin_merchants_path
       within "#top-merchant-#{@merchant_1.id}" do
-        expect(page).to have_content("#{@merchant_1.name} - $150.00 in sales Top selling date for #{@merchant_1.name} was 2024-01-13")
+        expect(page).to have_content("#{@merchant_1.name} - $150.00 in sales Top selling date for #{@merchant_1.name} was 2023-08-24")
       end
 
       within "#top-merchant-#{@merchant_2.id}" do
-        expect(page).to have_content("#{@merchant_2.name} - $200.00 in sales Top selling date for #{@merchant_2.name} was 2024-01-13")
+        expect(page).to have_content("#{@merchant_2.name} - $200.00 in sales Top selling date for #{@merchant_2.name} was 2024-01-03")
 
       end
       within "#top-merchant-#{@merchant_3.id}" do
-        expect(page).to have_content("#{@merchant_3.name} - $250.00 in sales Top selling date for #{@merchant_3.name} was 2024-01-13")
+        expect(page).to have_content("#{@merchant_3.name} - $250.00 in sales Top selling date for #{@merchant_3.name} was 2023-06-04")
 
       end
 
       within "#top-merchant-#{@merchant_4.id}" do
-        expect(page).to have_content("#{@merchant_4.name} - $500.00 in sales Top selling date for #{@merchant_4.name} was 2024-01-13")
+        expect(page).to have_content("#{@merchant_4.name} - $500.00 in sales Top selling date for #{@merchant_4.name} was 2023-08-24")
 
       end
 
       within "#top-merchant-#{@merchant_5.id}" do
-        expect(page).to have_content("#{@merchant_5.name} - $300.00 in sales Top selling date for #{@merchant_5.name} was 2024-01-13")
+        expect(page).to have_content("#{@merchant_5.name} - $300.00 in sales Top selling date for #{@merchant_5.name} was 2023-06-04")
 
       end
     end
