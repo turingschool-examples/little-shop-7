@@ -22,7 +22,7 @@ class Merchant < ApplicationRecord
     .select("invoices.created_at", "(invoice_items.quantity * invoice_items.unit_price) as sales")
     .where("transactions.result = ?", "1")
     .where("merchants.id = ?", self.id)
-    .order("sales desc", "created_at desc")
+    .order("sales desc", "created_at desc", "invoices.id")
     .first.created_at.strftime("%Y-%m-%d")
   end
 end
