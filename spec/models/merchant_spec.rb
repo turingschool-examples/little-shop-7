@@ -30,8 +30,9 @@ RSpec.describe Merchant, type: :model do
       create(:invoice_item, item_id: item.id, quantity: 1)
     end
 
-    InvoiceItem.all.each do |invoice_item|
-      create(:invoice, id: invoice_item.item_id)
+    InvoiceItem.all.each.with_index do |invoice_item, idx|
+      dates = [DateTime.new(2023, 8, 24), DateTime.new(2024, 1, 3), DateTime.new(2023, 6, 4)]
+      invoice_item.invoice.update!(created_at: dates[idx % 3], updated_at: dates[idx % 3] + rand(0..2))
     end
 
     Invoice.all.each do |invoice|
@@ -53,10 +54,10 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe "#date_with_most_sales" do
-    it "will return the date with the most sales for a merchant" do
+    it "will return the date a merchant had their most sales" do
 
-      expect(@merchant_1.date_with_most_sales).to eq("2023-10-23")
-      expect(@merchant_2.date_with_most_sales).to eq("2023-10-23")
+      expect(@merchant_1.date_with_most_sales).to eq("2023-08-24")
+      expect(@merchant_2.date_with_most_sales).to eq("2024-01-03")
     end
   end
 end
