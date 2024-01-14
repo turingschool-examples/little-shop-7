@@ -1,0 +1,44 @@
+<h1>Invoice Details</h1>
+
+<div>
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
+<div>
+  
+<div>
+  <%= form_with model: [@invoice], url: admin_invoice_path(@invoice), method: :patch do |form| %>
+    <strong><%= form.label :status, "Status" %></strong>
+    <%= form.select :status, Invoice.statuses.keys.map { |status| [status.humanize, status] }, selected: @invoice.status %>
+    <%= form.submit "Update Invoice Status" %>
+  <% end %>
+</div>
+
+<div>
+  <p><strong>Invoice #:</strong> <%= @invoice.id %></p>
+  <p><strong>Created On:</strong> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+  <p><strong>Total Revenue:</strong> <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
+  <p><strong>Customer Name:</strong> <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+</div>
+
+<h2>Invoice Items</h2>
+<table class="grid-table">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Quantity</th>
+      <th>Sale value</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice.invoice_items.each do |invoice_item| %>
+      <tr>
+        <td><%= invoice_item.item.name %></td>
+        <td><%= invoice_item.quantity %></td>
+        <td><%= number_to_currency(invoice_item.unit_price / 100.0) %></td> 
+        <td><%= invoice_item.status.humanize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

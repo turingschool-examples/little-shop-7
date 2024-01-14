@@ -1,0 +1,30 @@
+<div class="merchant-dashboard">
+  
+  <div class="dashboard-sections">
+    <div class="ship-items">
+      <section class="items-to-ship">
+        <div id="border-adjust">
+          <h2>Items Ready to Ship</h2>
+        </div>
+        <ul>
+          <% @merchant.items.ready_to_ship.each do |item| %>
+            <li><%= item.name %> &nbsp&nbsp&nbsp 
+              <%= link_to item.invoice_id, merchant_invoice_path(id: item.invoice_id) %> &nbsp&nbsp&nbsp
+              <%= item.invoice_date.strftime("%A, %B %d, %Y") %>
+            </li>
+          <% end %>
+        </ul>
+      </section>
+    </div>
+    <div class="favorite-customers">
+      <div id="border-adjust">
+        <h2>Favorite Customers</h2>
+      </div>
+      <ol class=<%= "top-five-cust" %>>
+        <% @customers.top_five_cust_per_merchant(@merchant.id).each do |customer| %>
+          <li><%= "#{customer.last_name}, #{customer.first_name}" %>&nbsp&nbsp<%= customer.transactions_count %></li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

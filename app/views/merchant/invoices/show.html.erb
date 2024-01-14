@@ -1,0 +1,31 @@
+<h1>Invoice viewer</h1>
+<h1>ID <%= @invoice.id %></h1>
+<h2>Total revenue <%= @invoice.total_revenue %></h2>
+<h3>Status <%= @invoice.status %></h3>
+<h3>Created at <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></h3>
+<h3>Customer <%= @customer.first_name %> <%= @customer.last_name %></h3>
+
+<br>
+
+<section class='items'>
+    <% @invoice.items.each do |item| %>
+        <div id="item-<%= item.id %>">
+            <h2><%= item.name %></h2>
+            <h3>Price <%= item.unit_price %></h3>
+
+            <% @invoice.invoice_items.each do |invoice_item| %>
+                <% if invoice_item.invoice_id == @invoice.id && invoice_item.item_id == item.id %>
+                    <h3>Quantity <%= invoice_item.quantity %></h3>
+
+                    <h3>Status <%= invoice_item.status %></h3>
+
+                    <%= form_with url: "/merchants/#{item.merchant_id}/invoice_items/#{invoice_item.id}", method: :patch do |f| %>
+                        <%= f.select :status, ['pending', 'packaged', 'shipped'], selected: invoice_item.status %>
+                        <%= f.hidden_field :invoice_item_id, value: invoice_item.id %>
+                        <%= f.submit 'Update Item Status' %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+</section>

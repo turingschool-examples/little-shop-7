@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.shop-title h1 {
+  font-size: 50px; 
+  font-weight: bold;
+  text-align: center;
+  margin: 0; 
+  padding: 10px 0; 
+}
+
+.merchant-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.merchant-dashboard-header .merchant-title h1 {
+  margin-left: 20px;
+  padding-bottom: 5px;
+}
+
+.merchant-dashboard-header .merchant-nav a {
+  font-size: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.merchant-content {
+  margin: 20px;
+}
+
+.site-wrapper {
+  border: 2px solid #000; 
+  margin: 20px; 
+  padding: 20px; 
+  min-height: calc(100vh - 40px); 
+}
+
+/* DASHBOARD STYLING */
+
+.merchant-dashboard {
+  margin: 20px;
+}
+
+.merchant-dashboard .dashboard-sections {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.merchant-dashboard .ship-items,
+.merchant-dashboard .favorite-customers {
+  width: 45%;
+  border: 1.5px solid #000000;
+  padding: 10px;
+}
+
+.merchant-dashboard h2 {
+  font-size: 25px;
+  border-top: 2px solid #000000;
+  background-color: #eee;
+  padding-bottom: 5px;
+}
+
+.merchant-dashboard ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.merchant-dashboard li {
+  margin-bottom: 5px;
+}
+
+.ship-items {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.ship-items h2, 
+.favorite-customers h2 {
+  width: 100%
+}
+
+.ship-items h2,
+.favorite-customers h2 {
+  text-align: center;
+}
+
+.favorite-customers {
+  display: flex;
+  flex-direction: column;
+}
+
+.ship-items ul
+ {
+  align-self: center;
+  margin-right: auto;
+  margin-left: 100px;
+}
+
+.favorite-customers ol
+{
+  align-self: center;
+  margin-right: auto;
+  margin-left: 80px;
+}
+
+#border-adjust {
+  padding-left: 100px;
+  padding-right: 100px;
+}
