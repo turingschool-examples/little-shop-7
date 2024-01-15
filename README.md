@@ -11,7 +11,7 @@
 - [Optional] Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
 
 ## Requirements
-- Must use Rails 7.0.x, Ruby 3.2.2
+- Must use Rails 7.1.x, Ruby 3.2.2
 - Must use PostgreSQL
 - All code must be tested via feature tests and model tests, respectively
 - Must use GitHub branching, team code reviews via GitHub PR comments, and either GitHub Projects or a project management tool of your group's choice (Trello, Notion, etc.)
