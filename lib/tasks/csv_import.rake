@@ -15,6 +15,7 @@ namespace :import do
         updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
   end
 
   desc "Import merchants from csv file"
@@ -30,6 +31,7 @@ namespace :import do
         updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
   end
 
   desc "Import items from csv file"
@@ -48,6 +50,7 @@ namespace :import do
         updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 
   desc "Import invoices from csv file"
@@ -64,6 +67,7 @@ namespace :import do
           updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice')
   end
 
   desc "Import transactions from csv file"
@@ -82,6 +86,7 @@ namespace :import do
           updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
 
   desc "Import invoice_items from csv file"
@@ -101,6 +106,7 @@ namespace :import do
           updated_at: DateTime.parse(row['updated_at'])
         )
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
   end
 
   desc "Run multiple Rake tasks at once"
