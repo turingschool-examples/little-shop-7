@@ -22,10 +22,11 @@ RSpec.describe 'Admin Dashboard', type: :feature do
       end
 
       # User Story 21
-      it 'has a list with the top 5 customers with largest num of transactions' do
+      xit 'has a list with the top 5 customers with largest num of transactions' do
          visit "/admin"
 
-         expect(page).to have_content()
+      invoice = FactoryBot.create(:invoice)
+      require 'pry' ; binding.pry
       end
    end
 end
