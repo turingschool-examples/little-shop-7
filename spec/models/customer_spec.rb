@@ -20,10 +20,27 @@ RSpec.describe Customer, type: :model do
     describe "#top_customers" do
       it "returns the top 5 customers with the most successful transactions" do
         @customers.each do |customer| 
-          customer.invoices.last.transactions.last.delete if @customers.index(customer) > 4
+          customer.transactions.last.delete if @customers.index(customer) > 4
         end
 
         expect(Customer.top_customers).to eq([@customers[0], @customers[1], @customers[2], @customers[3], @customers[4]])
+      end
+    end
+  end
+
+  describe "instance methods" do
+    before(:each) do
+      @customers = create_list(:customer, 10)
+    end
+
+    describe "#successful_transactions_count" do
+      it "returns the correct sum of successful transactions per customer" do
+        @customers.each do |customer| 
+          customer.transactions.last.delete if @customers.index(customer) > 4
+        end
+
+        expect(@customers.first.successful_transactions_count).to eq(15)
+        expect(@customers.last.successful_transactions_count).to eq(14)
       end
     end
   end
