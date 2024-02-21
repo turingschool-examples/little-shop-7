@@ -1,6 +1,6 @@
 class Invoice < ApplicationRecord
   belongs_to :customer
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
 
   validates :status, presence: true
   
