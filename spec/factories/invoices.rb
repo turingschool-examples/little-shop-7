@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :invoice do
-    id { Faker::Number.unique.number }
     status { 0 }
     customer { association :customer }
   

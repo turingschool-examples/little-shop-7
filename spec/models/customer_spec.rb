@@ -17,13 +17,13 @@ RSpec.describe Customer, type: :model do
       @customers = create_list(:customer, 10)
     end
 
-    describe "#top_customers" do
+    describe "#top_five_customers" do
       it "returns the top 5 customers with the most successful transactions" do
         @customers.each do |customer| 
           customer.transactions.last.delete if @customers.index(customer) > 4
         end
 
-        expect(Customer.top_customers).to eq([@customers[0], @customers[1], @customers[2], @customers[3], @customers[4]])
+        expect(Customer.top_five_customers).to eq([@customers[0], @customers[1], @customers[2], @customers[3], @customers[4]])
       end
     end
   end
