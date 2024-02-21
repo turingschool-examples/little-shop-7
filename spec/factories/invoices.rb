@@ -1,6 +1,11 @@
 FactoryBot.define do
   factory :invoice do
-    status { 1 }
-    customer { nil }
+    id { Faker::Number.unique.number }
+    status { 0 }
+    customer { association :customer }
+  
+    after :create do |invoice|
+      create_list :transaction, 3, invoice: invoice
+    end
   end
 end
