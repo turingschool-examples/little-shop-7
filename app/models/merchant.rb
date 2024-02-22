@@ -1,12 +1,15 @@
 class Merchant < ApplicationRecord
   
   validates :name, presence: true
+  validates :status, presence: true
 
   has_many :items, dependent: :destroy
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
+
+  enum status: ["enabled", "disabled"]
 
   def top_five_cust
     self.transactions.joins(invoice: :customer) #what tables do we need
