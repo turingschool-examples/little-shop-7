@@ -17,9 +17,9 @@
 
 <section class="incomplete_invoices">
 <h3>Incomplete Invoices</h3>
-  <% @invoices.invoices_with_unshipped_items.each do |invoice| %>
+  <% @invoices.invoices_with_unshipped_items.oldest_to_newest.each do |invoice| %>
     <div id="invoice_<%= invoice.id %>">
-      <p><%= link_to "Invoice ##{invoice.id} - #{invoice.created_at}", "/admin/invoices/#{invoice.id}", data: {turbo: false} %></p>
+      <p><%= link_to "Invoice ##{invoice.id} - #{invoice.created_at.strftime('%A, %B %d, %Y')}", "/admin/invoices/#{invoice.id}", data: {turbo: false} %></p>
     </div>
   <% end %>
 </section>

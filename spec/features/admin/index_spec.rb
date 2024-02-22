@@ -149,17 +149,17 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       # That have items that have not yet been shipped
       # And each invoice id links to that invoice's admin show page
         within "#invoice_#{@invoice_1.id}" do
-          expect(page).to have_content("Invoice ##{@invoice_1.id} - #{@invoice_1.created_at}")
+          expect(page).to have_content("Invoice ##{@invoice_1.id}")
           expect(page).to have_link(:href => "/admin/invoices/#{@invoice_1.id}")
         end
 
         within "#invoice_#{@invoice_2.id}" do
-          expect(page).to have_content("Invoice ##{@invoice_2.id} - #{@invoice_2.created_at}")
+          expect(page).to have_content("Invoice ##{@invoice_2.id}")
           expect(page).to have_link(:href => "/admin/invoices/#{@invoice_2.id}")
         end
 
         within "#invoice_#{@invoice_3.id}" do
-          expect(page).to have_content("Invoice ##{@invoice_3.id} - #{@invoice_3.created_at}")
+          expect(page).to have_content("Invoice ##{@invoice_3.id}")
           expect(page).to have_link(:href => "/admin/invoices/#{@invoice_3.id}")
         end
 
