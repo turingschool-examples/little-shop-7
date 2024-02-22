@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :admin, only: :index
+
+  resources :merchants do 
+    resources :dashboard, controller: "merchants"
+  end
+  resources :invoices, controller: "merchant_invoices"
+
 end
