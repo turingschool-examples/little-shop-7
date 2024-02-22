@@ -67,3 +67,5 @@ task :reset_sequences => :environment do
     end
   end
 end
+
+# ActiveRecord::Base.connection.reset_pk_sequence!('table_name') could be used instead of the above to do only one table/model at a time

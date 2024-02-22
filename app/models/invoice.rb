@@ -13,4 +13,12 @@ class Invoice < ApplicationRecord
   def self.invoices_with_unshipped_items
     Invoice.select("invoices.*").joins(:invoice_items).where("invoice_items.status != 2")
   end
+
+  def self.oldest_to_newest
+    Invoice.order("invoices.created_at")
+  end
+
+  def self.invoices_with_unshipped_items_oldest_to_newest
+    Invoice.invoices_with_unshipped_items.oldest_to_newest
+  end
 end
