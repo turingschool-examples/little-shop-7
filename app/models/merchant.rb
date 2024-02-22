@@ -16,4 +16,9 @@ class Merchant < ApplicationRecord
       .order("successful_transactions DESC")  #how the group will be returned
       .limit(5) #how many 
   end
+
+  def not_shipped_invoices
+    # require 'pry' ; binding.pry
+    self.invoice_items.where("invoice_items.status != 2")
+  end
 end
