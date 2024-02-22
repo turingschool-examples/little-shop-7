@@ -25,4 +25,14 @@ class Merchant < ApplicationRecord
       .limit(5)
       .select("customers.*", "COUNT(transactions.id) AS transaction_count")
   end
+
+  def self.top_customers
+    Customer
+      .joins(:transactions)
+      .where(transactions: { result: "success" })
+      .group("customers.id")
+      .order("count(transactions.id) DESC")
+      .limit(5)
+      .select("customers.*", "COUNT(transactions.id) AS transaction_count")
+  end
 end
