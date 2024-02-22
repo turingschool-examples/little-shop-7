@@ -1,0 +1,18 @@
+<section class="links"> 
+  <p><%= link_to "Merchant Items", "merchant_path(@merchant)", method: :get  %></p>
+  <p><%= link_to "Merchant Invoice Items", "invoices_path(@merchant)", method: :get %></p>
+</section>
+
+<section class="merchant-info">
+  <h1><%= @merchant.name %></h1>
+</section>
+
+<section class="top-five">
+  <h3> Top Five Customers </h3>
+
+  <% @merchant.top_five_cust.each do |customer| %>
+    <div id="customer-<%= customer.id %>">
+      <h3>Customer Name: <%= customer.full_name %> Successful Transaction(s): <%= customer.successful_transactions %></h3>
+    </div>
+  <% end %>
+</section>
