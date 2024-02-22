@@ -14,13 +14,11 @@ class Invoice < ApplicationRecord
   end
 
   def self.oldest_to_newest
-    Invoice.order(:created_at)
+    Invoice.order("invoices.created_at")
   end
 
-  # Can't quite figure out how these methods can come together for some reason. may just be in need of a break, User Story 23
-
-  # def self.invoices_with_unshipped_items_oldest_to_newest
-  #   Invoice.select("invoices.*").joins(:invoice_items).where("invoice_items.status != 2").order(:created_at)
-  # end
+  def self.invoices_with_unshipped_items_oldest_to_newest
+    Invoice.invoices_with_unshipped_items.oldest_to_newest
+  end
 
 end

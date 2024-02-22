@@ -88,19 +88,10 @@ RSpec.describe Invoice, type: :model do
       end
     end
 
-    # describe '#invoices_with_unshipped_items_oldest_to_newest' do
-    #   it 'will return the invoices with the oldest created at dates first if they have unshipped items' do
+    describe '#invoices_with_unshipped_items_oldest_to_newest' do
+      it 'will return the invoices with the oldest created at dates first if they have unshipped items' do
 
-    #     expect(Invoice.invoices_with_unshipped_items_oldest_to_newest).to eq([@invoice_9, @invoice_8, @invoice_7, @invoice_1, @invoice_2, @invoice_3])
-    #   end
-    # end
-  end
-
-  describe 'Instance Methods' do
-    describe 'format_date' do
-      xit 'should format the date in to a Day, Full Month Date, Year format' do
-
-        expect(@invoice_9.format_date).to eq("Monday, February 19, 2024")
+        expect(Invoice.invoices_with_unshipped_items_oldest_to_newest).to eq([@invoice_9, @invoice_8, @invoice_7, @invoice_1, @invoice_2, @invoice_3])
       end
     end
   end
