@@ -54,6 +54,9 @@ RSpec.describe Invoice, type: :model do
     @invoice_23 = @customer_5.invoices[2]
     @invoice_24 = @customer_5.invoices[3]
     @invoice_25 = @customer_5.invoices[4]
+    @invoice_26 = @customer_5.invoices.create!(status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_27 = @customer_5.invoices.create!(status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_28 = @customer_5.invoices.create!(status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
 
     @merchants = create_list(:merchant, 10)
     @merchant_1 = @merchants[0]
@@ -85,6 +88,31 @@ RSpec.describe Invoice, type: :model do
 
         expect(Invoice.invoices_with_unshipped_items).to eq([@invoice_1, @invoice_2, @invoice_3])
 
+      end
+    end
+
+    describe '#oldest_to_newest' do
+      it 'will return the invoices with the oldest created at dates first' do
+
+        expect(Invoice.oldest_to_newest[0]).to eq(@invoice_28)
+        expect(Invoice.oldest_to_newest[1]).to eq(@invoice_27)
+        expect(Invoice.oldest_to_newest[2]).to eq(@invoice_26)
+      end
+    end
+
+    describe '#invoices_with_unshipped_items_oldest_to_newest' do
+      it 'will return the invoices with the oldest created at dates first if they have unshipped items' do
+
+        expect(Invoice.invoices_with_unshipped_items_oldest_to_newest).to eq([@invoice_28, @invoice_27, @invoice_26, @invoice_1, @invoice_2, @invoice_3])
+      end
+    end
+  end
+
+  describe 'Instance Methods' do
+    describe 'format_date' do
+      xit 'should format the date in to a Day, Full Month Date, Year format' do
+
+        expect(@invoice_26.format_date).to eq("Monday, February 19, 2024")
       end
     end
   end
