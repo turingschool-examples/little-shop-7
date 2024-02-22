@@ -23,6 +23,6 @@ class Merchant < ApplicationRecord
       .group("customers.id")
       .order("count(transactions.id) DESC")
       .limit(5)
-      .pluck(:first_name, :last_name, "COUNT(transactions.id)")
+      .select("customers.*", "COUNT(transactions.id) AS transaction_count")
   end
 end

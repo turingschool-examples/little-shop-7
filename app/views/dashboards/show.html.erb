@@ -2,3 +2,11 @@
 <h2><%= @merchant.name %>
 <%= link_to "My Items", merchant_items_path(@merchant) %>
 <%= link_to "My Invoices", merchant_invoices_path(@merchant) %>
+
+<h3>Favorite Customers</h3>
+    <ol>
+        <% @top_customers.each do |customer| %>
+            <li> <%= customer.first_name %>  <%= customer.last_name %> <%= customer.transaction_count %></li>
+        <% end %>
+    </ol>
+
