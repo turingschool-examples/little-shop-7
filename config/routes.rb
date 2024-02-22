@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index]
   end
 
- resources :admin, controller: "admin/dashboards", only: :index do
-    resources :merchants, controller: "admin/merchants", only: :index
-    resources :invoices, controller: "admin/invoices", only: :index
- end
+  namespace :admin do
+    get "/", to: "dashboards#index"
+    resources :merchants, only: :index
+    resources :invoices, only: :index
+  end
 end
