@@ -88,6 +88,10 @@ RSpec.describe 'merchants dashboard', type: :feature do
           expect(page).to have_content("Successful Transaction(s): 1")
         end
       end
+
+      it "" do 
+        
+      end
     end
   end
 end
