@@ -5,6 +5,16 @@ Rails.application.routes.draw do
   # root "articles#index"
   # resources :admin, only: :index
   
+  #Merchant
+
+  resources :merchants, only: [:show]do 
+    resources :dashboard, only: :index
+  end
+  
+  
+  
+  
+  
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :merchants, only: :index
