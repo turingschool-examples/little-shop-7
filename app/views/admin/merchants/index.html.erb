@@ -2,6 +2,6 @@
 
 <section class = "merchants_info">
   <% @merchants.each do |merchant| %>
-    <%= merchant.name %><br>
+    <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %><br>
   <% end %>
 </section>

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Adminn Merchants Index', type: :feature do
- describe 'As an admin' do
+RSpec.describe 'Admin Merchants Show', type: :feature do
+ describe 'As an Admin' do
   before(:each) do
     @customer_1 = create(:customer)
     @customer_2 = create(:customer)
@@ -57,17 +57,15 @@ RSpec.describe 'Adminn Merchants Index', type: :feature do
     @invoice_item_8 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_9.id, quantity: 1, unit_price: 1300, status: 0)
   end
 
-  #User Story 24. Admin Merchants Index
-  it 'displays the name of each merchant in the system' do
-    # As an admin, When I visit the admin merchants index (/admin/merchants)
+  #User Story 25. Admin Merchant Show
+  it '' do
+    # As an admin, When I click on the name of a merchant from the admin merchants index page (/admin/merchants),
     visit admin_merchants_path
-    # Then I see the name of each merchant in the system
-    within ".merchants_info" do
-      expect(page).to have_content("Amazon")
-      expect(page).to have_content("Walmart")
-      expect(page).to have_content("Apple")
-      expect(page).to have_content("Microsoft")
-    end
+    click_link("Amazon")
+    # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
+    expect(current_path).to eq(admin_merchant_path(@merchant_1.id))
+    # And I see the name of that merchant    
+    expect(page).to have_content("Amazon")
   end
  end
 end
