@@ -1,4 +1,11 @@
-<p>Merchant Name:<%= @merchant.name %></p>
+<h1>Merchant Name: <%= @merchant.name %></h1>
 
 <%= link_to 'My Items', merchant_items_path(@merchant) %>
 <%= link_to 'My Invoices', merchant_invoices_path(@merchant) %>
+
+
+<h2>Top 5 Customers</h2>
+
+<% @merchant.customers.each do |customer| %>
+  <p><%= customer.first_name %>, <%= customer.last_name %> </p>
+  <% end  %>
