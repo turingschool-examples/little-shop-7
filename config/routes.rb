@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   resources :admin, only: :index
 
+  namespace :admin do
+    resources :merchants, only: :index
+  end
+
   resources :merchants do 
     # resources :dashboard, as: "merchant_dashboard"
     member { get "dashboard" }
