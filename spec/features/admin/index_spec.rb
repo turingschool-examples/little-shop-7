@@ -145,9 +145,9 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       # Then I see a section for "Incomplete Invoices"
       within ".incomplete_invoices" do
         expect(page).to have_content("Incomplete Invoices")
-      # In that section I see a list of the ids of all invoices
-      # That have items that have not yet been shipped
-      # And each invoice id links to that invoice's admin show page
+        # In that section I see a list of the ids of all invoices
+        # That have items that have not yet been shipped
+        # And each invoice id links to that invoice's admin show page
         within "#invoice_#{@invoice_1.id}" do
           expect(page).to have_content("Invoice ##{@invoice_1.id}")
           expect(page).to have_link(:href => "/admin/invoices/#{@invoice_1.id}")

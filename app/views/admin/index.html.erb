@@ -4,7 +4,7 @@
 <%= link_to "Invoices", "/admin/invoices" %>
 
 <div id = "top_customers">
-<h3>Top Customers</h3>
+  <h3>Top Customers</h3>
   <ol>
   <% @customers.top_five_customers.each do |customer| %>
     <div id = "top_customer<%= customer.id %>">
@@ -16,7 +16,7 @@
 </div>
 
 <section class="incomplete_invoices">
-<h3>Incomplete Invoices</h3>
+  <h3>Incomplete Invoices</h3>
   <% @invoices.invoices_with_unshipped_items.oldest_to_newest.each do |invoice| %>
     <div id="invoice_<%= invoice.id %>">
       <p><%= link_to "Invoice ##{invoice.id} - #{invoice.created_at.strftime('%A, %B %d, %Y')}", "/admin/invoices/#{invoice.id}", data: {turbo: false} %></p>
