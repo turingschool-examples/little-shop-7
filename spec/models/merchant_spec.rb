@@ -27,11 +27,11 @@ RSpec.describe Merchant, type: :model do
 
     @item_1 = create(:item, unit_price: 1, merchant_id: @merch_1.id)
 
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40)
+    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100, status: 2)
+    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80, status: 2)
+    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60, status: 2)
+    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50, status: 2)
+    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40, status: 2)
     create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_6.id, unit_price: 1, quantity: 5)
   end 
 
@@ -52,11 +52,15 @@ RSpec.describe Merchant, type: :model do
 
   describe '#instance methods' do 
     it "#top_five_cust" do 
-    customers = [@cust_1, @cust_2, @cust_3, @cust_4, @cust_5]
+      customers = [@cust_1, @cust_2, @cust_3, @cust_4, @cust_5]
 
-    top_5 = @merch_1.top_five_cust.map { |cust| Customer.find(cust.id) }
+      top_5 = @merch_1.top_five_cust.map { |cust| Customer.find(cust.id) }
 
-    expect(top_5).to eq(customers)
+      expect(top_5).to eq(customers)
+    end
+
+    it "#not_shipped_invoices" do
+      expect(@merch_1.not_shipped_invoices).to eq(@invoice_6.invoice_items)
     end
   end
 end
