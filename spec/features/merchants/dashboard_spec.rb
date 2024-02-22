@@ -28,11 +28,11 @@ RSpec.describe 'merchants dashboard', type: :feature do
 
       @item_1 = create(:item, unit_price: 1, merchant_id: @merch_1.id)
 
-      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100)
-      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80)
-      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60)
-      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50)
-      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40)
+      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100, status: 2)
+      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80, status: 2)
+      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60, status: 2)
+      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50, status: 2)
+      create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40, status: 2)
       create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_6.id, unit_price: 1, quantity: 5)
     end
 
@@ -88,9 +88,23 @@ RSpec.describe 'merchants dashboard', type: :feature do
           expect(page).to have_content("Successful Transaction(s): 1")
         end
       end
+    end
 
-      it "" do 
+    # 4. Merchant Dashboard Items Ready to Ship
+    it "has a list of shipable items" do 
+      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+      visit dashboard_merchant_path(@merch_1.id)
+      # Then I see a section for "Items Ready to Ship"
+      within '.shipable-items' do
+        # In that section I see a list of the names of all of my items that
+        # have been ordered and have not yet been shipped,
         
+        within "#invoice-#{@invoice_6.id}" do
+          # And next to each Item I see the id of the invoice that ordered my item
+          # And each invoice id is a link to my merchant's invoice show page
+          expect(page).to have_content(@item_1.name)
+          expect(page).to have_content(@invoice_6.id)
+        end
       end
     end
   end
