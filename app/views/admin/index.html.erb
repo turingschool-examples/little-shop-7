@@ -4,12 +4,22 @@
 <%= link_to "Invoices", "/admin/invoices" %>
 
 <div id = "top_customers">
+<h3>Top Customers</h3>
   <ol>
   <% @customers.top_five_customers.each do |customer| %>
-      <div id = "top_customer<%= customer.id %>">
-        <li><p><%= customer.first_name %> <%= customer.last_name %> - <%= customer.successful_transactions_count%> purchases</p>
-        </li>
-      </div>
+    <div id = "top_customer<%= customer.id %>">
+      <li><p><%= customer.first_name %> <%= customer.last_name %> - <%= customer.successful_transactions_count%> purchases</p>
+      </li>
+    </div>
   <% end %>
   </ol>
 </div>
+
+<section class="incomplete_invoices">
+<h3>Incomplete Invoices</h3>
+  <% @invoices.invoices_with_unshipped_items.each do |invoice| %>
+    <div id="invoice_<%= invoice.id %>">
+      <p><%= link_to "Invoice ##{invoice.id} - #{invoice.created_at}", "/admin/invoices/#{invoice.id}", data: {turbo: false} %></p>
+    </div>
+  <% end %>
+</section>
