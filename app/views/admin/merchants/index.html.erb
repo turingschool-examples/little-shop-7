@@ -1,6 +1,8 @@
 <h1>Admin Merchants Index</h1>
 
 <section class = "merchants_info">
+
+  <h2>Enabled Merchants</h2>
   <div id="enabled_merchants">
     <% @merchants.each do |merchant| %>
       <% if merchant.enabled? %>
@@ -11,6 +13,7 @@
     <% end %>
   </div>
 
+  <h2>Disabled Merchants</h2>
   <div id="disabled_merchants">
     <% @merchants.each do |merchant| %>
       <% unless merchant.enabled? %>
@@ -20,4 +23,5 @@
       <% end %>
     <% end %>
   </div>
+  
 </section>

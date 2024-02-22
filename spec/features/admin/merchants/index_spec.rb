@@ -40,6 +40,9 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       @merchant_2 = create(:merchant, name: "Walmart", status: 0) 
       @merchant_3 = create(:merchant, name: "Apple", status: 0) 
       @merchant_4 = create(:merchant, name: "Microsoft", status: 0) 
+      @merchant_5 = create(:merchant, name: "Petco", status: 1) 
+      @merchant_6 = create(:merchant, name: "Aetna", status: 1) 
+      @merchant_7 = create(:merchant, name: "Adidas", status: 1) 
 
       @item_1 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
       @item_2 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
@@ -97,6 +100,30 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
             expect(page).to have_button("Disable")
           end
         end
+      end
+    end
+
+    # User story 28. Admin Merchants Grouped by Status
+    it 'shows two separate sections for enabled and disabled merchants and shows the correct merchant names in each section' do
+      # As an admin, when I visit the admin merchants index (/admin/merchants)
+      visit admin_merchants_path
+      
+      # Then I see two sections, one for "Enabled Merchants" and one for "Disabled Merchants"
+      expect(page).to have_content("Enabled Merchants")
+      expect(page).to have_content("Disabled Merchants")
+      
+      # And I see that each Merchant is listed in the appropriate section
+      within "#enabled_merchants" do
+        expect(page).to have_content(@merchant_5.name)
+        expect(page).to have_content(@merchant_6.name)
+        expect(page).to have_content(@merchant_7.name)
+      end
+
+      within "#disabled_merchants" do
+        expect(page).to have_content(@merchant_1.name)
+        expect(page).to have_content(@merchant_2.name)
+        expect(page).to have_content(@merchant_3.name)
+        expect(page).to have_content(@merchant_4.name)
       end
     end
   end
