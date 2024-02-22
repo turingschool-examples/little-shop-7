@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   resources :admin, only: :index
 
   resources :merchants do 
-    resources :dashboard, controller: "merchants"
+    # resources :dashboard, as: "merchant_dashboard"
+    member { get "dashboard" }
   end
+
+
   resources :invoices, controller: "merchant_invoices"
 
 end
