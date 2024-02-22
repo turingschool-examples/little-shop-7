@@ -26,12 +26,12 @@ RSpec.describe 'Admin merchants index' do
             expect(page).to have_link("Nico")
             # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
             click_link "Odell"
-            expect(current_path).to eq("/admin/merchants/#{odell.id}")    
+            expect(current_path).to eq(admin_merchant_path(odell))    
 
             visit admin_merchants_path
             
             click_link "Nico"
-            expect(current_path).to eq("/admin/merchants/#{nico.id}")
+            expect(current_path).to eq(admin_merchant_path(nico))
             # And I see the name of that merchant
         end
     end
