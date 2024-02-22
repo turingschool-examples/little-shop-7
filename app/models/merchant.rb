@@ -9,7 +9,7 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
 
-  enum status: ["enabled", "disabled"]
+  enum status: ["disabled", "enabled"]
 
   def top_five_cust
     self.transactions.joins(invoice: :customer) #what tables do we need
@@ -23,5 +23,9 @@ class Merchant < ApplicationRecord
   def not_shipped_invoices
     # require 'pry' ; binding.pry
     self.invoice_items.where("invoice_items.status != 2")
+  end
+
+  def enabled?
+    self.status == "enabled"
   end
 end
