@@ -5,4 +5,8 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
 
   validates :status, presence: true
+
+  def formatted_created_at
+    created_at.strftime('%A, %B %d, %Y')
+  end
 end

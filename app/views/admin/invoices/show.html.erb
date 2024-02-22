@@ -1,2 +1,6 @@
 <h1> Admin Invoice Info</h1>
-<h3><%=@invoice.id%></h3>
+<h3>Invoice ID: <%=@invoice.id%></h3>
+<h3>Status: <%=@invoice.status%></h3>
+<h3>Created At: <%=@invoice.formatted_created_at%></h3>
+<h3>Customer First Name: <%=@invoice.customer.first_name%></h3>
+<h3>Customer Last Name: <%=@invoice.customer.last_name%></h3>
