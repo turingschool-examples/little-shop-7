@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Adminn Merchants Index', type: :feature do
+RSpec.describe 'Admin Merchants Index', type: :feature do
   describe 'As an admin' do
     before(:each) do
       @customer_1 = create(:customer)
@@ -36,10 +36,10 @@ RSpec.describe 'Adminn Merchants Index', type: :feature do
       @trans_14 = create(:transaction, invoice_id: @invoice_4.id)
       @trans_15 = create(:transaction, invoice_id: @invoice_5.id)
       
-      @merchant_1 = create(:merchant, name: "Amazon") 
-      @merchant_2 = create(:merchant, name: "Walmart") 
-      @merchant_3 = create(:merchant, name: "Apple") 
-      @merchant_4 = create(:merchant, name: "Microsoft") 
+      @merchant_1 = create(:merchant, name: "Amazon", status: 0) 
+      @merchant_2 = create(:merchant, name: "Walmart", status: 0) 
+      @merchant_3 = create(:merchant, name: "Apple", status: 0) 
+      @merchant_4 = create(:merchant, name: "Microsoft", status: 0) 
 
       @item_1 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
       @item_2 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
@@ -86,7 +86,7 @@ RSpec.describe 'Adminn Merchants Index', type: :feature do
           within "#merchant_#{@merchant_3.id}" do
             expect(page).to have_button("Enable")
             # When I click this button
-            click "Enable"
+            click_on "Enable"
           end
         end
         within "#enabled_merchants" do
