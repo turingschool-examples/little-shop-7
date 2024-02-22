@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Dashboard Show Page' do
+RSpec.describe 'Merchants Dashboard Show Page' do
   describe "As a merchant" do
     describe "User Story 1-2-3" do
       let(:merchant) { FactoryBot.create(:merchant) }
