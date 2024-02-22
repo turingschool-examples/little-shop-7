@@ -80,10 +80,10 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'Class Methods' do
-    describe '#incomplete_invoices' do
+    describe '#invoices_with_unshipped_items' do
       it 'will return all invoices that do not have a status of completed' do
 
-        expect(Invoice.incomplete_invoices).to eq([@invoice_1, @invoice_2, @invoice_3])
+        expect(Invoice.invoices_with_unshipped_items).to eq([@invoice_1, @invoice_2, @invoice_3])
 
       end
     end

@@ -62,7 +62,6 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_3.id, quantity: 1, unit_price: 1300, status: 1)
       @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_4.id, quantity: 1, unit_price: 1300, status: 2)
       @invoice_item_5 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_5.id, quantity: 1, unit_price: 1300, status: 2)
-
     end
 
     #User Story 19
@@ -99,6 +98,7 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       visit admin_index_path
 
       within "#top_customers" do
+        expect(page).to have_content("Top Customers")
         # Then I see the names of the top 5 customers
         within "#top_customer#{@customer_1.id}" do
           # who have conducted the largest number of successful transactions
@@ -135,26 +135,26 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       # As an admin, When I visit the admin dashboard (/admin)
       visit admin_index_path
       # Then I see a section for "Incomplete Invoices"
-      expect(page).to have_content("Incomplete Invoices")
-      within '#incomplete-invoices' do
+      within ".incomplete_invoices" do
+        expect(page).to have_content("Incomplete Invoices")
       # In that section I see a list of the ids of all invoices
       # That have items that have not yet been shipped
       # And each invoice id links to that invoice's admin show page
-        within "#invoice-#{@invoice_1.id}" do
+        within "#invoice_#{@invoice_1.id}" do
           expect(page).to have_content("Invoice ##{@invoice_1.id} - #{@invoice_1.created_at}")
-          expect(page).to have_link("/admin/invoices/#{@invoice_1.id}")
+          expect(page).to have_link(:href => "/admin/invoices/#{@invoice_1.id}")
         end
 
-        within "#invoice-#{@invoice_2.id}" do
+        within "#invoice_#{@invoice_2.id}" do
           expect(page).to have_content("Invoice ##{@invoice_2.id} - #{@invoice_2.created_at}")
-          expect(page).to have_link("/admin/invoices/#{@invoice_2.id}")
+          expect(page).to have_link(:href => "/admin/invoices/#{@invoice_2.id}")
         end
 
-        within "#invoice-#{@invoice_3.id}" do
+        within "#invoice_#{@invoice_3.id}" do
           expect(page).to have_content("Invoice ##{@invoice_3.id} - #{@invoice_3.created_at}")
-          expect(page).to have_link("/admin/invoices/#{@invoice_3.id}")
+          expect(page).to have_link(:href => "/admin/invoices/#{@invoice_3.id}")
         end
-        
+
         expect(page).not_to have_content(@invoice_4.id)
         expect(page).not_to have_content(@invoice_5.id)
       end
