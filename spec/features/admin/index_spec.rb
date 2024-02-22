@@ -39,6 +39,9 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       @invoice_23 = @customer_5.invoices[2]
       @invoice_24 = @customer_5.invoices[3]
       @invoice_25 = @customer_5.invoices[4]
+      @invoice_26 = @customer_5.invoices.create!(status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_27 = @customer_5.invoices.create!(status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_28 = @customer_5.invoices.create!(status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
 
       @merchants = create_list(:merchant, 10)
       @merchant_1 = @merchants[0]
@@ -62,6 +65,11 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
       @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_3.id, quantity: 1, unit_price: 1300, status: 1)
       @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_4.id, quantity: 1, unit_price: 1300, status: 2)
       @invoice_item_5 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_5.id, quantity: 1, unit_price: 1300, status: 2)
+      @invoice_item_6 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_26.id, quantity: 1, unit_price: 1300, status: 0)
+      @invoice_item_7 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_27.id, quantity: 1, unit_price: 1300, status: 0)
+      @invoice_item_8 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_28.id, quantity: 1, unit_price: 1300, status: 0)
+
+
     end
 
     #User Story 19
@@ -157,6 +165,21 @@ RSpec.describe 'Admin Dashboard (Index)', type: :feature do
 
         expect(page).not_to have_content(@invoice_4.id)
         expect(page).not_to have_content(@invoice_5.id)
+      end
+    end
+
+    # User Story 23. Admin Dashboard Invoices sorted by least recent
+    it 'will display the date that the incomplete invoice was created and sorts them by oldest to newest' do
+      # As an admin, When I visit the admin dashboard (/admin)
+      visit admin_index_path
+
+      # In the section for "Incomplete Invoices",
+      within ".incomplete_invoices" do
+        # Next to each invoice id I see the date that the invoice was created
+        # And I see the date formatted like "Monday, July 18, 2019"
+        # And I see that the list is ordered from oldest to newest
+        expect("Invoice ##{@invoice_28.id} - Monday, February 19, 2024").to appear_before("Invoice ##{@invoice_27.id} - Tuesday, February 20, 2024")
+        expect("Invoice ##{@invoice_27.id} - Tuesday, February 20, 2024").to appear_before("Invoice ##{@invoice_26.id} - Wednesday, February 21, 2024")
       end
     end
   end
