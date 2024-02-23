@@ -12,5 +12,23 @@ RSpec.describe 'Merchant Dashboard Show Page' do
       expect(page).to have_content(item2.name)
 
     end
+
+    it "can enable or disable a passport" do
+      visit merchant_items_path(merchant_id: merchant_1.id)
+      expect(page).to have_content(item1.name)
+
+      expect(page).to have_content(item2.name)
+      
+    
+      first(:button, "Enable").click
+    
+
+      expect(page).to have_button("Disable")
+  
+
+      expect(current_path).to eq(merchant_items_path(merchant_id: merchant_1.id))
+    
+
+  end
   end
 end

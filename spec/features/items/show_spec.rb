@@ -50,5 +50,7 @@ RSpec.describe 'Merchant Dashboard Show Page' do
       
   
     end
+
+    
   end
 end
