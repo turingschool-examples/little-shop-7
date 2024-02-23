@@ -47,25 +47,31 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
          @invoice_item_3 = create(:invoice_item, status: 0, invoice: @invoice3)
       end
 
-      it 'has a list of all Invoices Ids in the system' do
+      it 'has a list of all Invoices Ids in the system with a link to the id show page' do
          visit admin_invoices_path
 
-         expect(page).to have_content(@customer_1.invoices.first.id)
-         expect(page).to have_content(@customer_1.invoices.last.id)
-         expect(page).to have_content(@customer_2.invoices.first.id)
-         expect(page).to have_content(@customer_2.invoices.last.id)
-         expect(page).to have_content(@customer_3.invoices.first.id)
-         expect(page).to have_content(@customer_3.invoices.last.id)
-         expect(page).to have_content(@customer_4.invoices.first.id)
-         expect(page).to have_content(@customer_4.invoices.last.id)
-         expect(page).to have_content(@customer_5.invoices.first.id)
-         expect(page).to have_content(@customer_5.invoices.last.id)
+         expect(page).to have_content("Invoices")
+
+         expect(page).to have_link("Invoice #{@customer_1.invoices.first.id}", href: admin_invoice_path(@customer_1.invoices.first.id))
+         expect(page).to have_link("Invoice #{@customer_1.invoices.last.id}", href: admin_invoice_path(@customer_1.invoices.last.id))
+
+         expect(page).to have_link("Invoice #{@customer_2.invoices.first.id}", href: admin_invoice_path(@customer_2.invoices.first.id))
+         expect(page).to have_link("Invoice #{@customer_2.invoices.last.id}", href: admin_invoice_path(@customer_2.invoices.last.id))
+
+         expect(page).to have_link("Invoice #{@customer_3.invoices.first.id}", href: admin_invoice_path(@customer_3.invoices.first.id))
+         expect(page).to have_link("Invoice #{@customer_3.invoices.last.id}", href: admin_invoice_path(@customer_3.invoices.last.id))
+
+         expect(page).to have_link("Invoice #{@customer_4.invoices.first.id}", href: admin_invoice_path(@customer_4.invoices.first.id))
+         expect(page).to have_link("Invoice #{@customer_4.invoices.last.id}", href: admin_invoice_path(@customer_4.invoices.last.id))
+
+         expect(page).to have_link("Invoice #{@customer_5.invoices.first.id}", href: admin_invoice_path(@customer_5.invoices.first.id))
+         expect(page).to have_link("Invoice #{@customer_5.invoices.last.id}", href: admin_invoice_path(@customer_5.invoices.last.id))
          
-         expect(page).to have_content(@invoice1.id)
-         expect(page).to have_content(@invoice2.id)
-         expect(page).to have_content(@invoice3.id)
-         expect(page).to have_content(@invoice4.id)
-         expect(page).to have_content(@invoice5.id)
+         expect(page).to have_link("Invoice #{@invoice1.id}", href: admin_invoice_path(@invoice1.id))
+         expect(page).to have_link("Invoice #{@invoice2.id}", href: admin_invoice_path(@invoice2.id))
+         expect(page).to have_link("Invoice #{@invoice3.id}", href: admin_invoice_path(@invoice3.id))
+         expect(page).to have_link("Invoice #{@invoice4.id}", href: admin_invoice_path(@invoice4.id))
+         expect(page).to have_link("Invoice #{@invoice5.id}", href: admin_invoice_path(@invoice5.id))
       end
    end
 end
