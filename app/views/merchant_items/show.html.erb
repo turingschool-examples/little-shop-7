@@ -2,4 +2,6 @@
   <h1><%=@item.name%></h1>
   <p><%=@item.description%></p>
   <p><%=@item.unit_price%></p>
+  <%= link_to "Update Item Information", edit_merchant_item_path, method: :get %>
 </section>
+
