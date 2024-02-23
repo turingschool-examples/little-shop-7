@@ -12,4 +12,6 @@ class Merchant < ApplicationRecord
    end
 
    
+
+   validates :name, presence: true
 end

@@ -1,0 +1,10 @@
+<h1>Edit <%= @merchant.name %></h1>
+
+<div id="edit_merchant">
+<%= form_with model: [:admin, @merchant], data: {turbo: false}, local: true do |f| %>
+   <%= f.label :name %>
+   <%= f.text_field :name, value: @merchant.name%>
+
+   <%= f.submit %>
+<% end %>
+</div>

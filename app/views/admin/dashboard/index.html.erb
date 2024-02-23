@@ -2,3 +2,31 @@
 
 <%= link_to "Merchants Index", "/admin/merchants" %>
 <%= link_to "Invoices Index", "/admin/invoices" %>
+
+<div id="top_customers">
+   <h3>Top Customers</h3>
+   <ol>
+   <% @customers.top_five_customers.each do |customer| %>
+      <li>
+      <div id="customer_<%= customer.id %>">
+         <h4>Name: <%= customer.first_name %> <%= customer.last_name %></h4>
+         <p>Number of Transactions: <%= customer.successful_transactions_count %></p>
+      </div>
+      </li>
+   <% end %>
+   </ol>
+</div>
+
+<div id="incomplete_invoices">
+   <h3>Incomplete Invoices</h3>
+   <ul>
+   <% @incomplete_invoices.each do |invoice| %>
+   <li>
+      <div id="invoice-<%= invoice.id %>">
+         <h4><%= link_to invoice.id, admin_invoice_path(invoice.id) %></h4>
+         <p><%= invoice.created_at.strftime("%A, %B %e, %Y") %></p>
+      </div>
+   </li>
+   <% end %>
+   </ul>
+</div>
