@@ -73,14 +73,26 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
 
          within "#merchant-#{@green_merchant.id}" do
             expect(page).to have_link("#{@green_merchant.name}", href: admin_merchant_path(@green_merchant.id))
+
+            click_on(@green_merchant.name)
+
+            expect(current_path).to eq(admin_merchant_path(@green_merchant.id))
          end
 
          within "#merchant-#{@black_merchant.id}" do
             expect(page).to have_link("#{@black_merchant.name}", href: admin_merchant_path(@black_merchant.id))
+
+            click_on(@black_merchant.name)
+
+            expect(current_path).to eq(admin_merchant_path(@black_merchant.id))
          end
 
          within "#merchant-#{@brown_merchant.id}" do
             expect(page).to have_link("#{@brown_merchant.name}", href: admin_merchant_path(@brown_merchant.id))
+
+            click_on(@brown_merchant.name)
+
+            expect(current_path).to eq(admin_merchant_path(@brown_merchant.id))
          end
       end
    end
