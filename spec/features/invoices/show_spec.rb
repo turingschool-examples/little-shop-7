@@ -55,9 +55,6 @@ RSpec.describe 'Merchant Invoice Show Page' do
     end
 
     describe "User Story 18" do
-      before do
-        visit merchant_invoice_path(merchant, invoice)
-      end
       it "shows each invoice item's current status is a select field, when I click this select field I can select a new status for the Item, shows a button to 'Update Item Status' when I click this button I am taken back to the invoice show page and my Item's status has now been updated" do
         visit merchant_invoice_path(merchant, invoice)
         within "#item_#{invoice_item_1.item.id}" do
