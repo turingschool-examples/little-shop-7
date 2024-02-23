@@ -43,7 +43,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
          transaction8 = FactoryBot.create(:transaction, invoice: invoice8, result: 0)
          transaction9= FactoryBot.create(:transaction, invoice: invoice9, result: 0)
          transaction10 = FactoryBot.create(:transaction, invoice: invoice10, result: 0)
-            
+         # require 'pry'; binding.pry
       end
 
       # User Story 19
