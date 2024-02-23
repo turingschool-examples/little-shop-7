@@ -16,14 +16,11 @@ class Merchant < ApplicationRecord
       .limit(5) #how many 
   end
 
-  def not_shipped_invoices
-    # x=items.joins(:invoice_items, :invoice)
-    # .where("invoice_items.status != 2")
-    # .select("distinct(invoices.id), invoices.created_at, items.name")
-    # .group("invoices.id")
-    # .order("invoices.created_at")
-  
+  def not_shipped_invoices  
     # invoices.invoices_with_unshipped_items_oldest_to_newest
+
     self.invoice_items.where("invoice_items.status != 2")
+    
+
   end
 end

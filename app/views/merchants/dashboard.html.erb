@@ -19,7 +19,6 @@
 
 <section class="shipable-items">
   <% @merchant.not_shipped_invoices.each do |invoice_item| %>
- 
     <div id="invoice-<%= invoice_item.invoice_id %>">
       <ul>
         <h3><%= invoice_item.item.name %></h3>

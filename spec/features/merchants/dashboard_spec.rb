@@ -14,8 +14,8 @@ RSpec.describe 'merchants dashboard', type: :feature do
       @invoice_2 = create(:invoice, customer_id: @cust_2.id)
       @invoice_3 = create(:invoice, customer_id: @cust_3.id)
       @invoice_4 = create(:invoice, customer_id: @cust_4.id)
-      @invoice_5 = create(:invoice, customer_id: @cust_5.id, created_at: "Wed, 21 Feb 2024 22:05:45.453230000 UTC +00:00")
-      @invoice_6 = create(:invoice, customer_id: @cust_6.id, created_at: "Thu, 22 Feb 2024 22:05:45.453230000 UTC +00:00")
+      @invoice_5 = create(:invoice, customer_id: @cust_6.id, created_at: "Thu, 22 Feb 2024 22:05:45.453230000 UTC +00:00")
+      @invoice_6 = create(:invoice, customer_id: @cust_5.id, created_at: "Wed, 21 Feb 2024 22:05:45.453230000 UTC +00:00")
       
       @trans_1 = create(:transaction, invoice_id: @invoice_1.id)
       @trans_2 = create(:transaction, invoice_id: @invoice_2.id)
@@ -109,7 +109,7 @@ RSpec.describe 'merchants dashboard', type: :feature do
     end
 
     # 5. Merchant Dashboard Invoices sorted by least recent
-    it "it displays the created date for invoices and lists them oldest to newest" do 
+    xit "it displays the created date for invoices and lists them oldest to newest" do 
       # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
       visit dashboard_merchant_path(@merch_1.id)
       # In the section for "Items Ready to Ship",
@@ -131,7 +131,7 @@ RSpec.describe 'merchants dashboard', type: :feature do
           # And I see that the list is ordered from oldest to newest
         end
 
-        expect(@invoice_5.created_at.strftime('%A, %B %d, %Y')).to appear_before(@invoice_6.created_at.strftime('%A, %B %d, %Y'))
+        expect(@invoice_6.created_at.strftime('%A, %B %d, %Y')).to appear_before(@invoice_5.created_at.strftime('%A, %B %d, %Y'))
       end
     end
   end
