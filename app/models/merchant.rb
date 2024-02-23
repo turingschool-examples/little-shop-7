@@ -26,7 +26,7 @@ class Merchant < ApplicationRecord
       .limit(5)
       .select("customers.*", "COUNT(transactions.id) AS transaction_count")
   end
-
+  
   def items_ready_to_ship
     invoice_items
       .joins(:invoice)
