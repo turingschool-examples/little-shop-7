@@ -72,13 +72,25 @@ RSpec.describe 'Admin Merchants Edit View', type: :feature do
     
     # Then I am redirected back to the merchant's admin show page where I see the updated information
     expect(current_path).to eq(admin_merchant_path(@merchant_1.id))
-    save_and_open_page
 
     expect(page).to have_content("Amazonn")
 
     # And I see a flash message stating that the information has been successfully updated.
     within "#flash" do
       expect(page).to have_content("The information has been successfully updated for Amazonn")
+    end
+  end
+
+  #Sad path testing for user story #26
+  it "responds to incomplete information in the form" do
+    visit edit_admin_merchant_path(@merchant_1.id)
+    fill_in(:name, with: "")
+    click_button("Submit")
+
+    expect(current_path).to eq(edit_admin_merchant_path(@merchant_1.id))
+
+    within "#flash" do
+      expect(page).to have_content("Error: Name can't be blank")
     end
   end
  end
