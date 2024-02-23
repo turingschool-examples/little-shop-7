@@ -48,5 +48,24 @@ RSpec.describe 'Merchant Dashboard Show Page' do
       
 
     end
+
+    it "can create a new item" do
+      visit merchant_items_path(merchant_id: merchant_1.id)
+
+      click_on ("Create Item")
+
+      fill_in("name", with: "testitem")
+      fill_in("description", with: "test is good")
+      fill_in("unit_price", with: "22112")
+
+      click_button("Submit")
+
+      visit merchant_items_path(merchant_id: merchant_1.id)
+
+
+      expect(current_path).to eq(merchant_items_path(merchant_id: merchant_1.id))
+      expect(page).to have_content("testitem")
+      
+    end
   end
 end
