@@ -123,22 +123,27 @@ RSpec.describe 'Admin Dashboard', type: :feature do
       end
 
       # User Story 23 
-      xit 'displays the date that the invoice was created' do 
+      it 'displays the date that the invoice was created' do 
+         visit admin_path
 
-         customer = Customer.create!(first_name: "John", last_name: "Smith")
+         within "#incomplete_invoices" do
+            expect(page).to have_content('Incomplete Invoices')
 
-         item = Item.create!(name: "Table", description: "Wood", unit_price: 100, merchant: brand)
+            within "#invoice-#{@invoice1.id}" do
+               expect(page).to have_content(@invoice1.id)
+               expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %e, %Y"))
+            end
 
-         old_invoice = Invoice.create!(customer: customer, created_at: Time.current - 8.days, status: :in_progress)
-         new_invoice = Invoice.create!(customer: customer, created_at: Time.current - 2.days, status: :in_progress)
+            within "#invoice-#{@invoice2.id}" do
+               expect(page).to have_content(@invoice2.id)
+               expect(page).to have_content(@invoice2.created_at.strftime("%A, %B %e, %Y"))
+            end
 
-         InvoiceItem.create!(item: item, invoice: old_invoice, quantity: 1, unit_price: 100, status: :pending)
-         InvoiceItem.create!(item: item, invoice: new_invoice, quantity: 1, unit_price: 100, status: :pending)
-
-         expect(page).to have_content(old_invoice.id)
-         expect(page).to have_content(new_invoice.id)
-         expect(page).to have_content(old_invoice.created_at.strftime("%A, %B %e, %Y"))
-         expect(page).to have_content(new_invoice.created_at.strftime("%A, %B %e, %Y"))
+            within "#invoice-#{@invoice3.id}" do
+               expect(page).to have_content(@invoice3.id)
+               expect(page).to have_content(@invoice3.created_at.strftime("%A, %B %e, %Y"))
+            end
+         end
       end 
    end
 end

@@ -7,7 +7,7 @@
    <h3>Top Customers</h3>
    <% @customers.top_five_customers.each do |customer| %>
       <div id="customer_<%= customer.id %>">
-         <p>Name: <%= customer.first_name %></p>
+         <p>Name: <%= customer.first_name %> <%= customer.last_name %></p>
          <p>Number of Transactions: <%= customer.transactions_count %></p>
       </div>
    <% end %>
@@ -18,6 +18,7 @@
    <% @incomplete_invoices.each do |invoice| %>
       <div id="invoice-<%= invoice.id %>">
          <p><%= link_to invoice.id, admin_invoice_path(invoice.id) %></p>
+         <p><%= invoice.created_at.strftime("%A, %B %e, %Y") %></p>
       </div>
    <% end %>
 </div>
