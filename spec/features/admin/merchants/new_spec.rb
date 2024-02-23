@@ -21,5 +21,18 @@ RSpec.describe 'Admin Merchants New Page', type: :feature do
         expect(page).to have_content("Nike")
       end
     end
+
+    #Sad path testing for user story #29
+    it "responds to incomplete information in the form" do
+      visit new_admin_merchant_path
+      fill_in(:name, with: "")
+      click_button("Submit")
+
+      expect(current_path).to eq(new_admin_merchant_path)
+
+      within "#flash" do
+        expect(page).to have_content("Error: Name can't be blank")
+      end
+    end
   end
 end
