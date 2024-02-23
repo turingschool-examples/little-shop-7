@@ -13,11 +13,22 @@
 <h4>Items</h4>
     <div class="table">
         <% @invoice_items.each do |invoice_item| %>
-            <div class="row"> 
+            <div class="row" id="item_<%=invoice_item.item.id%>"> 
                 <div class="col">Name: <%= invoice_item.item.name %></div>
                 <div class="col">Quantity: <%= invoice_item.quantity%></div>
                 <div class="col">Price: $<%= invoice_item.unit_price %></div>
-                <div class="col">Invoice status: <%= invoice_item.status %></div>
+                <div class="col">
+                    Item status: <%= form_with model: [@merchant, invoice_item] do |f| %>
+                        <%= f.select :status, [["Pending", "pending"], ["Packaged", "packaged"], ["Shipped", "shipped"]]%>
+                        <%= f.submit "Update Item Status" %>
+                        <% end %>
+                        
+                        <% if flash[:notice] %>
+                            <p><%= flash[:notice]%></p>    
+                        <% end %>
+                </div>
+
             </div>
         <% end %>
     </div>
+<h4>Total Revenue: <%= @total_revenue %></h4>
