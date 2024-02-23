@@ -5,21 +5,7 @@ RSpec.describe 'Admin dashboard' do
     let(:item) { FactoryBot.create(:item, merchant: merchant) }
     let(:top_customers) { FactoryBot.create_list(:customer, 5) }
     let(:customers) { FactoryBot.create_list(:customer, 5) }
-
-    before do
-        top_customers.each do |customer|
-          invoice = FactoryBot.create(:invoice, customer: customer)
-          invoice.items = [item]
-          FactoryBot.create_list(:transaction, Random.rand(2..5), invoice: invoice)
-          invoice.save!
-        end
-        customers.each do |customer|
-          invoice = FactoryBot.create(:invoice, customer: customer)
-          invoice.items = [item]
-          FactoryBot.create_list(:transaction, 1, invoice: invoice)
-          invoice.save!
-        end
-    end
+    
 
     describe 'User story 19' do
         it 'displays admin dashboard header' do
@@ -44,6 +30,20 @@ RSpec.describe 'Admin dashboard' do
     end
 
     describe 'User Story 21' do
+        before do
+            top_customers.each do |customer|
+              invoice = FactoryBot.create(:invoice, customer: customer)
+              invoice.items = [item]
+              FactoryBot.create_list(:transaction, Random.rand(2..5), invoice: invoice)
+              invoice.save!
+            end
+            customers.each do |customer|
+              invoice = FactoryBot.create(:invoice, customer: customer)
+              invoice.items = [item]
+              FactoryBot.create_list(:transaction, 1, invoice: invoice)
+              invoice.save!
+            end
+        end
         
         it 'displays top 5 customers and count of successful transactions' do
             # As an admin,
@@ -64,6 +64,38 @@ RSpec.describe 'Admin dashboard' do
             customers.each do |customer|
                 expect(page).to_not have_content("#{customer.first_name} #{customer.last_name}")
             end
+        end
+    end
+
+    describe 'User story 22' do
+        let(:item_1) { FactoryBot.create(:item, merchant: merchant) }
+        let(:item_2) { FactoryBot.create(:item, merchant: merchant) }
+        let(:item_3) { FactoryBot.create(:item, merchant: merchant) }
+        let(:customer) { FactoryBot.create(:customer) }
+
+        let(:invoice_1) { FactoryBot.create(:invoice, customer: customer, created_at: Time.current - 3.day) }
+        let(:invoice_2) { FactoryBot.create(:invoice, customer: customer, created_at: Time.current - 2.day) }
+        let(:invoice_3) { FactoryBot.create(:invoice, customer: customer, created_at: Time.current - 5.day) }
+
+        let!(:invoice_item_1) { InvoiceItem.create!(invoice: invoice_1, item: item_1, status: "packaged") }
+        let!(:invoice_item_2) { InvoiceItem.create!(invoice: invoice_2, item: item_2, status: "pending") }
+        let!(:invoice_item_3) { InvoiceItem.create!(invoice: invoice_3, item: item_3, status: "shipped") }
+        
+        it 'displays ids of invoices that have items in not shipped status' do
+            # As an admin,
+            # When I visit the admin dashboard (/admin)
+            visit admin_path
+            # Then I see a section for "Incomplete Invoices"
+            expect(page).to have_content("Little Etsy's Incomplete Invoices")
+            # In that section I see a list of the ids of all invoices
+            # That have items that have not yet been shipped
+            expect(page).to have_content("Invoice: #{invoice_item_1.invoice_id}")
+            expect(page).to have_content("Invoice: #{invoice_item_2.invoice_id}")
+            expect(page).to_not have_content("Invoice: #{invoice_item_3.invoice_id}")
+            # And each invoice id links to that invoice's admin show page
+            expect(page).to have_link("Invoice: #{invoice_item_1.invoice_id}", href: admin_invoice_path(invoice_1))
+            expect(page).to have_link("Invoice: #{invoice_item_2.invoice_id}", href: admin_invoice_path(invoice_2))
+            save_and_open_page
         end
     end
 end
