@@ -56,10 +56,10 @@ RSpec.describe Customer, type: :model do
       end
    end
 
-   describe "#transactions_count" do
+   describe "#successful_transactions_count" do
       it 'count the transactions for a specific customer' do
-         expect(@customer_5.transactions_count).to eq(31)
-         expect(@customer_4.transactions_count).to eq(15)
+         expect(@customer_5.successful_transactions_count).to eq(31)
+         expect(@customer_4.successful_transactions_count).to eq(15)
       end
    end
 end

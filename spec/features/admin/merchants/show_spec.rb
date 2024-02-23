@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin Merchants Index', type: :feature do
+RSpec.describe 'Admin Merchants Show', type: :feature do
    describe 'as an admin' do
       before(:each) do
          @customer_1 = create(:customer, first_name: "Joey", last_name: "Ondricka")
@@ -47,57 +47,20 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
          @invoice_item_3 = create(:invoice_item, status: 0, invoice: @invoice3)
       end
 
-      # User Story 24
-      it 'displays the name of each merchant' do
-         visit admin_merchants_path
+      it 'has the name of the Merchant' do
+         visit admin_merchant_path(@green_merchant.id)
 
-         expect(page).to have_content("Merchants")
-
-         within "#merchant-#{@green_merchant.id}" do
-            expect(page).to have_content(@green_merchant.name)
-         end
-
-         within "#merchant-#{@black_merchant.id}" do
-            expect(page).to have_content(@black_merchant.name)
-         end
-
-         within "#merchant-#{@brown_merchant.id}" do
-            expect(page).to have_content(@brown_merchant.name)
-         end
+         expect(page).to have_content(@green_merchant.name)
       end
 
-      it 'has a link for each merchant' do
-         visit admin_merchants_path
+      it 'has a link to update the merchants information' do
+         visit admin_merchant_path(@green_merchant.id)
 
-         expect(page).to have_content("Merchants")
+         expect(page).to have_link("Update #{@green_merchant.name}", href: edit_admin_merchant_path(@green_merchant.id))
 
-         within "#merchant-#{@green_merchant.id}" do
-            expect(page).to have_link("#{@green_merchant.name}", href: admin_merchant_path(@green_merchant.id))
-
-            click_on(@green_merchant.name)
-
-            expect(current_path).to eq(admin_merchant_path(@green_merchant.id))
-         end
-
-         visit admin_merchants_path
-
-         within "#merchant-#{@black_merchant.id}" do
-            expect(page).to have_link("#{@black_merchant.name}", href: admin_merchant_path(@black_merchant.id))
-
-            click_on(@black_merchant.name)
-
-            expect(current_path).to eq(admin_merchant_path(@black_merchant.id))
-         end
-
-         visit admin_merchants_path
-
-         within "#merchant-#{@brown_merchant.id}" do
-            expect(page).to have_link("#{@brown_merchant.name}", href: admin_merchant_path(@brown_merchant.id))
-
-            click_on(@brown_merchant.name)
-
-            expect(current_path).to eq(admin_merchant_path(@brown_merchant.id))
-         end
+         click_on "Update #{@green_merchant.name}"
+         
+         expect(current_path).to eq(edit_admin_merchant_path(@green_merchant.id))
       end
    end
 end
