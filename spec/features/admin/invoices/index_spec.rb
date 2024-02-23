@@ -24,6 +24,7 @@ RSpec.describe 'Admin Invoices Index', type: :feature do
          @invoice10 = create(:invoice, customer_id: @customer_5.id, status: 1)
       end
 
+      # User Story 32
       it 'has a list of all Invoices Ids in the system with a link to the id show page' do
          visit admin_invoices_path
 
