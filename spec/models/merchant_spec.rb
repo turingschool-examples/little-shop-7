@@ -37,6 +37,7 @@ RSpec.describe Merchant, type: :model do
 
   describe 'Validations' do
     it { should validate_presence_of :name }
+    it { should validate_presence_of :status }
   end
 
   describe 'Relationships' do
@@ -61,6 +62,18 @@ RSpec.describe Merchant, type: :model do
 
     it "#not_shipped_invoices" do
       expect(@merch_1.not_shipped_invoices).to eq(@invoice_6.invoice_items)
+    end
+
+    describe '#enabled?' do
+      it 'returns true or false depending on the status' do
+        merch_1 = create(:merchant, name: "Amazon", status: 0)
+
+        expect(merch_1.enabled?).to eq(false)
+
+        merch_2 = create(:merchant, name: "Petco", status: 1) 
+
+        expect(merch_2.enabled?).to eq(true)
+      end
     end
   end
 end
