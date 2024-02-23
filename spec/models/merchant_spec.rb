@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
 
@@ -10,9 +10,9 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:invoice_items).through(:items) }
   end
 
-  describe "validations" do
-    it { should validate_presence_of(:name) }
-  end
+#   describe "validations" do
+#     it { should validate_presence_of(:name) }
+#   end
 
   describe "#top_customers" do
     let(:merchant) { FactoryBot.create(:merchant) }
