@@ -39,7 +39,7 @@ RSpec.describe 'merchant item show', type: :feature do
     end
 
     # 7. Merchant Items Show Page
-    it '' do
+    it 'links to item show page' do
       # As a merchant,
       visit merchant_items_path(@merch_1)
       # When I click on the name of an item from the merchant items index page, (merchants/:merchant_id/items)
