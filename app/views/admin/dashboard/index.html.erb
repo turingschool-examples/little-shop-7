@@ -5,24 +5,28 @@
 
 <div id="top_customers">
    <h3>Top Customers</h3>
+   <ul>
    <% @customers.top_five_customers.each do |customer| %>
       <li>
       <div id="customer_<%= customer.id %>">
-         <p>Name: <%= customer.first_name %> <%= customer.last_name %></p>
+         <h4>Name: <%= customer.first_name %> <%= customer.last_name %></h4>
          <p>Number of Transactions: <%= customer.transactions_count %></p>
       </div>
       </li>
    <% end %>
+   </ul>
 </div>
 
 <div id="incomplete_invoices">
    <h3>Incomplete Invoices</h3>
+   <ul>
    <% @incomplete_invoices.each do |invoice| %>
    <li>
       <div id="invoice-<%= invoice.id %>">
-         <p><%= link_to invoice.id, admin_invoice_path(invoice.id) %></p>
+         <h4><%= link_to invoice.id, admin_invoice_path(invoice.id) %></h4>
          <p><%= invoice.created_at.strftime("%A, %B %e, %Y") %></p>
       </div>
    </li>
    <% end %>
+   </ul>
 </div>
