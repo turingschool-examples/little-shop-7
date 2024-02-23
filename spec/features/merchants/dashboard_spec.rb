@@ -136,13 +136,3 @@ RSpec.describe 'merchants dashboard', type: :feature do
     end
   end
 end
-
-# <% @merchant.not_shipped_invoices.each do |invoice_item| %>
-#   <div id="invoice-<%= invoice_item.invoice_id %>">
-#     <ul>
-#       <h3><%= invoice_item.item.name %></h3>
-#       <li>Created at: <%= invoice_item.invoice.created_at.strftime('%A, %B %d, %Y') %></li>
-#       <li><%= link_to "Invoice ID, #{invoice_item.invoice.id}", "invoice_path(invoice_item.invoice.id)", method: :get %></li>
-#     </ul> 
-#   </div>
-# <% end %>
