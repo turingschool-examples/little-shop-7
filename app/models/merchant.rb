@@ -27,21 +27,10 @@ class Merchant < ApplicationRecord
       .select("customers.*", "COUNT(transactions.id) AS transaction_count")
   end
 
-<<<<<<< HEAD
-  def self.top_customers
-    Customer
-      .joins(:transactions)
-      .where(transactions: { result: "success" })
-      .group("customers.id")
-      .order("count(transactions.id) DESC")
-      .limit(5)
-      .select("customers.*", "COUNT(transactions.id) AS transaction_count")
-=======
   def items_ready_to_ship
     invoice_items
       .joins(:invoice)
       .where(invoice_items: {status: "packaged"})
       .order('invoices.created_at ASC')
->>>>>>> bdff6832e71e5f253cd9597dd2f337de4d49c30d
   end
 end

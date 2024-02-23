@@ -60,6 +60,10 @@ RSpec.describe 'Admin dashboard' do
                     expect(page).to have_content("#{top_customer.first_name} #{top_customer.last_name}: #{top_customer.transactions.count} transactions")
                 end
             end
+
+            customers.each do |customer|
+                expect(page).to_not have_content("#{customer.first_name} #{customer.last_name}")
+            end
         end
     end
 end
