@@ -109,30 +109,40 @@ RSpec.describe 'merchants dashboard', type: :feature do
     end
 
     # 5. Merchant Dashboard Invoices sorted by least recent
-    xit "it displays the created date for invoices and lists them oldest to newest" do 
+    it "it displays the created date for invoices and lists them oldest to newest" do 
       # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
       visit dashboard_merchant_path(@merch_1.id)
       # In the section for "Items Ready to Ship",
       within '.shipable-items' do
         # Next to each Item name I see the date that the invoice was created
-        within "#invoice-#{@invoice_6.id}" do
-          expect(page).to have_content(@item_1.name)
-          expect(page).to have_content(@invoice_6.id)
-          # And I see the date formatted like "Monday, July 18, 2019"
-          expect(page).to have_content("Created at: Thursday, February 22, 2024")
-          # And I see that the list is ordered from oldest to newest
-        end
-
         within "#invoice-#{@invoice_5.id}" do
           expect(page).to have_content(@item_1.name)
           expect(page).to have_content(@invoice_5.id)
           # And I see the date formatted like "Monday, July 18, 2019"
-          expect(page).to have_content("Created at: Wednesday, February 21, 2024")
+          expect(page).to have_content(@invoice_5.created_at.strftime('%A, %B, %d, %Y'))
           # And I see that the list is ordered from oldest to newest
         end
 
-        expect(@invoice_6.created_at.strftime('%A, %B %d, %Y')).to appear_before(@invoice_5.created_at.strftime('%A, %B %d, %Y'))
+        within "#invoice-#{@invoice_6.id}" do
+          expect(page).to have_content(@item_1.name)
+          expect(page).to have_content(@invoice_6.id)
+          # And I see the date formatted like "Monday, July 18, 2019"
+          expect(page).to have_content(@invoice_6.created_at.strftime('%A, %B, %d, %Y'))
+          # And I see that the list is ordered from oldest to newest
+        end
+
+        expect(@invoice_6.created_at.strftime('%A, %B, %d, %Y')).to appear_before(@invoice_5.created_at.strftime('%A, %B, %d, %Y'))
       end
     end
   end
 end
+
+# <% @merchant.not_shipped_invoices.each do |invoice_item| %>
+#   <div id="invoice-<%= invoice_item.invoice_id %>">
+#     <ul>
+#       <h3><%= invoice_item.item.name %></h3>
+#       <li>Created at: <%= invoice_item.invoice.created_at.strftime('%A, %B %d, %Y') %></li>
+#       <li><%= link_to "Invoice ID, #{invoice_item.invoice.id}", "invoice_path(invoice_item.invoice.id)", method: :get %></li>
+#     </ul> 
+#   </div>
+# <% end %>
