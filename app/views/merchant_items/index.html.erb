@@ -1,0 +1,7 @@
+<section class="merch-items">
+  <% @merch.items.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <%= link_to "#{item.name}", merchant_item_path(@merch, item), method: :get %>
+    </div>
+  <% end %>
+</section>

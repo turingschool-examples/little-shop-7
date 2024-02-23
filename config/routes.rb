@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   resources :merchants do 
     # resources :dashboard, as: "merchant_dashboard"
     member { get "dashboard" }
+    resources :items, controller: 'merchant_items', only: [:index, :show]
   end
-
+  
 
   resources :invoices, controller: "merchant_invoices"
 
