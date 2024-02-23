@@ -29,57 +29,37 @@ RSpec.describe 'Admin Invoices Show Page' do
     end
 
     describe 'User story 34, Invoice Item Information' do
-        before do
-            @nico = Customer.create!(first_name: "Nico", last_name: "Shantii")
-            @wolf = Customer.create!(first_name: "Wolf", last_name: "Goode")
-            @invoice_1 = Invoice.create!(status: "In Progress", customer_id: @nico.id)
-            @invoice_2 = Invoice.create!(status: "Completed", customer_id: @wolf.id)
-            @organic_rocks = Item.create!(name: "Organic Rocks", unit_price: 77)
-            @stick = Item.create!(name: "Stick", unit_price: 22)
-            @vintage_water = Item.create!(name: "Vintage Water", unit_price: 11)
-            @invoice_item_1 = InvoiceItem.create!(
-                invoice: @invoice_1,
-                item: @organic_rocks,
-                quantity: 3,
-                unit_price: @organic_rocks.price,
-                status: 0
-            )
-            @invoice_item_2 = InvoiceItem.create!(
-                invoice: @invoice_1,
-                item: @sticks,
-                quantity: 7,
-                unit_price: @sticks.price,
-                status: 0
-            )
-            @invoice_item_3 = InvoiceItem.create!(
-                invoice: @invoice_2,
-                item: @vintage_water,
-                quantity: 10,
-                unit_price: @vintage_water.price,
-                status: 2
-            )
-        end
+        # let(:merchant) { create(:merchant) }
+        # let(:items) { create_list(:item, 4, merchant_id: merchant.id) }
+        let(:items) { create_list(:item, 4) }
+        let(:customers) { create_list(:customer, 2) }
+        let(:invoice) { create_list(:invoice, 2, customer_id: customers.first.id) }
+        let(:invoice_items) { create_list(:invoice_item, 3, item: items.first, invoice: invoice.first) }
 
         it 'shows all items on invoice including Item name, quantity ordered, price the Item sold for, Invoice Item status' do
+            # require 'pry'; binding.pry
             # As an admin
             # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
-            visit admin_invoice_path("#{@invoice_1.id}")
+            visit admin_invoice_path(invoice.first)
             # Then I see all of the items on the invoice including:
             # Item name
-            expect(page).to have_content("Item name: #{@invoice_item_1.name}")
-            expect(page).to have_content("Item name: #{@invoice_item_2.name}")
+            invoice_items.each do |invoice_item|
+                expect(page).to have_content(invoice_item.item.name)
+            end
             # The quantity of the item ordered
-            expect(page).to have_content("Quantity ordered: #{@invoice_item_1.quantity}")
-            expect(page).to have_content("Quantity ordered: #{@invoice_item_2.quantity}")
+            invoice_items.each do |invoice_item|
+                expect(page).to have_content("Quantity ordered: #{invoice_item.quantity}")
+            end
             # The price the Item sold for
-            expect(page).to have_content("Item price: #{@invoice_item_1.unit_price}")
-            expect(page).to have_content("Item price: #{@invoice_item_2.unit_price}")
+            invoice_items.each do |invoice_item|
+                expect(page).to have_content("Item price: #{invoice_item.unit_price}")
+            end
             # The Invoice Item status
-            expect(page).to have_content("Status: #{@invoice_item_1.status}")
-            expect(page).to have_content("Status: #{@invoice_item_2.status}")
-            
-            expect(page).to_not have_content("Item name: #{@invoice_item_3.name}")
+            invoice_items.each do |invoice_item|
+                expect(page).to have_content("Status: #{invoice_item.status}")
+            end
 
+            expect(page).to_not have_content("Item name: Non-existing Item")
         end
     end
 end

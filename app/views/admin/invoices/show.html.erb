@@ -1,6 +1,18 @@
-<h1> Admin Invoice Info</h1>
+<h1> Admin Invoice Info </h1>
+
 <h3>Invoice ID: <%=@invoice.id%></h3>
 <h3>Status: <%=@invoice.status%></h3>
 <h3>Created At: <%=@invoice.formatted_created_at%></h3>
 <h3>Customer First Name: <%=@invoice.customer.first_name%></h3>
 <h3>Customer Last Name: <%=@invoice.customer.last_name%></h3>
+
+<h2> Invoice Items </h2>
+
+<% @invoice.invoice_items.each do |invoice_item| %>
+    <div class="invoice-item">
+        <h3>Item name: <%= invoice_item.item.name %></h3>
+        <p>Quantity ordered: <%= invoice_item.quantity %></p>
+        <p>Item price: <%= invoice_item.unit_price %></p>
+        <p>Status: <%= invoice_item.status%></p>
+    </div>
+<% end %>
