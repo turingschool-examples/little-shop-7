@@ -61,7 +61,7 @@ RSpec.describe Merchant, type: :model do
     end
 
     it "#not_shipped_invoices" do
-      expect(@merch_1.not_shipped_invoices).to eq(@invoice_6.invoice_items)
+      expect(@merch_1.not_shipped_invoices).to eq([@invoice_6])
     end
 
     describe '#enabled?' do
