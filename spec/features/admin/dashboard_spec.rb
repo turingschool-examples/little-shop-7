@@ -128,7 +128,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
 
          within "#incomplete_invoices" do
             expect(page).to have_content('Incomplete Invoices')
-            save_and_open_page
+
             within "#invoice-#{@invoice1.id}" do
                expect(page).to have_content(@invoice1.id)
                expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %e, %Y"))

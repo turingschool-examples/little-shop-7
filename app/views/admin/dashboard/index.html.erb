@@ -5,16 +5,16 @@
 
 <div id="top_customers">
    <h3>Top Customers</h3>
-   <ul>
+   <ol>
    <% @customers.top_five_customers.each do |customer| %>
       <li>
       <div id="customer_<%= customer.id %>">
          <h4>Name: <%= customer.first_name %> <%= customer.last_name %></h4>
-         <p>Number of Transactions: <%= customer.transactions_count %></p>
+         <p>Number of Transactions: <%= customer.successful_transactions_count %></p>
       </div>
       </li>
    <% end %>
-   </ul>
+   </ol>
 </div>
 
 <div id="incomplete_invoices">
