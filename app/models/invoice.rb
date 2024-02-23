@@ -7,7 +7,7 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
 
-  enum status: ["In Progress", "Cancelled", "Completed"]
+  enum status: ["in progress", "cancelled", "completed"]
   
   # class method for checking status of invoice
   def self.invoices_with_unshipped_items

@@ -2,39 +2,52 @@ require 'csv'
 
 def import(file_path, model)
   CSV.foreach(file_path, headers: true) do |row|
+    require 'pry' ; binding.pry
     model.create!(row.to_hash)
   end
 end
 
 namespace :csv_load do 
   task :merchants => [:environment] do 
-    file_path = "db/data/merchants.csv"
-    import(file_path, Merchant)
+    file_path = Rails.root.join('db/data/merchants.csv')
+    CSV.foreach(file_path, headers: true) do |row|
+      Merchant.create!(row.to_hash)
+    end
   end
 
   task :customers => [:environment] do 
     file_path = "db/data/customers.csv"
-    import(file_path, Customer)
+    CSV.foreach(file_path, headers: true) do |row|
+      Customer.create!(row.to_hash)
+    end
   end
 
   task :items => [:environment] do 
     file_path = "db/data/items.csv"
-    import(file_path, Item)
+    CSV.foreach(file_path, headers: true) do |row|
+      Item.create!(row.to_hash)
+    end
   end
 
   task :invoices => [:environment] do 
     file_path = "db/data/invoices.csv"
-    import(file_path, Invoice)
+    CSV.foreach(file_path, headers: true) do |row|
+      Invoice.create!(row.to_hash)
+    end
   end
 
   task :transactions => [:environment] do 
     file_path = "db/data/transactions.csv"
-    import(file_path, Transaction)
+    CSV.foreach(file_path, headers: true) do |row|
+      Transaction.create!(row.to_hash)
+    end
   end
 
   task :invoice_items => [:environment] do 
     file_path = "db/data/invoice_items.csv"
-    import(file_path, InvoiceItem)
+    CSV.foreach(file_path, headers: true) do |row|
+      InvoiceItem.create!(row.to_hash)
+    end
   end
 
   task :all => [:environment] do
