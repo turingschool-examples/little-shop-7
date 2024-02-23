@@ -7,7 +7,6 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
-
   def top_five_cust
     self.transactions.joins(invoice: :customer) #what tables do we need
       .where("transactions.result = ?", "0" ) # are there conditions for the data I want back
@@ -17,8 +16,11 @@ class Merchant < ApplicationRecord
       .limit(5) #how many 
   end
 
-  def not_shipped_invoices
-    # require 'pry' ; binding.pry
+  def not_shipped_invoices  
+    # invoices.invoices_with_unshipped_items_oldest_to_newest
+
     self.invoice_items.where("invoice_items.status != 2")
+    
+
   end
 end
