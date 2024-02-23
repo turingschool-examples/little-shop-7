@@ -47,19 +47,40 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
          @invoice_item_3 = create(:invoice_item, status: 0, invoice: @invoice3)
       end
 
+      # User Story 24
       it 'displays the name of each merchant' do
          visit admin_merchants_path
 
-         within "#merchants-#{@green_merchant.id}" do
+         expect(page).to have_content("Merchants")
+
+         within "#merchant-#{@green_merchant.id}" do
             expect(page).to have_content(@green_merchant.name)
          end
 
-         within "#merchants-#{@black_merchant.id}" do
+         within "#merchant-#{@black_merchant.id}" do
             expect(page).to have_content(@black_merchant.name)
          end
 
-         within "#merchants-#{@brown_merchant.id}" do
+         within "#merchant-#{@brown_merchant.id}" do
             expect(page).to have_content(@brown_merchant.name)
+         end
+      end
+
+      it 'has a link for each merchant' do
+         visit admin_merchants_path
+
+         expect(page).to have_content("Merchants")
+
+         within "#merchant-#{@green_merchant.id}" do
+            expect(page).to have_link("#{@green_merchant.name}", href: admin_merchant_path(@green_merchant.id))
+         end
+
+         within "#merchant-#{@black_merchant.id}" do
+            expect(page).to have_link("#{@black_merchant.name}", href: admin_merchant_path(@black_merchant.id))
+         end
+
+         within "#merchant-#{@brown_merchant.id}" do
+            expect(page).to have_link("#{@brown_merchant.name}", href: admin_merchant_path(@brown_merchant.id))
          end
       end
    end
