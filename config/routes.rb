@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   #Merchant
 
   resources :merchants, only: [:show]do 
-    resources :dashboard, only: :index
+    resources :dashboard, only: :index, action: :show, controller: "merchants"
     resources :items, only: :index
     resources :invoices, only: :index
 
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   
   
   
+
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :merchants, only: :index
