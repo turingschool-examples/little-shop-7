@@ -22,10 +22,12 @@ class Merchant < ApplicationRecord
 
   def not_shipped_invoices  
     # invoices.invoices_with_unshipped_items_oldest_to_newest
-
-    self.invoice_items.where("invoice_items.status != 2")
-    
-
+    # self.invoice_items.where("invoice_items.status != 2")
+    invoices.joins(:items)
+      .joins(:invoice_items)
+      .where.not(invoice_items: { status: 2 })
+      .select('invoices.*, items.name AS item_name')
+      .order('invoices.created_at') #
   end
 
   def enabled?
