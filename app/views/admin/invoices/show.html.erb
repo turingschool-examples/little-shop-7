@@ -1,12 +1,22 @@
 <h1>Invoice <%= @invoice.id %></h1>
 
-<div id="invoice_attributes">
-<p>Status: <%= @invoice.status.titleize %></p>
+<div id="invoice_attributes"> 
+<section id="status-selector">
+<ol>
+<%= form_with model: @invoice, url: admin_invoice_path(@invoice), data: {turbo: false} do |f| %>
+<%= f.label :status, "Status:" %>
+   <%= f.select(:status, options_for_select(["cancelled", "in progress", "completed"], @invoice.status)) %>
+   <%= f.submit "Update Invoice Status" %>
+<% end %>
+</ol>
+</section>
 <p>Invoice Date: <%= @invoice.created_at.strftime("%A, %B %e, %Y") %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+
 </div>
 
 <div id="invoice_items">
+
    <h2>Invoice Items</h2>
    <ul>
    <% @invoice.invoice_items.each do |invoice_item| %>
@@ -18,7 +28,7 @@
             <p>Status: <%= invoice_item.status.capitalize %></p>
             <p> - </p>
          </li>
-            <h4>Total Revenue: $<%= invoice_item.total_revenue.round(2) %></h4>
+      <h4>Total Revenue: $<%= invoice_item.total_revenue.round(2) %></h4>
       </div>
    <% end %>
    </ul>
