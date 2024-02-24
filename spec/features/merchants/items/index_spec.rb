@@ -89,6 +89,33 @@ RSpec.describe 'merchant items index', type: :feature do
       end
     end
 
+    # 11. Merchant Item Create
+    it " " do
+      # As a merchant
+      # When I visit my items index page
+      visit merchant_items_path(@merch_1)
+      # I see a link to create a new item.
+      within '.create-item' do
+        expect(page).to have_link("Create New Item")
+        # When I click on the link,
+        click_link("Create New Item")
+      end
+      # I am taken to a form that allows me to add item information.
+      expect(current_path).to eq(new_merchant_item_path(@merch_1))
+    # When I fill out the form I click ‘Submit’
+      fill_in "name", with: "Luis"
+      fill_in "description", with: "Hello"
+      fill_in "unit_price", with: 0
+      click_on("Submit")
+      # Then I am taken back to the items index page
+      expect(current_path).to eq(merchant_items_path(@merch_1))
+    # And I see the item I just created displayed in the list of items.
+      within '.disabled-items' do
+        expect(page).to have_content("Luis")
+        # And I see my item was created with a default status of disabled.
+      end
+    end
+
     # 12. Merchant Items Index: 5 most popular items
     it "displays the top 5 most popular items" do 
       test_item_1 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "1")
