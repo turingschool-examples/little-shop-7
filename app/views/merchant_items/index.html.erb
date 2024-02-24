@@ -1,13 +1,42 @@
 <section class="merch-items">
-  <% @merch.items.each do |item| %>
-    <div id="item-<%= item.id %>">
-      <%= link_to "#{item.name}", merchant_item_path(@merch, item), method: :get %>
-      <p>Status: <%= item.status%></p>
-      <% if item.status == "disabled" %>
-        <%= button_to "enable", merchant_item_path(@merch, item), params: { enable: true }, method: :patch %>
-      <% else %>
-        <%= button_to "#disable", merchant_item_path(@merch, item), params: { enable: true }, method: :patch %>
-      <% end %>
-    </div>
-  <% end %>
+  <section class="enabled-items">
+
+    <h2>Enabled Items:</h2>
+
+    <% @items.enabled_items.each do |item| %>
+      <div id="enabled-item-<%= item.id %>">
+        <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
+        <p>Status: <%= item.status%></p>
+        <p><%= button_to "disable", merchant_item_path(item.merchant, item), params: { status: "disabled" }, method: :patch %></p>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="disabled-items">
+
+    <h2>Disabled Items:</h2>
+
+    <% @items.disabled_items.each do |item| %>
+      <div id="disabled-item-<%= item.id %>">
+        <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
+        <p>Status: <%= item.status%></p>
+        <p><%= button_to "enable", merchant_item_path(item.merchant, item), params: { status: "enabled" }, method: :patch %></p>
+      </div>
+    <% end %>
+  </section>
+
+
+  <section class="top-five-items">
+
+    <h2> Top Five Items </h2>
+
+    <% @items.top_five_items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
+        <p>Total Revenue: <%= item.total_revenue%></p>
+      </div>
+    <% end %>
+  </section>
 </section>
+
+

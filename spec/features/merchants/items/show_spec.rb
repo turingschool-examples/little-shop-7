@@ -42,8 +42,11 @@ RSpec.describe 'merchant item show', type: :feature do
     it 'links to item show page' do
       # As a merchant,
       visit merchant_items_path(@merch_1)
-      # When I click on the name of an item from the merchant items index page, (merchants/:merchant_id/items)
-      click_link(@item_1.name)
+      
+      within "#disabled-item-#{@item_1.id}" do
+        # When I click on the name of an item from the merchant items index page, (merchants/:merchant_id/items)
+        click_link(@item_1.name)
+      end
       # Then I am taken to that merchant's item's show page (/merchants/:merchant_id/items/:item_id)
       expect(current_path).to eq(merchant_item_path(@merch_1, @item_1))
       # And I see all of the item's attributes including:
