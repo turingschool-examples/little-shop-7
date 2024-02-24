@@ -28,4 +28,11 @@
     <% end %>
   </div>
 
+<section class="top_merchants"0>
+  <h2>Top Merchants</h2>
+  <% @merchants.top_five_merchants.each do |merchant| %>
+   <ol><div id="merchant_<%=merchant.id%>">
+      <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= merchant.revenue %> in sales
+    </div></ol>
+  <% end %>
 </section>

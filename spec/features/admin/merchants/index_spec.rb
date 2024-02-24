@@ -35,6 +35,11 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       @trans_13 = create(:transaction, invoice_id: @invoice_4.id)
       @trans_14 = create(:transaction, invoice_id: @invoice_4.id)
       @trans_15 = create(:transaction, invoice_id: @invoice_5.id)
+      @trans_16 = create(:transaction, invoice_id: @invoice_6.id)
+      @trans_17 = create(:transaction, invoice_id: @invoice_6.id, result: 1)
+      @trans_18 = create(:transaction, invoice_id: @invoice_7.id)
+      @trans_19 = create(:transaction, invoice_id: @invoice_8.id)
+      @trans_20 = create(:transaction, invoice_id: @invoice_9.id, result: 1)
       
       @merchant_1 = create(:merchant, name: "Amazon", status: 0) 
       @merchant_2 = create(:merchant, name: "Walmart", status: 0) 
@@ -48,16 +53,21 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       @item_2 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
       @item_3 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
       @item_4 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
-      @item_5 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
+      @item_5 = create(:item, unit_price: 1, merchant_id: @merchant_2.id)
+      @item_6 = create(:item, unit_price: 1, merchant_id: @merchant_2.id)
+      @item_7 = create(:item, unit_price: 1, merchant_id: @merchant_3.id)
+      @item_8 = create(:item, unit_price: 1, merchant_id: @merchant_4.id)
+      @item_9 = create(:item, unit_price: 1, merchant_id: @merchant_5.id)
+      @item_10 = create(:item, unit_price: 1, merchant_id: @merchant_6.id)
 
       @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 1300, status: 0)
       @invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id, quantity: 1, unit_price: 1300, status: 0)
-      @invoice_item_3 = create(:invoice_item, item_id: @item_3.id, invoice_id: @invoice_3.id, quantity: 1, unit_price: 1300, status: 1)
-      @invoice_item_4 = create(:invoice_item, item_id: @item_4.id, invoice_id: @invoice_4.id, quantity: 1, unit_price: 1300, status: 2)
-      @invoice_item_5 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_5.id, quantity: 1, unit_price: 1300, status: 2)
-      @invoice_item_6 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 1300, status: 0)
-      @invoice_item_7 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 1300, status: 0)
-      @invoice_item_8 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_9.id, quantity: 1, unit_price: 1300, status: 0)
+      @invoice_item_3 = create(:invoice_item, item_id: @item_9.id, invoice_id: @invoice_3.id, quantity: 10, unit_price: 500, status: 1)
+      @invoice_item_4 = create(:invoice_item, item_id: @item_10.id, invoice_id: @invoice_4.id, quantity: 2, unit_price: 100, status: 2)
+      @invoice_item_5 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_5.id, quantity: 1, unit_price: 78000, status: 2)
+      @invoice_item_6 = create(:invoice_item, item_id: @item_6.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 78000, status: 0)
+      @invoice_item_7 = create(:invoice_item, item_id: @item_7.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 78000, status: 0)
+      @invoice_item_8 = create(:invoice_item, item_id: @item_8.id, invoice_id: @invoice_9.id, quantity: 4, unit_price: 5500, status: 0)
     end
 
     #User Story 24. Admin Merchants Index
@@ -138,6 +148,31 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       # I am taken to a form that allows me to add merchant information.
       expect(current_path).to eq(new_admin_merchant_path)
       # Continued in spec/features/admin/merchants/new_spec.rb
+    end
+
+    # User Story 30.
+    it "displays a top5 merchant section, whith names of the merchants as links to their show page, and also shows the total revenue generated next to its name" do
+      # As an admin, When I visit the admin merchants index (/admin/merchants)
+      visit admin_merchants_path
+      # Then I see the names of the top 5 merchants by total revenue generated
+      within ".top_merchants" do
+      # And I see that each merchant name links to the admin merchant show page for that merchant
+        expect(page).to have_content("Top Merchants")
+
+        within "#merchant_#{@merchant_1.id}" do
+          expect(page).to have_content("1. Amazon -")
+          expect(page).to have_link(href: admin_merchant_path(@merchant_1.id))
+          # And I see the total revenue generated next to each merchant name
+          expect(page).to have_content("$4,000 in sales")
+        end
+
+        expect(page).not_to have_content("Microsoft")
+      end
+      # Notes on Revenue Calculation:
+      
+      # Only invoices with at least one successful transaction should count towards revenue
+      # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
+      # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
     end
   end
 end

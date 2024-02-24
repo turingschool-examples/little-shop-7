@@ -22,13 +22,24 @@ class Merchant < ApplicationRecord
 
   def not_shipped_invoices  
     # invoices.invoices_with_unshipped_items_oldest_to_newest
-
-    self.invoice_items.where("invoice_items.status != 2")
-    
-
+    # self.invoice_items.where("invoice_items.status != 2")
+    invoices.joins(:items)
+      .joins(:invoice_items)
+      .where.not(invoice_items: { status: 2 })
+      .select('invoices.*, items.name AS item_name')
+      .order('invoices.created_at') #
   end
 
   def enabled?
     self.status == "enabled"
+  end
+
+  def self.top_five_merchants
+    Merchant.select("merchants.name, merchants.id, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .joins(items: { invoice_items: { invoice: :transactions } })
+    .where("transactions.result = ?", "0")
+    .group("merchants.id")
+    .limit(5)
+    .order("revenue DESC")
   end
 end
