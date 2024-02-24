@@ -2,6 +2,12 @@
   <% @merch.items.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= link_to "#{item.name}", merchant_item_path(@merch, item), method: :get %>
+      <p>Status: <%= item.status%></p>
+      <% if item.status == "disabled" %>
+        <%= button_to "enable", merchant_item_path(@merch, item), params: { enable: true }, method: :patch %>
+      <% else %>
+        <%= button_to "#disable", merchant_item_path(@merch, item), params: { enable: true }, method: :patch %>
+      <% end %>
     </div>
   <% end %>
 </section>
