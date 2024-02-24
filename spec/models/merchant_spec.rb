@@ -153,4 +153,10 @@ RSpec.describe Merchant, type: :model do
       end
     end
   end
+
+  it "revenue_to_dollars" do
+    
+    expect(Merchant.top_five_merchants[0].revenue_to_dollars).to eq(1560)
+  end
+  
 end

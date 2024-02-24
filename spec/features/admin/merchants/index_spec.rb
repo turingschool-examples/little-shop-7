@@ -159,11 +159,34 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       # And I see that each merchant name links to the admin merchant show page for that merchant
         expect(page).to have_content("Top Merchants")
 
+        within "#merchant_#{@merchant_2.id}" do
+          expect(page).to have_link(href: admin_merchant_path(@merchant_2.id))
+          # And I see the total revenue generated next to each merchant name
+          expect(page).to have_content("Walmart - $1,560 in sales")
+        end
+
+        within "#merchant_#{@merchant_3.id}" do
+          expect(page).to have_link(href: admin_merchant_path(@merchant_3.id))
+          # And I see the total revenue generated next to each merchant name
+          expect(page).to have_content("Apple - $780 in sales")
+        end
+
+        within "#merchant_#{@merchant_5.id}" do
+          expect(page).to have_link(href: admin_merchant_path(@merchant_5.id))
+          # And I see the total revenue generated next to each merchant name
+          expect(page).to have_content("Petco - $150 in sales")
+        end
+
         within "#merchant_#{@merchant_1.id}" do
-          expect(page).to have_content("1. Amazon -")
           expect(page).to have_link(href: admin_merchant_path(@merchant_1.id))
           # And I see the total revenue generated next to each merchant name
-          expect(page).to have_content("$4,000 in sales")
+          expect(page).to have_content("Amazon - $117 in sales")
+        end
+
+        within "#merchant_#{@merchant_6.id}" do
+          expect(page).to have_link(href: admin_merchant_path(@merchant_6.id))
+          # And I see the total revenue generated next to each merchant name
+          expect(page).to have_content("Aetna - $4 in sales")
         end
 
         expect(page).not_to have_content("Microsoft")

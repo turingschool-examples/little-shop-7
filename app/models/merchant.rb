@@ -42,4 +42,8 @@ class Merchant < ApplicationRecord
     .limit(5)
     .order("revenue DESC")
   end
+
+  def revenue_to_dollars
+    self.revenue/100
+  end
 end
