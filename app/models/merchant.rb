@@ -46,4 +46,16 @@ class Merchant < ApplicationRecord
   def revenue_to_dollars
     self.revenue/100
   end
+
+  def top_revenue_day
+    Merchant.select("merchants.id, (invoice_items.quantity * invoice_items.unit_price) AS day_revenue, invoices.created_at")
+    .joins(items: { invoice_items: { invoice: :transactions } })
+    .where("transactions.result = ?", "0")
+    .order("day_revenue DESC")
+    .order("invoice_date DESC")
+    .group("invoices.created_at, merchants.id, day_revenue")
+    .select("invoices.created_at AS invoice_date")
+    .where("merchants.id = #{self.id}")
+    .first.invoice_date
+  end
 end
