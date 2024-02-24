@@ -1,4 +1,8 @@
 <section class="merch-items">
+  <section class= "create-item">
+    <%= link_to "Create New Item", new_merchant_item_path(@items.first.merchant), method: :get %>
+  </section>
+
   <section class="enabled-items">
 
     <h2>Enabled Items:</h2>
