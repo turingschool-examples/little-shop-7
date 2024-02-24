@@ -49,5 +49,26 @@ RSpec.describe 'merchant items index', type: :feature do
       # And I do not see items for any other merchant
       expect(page).to_not have_content(@item_2.name)
     end
+
+    # 9. Merchant Item Disable/Enable
+    it "can enable or disable each item with a button" do 
+      # When I visit my items index page (/merchants/:merchant_id/items)
+      visit merchant_items_path(@merch_1)
+
+      within "#item-#{@item_1.id}" do
+        # Next to each item name I see a button to disable or enable that item.
+        expect(page).to have_button("enable")
+        expect(page).to_not have_button("disable")
+        # When I click this button
+        click_button("enable")
+      end
+      # Then I am redirected back to the items index
+      expect(current_path).to eq(merchant_items_path(@merch_1))
+      # And I see that the items status has changed
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_button("disable")
+        expect(page).to_not have_button("enable")
+      end
+    end
   end
 end
