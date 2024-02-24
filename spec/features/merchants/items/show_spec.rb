@@ -58,11 +58,10 @@ RSpec.describe 'merchant item show', type: :feature do
     end
 
     # 8. Merchant Item Update
-    it "" do
+    it "can update item info" do
       # As a merchant,
       # When I visit the merchant show page of an item (/merchants/:merchant_id/items/:item_id)
       visit merchant_item_path(@merch_1, @item_1)
-      save_and_open_page
       # I see a link to update the item information.
       expect(page).to have_link("Update Item Information")
       # When I click the link
