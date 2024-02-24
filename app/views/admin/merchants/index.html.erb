@@ -28,4 +28,15 @@
     <% end %>
   </div>
 
+<section class="top_merchants"0>
+  <h2>Top Merchants</h2>
+  <ol>
+  <% @merchants.top_five_merchants.each_with_index do |merchant| %>
+     <div id="merchant_<%=merchant.id%>">
+      <li>
+      <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= number_to_currency((merchant.revenue_to_dollars), unit: "$", strip_insignificant_zeros: true) %> in sales
+      </li>
+    </div>
+  <% end %>
+  </ol>
 </section>
