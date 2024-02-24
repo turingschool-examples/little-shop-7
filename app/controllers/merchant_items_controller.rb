@@ -29,6 +29,7 @@ class MerchantItemsController < ApplicationController
   end
 
   private 
+  
   def strong_params
     params.permit(:name, :description, :unit_price)
   end
