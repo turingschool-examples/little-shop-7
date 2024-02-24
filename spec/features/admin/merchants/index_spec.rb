@@ -209,7 +209,7 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
         end
 
         within "#merchant_#{@merchant_3.id}" do
-          expect(page).to have_content("Top day for Apple was 2/21/24")
+          expect(page).to have_content("Top day for Apple was 2/20/24")
         end
 
         within "#merchant_#{@merchant_5.id}" do

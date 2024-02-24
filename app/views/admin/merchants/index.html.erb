@@ -35,6 +35,7 @@
      <div id="merchant_<%=merchant.id%>">
       <li>
       <%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %> - <%= number_to_currency((merchant.revenue_to_dollars), unit: "$", strip_insignificant_zeros: true) %> in sales
+      <h5> Top day for <%= merchant.name %> was <%= merchant.top_revenue_day.strftime('%-m/%d/%y') %></h5>
       </li>
     </div>
   <% end %>
