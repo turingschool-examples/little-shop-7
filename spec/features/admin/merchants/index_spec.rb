@@ -10,12 +10,12 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
       @customer_5 = create(:customer)
       @customer_6 = create(:customer)
 
-      @invoice_1 = create(:invoice, customer_id: @customer_1.id)
-      @invoice_2 = create(:invoice, customer_id: @customer_2.id)
-      @invoice_3 = create(:invoice, customer_id: @customer_3.id)
-      @invoice_4 = create(:invoice, customer_id: @customer_4.id)
-      @invoice_5 = create(:invoice, customer_id: @customer_5.id)
-      @invoice_6 = create(:invoice, customer_id: @customer_6.id)
+      @invoice_1 = create(:invoice, customer_id: @customer_1.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_2 = create(:invoice, customer_id: @customer_2.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_3 = create(:invoice, customer_id: @customer_3.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_4 = create(:invoice, customer_id: @customer_4.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_5 = create(:invoice, customer_id: @customer_5.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+      @invoice_6 = create(:invoice, customer_id: @customer_6.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
       @invoice_7 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
       @invoice_8 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
       @invoice_9 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
@@ -191,11 +191,40 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
 
         expect(page).not_to have_content("Microsoft")
       end
-      # Notes on Revenue Calculation:
-      
+      # Notes on Revenue Calculation:      
       # Only invoices with at least one successful transaction should count towards revenue
       # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
       # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
+    end
+
+    # User story 31. Admin Merchants: Top Merchant's Best Day
+    it 'shows the date for the merchants best day in terms of revenue based on invoice date' do
+      # As an admin, when I visit the admin merchants index
+      visit admin_merchants_path
+      # Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant.
+      # And I see a label “Top selling date for was "
+      within ".top_merchants" do
+        within "#merchant_#{@merchant_2.id}" do
+          expect(page).to have_content("Top day for Walmart was 2/21/24")
+        end
+
+        within "#merchant_#{@merchant_3.id}" do
+          expect(page).to have_content("Top day for Apple was 2/21/24")
+        end
+
+        within "#merchant_#{@merchant_5.id}" do
+          expect(page).to have_content("Top day for Petco was 2/21/24")
+        end
+
+        within "#merchant_#{@merchant_1.id}" do
+          expect(page).to have_content("Top day for Amazon was 2/21/24")
+        end
+
+        within "#merchant_#{@merchant_6.id}" do
+          expect(page).to have_content("Top day for Aetna was 2/21/24")
+        end
+      # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+      end
     end
   end
 end
