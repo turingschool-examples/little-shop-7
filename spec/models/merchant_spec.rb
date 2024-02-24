@@ -52,12 +52,10 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe '#instance methods' do 
-    it "#top_five_cust" do 
+    it "#top_five_customers" do 
       customers = [@cust_1, @cust_2, @cust_3, @cust_4, @cust_5]
 
-      top_5 = @merch_1.top_five_cust.map { |cust| Customer.find(cust.id) }
-
-      expect(top_5).to eq(customers)
+      expect(@merch_1.top_five_cust).to eq(customers)
     end
 
     it "#not_shipped_invoices" do
