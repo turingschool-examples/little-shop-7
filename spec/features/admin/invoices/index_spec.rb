@@ -77,39 +77,39 @@ RSpec.describe 'Admin Invoices Index', type: :feature do
       #   Then I see a list of all Invoice ids in the system
       #   Each id links to the admin invoice show page
       within "#invoice-#{@invoice_1.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_1.id), "Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}", href: admin_invoice_path(@invoice_1.id))
       end
 
       within "#invoice-#{@invoice_2.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_2.id), "Invoice ##{@invoice_2.id}")
+        expect(page).to have_link("Invoice ##{@invoice_2.id}", href: admin_invoice_path(@invoice_2.id))
       end
 
       within "#invoice-#{@invoice_3.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_3.id), "Invoice ##{@invoice_3.id}")
+        expect(page).to have_link("Invoice ##{@invoice_3.id}", href: admin_invoice_path(@invoice_3.id))
       end
 
       within "#invoice-#{@invoice_4.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_4.id), "Invoice ##{@invoice_4.id}")
+        expect(page).to have_link("Invoice ##{@invoice_4.id}", href: admin_invoice_path(@invoice_4.id))
       end
 
       within "#invoice-#{@invoice_5.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_5.id), "Invoice ##{@invoice_5.id}")
+        expect(page).to have_link("Invoice ##{@invoice_5.id}", href: admin_invoice_path(@invoice_5.id))
       end
 
       within "#invoice-#{@invoice_6.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_6.id), "Invoice ##{@invoice_6.id}")
+        expect(page).to have_link("Invoice ##{@invoice_6.id}", href: admin_invoice_path(@invoice_6.id))
       end
 
       within "#invoice-#{@invoice_7.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_7.id), "Invoice ##{@invoice_7.id}")
+        expect(page).to have_link("Invoice ##{@invoice_7.id}", href: admin_invoice_path(@invoice_7.id))
       end
 
       within "#invoice-#{@invoice_8.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_8.id), "Invoice ##{@invoice_8.id}")
+        expect(page).to have_link("Invoice ##{@invoice_8.id}", href: admin_invoice_path(@invoice_8.id))
       end
       
       within "#invoice-#{@invoice_9.id}" do
-        expect(page).to have_link(href: admin_invoice_path(@invoice_9.id), "Invoice ##{@invoice_9.id}")
+        expect(page).to have_link("Invoice ##{@invoice_9.id}", href: admin_invoice_path(@invoice_9.id))
       end
     end
   end
