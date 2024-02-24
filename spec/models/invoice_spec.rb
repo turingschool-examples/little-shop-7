@@ -11,4 +11,38 @@ RSpec.describe Invoice, type: :model do
   describe "validations" do
     it { should validate_presence_of(:status) }
   end
+
+  describe 'class methods' do
+    describe '#incomplete_invoices' do
+      let(:merchant) { FactoryBot.create(:merchant) }
+      let(:item_1) { FactoryBot.create(:item, merchant: merchant) }
+      let(:item_2) { FactoryBot.create(:item, merchant: merchant) }
+      let(:item_3) { FactoryBot.create(:item, merchant: merchant) }
+      let(:customer) { FactoryBot.create(:customer) }
+      
+      it 'returns array of invoice_items that have packaged or pending status' do
+        invoice_1 = FactoryBot.create(:invoice, customer: customer)
+        invoice_2 = FactoryBot.create(:invoice, customer: customer)
+        invoice_3 = FactoryBot.create(:invoice, customer: customer)
+
+        invoice_item_1 = InvoiceItem.create!(invoice: invoice_1, item: item_1, status: 0)
+        invoice_item_2 = InvoiceItem.create!(invoice: invoice_2, item: item_2, status: 1)
+        invoice_item_3 = InvoiceItem.create!(invoice: invoice_3, item: item_3, status: 2)
+
+        expect(Invoice.incomplete_invoices).to eq([invoice_item_1, invoice_item_2])
+      end
+
+      it 'returns empty array if all statuses are shipped' do
+        invoice_1 = FactoryBot.create(:invoice, customer: customer)
+        invoice_2 = FactoryBot.create(:invoice, customer: customer)
+        invoice_3 = FactoryBot.create(:invoice, customer: customer)
+
+        invoice_item_1 = InvoiceItem.create!(invoice: invoice_1, item: item_1, status: 2)
+        invoice_item_2 = InvoiceItem.create!(invoice: invoice_2, item: item_2, status: 2)
+        invoice_item_3 = InvoiceItem.create!(invoice: invoice_3, item: item_3, status: 2)
+
+        expect(Invoice.incomplete_invoices).to eq([])
+      end
+    end
+  end
 end
