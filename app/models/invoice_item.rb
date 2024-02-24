@@ -7,4 +7,8 @@ class InvoiceItem < ApplicationRecord
    def converted_unit_price 
       unit_price.to_f/100
    end
+
+   def total_revenue
+      (unit_price.to_f/100) * quantity
+   end
 end

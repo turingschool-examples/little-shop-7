@@ -43,7 +43,7 @@ RSpec.describe 'Admin Invoice Show', type: :feature do
       # User Story 34
       it 'displays the Invoice Item Information to that Invoice' do
          visit admin_invoice_path(@invoice1.id)
-         
+         save_and_open_page
          within "#invoice_items" do
             expect(page).to have_content("Invoice Items")
 
@@ -54,6 +54,13 @@ RSpec.describe 'Admin Invoice Show', type: :feature do
                expect(page).to have_content(@invoice_item_1.status.capitalize)
             end
          end
+      end
+
+      # User Story 35
+      it 'displays the total revenue that will generate this invoice' do
+         visit admin_invoice_path(@invoice1.id)
+
+         expect(page).to have_content(@invoice_item_1.total_revenue)
       end
    end
 end

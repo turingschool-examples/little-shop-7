@@ -1,14 +1,14 @@
 <h1>Invoice <%= @invoice.id %></h1>
 
 <div id="invoice_attributes">
-<h5>Status: <%= @invoice.status.titleize %></h5>
-<h5>Invoice Date: <%= @invoice.created_at.strftime("%A, %B %e, %Y") %></h5>
-<h5>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></h5>
+<p>Status: <%= @invoice.status.titleize %></p>
+<p>Invoice Date: <%= @invoice.created_at.strftime("%A, %B %e, %Y") %></p>
+<p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 </div>
 
 <div id="invoice_items">
    <h2>Invoice Items</h2>
-   <ol>
+   <ul>
    <% @invoice.invoice_items.each do |invoice_item| %>
       <div id="invoice_item_<%= invoice_item.id %>">
          <li>
@@ -16,8 +16,11 @@
             <p>Quantity: <%= invoice_item.quantity %> Units</p>
             <p>Unit Price: $<%= invoice_item.converted_unit_price.round(2) %></p>
             <p>Status: <%= invoice_item.status.capitalize %></p>
+            <p> - </p>
          </li>
+            <h4>Total Revenue: $<%= invoice_item.total_revenue.round(2) %></h4>
       </div>
    <% end %>
-   </ol>
+   </ul>
 </div>
+
