@@ -10,10 +10,10 @@ RSpec.describe "merchant index" do
     @merchant2 = Merchant.create(name: "Merchant B")
 
     
-    @item1 = Item.create(name: "Item 1", description: "Description for Item 1", unit_price: 1000, merchant: @merchant1)
-    @item2 = Item.create(name: "Item 2", description: "Description for Item 2", unit_price: 2000, merchant: @merchant1)
-    @item3 = Item.create(name: "Item 3", description: "Description for Item 3", unit_price: 3000, merchant: @merchant2)
-    @item4 = Item.create(name: "Item 4", description: "Description for Item 4", unit_price: 4000, merchant: @merchant2)
+    @item1 = Item.create(name: "Gum", description: "Description for Item 1", unit_price: 1000, merchant: @merchant1)
+    @item2 = Item.create(name: "Mint", description: "Description for Item 2", unit_price: 2000, merchant: @merchant1)
+    @item3 = Item.create(name: "Apple", description: "Description for Item 3", unit_price: 3000, merchant: @merchant2)
+    @item4 = Item.create(name: "Orange", description: "Description for Item 4", unit_price: 4000, merchant: @merchant2)
 
     
     @invoice1 = Invoice.create(status: 1, customer: @customer1)
@@ -30,11 +30,17 @@ RSpec.describe "merchant index" do
   describe 'US 6' do
    describe 'Merchant Items Index Page' do
      it 'displays list of the names of all of my items And I do not see items for any other merchant' do
-        
+       visit merchant_items_path(@merchant1)
         # When I visit my merchant items index page (merchants/:merchant_id/items)
+        expect(page).to have_content('Merchant Name: Merchant A')
+
+        expect(page).to have_content('Item name: Gum')
+        expect(page).to have_content('Item name: Mint')
         # I see a list of the names of all of my items
+
+        expect(page).to_not have_content('Apple')
+        expect(page).to_not have_content('orange')
         # And I do not see items for any other merchant
-        expect().to eq()
      end
    end
   end
