@@ -1,0 +1,9 @@
+<section class="invoices">
+  <h3>Invoices:</h3>
+  <% @invoices.each do |invoice| %>
+    <div id="invoice-<%= invoice.id %>">
+      <p><%= link_to invoice.id, merchant_invoice_path(invoice, @merchant), method: :get %></p>
+    </div>
+  <% end %>
+</section>
+
