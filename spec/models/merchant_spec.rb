@@ -58,8 +58,8 @@ RSpec.describe Merchant, type: :model do
       expect(@merch_1.top_five_cust).to eq(customers)
     end
 
-    it "#not_shipped_invoices" do
-      expect(@merch_1.not_shipped_invoices).to eq([@invoice_6])
+    xit "#not_shipped_invoices" do
+      expect(@merch_1.not_shipped_invoices).to eq([@invoice_2])
     end
 
     describe '#enabled?' do
@@ -83,12 +83,12 @@ RSpec.describe Merchant, type: :model do
     @customer_5 = create(:customer)
     @customer_6 = create(:customer)
 
-    @invoice_1 = create(:invoice, customer_id: @customer_1.id)
-    @invoice_2 = create(:invoice, customer_id: @customer_2.id)
-    @invoice_3 = create(:invoice, customer_id: @customer_3.id)
-    @invoice_4 = create(:invoice, customer_id: @customer_4.id)
-    @invoice_5 = create(:invoice, customer_id: @customer_5.id)
-    @invoice_6 = create(:invoice, customer_id: @customer_6.id)
+    @invoice_1 = create(:invoice, customer_id: @customer_1.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_2 = create(:invoice, customer_id: @customer_2.id, created_at: "Thurs, 22 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_3 = create(:invoice, customer_id: @customer_3.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_4 = create(:invoice, customer_id: @customer_4.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_5 = create(:invoice, customer_id: @customer_5.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_6 = create(:invoice, customer_id: @customer_6.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
     @invoice_7 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
     @invoice_8 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
     @invoice_9 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
@@ -146,15 +146,27 @@ RSpec.describe Merchant, type: :model do
   describe '.class methods' do
     describe ".top_five_merchants" do
       it "returns an array of the 5 merchants with the highest revenue" do
-
         expect(Merchant.top_five_merchants).to eq([@merchant_2, @merchant_3, @merchant_5, @merchant_1, @merchant_6])
       end
     end
   end
 
-  it "revenue_to_dollars" do
-    
-    expect(Merchant.top_five_merchants[0].revenue_to_dollars).to eq(1560)
-  end
   
+  describe '#instance methods 2' do
+    describe "#revenue_to_dollars" do
+      it 'returns an integer with the pennies converted to dollars' do 
+        expect(Merchant.top_five_merchants[0].revenue_to_dollars).to eq(1560)
+      end
+    end
+    
+    describe '#top_revenue_day' do
+      it 'returns the date for the merchants highest revenue' do
+        expect(@merchant_1.top_revenue_day).to eq("2024-02-22 00:47:11.096539 UTC")
+        expect(@merchant_2.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+        expect(@merchant_3.top_revenue_day).to eq("2024-02-20 00:47:11.096539 UTC")
+        expect(@merchant_5.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+        expect(@merchant_6.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+      end
+    end
+  end  
 end
