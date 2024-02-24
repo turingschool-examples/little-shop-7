@@ -17,4 +17,14 @@ RSpec.describe 'Admin merchants show page' do
             expect(page).to have_content("Nico")
         end
     end
+
+    describe 'User story 26' do
+        it 'has a link to update merchant info' do
+
+        end
+
+        it 'redirects to an admin merchant update page' do
+
+        end
+    end
 end
