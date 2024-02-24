@@ -60,7 +60,7 @@ RSpec.describe Merchant, type: :model do
       expect(top_5).to eq(customers)
     end
 
-    xit "#not_shipped_invoices" do
+    it "#not_shipped_invoices" do
       expect(@merch_1.not_shipped_invoices).to eq([@invoice_6])
     end
 

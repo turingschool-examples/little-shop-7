@@ -17,15 +17,14 @@
   <% end %>
 </section>
 
-<section class="shipable-items">
-  <% @merchant.not_shipped_invoices.each do |invoice_item| %>
-    <div id="invoice-<%= invoice_item.invoice_id %>">
-      <ul>
-        <h3><%= invoice_item.item.name %></h3>
-        <li>Created at: <%= invoice_item.invoice.created_at.strftime('%A, %B %d, %Y') %></li>
-        <li><%= link_to "Invoice ID, #{invoice_item.invoice.id}", "invoice_path(invoice_item.invoice.id)", method: :get %></li>
-      </ul> 
+ <section class="shipable-items">
+  <% @merchant.not_shipped_invoices.each do |invoice| %>
+    <div id="invoice-<%= invoice.id %>">
+      <h3><%= invoice.item_name %></h3>
+      <p><%= link_to "Invoice ID, #{invoice.id}", invoice_path(invoice.id), method: :get %></p>
+      <p>Created at: <%= invoice.created_at.strftime('%A, %B, %d, %Y') %></p>
     </div>
   <% end %>
 </section>
+
 
