@@ -18,30 +18,44 @@ class ItemsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.find(params[:id])
+    @item.update(item_params)
 
-    if @item.update(item_params)
-      # redirect_to merchant_item_path(@merchant, @item)
+    if !params[:status]
+
+      redirect_to(merchant_item_path(@merchant, @item))
+
       flash[:alert] = "Item information successfully updated!!"
-      # else 
-      #   flash[:alert] = "Item information NOT successfully updated"
-    end 
 
-    if params[:status].present? && params[:status] == 'disabled'
-      @item.update(status: 1)
-    elsif params[:status].present? && params[:status] == 'enabled'
-      @item.update(status: 0)
+    else 
+
+      redirect_to(merchant_items_path(@merchant))
+
     end
-  
-
-
-    redirect_to merchant_items_path(@merchant)
-    
   end
 
   private 
 
   def item_params
-    params.permit(:name, :description, :unit_price)
+    params.permit(:name, :description, :unit_price, :status)
   end
 
 end
+
+
+# else 
+#   redirect_to edit_merchant_item_path(@merchant, @item)
+#   flash[:alert] = "Item information NOT successfully updated"
+
+
+# if @item.update(item_params)
+#   # redirect_to merchant_item_path(@merchant, @item)
+#   flash[:alert] = "Item information successfully updated!!"
+#   redirect_to(merchant_item_path(@merchant, @item))
+
+# elsif params[:status].present? && params[:status] == 'disabled'
+#   @item.update(status: 1)
+#   redirect_to(merchant_items_path(@merchant))
+# elsif params[:status].present? && params[:status] == 'enabled'
+#   @item.update(status: 0)
+#   redirect_to(merchant_items_path(@merchant))
+# end
