@@ -44,10 +44,13 @@ RSpec.describe "Items show" do
       # Then I am redirected back to the item show page where I see the updated information
       expect(page).to have_content('Updated name')
       expect(page).to have_content('Updated description')
+      # save_and_open_page
       expect(page).to have_content(2500)
       # And I see a flash message stating that the information has been successfully updated.
 
       expect(page).to have_content('Item information successfully updated')
+
+      #NEED TO ASK QUESTION FOR THIS UPDATE ACTION!!!! 
     end
   end
 end
