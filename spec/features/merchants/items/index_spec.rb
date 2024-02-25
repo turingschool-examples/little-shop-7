@@ -63,58 +63,78 @@ RSpec.describe "merchant index" do
   end
 
   describe 'US 9' do
-    it 'has a button to disable or enable an item' do
-
+    it 'changes the status of an item' do
       visit merchant_items_path(@merchant1)
-      # When I visit my items index page (/merchants/:merchant_id/items)
 
       within("#item-#{@item1.id}") do
         expect(page).to have_content('Gum')
+        # Next to each item name I see a button to disable or enable that item.
         expect(page).to have_button("Disable")
-        expect(page).to have_content("Enable")
-      end
-      # Next to each item name I see a button to disable or enable that item.
-     
-      within("#item-#{@item1.id}") do
+        # When I click this button
         click_button("Disable")
-      end
-      # When I click this button
-
-      expect(current_path).to eq(merchant_items_path(@merchant1))
-      # Then I am redirected back to the items index
-     
-      
-      within("#item-#{@item1.id}") do
         expect(page).to have_content('Status: disabled')
       end
-      # And I see that the items status has changed
-     
+      
+
     end
+  end
+
+  describe 'US 10' do
+    it 'has a button to disable or enable an item' do
+
+      visit merchant_items_path(@merchant1)
+      # When I visit my items index page (/merchants/:merchant_id/items)
+      within ".enabled_items" do 
+        within("#item-#{@item1.id}") do
+          expect(page).to have_content('Gum')
+          # Next to each item name I see a button to disable or enable that item.
+          expect(page).to have_button("Disable")
+          # When I click this button
+          click_button("Disable")
+        end
+      end
+      # save_and_open_page
+      # Then I am redirected back to the items index
+      expect(current_path).to eq(merchant_items_path(@merchant1))
+      # And I see that the items status has changed
+      within ".disabled_items" do 
+        within("#item-#{@item1.id}") do
+          expect(page).to have_content('Gum')
+          expect(page).to have_content('Status: disabled')
+          # Next to each item name I see a button to disable or enable that item.
+          expect(page).to have_button("Enable")
+        end
+      end
+    end
+
 
     it 'has a button to disable or enable an item' do
       item_disabled = Item.create(name: "Bannans", description: "This item is disabled", unit_price: 200, merchant: @merchant1, status:1)
-      # require 'pry'; binding.pry
+      
       visit merchant_items_path(@merchant1)
       # When I visit my items index page (/merchants/:merchant_id/items)
-
-      within("#item-#{item_disabled.id}") do
-        expect(page).to have_content('Bannans')
-        expect(page).to have_button("Disable")
-        expect(page).to have_content("Enable")
-      end
+      within ".disabled_items" do 
+        within("#item-#{item_disabled.id}") do
+          expect(page).to have_content('Bannans')
+          expect(page).to have_button("Enable")
+          click_button("Enable")
+        end
+      end 
       # Next to each item name I see a button to disable or enable that item.
      
-      within("#item-#{item_disabled.id}") do
-        click_button("Enable")
-      end
+      
       # When I click this button
 
       expect(current_path).to eq(merchant_items_path(@merchant1))
       # Then I am redirected back to the items index
      
-      
-      within("#item-#{item_disabled.id}") do
-        expect(page).to have_content('Status: enabled')
+      within(".enabled_items") do
+        within("#item-#{item_disabled.id}") do
+          expect(page).to have_content('Bannans')
+          expect(page).to have_content('Status: enabled')
+          expect(page).to have_button("Disable")
+
+        end
       end
       # And I see that the items status has changed
      
