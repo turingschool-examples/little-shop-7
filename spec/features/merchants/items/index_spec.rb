@@ -44,4 +44,21 @@ RSpec.describe "merchant index" do
      end
    end
   end
+
+  describe 'US 7' do
+    it 'has a link for an item and takes it to an item show page and see all of the items attributes' do
+      visit merchant_items_path(@merchant1)
+
+      click_link(@item1.name)
+
+      expect(current_path).to eq(merchant_item_path(@merchant1,@item1))
+
+      expect(page).to have_content('Item Name: Gum')
+      expect(page).to have_content('Description: Description for Item 1')
+      expect(page).to have_content('Unit Price: 1000')
+
+      expect(page).to_not have_content('Item Name: Mint')
+
+    end
+  end
 end
