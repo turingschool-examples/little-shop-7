@@ -3,7 +3,7 @@ FactoryBot.define do
 
     quantity { Faker::Number.between(from: 1, to: 100) }
     unit_price { Faker::Number.between(from: 1, to: 100) }
-    status { 'pending' }
+    status { ['pending', 'packaged', 'shipped'].sample }
 
     association :item, factory: :item
     association :invoice, factory: :invoice
