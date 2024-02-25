@@ -1,5 +1,10 @@
 <h1>Merchant Name: <%= @merchant.name %></h1>
 
 <% @items.each do |item|  %>
-  <p>Item name: <%= link_to "#{item.name}", merchant_item_path(@merchant,item) %></p>
+  <section id="item-<%= item.id %>">
+    <p>Item name: <%= link_to "#{item.name}", merchant_item_path(@merchant,item) %></p>
+    <p>Status: <%= item.status %></p>
+    <%= button_to 'Disable', merchant_item_path(@merchant, item, status: 'disabled'), method: :patch %>
+    <%= button_to 'Enable', merchant_item_path(@merchant, item, status: 'enabled'), method: :patch %>
+  </section>
 <% end %>
