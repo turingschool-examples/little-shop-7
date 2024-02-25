@@ -63,13 +63,59 @@ RSpec.describe "merchant index" do
   end
 
   describe 'US 9' do
-    it 'has a button to disable or enable a button' do
+    it 'has a button to disable or enable an item' do
 
-      # As a merchant
+      visit merchant_items_path(@merchant1)
       # When I visit my items index page (/merchants/:merchant_id/items)
+
+      within("#item-#{@item1.id}") do
+        expect(page).to have_content('Gum')
+        expect(page).to have_button("Disable")
+        expect(page).to have_content("Enable")
+      end
       # Next to each item name I see a button to disable or enable that item.
+     
+      within("#item-#{@item1.id}") do
+        click_button("Disable")
+      end
       # When I click this button
+
+      expect(current_path).to eq(merchant_items_path(@merchant1))
       # Then I am redirected back to the items index
+     
+      
+      within("#item-#{@item1.id}") do
+        expect(page).to have_content('Status: disabled')
+      end
+      # And I see that the items status has changed
+     
+    end
+
+    it 'has a button to disable or enable an item' do
+      item_disabled = Item.create(name: "Bannans", description: "This item is disabled", unit_price: 200, merchant: @merchant1, status:1)
+      # require 'pry'; binding.pry
+      visit merchant_items_path(@merchant1)
+      # When I visit my items index page (/merchants/:merchant_id/items)
+
+      within("#item-#{item_disabled.id}") do
+        expect(page).to have_content('Bannans')
+        expect(page).to have_button("Disable")
+        expect(page).to have_content("Enable")
+      end
+      # Next to each item name I see a button to disable or enable that item.
+     
+      within("#item-#{item_disabled.id}") do
+        click_button("Enable")
+      end
+      # When I click this button
+
+      expect(current_path).to eq(merchant_items_path(@merchant1))
+      # Then I am redirected back to the items index
+     
+      
+      within("#item-#{item_disabled.id}") do
+        expect(page).to have_content('Status: enabled')
+      end
       # And I see that the items status has changed
      
     end
