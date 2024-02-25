@@ -62,19 +62,16 @@ RSpec.describe "merchant index" do
     end
   end
 
-  describe 'US 8' do
-    it 'Updates a Merchant Item' do
-      expect().to eq()
+  describe 'US 9' do
+    it 'has a button to disable or enable a button' do
 
-      
-      # When I visit the merchant show page of an item (/merchants/:merchant_id/items/:item_id)
-      # I see a link to update the item information.
-      # When I click the link
-      # Then I am taken to a page to edit this item
-      # And I see a form filled in with the existing item attribute information
-      # When I update the information in the form and I click ‘submit’
-      # Then I am redirected back to the item show page where I see the updated information
-      # And I see a flash message stating that the information has been successfully updated.
+      # As a merchant
+      # When I visit my items index page (/merchants/:merchant_id/items)
+      # Next to each item name I see a button to disable or enable that item.
+      # When I click this button
+      # Then I am redirected back to the items index
+      # And I see that the items status has changed
+     
     end
   end
 end
