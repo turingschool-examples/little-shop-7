@@ -29,25 +29,27 @@ RSpec.describe 'Admin Invoices Show Page' do
     end
 
     describe 'User story 34, Invoice Item Information' do
-        # let(:merchant) { create(:merchant) }
-        # let(:items) { create_list(:item, 4, merchant_id: merchant.id) }
-        let(:items) { create_list(:item, 4) }
-        let(:customers) { create_list(:customer, 2) }
-        let(:invoice) { create_list(:invoice, 2, customer_id: customers.first.id) }
-        let(:invoice_items) { create_list(:invoice_item, 3, item: items.first, invoice: invoice.first) }
-
+        let!(:items) { create_list(:item, 4) }
+        let!(:customers) { create_list(:customer, 2) }
+        let!(:invoice) { create_list(:invoice, 2, customer_id: customers.first.id) }
+        let!(:invoice_items) do
+            items.map do |item|
+                create_list(:invoice_item, 1, item: item, invoice: invoice.first).first
+            end
+        end
+        
         it 'shows all items on invoice including Item name, quantity ordered, price the Item sold for, Invoice Item status' do
-            # require 'pry'; binding.pry
             # As an admin
             # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
             visit admin_invoice_path(invoice.first)
             # Then I see all of the items on the invoice including:
             # Item name
             invoice_items.each do |invoice_item|
-                expect(page).to have_content(invoice_item.item.name)
+                expect(page).to have_content("Item name: #{invoice_item.item.name}")
             end
             # The quantity of the item ordered
             invoice_items.each do |invoice_item|
+                save_and_open_page
                 expect(page).to have_content("Quantity ordered: #{invoice_item.quantity}")
             end
             # The price the Item sold for
@@ -56,9 +58,9 @@ RSpec.describe 'Admin Invoices Show Page' do
             end
             # The Invoice Item status
             invoice_items.each do |invoice_item|
-                expect(page).to have_content("Status: #{invoice_item.status}")
+                expect(page).to have_content("Status: pending")
             end
-
+            
             expect(page).to_not have_content("Item name: Non-existing Item")
         end
     end
