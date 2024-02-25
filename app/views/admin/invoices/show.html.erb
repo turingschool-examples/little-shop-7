@@ -3,7 +3,7 @@
 <div id="invoice_attributes"> 
 <section id="status-selector">
 <ol>
-<%= form_with model: @invoice, url: admin_invoice_path(@invoice), data: {turbo: false} do |f| %>
+<%= form_with model: [:admin, @invoice], data: {turbo: false}, local: true do |f| %>
 <%= f.label :status, "Status:" %>
    <%= f.select(:status, options_for_select(["cancelled", "in progress", "completed"], @invoice.status)) %>
    <%= f.submit "Update Invoice Status" %>
