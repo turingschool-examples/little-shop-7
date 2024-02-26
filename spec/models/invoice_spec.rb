@@ -98,10 +98,10 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe "#Instance Methods" do
-    describe "#total_revenue" do
+    describe "#total_revenue_dollars" do
       it "returns the correct revenue that an invoice will generate" do
-        expect(@invoice_1.total_revenue).to eq(233.00)
-        expect(@invoice_2.total_revenue).to eq(13.00)
+        expect(@invoice_1.total_revenue_dollars).to eq(233.00)
+        expect(@invoice_2.total_revenue_dollars).to eq(13.00)
       end
     end
   end
