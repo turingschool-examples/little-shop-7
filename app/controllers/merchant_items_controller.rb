@@ -14,10 +14,14 @@ class MerchantItemsController < ApplicationController
 
   def update
     item = Item.find(params[:id])
-    item.update(item_params)
-    if params[:status]
-     redirect_to merchant_items_path(params[:merchant_id])
-    else
+    if params[:status] == "0" || params[:status] == "1"
+      item.update(status: item_params[:status].to_i)
+      redirect_to merchant_invoice_path(params[:merchant_id], params[:invoice_id])
+    elsif params[:status]
+      item.update(item_params)
+      redirect_to merchant_items_path(params[:merchant_id])
+    else 
+      item.update(item_params)
       flash[:alert] = "Update successful"
       redirect_to merchant_item_path(params[:merchant_id], params[:id])
     end

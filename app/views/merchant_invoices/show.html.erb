@@ -12,7 +12,13 @@
     <p><%= @invoice.total_revenue %></p>
     <p><%= item.current_invoice_item(item, @invoice).quantity %></p>
     <p><%= item.current_invoice_item(item, @invoice).unit_price %></p>
-    <p><%= item.current_invoice_item(item, @invoice).status %></p>
-  </div>
-<% end %>
+    <p>Invoice Status: <%= item.current_invoice_item(item, @invoice).status %></p>
+
+    <%= form_with url:  merchant_item_path(item.merchant, item, invoice_id: @invoice.id), method: :patch, data: {turbo: false} do |f| %>
+        Status: <%= f.select "status", options_for_select([["Disabled", 0], ["Enabled", 1]]), value: item.status%>
+        <%= f.button "Update Item Status"  %>
+    <% end %>
+
+  <% end %>
 </section>
+
