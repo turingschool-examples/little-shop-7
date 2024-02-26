@@ -11,4 +11,12 @@ class Invoice < ApplicationRecord
     cancelled: 1,
     completed: 2
   }
+
+  def self.incomplete_invoices
+    InvoiceItem
+    .joins(:invoice)
+    .where(status: [0, 1])
+    .group("invoice_items.id")
+    .order('MIN(invoices.created_at) ASC')
+  end
 end

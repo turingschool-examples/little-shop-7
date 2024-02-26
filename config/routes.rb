@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :merchants, only: [] do
     resource :dashboard, only: [:show]
-    resources :items, only: [:index]
+    resources :items, only: [:index,:show, :edit, :update, :new, :create]
     resources :invoices, only: [:index, :show]
     resources :invoice_items, only: [:update]
   end
@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "dashboards#index"
     resources :merchants, only: [:index, :show]
-    resources :invoices, only: :index
+    resources :invoices, only: [:index, :show]
   end
 end

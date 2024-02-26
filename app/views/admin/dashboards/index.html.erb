@@ -1,4 +1,21 @@
-<h1>Admin Dashboard</h1>
-
+<h1>Little Etsy Shop Admin Dashboard</h1>
 <%= link_to "Merchants", admin_merchants_path %>
 <%= link_to "Invoices", admin_invoices_path %>
+
+<h3>Little Etsy's Favorite Customers</h3>
+    <ol>
+        <% @top_customers.each do |top_customer| %>
+            <section id="top_customer-<%= top_customer.id %>">
+            <li> <%= "#{top_customer.first_name} #{top_customer.last_name}: #{top_customer.transaction_count} transactions" %></li>
+            </section>
+        <% end %>   
+    </ol>
+
+
+<h3>Little Etsy's Incomplete Invoices</h3>
+
+<ol>
+        <% @incomplete_invoices.each do |invoice_item| %>
+            <li> <%=link_to "Invoice: #{invoice_item.invoice_id}", admin_invoice_path(invoice_item)%> </li>
+        <% end %>   
+    </ol>

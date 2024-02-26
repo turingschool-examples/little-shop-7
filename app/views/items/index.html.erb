@@ -1,0 +1,35 @@
+<h2>Merchant Items:</h2>
+<ul>
+  <h2>Disabled Items:</h2>
+  <div id="disabled">
+  <% @merchant.items.each do |item| %>
+    <% if item.status == "Disable" %>
+      <li>
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= form_with url: merchant_item_path(@merchant, item), method: :patch, local: true do |form| %>
+          <%= form.submit "Enable" %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</div>
+
+  <h2>Enabled Items:</h2>
+  <div id="enabled">
+
+  <% @merchant.items.each do |item| %>
+    <% if item.status == "Enable" %>
+      <li>
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= form_with url: merchant_item_path(@merchant, item), method: :patch, local: true do |form| %>
+          <%= form.submit "Disable" %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="create item">
+<p><%= link_to "Create Item", new_merchant_item_path(@merchant) %></p>
+</div>
+</ul>
