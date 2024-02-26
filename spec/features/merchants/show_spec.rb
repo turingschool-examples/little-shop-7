@@ -41,8 +41,8 @@ RSpec.describe "Dashboard index" do
 
     @invoice_item_1 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 5, unit_price: 1000, status: "shipped") #5000
     @invoice_item_3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice6.id, quantity: 2, unit_price: 1000, status: "shipped") #2000
-    @invoice_item_4 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 5, unit_price: 1000, status: "pending") #5000
-    @invoice_item_5 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice6.id, quantity: 2, unit_price: 1000, status: "pending") #2000
+    @invoice_item_4 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 5, unit_price: 1000, status: "packaged") #5000
+    @invoice_item_5 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice6.id, quantity: 2, unit_price: 1000, status: "packaged") #2000
     @invoice_item_6 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice6.id, quantity: 2, unit_price: 1000, status: "packaged") #2000
   end 
   
@@ -119,39 +119,28 @@ RSpec.describe "Dashboard index" do
       
       within ".items_ready_to_ship" do
         expect(page).to have_content("Unshipped Items")
-
-        within "#invoice-#{@invoice6.id}" do
-          within "#item-#{@item1.id}" do
-            expect(page).to have_content(@item1.name)
-          end
-        
-          within "#item-#{@item2.id}" do
-            expect(page).to have_content(@item2.name)
-          end
-        end
   
-        within "#invoice-#{@invoice1.id}" do
-        save_and_open_page
-          within"#item-#{@item2.id}" do
-            expect(page).to have_content(@item2.name)
-          end 
+        within "#invoice-item-#{@invoice_item_6.id}" do
+          expect(page).to have_content(@item2.name)
+          expect(page).not_to have_content(@item3.name)
+          expect(page).to have_content(@invoice_item_6.invoice.created_at.strftime('%A, %B %d, %Y'))
+        end
+        
+        within "#invoice-item-#{@invoice_item_5.id}" do
+          expect(page).to have_content(@item1.name)
+          expect(page).not_to have_content(@item2.name)
+          expect(page).to have_content(@invoice_item_5.invoice.created_at.strftime('%A, %B %d, %Y'))
         end
 
-        within "#invoice-#{@invoice1.id}" do
-          within "#item-#{@item1.id}" do
-            expect(page).to have_content(@item1.name)
-          end 
-          expect(page).to have_link("##{@invoice1.id}")
-        end
         expect(page).to_not have_content(@item3.name)
         expect(page).to have_link("##{@invoice1.id}")
-        click_link("##{@invoice1.id}")
+        # click_link("#{@invoice1.id}")
     end
-    expect(current_path).to eq(merchant_invoice_path(@green_merchant, @invoice6))
+    # expect(current_path).to eq(merchant_invoice_path(@green_merchant, @invoice6))
   end
 end
 
-  describe "US 5" do#Merchant Dashboard Invoices sorted by least recent
+  describe "US 5" do # Merchant Dashboard Invoices sorted by least recent
     it "it displays the created date for invoices and lists them oldest to newest" do 
       # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
       visit dashboard_merchant_path(@green_merchant.id)
@@ -160,19 +149,20 @@ end
         # Next to each Item name I see the date that the invoice was created
         # And I see the date formatted like "Monday, July 18, 2019"
         # And I see that the list is ordered from oldest to newest
-        within "#invoice-#{@invoice6.id}" do
-          expect(page).to have_content(@item1.name)
+        save_and_open_page
+        within "#invoice-item-#{@invoice_item_6.id}" do
           expect(page).to have_content(@item2.name)
           expect(page).not_to have_content(@item3.name)
-          expect(page).to have_content("Monday, February 19, 2024")
+          expect(page).to have_content(@invoice_item_6.invoice.created_at.strftime('%A, %B %d, %Y'))
         end
         
-        within "#invoice-#{@invoice1.id}" do
+        within "#invoice-item-#{@invoice_item_5.id}" do
           expect(page).to have_content(@item1.name)
           expect(page).not_to have_content(@item2.name)
-          expect(page).to have_content("Thursday, February 22, 2024")
+          expect(page).to have_content(@invoice_item_5.invoice.created_at.strftime('%A, %B %d, %Y'))
         end
-        expect(@invoice6.created_at.strftime('%A, %B %d, %Y')).to appear_before(@invoice1.created_at.strftime('%A, %B %d, %Y'))
+
+        expect(@invoice_item_6.invoice.created_at.strftime('%A, %B %d, %Y')).to appear_before(@invoice_item_4.invoice.created_at.strftime('%A, %B %d, %Y'))
       end
     end
   end

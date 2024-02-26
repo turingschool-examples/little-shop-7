@@ -8,24 +8,18 @@
 
 <% @merchant.top_five_customers.each do |customer| %>
   <section id="customer_<%= customer.id %>">
-    <p>Customer<%= customer.first_name %> <%= customer.last_name %> </p> <p>Number of Successful Transactions: <%= customer.successful_trans_count %></p>
+    <p>Customer: <%= customer.first_name %> <%= customer.last_name %> </p> <p>Number of Successful Transactions: <%= customer.successful_trans_count %></p>
   </section>
 <% end %>
 
     <section class="items_ready_to_ship">
   <h3> Unshipped Items </h3>
 
-  <% @merchant.shipable_items.each do |invoice_id, hash| %>
-    <div id="invoice-<%= invoice_id %>">
-      <h4>Invoice ID #: <%= link_to "##{invoice_id}", merchant_invoice_path(@merchant, invoice_id), method: :get %></h4>
-      <p><b>Ordered Placed On: </b><i><%= hash[:created_at].first.strftime('%A, %B %d, %Y') %></i></p>
-      <ol>
-        <% hash[:names].each_with_index do |item_name, i| %>
-          <div id="item-<%= hash[:item_ids][i] %>">
-            <li><b>Item Name: </b><%= item_name %></li>
-          </div>
-        <% end %>
-      </ol>
+  <% @merchant.invoices_with_items_ready_to_ship.each do |invoice_item| %>
+    <div id="invoice-item-<%= invoice_item.id %>">
+      <h4>Item Name: <%= invoice_item.item.name %></h4>
+      <p>Invoice ID #: <%= link_to "##{invoice_item.invoice_id}", merchant_invoice_path(@merchant, invoice_item.invoice_id), method: :get %></p>
+      <p><b>Ordered Placed On: </b><i><%= invoice_item.invoice.created_at.strftime('%A, %B %d, %Y') %></i></p>
     </div>
   <% end %>
 </section>
