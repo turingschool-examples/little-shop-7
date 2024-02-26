@@ -74,7 +74,6 @@ RSpec.describe "merchant index" do
         click_button("Disable")
         expect(page).to have_content('Status: disabled')
       end
-      
 
     end
   end
@@ -112,6 +111,7 @@ RSpec.describe "merchant index" do
       item_disabled = Item.create(name: "Bannans", description: "This item is disabled", unit_price: 200, merchant: @merchant1, status:1)
       
       visit merchant_items_path(@merchant1)
+      # save_and_open_page
       # When I visit my items index page (/merchants/:merchant_id/items)
       within ".disabled_items" do 
         within("#item-#{item_disabled.id}") do
@@ -140,4 +140,41 @@ RSpec.describe "merchant index" do
      
     end
   end
+
+  describe 'US 11' do
+    it 'creates a merchant item' do
+      merchant_without_item =  Merchant.create!(name: "Merchant without Items")
+      visit merchant_items_path(merchant_without_item)
+      # I see a link to create a new item.
+      expect(page).to have_link("New Item")
+      click_link("New Item")
+      # When I click on the link,
+      
+      expect(current_path).to eq(new_merchant_item_path(merchant_without_item))
+      # I am taken to a form that allows me to add item information.
+      
+      fill_in :name, with: "Chips"
+      fill_in :description, with: "Chips description"
+      fill_in :unit_price, with: 4000
+      click_on("Submit")
+      
+      
+      # When I fill out the form I click ‘Submit’
+      
+      expect(current_path).to eq( merchant_items_path(merchant_without_item))
+      # Then I am taken back to the items index page
+      
+      
+      
+      # save_and_open_page
+      expect(page).to have_content('Chips')
+      # And I see the item I just created displayed in the list of items.
+      expect(page).to have_content('Status: disabled')
+      expect(page).to have_content("Item created!!")
+      # And I see my item was created with a default status of disabled.
+
+    end
+  end
+
+
 end
