@@ -47,7 +47,7 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
          @invoice_item_1 = create(:invoice_item, status: 0, invoice: @invoice1)
          @invoice_item_2 = create(:invoice_item, status: 0, invoice: @invoice2)
          @invoice_item_3 = create(:invoice_item, status: 0, invoice: @invoice3)
-         # binding.pry
+         binding.pry
       end
 
       # User Story 24
@@ -135,6 +135,7 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
 
          within "#enabled_merchants" do 
             expect(page).to have_content(@green_merchant.name)
+            c
             expect(page).to have_content(@brown_merchant.name)
          end
 
@@ -158,6 +159,17 @@ RSpec.describe 'Admin Merchants Index', type: :feature do
          click_on("Submit")
 
          expect(current_path).to eq(admin_merchants_path)
+      end
+
+      it 'will display a error if no name when updating' do
+         visit new_admin_merchant_path
+
+         fill_in("merchant[name]" , with: " ")
+
+         click_on("Submit")
+
+         expect(current_path).to eq(new_admin_merchant_path)
+         expect(page).to have_content("Error:")
       end
    end
 end

@@ -13,13 +13,4 @@ class Merchant < ApplicationRecord
       .order("count_transactions DESC")
       .limit(5)
    end
-
-
-   def change_status
-      if params[:change_status].present?
-      new_status = self.status == 'enabled' ? 'disabled' : 'enabled'
-      update(status: new_status)
-      end
-   end
-
 end
