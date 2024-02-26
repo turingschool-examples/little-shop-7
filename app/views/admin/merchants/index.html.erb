@@ -2,3 +2,5 @@
 <%@merchants.each do |merchant|%>
 <%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
 <%end%>
+
+<h3><%= link_to "Create Merchant", "/admin/merchants/create" %></h3>
