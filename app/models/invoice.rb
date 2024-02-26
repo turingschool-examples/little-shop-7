@@ -18,3 +18,4 @@ class Invoice < ApplicationRecord
    #       .order("invoice_created_at")
    # end
 end
+
