@@ -1,4 +1,5 @@
 <h1>Merchant Name: <%= @merchant.name %></h1>
+<%= link_to 'New Item',new_merchant_item_path(@merchant) %>
 <section class='disabled_items'>
   <h2>Disabled Items</h2>
   <% @items.disabled_items.each do |item|  %>

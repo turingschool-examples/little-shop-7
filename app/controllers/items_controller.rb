@@ -10,6 +10,10 @@ class ItemsController < ApplicationController
     @item = @merchant.items.find(params[:id])
   end
 
+  def new 
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
   def edit 
     @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.find(params[:id])
@@ -33,6 +37,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def create 
+    @merchant = Merchant.find(params[:merchant_id])
+    item = @merchant.items.new(item_params)
+    item.status = "disabled"
+  
+    if item.save
+      flash[:alert] = "Item created!!"
+      redirect_to merchant_items_path(@merchant)
+    else 
+      render :new
+    end
+
+  end
+
+  
   private 
 
   def item_params
