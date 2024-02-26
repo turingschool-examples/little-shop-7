@@ -61,8 +61,12 @@ RSpec.describe 'Admin Merchants Show', type: :feature do
   it 'displays merchants name' do
     # As an admin, When I click on the name of a merchant from the admin merchants index page (/admin/merchants),
     visit admin_merchants_path
-    click_link("Amazon")
-    # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
+    within "#disabled_merchants" do
+      within "#merchant_#{@merchant_1.id}" do
+        click_link("Amazon")
+        # Then I am taken to that merchant's admin show page (/admin/merchants/:merchant_id)
+      end
+    end
     expect(current_path).to eq(admin_merchant_path(@merchant_1.id))
     # And I see the name of that merchant    
     expect(page).to have_content("Amazon")

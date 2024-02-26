@@ -10,4 +10,8 @@ class InvoiceItem < ApplicationRecord
   # has_many :merchants, through: :items
   
   enum status: ["pending", "packaged", "shipped"]
+
+  def unit_price_to_dollars
+    unit_price/100.00
+  end
 end

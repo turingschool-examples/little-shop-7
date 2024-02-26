@@ -1,4 +1,28 @@
 <h1>Invoice #<%= @invoice.id %></h1>
-<p>Status: <%= @invoice.status %></p>
+
+<div id="invoice_status">
+  <%= form_with url: admin_invoice_path(@invoice), method: :patch, data: {turbo: false} do |f| %>
+    Status: <%= f.select "status", options_for_select([["In Progress", 0], ["Cancelled", 1], ["Completed", 2]]), value: @invoice.status%>
+    <%= f.button "Update Invoice" %>
+  <% end %>
+</div>
+
 <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+
+<div id="invoice_revenue">
+  <p>Total Revenue: <%= number_to_currency((@invoice.total_revenue_dollars), unit: "$")%></p>
+</div>
+
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+
+<section class="invoice_items">
+  <h3>Items on this invoice</h3>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <div id="invoice_item-<%= invoice_item.id%>">
+      <%= invoice_item.item.name %>
+      <%= invoice_item.quantity %>
+      <%= number_to_currency((invoice_item.unit_price_to_dollars), unit: "$") %>
+      <%= invoice_item.status %>
+    </div>
+  <% end %>
+</section>

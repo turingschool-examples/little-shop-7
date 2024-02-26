@@ -68,6 +68,7 @@ RSpec.describe Invoice, type: :model do
     @invoice_item_6 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 1300, status: 0)
     @invoice_item_7 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 1300, status: 0)
     @invoice_item_8 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_9.id, quantity: 1, unit_price: 1300, status: 0)
+    @invoice_item_9 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_1.id, quantity: 4, unit_price: 5500, status: 2)
   end
 
   describe 'Class Methods' do
@@ -99,6 +100,15 @@ RSpec.describe Invoice, type: :model do
       it "returns the total revenue of the invoice item" do
         expect(@invoice_6.total_revenue).to eq(0)
         expect(@invoice_1.total_revenue).to eq(1300)
+      end
+    end
+  end
+
+  describe "#Instance Methods" do
+    describe "#total_revenue_dollars" do
+      it "returns the correct revenue that an invoice will generate" do
+        expect(@invoice_1.total_revenue_dollars).to eq(233.00)
+        expect(@invoice_2.total_revenue_dollars).to eq(13.00)
       end
     end
   end

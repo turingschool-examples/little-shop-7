@@ -22,6 +22,10 @@ class Invoice < ApplicationRecord
     Invoice.invoices_with_unshipped_items.oldest_to_newest
   end
 
+  def total_revenue_dollars
+    invoice_items.sum("quantity * unit_price")/100.00
+  end
+  
   def total_revenue
     self.invoice_items.sum("unit_price * quantity")
   end
