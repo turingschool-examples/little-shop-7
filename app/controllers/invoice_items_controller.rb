@@ -5,7 +5,6 @@ class InvoiceItemsController < ApplicationController
     if invoice_item.update(invoice_item_params)
       flash[:notice] = "Item #{invoice_item.item.name} is updated successfully"
       redirect_to merchant_invoice_path(merchant, invoice_item.invoice)
-
     end
   end
 

@@ -24,20 +24,20 @@ RSpec.describe 'Merchants Dashboard Show Page' do
       end
 
       it "shows the name of my merchant" do
-        visit merchant_dashboard_path(merchant_id: merchant.id)
+        visit merchant_dashboard_path(merchant)
 
         expect(page).to have_content(merchant.name)
       end
 
       it "shows link to my merchant item index and merchant invoices index" do
-        visit merchant_dashboard_path(merchant_id: merchant.id)
+        visit merchant_dashboard_path(merchant)
 
         expect(page).to have_link("My Items", href: merchant_items_path(merchant))
         expect(page).to have_link("My Invoices", href: merchant_invoices_path(merchant))
       end
 
       it "shows the names of the top 5 customers and the number of successful transactions with my merchant" do
-        visit merchant_dashboard_path(merchant_id: merchant.id)
+        visit merchant_dashboard_path(merchant)
 
         top_customers.each do |top_customer|
           expect(page).to have_content("#{top_customer.first_name} #{top_customer.last_name} #{top_customer.transactions.count}")
@@ -61,7 +61,7 @@ RSpec.describe 'Merchants Dashboard Show Page' do
       let!(:invoice_item_3) { InvoiceItem.create!(invoice: invoice_3, item: item_3, status: "shipped") }
 
       it "shows a section for items ready to ship with its invoice id that link to merchant's invoice show page" do
-        visit merchant_dashboard_path(merchant_id: merchant.id)
+        visit merchant_dashboard_path(merchant)
 
         expect(page).to have_content("#{invoice_item_1.item.name}")
         expect(page).to have_link(invoice_item_1.invoice_id, href: merchant_invoice_path(merchant, invoice_1))
@@ -70,11 +70,11 @@ RSpec.describe 'Merchants Dashboard Show Page' do
       end
 
       it "shows the date that the invoice was created in this format 'Monday, July 18, 2019', and in ordered from oldest to newest" do
-        visit merchant_dashboard_path(merchant_id: merchant.id)
-        save_and_open_page
-        expect(page).to have_content("#{invoice_item_1.invoice.created_at}")
-        expect(page).to have_content("#{invoice_item_2.invoice.created_at}")
-        expect("#{invoice_item_1.invoice.created_at}").to appear_before("#{invoice_item_2.invoice.created_at}")
+        visit merchant_dashboard_path(merchant)
+
+        expect(page).to have_content("#{invoice_item_1.invoice.created_at.strftime("%A, %B %d, %Y")}")
+        expect(page).to have_content("#{invoice_item_2.invoice.created_at.strftime("%A, %B %d, %Y")}")
+        expect("#{invoice_item_1.invoice.created_at.strftime("%A, %B %d, %Y")}").to appear_before("#{invoice_item_2.invoice.created_at.strftime("%A, %B %d, %Y")}")
       end
     end
   end
