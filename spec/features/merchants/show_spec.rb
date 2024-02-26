@@ -119,7 +119,6 @@ RSpec.describe "Dashboard index" do
       
       within ".items_ready_to_ship" do
         expect(page).to have_content("Unshipped Items")
-  
         within "#invoice-item-#{@invoice_item_6.id}" do
           expect(page).to have_content(@item2.name)
           expect(page).not_to have_content(@item3.name)
@@ -142,15 +141,13 @@ end
 
   describe "US 5" do # Merchant Dashboard Invoices sorted by least recent
     it "it displays the created date for invoices and lists them oldest to newest" do 
-      # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
+
       visit dashboard_merchant_path(@green_merchant.id)
-      # In the section for "Items Ready to Ship",
+
       within '.items_ready_to_ship' do
-        # Next to each Item name I see the date that the invoice was created
-        # And I see the date formatted like "Monday, July 18, 2019"
-        # And I see that the list is ordered from oldest to newest
-        save_and_open_page
+
         within "#invoice-item-#{@invoice_item_6.id}" do
+        
           expect(page).to have_content(@item2.name)
           expect(page).not_to have_content(@item3.name)
           expect(page).to have_content(@invoice_item_6.invoice.created_at.strftime('%A, %B %d, %Y'))
