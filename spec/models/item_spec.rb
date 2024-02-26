@@ -27,7 +27,7 @@ RSpec.describe Item, type: :model do
     @test_trans_5 = create(:transaction, invoice_id: @test_invoice_5.id)
     @test_trans_6 = create(:transaction, invoice_id: @test_invoice_6.id)
 
-    create(:invoice_item, item_id: @test_item_1.id, invoice_id: @test_invoice_1.id, unit_price: 1, quantity: 400)
+    @ii_1 = create(:invoice_item, item_id: @test_item_1.id, invoice_id: @test_invoice_1.id, unit_price: 1, quantity: 400)
     create(:invoice_item, item_id: @test_item_2.id, invoice_id: @test_invoice_2.id, unit_price: 1, quantity: 300)
     create(:invoice_item, item_id: @test_item_3.id, invoice_id: @test_invoice_3.id, unit_price: 1, quantity: 200)
     create(:invoice_item, item_id: @test_item_4.id, invoice_id: @test_invoice_4.id, unit_price: 1, quantity: 100)
@@ -48,6 +48,16 @@ RSpec.describe Item, type: :model do
   describe "class methods" do 
     it ".top_five_items" do 
       expect(Item.top_five_items).to eq([@test_item_6, @test_item_1, @test_item_2, @test_item_3, @test_item_4])
+    end
+  end
+
+  describe '#instance method' do
+    it '#date_with_most_sales' do
+      expect(@test_item_1.date_with_most_sales.strftime('%A, %B, %d, %Y')).to eq(@test_invoice_1.created_at.strftime('%A, %B, %d, %Y'))
+    end
+
+    it '#current_invoice_item' do
+      expect(@test_item_1.current_invoice_item(@test_item_1, @test_invoice_1)).to eq(@ii_1)
     end
   end
 end

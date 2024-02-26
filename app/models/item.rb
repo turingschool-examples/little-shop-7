@@ -30,4 +30,23 @@ class Item < ApplicationRecord
       .order("total_revenue DESC")
       .limit(5)
   end
+
+  def date_with_most_sales
+    # require 'pry'; binding.pry
+    # self.invoice_items.joins(:invoice)
+    #   .select("invoices.*")
+    #   .group("SUM(invoices_items.created_at) DESC")
+    #   .limit(1)
+      self.invoices
+      .group('DATE(invoices.created_at)')
+      .order('COUNT(invoices.id) DESC')
+      .limit(1)
+      .pluck('DATE(invoices.created_at)')
+      .first
+  end
+
+  def current_invoice_item(item, invoice)
+    self.invoice_items
+      .where(item_id: item.id, invoice_id: invoice.id).first
+  end
 end
