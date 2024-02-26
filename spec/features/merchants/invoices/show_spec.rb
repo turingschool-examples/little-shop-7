@@ -45,16 +45,39 @@ RSpec.describe 'merchant invoice show', type: :feature do
       # As a merchant
       # When I visit my merchant's invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
       visit merchant_invoice_path(@merch_1, @invoice_6)
-      # Then I see information related to that invoice including:
-      # - Invoice id
-      expect(page).to have_content(@invoice_6.id)
-      # - Invoice status
-      expect(page).to have_content(@invoice_6.status)
-      # - Invoice created_at date in the format "Monday, July 18, 2019"
-      expect(page).to have_content(@invoice_6.created_at.strftime('%A, %B, %d, %Y'))
-      # - Customer first and last name
-      expect(page).to have_content(@invoice_6.customer.first_name)
-      expect(page).to have_content(@invoice_6.customer.last_name)
+      within '.invoice' do
+        # Then I see information related to that invoice including:
+        # - Invoice id
+        expect(page).to have_content(@invoice_6.id)
+        # - Invoice status
+        expect(page).to have_content(@invoice_6.status)
+        # - Invoice created_at date in the format "Monday, July 18, 2019"
+        expect(page).to have_content(@invoice_6.created_at.strftime('%A, %B, %d, %Y'))
+        # - Customer first and last name
+        expect(page).to have_content(@invoice_6.customer.first_name)
+        expect(page).to have_content(@invoice_6.customer.last_name)
+      end
+    end
+    
+    # 16. Merchant Invoice Show Page: Invoice Item Information
+    it "displays invoice items" do 
+      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+      visit merchant_invoice_path(@merch_1, @invoice_6)
+      within '.invoice-items' do
+        # Then I see all of my items on the invoice including:
+        within "#item-#{@item_1.id}" do
+        # - Item name
+          expect(page).to have_content(@item_1.name)
+          # - The quantity of the item ordered
+          expect(page).to have_content(5)
+          # - The price the Item sold for
+          expect(page).to have_content(1)
+          # - The Invoice Item status
+          expect(page).to have_content("packaged")
+        end
+        # And I do not see any information related to Items for other merchants
+        expect(current_path).to_not eq(@item_2.name)
+      end
     end
   end 
 end
