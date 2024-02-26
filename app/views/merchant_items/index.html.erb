@@ -4,9 +4,7 @@
   </section>
 
   <section class="enabled-items">
-
     <h2>Enabled Items:</h2>
-
     <% @items.enabled_items.each do |item| %>
       <div id="enabled-item-<%= item.id %>">
         <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
@@ -17,9 +15,7 @@
   </section>
 
   <section class="disabled-items">
-
     <h2>Disabled Items:</h2>
-
     <% @items.disabled_items.each do |item| %>
       <div id="disabled-item-<%= item.id %>">
         <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
@@ -31,12 +27,11 @@
 
 
   <section class="top-five-items">
-
     <h2> Top Five Items </h2>
-
     <% @items.top_five_items.each do |item| %>
       <div id="item-<%= item.id %>">
         <%= link_to "#{item.name}", merchant_item_path(item.merchant, item), method: :get %>
+        <p>Top selling date for <%= item.name%> was <%= item.date_with_most_sales.strftime('%A, %B, %d, %Y') %> </p>
         <p>Total Revenue: <%= item.total_revenue%></p>
       </div>
     <% end %>
