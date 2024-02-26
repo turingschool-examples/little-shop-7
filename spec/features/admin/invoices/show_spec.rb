@@ -68,6 +68,7 @@ RSpec.describe 'Admin Index Show', type: :feature do
       @invoice_item_6 = create(:invoice_item, item_id: @item_6.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 78000, status: 0)
       @invoice_item_7 = create(:invoice_item, item_id: @item_7.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 78000, status: 0)
       @invoice_item_8 = create(:invoice_item, item_id: @item_8.id, invoice_id: @invoice_9.id, quantity: 4, unit_price: 5500, status: 0)
+      @invoice_item_9 = create(:invoice_item, item_id: @item_8.id, invoice_id: @invoice_1.id, quantity: 4, unit_price: 5500, status: 2)
     end
 
     # User story 33. Admin Invoice Show Page
@@ -83,6 +84,35 @@ RSpec.describe 'Admin Index Show', type: :feature do
       expect(page).to have_content("Created on: Wednesday, February 21, 2024")
       # Customer first and last name
       expect(page).to have_content("Customer: #{@customer_1.first_name} #{@customer_1.last_name}")
+    end
+
+    # User Story 34. Admin Invoice Show Page: Invoice Item Information
+    it "displays all of the items on the invoice, with name, quantity and price, and Invoice item status" do
+      # As an admin, When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+      visit admin_invoice_path(@invoice_1.id)
+      # Then I see all of the items on the invoice including:
+      expect(page).to have_content("Items on this invoice")
+      within "#invoice_item-#{@invoice_item_1.id}" do
+        # Item name
+        expect(page).to have_content(@item_1.name)
+        # The quantity of the item ordered
+        expect(page).to have_content(@invoice_item_1.quantity)
+        # The price the Item sold for
+        expect(page).to have_content(@invoice_item_1.unit_price)
+        # The Invoice Item status
+        expect(page).to have_content(@invoice_item_1.status)
+      end
+
+      within "#invoice_item-#{@invoice_item_9.id}" do
+        # Item name
+        expect(page).to have_content(@item_8.name)
+        # The quantity of the item ordered
+        expect(page).to have_content(@invoice_item_9.quantity)
+        # The price the Item sold for
+        expect(page).to have_content(@invoice_item_9.unit_price)
+        # The Invoice Item status
+        expect(page).to have_content(@invoice_item_9.status)
+      end
     end
   end
 end
