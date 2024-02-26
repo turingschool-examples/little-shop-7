@@ -79,5 +79,14 @@ RSpec.describe 'merchant invoice show', type: :feature do
         expect(current_path).to_not eq(@item_2.name)
       end
     end
+
+    # 17. Merchant Invoice Show Page: Total Revenue
+    it "displays the total revenue" do
+      # As a merchant
+      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+      visit merchant_invoice_path(@merch_1, @invoice_6)
+      # Then I see the total revenue that will be generated from all of my items on the invoice
+      expect(page).to have_content(5)
+    end
   end 
 end

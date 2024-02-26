@@ -94,5 +94,12 @@ RSpec.describe Invoice, type: :model do
         expect(Invoice.invoices_with_unshipped_items_oldest_to_newest).to eq([@invoice_9, @invoice_8, @invoice_7, @invoice_1, @invoice_2, @invoice_3])
       end
     end
+
+    describe '#total_revenue' do
+      it "returns the total revenue of the invoice item" do
+        expect(@invoice_6.total_revenue).to eq(0)
+        expect(@invoice_1.total_revenue).to eq(1300)
+      end
+    end
   end
 end

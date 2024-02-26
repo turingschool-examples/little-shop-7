@@ -9,6 +9,7 @@
   <% @invoice.items.each do |item| %>
   <div id="item-<%= item.id %>">
     <h3><%= item.name %></h3>
+    <p><%= @invoice.total_revenue %></p>
     <p><%= item.current_invoice_item(item, @invoice).quantity %></p>
     <p><%= item.current_invoice_item(item, @invoice).unit_price %></p>
     <p><%= item.current_invoice_item(item, @invoice).status %></p>
