@@ -35,4 +35,20 @@ RSpec.describe 'Admin merchants index' do
             # And I see the name of that merchant
         end
     end
+
+    describe 'User story 29' do
+        it 'has a link to merchant create page' do
+            # I see a link to create a new merchant
+            odell = Merchant.create!(name: "Odell")
+            nico = Merchant.create!(name: "Nico")
+
+            visit '/admin/merchants'
+
+            expect(page).to have_link('Create Merchant', href: '/admin/merchants/create')
+
+            click_on 'Create Merchant'
+
+            expect(current_path).to eq('/admin/merchants/create')
+        end
+    end
 end
