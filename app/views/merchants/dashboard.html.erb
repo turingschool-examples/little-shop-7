@@ -1,0 +1,31 @@
+<h1>Merchant Name: <%= @merchant.name %></h1>
+
+<%= link_to 'My Items', merchant_items_path(@merchant) %>
+<%= link_to 'My Invoices', merchant_invoices_path(@merchant) %>
+
+
+<h2>Top 5 Customers:</h2>
+
+<% @merchant.top_five_customers.each do |customer| %>
+  <section id="customer_<%= customer.id %>">
+    <p>Customer<%= customer.first_name %> <%= customer.last_name %> </p> <p>Number of Successful Transactions: <%= customer.successful_trans_count %></p>
+  </section>
+<% end %>
+
+    <section class="items_ready_to_ship">
+  <h3> Unshipped Items </h3>
+
+  <% @merchant.shipable_items.each do |invoice_id, hash| %>
+    <div id="invoice-<%= invoice_id %>">
+      <h4>Invoice ID #: <%= link_to "##{invoice_id}", merchant_invoice_path(@merchant, invoice_id), method: :get %></h4>
+      <p><b>Ordered Placed On: </b><i><%= hash[:created_at].first.strftime('%A, %B %d, %Y') %></i></p>
+      <ol>
+        <% hash[:names].each_with_index do |item_name, i| %>
+          <div id="item-<%= hash[:item_ids][i] %>">
+            <li><b>Item Name: </b><%= item_name %></li>
+          </div>
+        <% end %>
+      </ol>
+    </div>
+  <% end %>
+</section>
