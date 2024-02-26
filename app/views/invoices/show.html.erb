@@ -22,10 +22,6 @@
                         <%= f.select :status, [["Pending", "pending"], ["Packaged", "packaged"], ["Shipped", "shipped"]]%>
                         <%= f.submit "Update Item Status" %>
                         <% end %>
-                        
-                        <% if flash[:notice] %>
-                            <p><%= flash[:notice]%></p>    
-                        <% end %>
                 </div>
 
             </div>
