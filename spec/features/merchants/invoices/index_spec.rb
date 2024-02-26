@@ -40,7 +40,7 @@ RSpec.describe 'merchant invoice index', type: :feature do
     end
 
     # 14. Merchant Invoices Index
-    it "" do
+    it "displays invoices with the merchant item" do
       # As a merchant,
       # When I visit my merchant's invoices index (/merchants/:merchant_id/invoices)
       visit merchant_invoices_path(@merch_1)
