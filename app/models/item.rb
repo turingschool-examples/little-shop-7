@@ -44,4 +44,9 @@ class Item < ApplicationRecord
       .pluck('DATE(invoices.created_at)')
       .first
   end
+
+  def current_invoice_item(item, invoice)
+    self.invoice_items
+      .where(item_id: item.id, invoice_id: invoice.id).first
+  end
 end
