@@ -12,7 +12,8 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe 'Enums' do
-    xit 'enums tests' do
+    it 'enums tests' do
+      should define_enum_for(:result).with_values(["success", "failed"])
     end
   end
 end

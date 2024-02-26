@@ -12,8 +12,9 @@ RSpec.describe InvoiceItem, type: :model do
     it {should validate_presence_of :status}
   end
 
-  describe "Enums" do
-    xit "enum tests" do
+  describe 'Enums' do
+    it 'enums tests' do
+      should define_enum_for(:status).with_values(["pending", "packaged", "shipped"])
     end
   end
 
