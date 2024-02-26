@@ -98,7 +98,7 @@ RSpec.describe 'Admin Index Show', type: :feature do
         # The quantity of the item ordered
         expect(page).to have_content(@invoice_item_1.quantity)
         # The price the Item sold for
-        expect(page).to have_content(@invoice_item_1.unit_price)
+        expect(page).to have_content(@invoice_item_1.unit_price_to_dollars)
         # The Invoice Item status
         expect(page).to have_content(@invoice_item_1.status)
       end
@@ -109,9 +109,19 @@ RSpec.describe 'Admin Index Show', type: :feature do
         # The quantity of the item ordered
         expect(page).to have_content(@invoice_item_9.quantity)
         # The price the Item sold for
-        expect(page).to have_content(@invoice_item_9.unit_price)
+        expect(page).to have_content(@invoice_item_9.unit_price_to_dollars)
         # The Invoice Item status
         expect(page).to have_content(@invoice_item_9.status)
+      end
+    end
+
+    # User Story 35. Admin Invoice Show Page: Total Revenue
+    it "displays the total revenue that will be generated from this invoice" do
+      # As an admin, When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+      visit admin_invoice_path(@invoice_1)
+      # Then I see the total revenue that will be generated from this invoice.
+      within "#invoice_revenue" do
+        expect(page).to have_content("Total Revenue: $233.00")
       end
     end
   end

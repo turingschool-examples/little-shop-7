@@ -68,6 +68,7 @@ RSpec.describe Invoice, type: :model do
     @invoice_item_6 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 1300, status: 0)
     @invoice_item_7 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 1300, status: 0)
     @invoice_item_8 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_9.id, quantity: 1, unit_price: 1300, status: 0)
+    @invoice_item_9 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_1.id, quantity: 4, unit_price: 5500, status: 2)
   end
 
   describe 'Class Methods' do
@@ -92,6 +93,15 @@ RSpec.describe Invoice, type: :model do
       it 'will return the invoices with the oldest created at dates first if they have unshipped items' do
 
         expect(Invoice.invoices_with_unshipped_items_oldest_to_newest).to eq([@invoice_9, @invoice_8, @invoice_7, @invoice_1, @invoice_2, @invoice_3])
+      end
+    end
+  end
+
+  describe "#Instance Methods" do
+    describe "#total_revenue" do
+      it "returns the correct revenue that an invoice will generate" do
+        expect(@invoice_1.total_revenue).to eq(233.00)
+        expect(@invoice_2.total_revenue).to eq(13.00)
       end
     end
   end
