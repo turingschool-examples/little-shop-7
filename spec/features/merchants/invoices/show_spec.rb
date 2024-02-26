@@ -85,8 +85,40 @@ RSpec.describe 'merchant invoice show', type: :feature do
       # As a merchant
       # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
       visit merchant_invoice_path(@merch_1, @invoice_6)
-      # Then I see the total revenue that will be generated from all of my items on the invoice
-      expect(page).to have_content(5)
+
+      within "#item-#{@item_1.id}" do 
+        # Then I see the total revenue that will be generated from all of my items on the invoice
+        expect(page).to have_content(5)
+      end
+    end
+
+    # 18. Merchant Invoice Show Page: Update Item Status
+    it "can update item status" do 
+      # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+      visit merchant_invoice_path(@merch_1, @invoice_6)
+
+      within "#item-#{@item_1.id}" do 
+        # I see that each invoice item status is a select field
+        expect(page).to have_select("status")
+        # And I see that the invoice item's current status is selected
+        # When I click this select field,
+        select("Enabled", from: "status")
+    
+        # Then I can select a new status for the Item,
+        # select 'Enabled', from: 'status'
+        # And next to the select field I see a button to "Update Item Status"
+        expect(page).to have_content("Update Item Status")
+        # When I click this button
+        click_button("Update Item Status")
+      end
+      
+      # I am taken back to the merchant invoice show page
+      expect(current_path).to eq(merchant_invoice_path(@merch_1, @invoice_6))
+
+      within "#item-#{@item_1.id}" do 
+        # And I see that my Item's status has now been updated
+        expect(page).to have_content("Enabled")
+      end
     end
   end 
 end
