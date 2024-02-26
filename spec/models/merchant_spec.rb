@@ -47,7 +47,8 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'Enums' do
-    xit 'enums tests' do
+    it 'enums tests' do
+      should define_enum_for(:status).with_values(["disabled", "enabled"])
     end
   end
 
