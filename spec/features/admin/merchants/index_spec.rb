@@ -44,11 +44,11 @@ RSpec.describe 'Admin merchants index' do
 
             visit '/admin/merchants'
 
-            expect(page).to have_link('Create Merchant', href: '/admin/merchants/create')
+            expect(page).to have_link('Create Merchant', href: '/admin/merchants/new')
 
             click_on 'Create Merchant'
 
-            expect(current_path).to eq('/admin/merchants/create')
+            expect(current_path).to eq('/admin/merchants/new')
         end
     end
 end

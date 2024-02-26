@@ -31,5 +31,14 @@ RSpec.describe 'Admin merchants create page' do
             expect(page).to have_content("Merchant Name")
             expect(page).to have_content("disabled")
         end
+
+        it 'displays an error flash message when merchant creation fails' do
+
+            visit '/admin/merchants/new'
+      
+            click_on 'Submit'
+
+            expect(page).to have_content("Error. Please enter a name.")
+        end
     end
 end
