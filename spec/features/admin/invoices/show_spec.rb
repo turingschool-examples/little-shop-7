@@ -79,7 +79,7 @@ RSpec.describe 'Admin Index Show', type: :feature do
       # Invoice id
       expect(page).to have_content("Invoice ##{@invoice_1.id}")
       # Invoice status
-      expect(page).to have_content("Status: #{@invoice_1.status}")
+      expect(page).to have_content("Status: In Progress")
       # Invoice created_at date in the format "Monday, July 18, 2019"
       expect(page).to have_content("Created on: Wednesday, February 21, 2024")
       # Customer first and last name
@@ -122,6 +122,30 @@ RSpec.describe 'Admin Index Show', type: :feature do
       # Then I see the total revenue that will be generated from this invoice.
       within "#invoice_revenue" do
         expect(page).to have_content("Total Revenue: $233.00")
+      end
+    end
+
+    #User Story 36. Admin Invoice Show Page: Update Invoice Status
+    it "displays a select field for" do
+      # As an admin, When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+      visit admin_invoice_path(@invoice_1)
+
+      within "#invoice_status" do
+        # I see the invoice status is a select field
+        expect(page).to have_select("status")
+        # And I see that the invoice's current status is selected
+        expect(page).to have_content("In Progress")
+        # When I click this select field,
+        expect(page).to have_select("status", with_options: ["In Progress", "Cancelled", "Completed"])
+        # Then I can select a new status for the Invoice,
+        select("Cancelled", from: "status")
+        # And next to the select field I see a button to "Update Invoice Status"
+        # When I click this button
+        click_button("Update Invoice")
+        # I am taken back to the admin invoice show page
+        expect(current_path).to eq(admin_invoice_path(@invoice_1))
+        # And I see that my Invoice's status has now been updated
+        expect(page).to have_content("Cancelled")
       end
     end
   end

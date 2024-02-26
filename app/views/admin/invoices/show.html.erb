@@ -1,5 +1,12 @@
 <h1>Invoice #<%= @invoice.id %></h1>
-<p>Status: <%= @invoice.status %></p>
+
+<div id="invoice_status">
+  <%= form_with url: admin_invoice_path(@invoice), method: :patch, data: {turbo: false} do |f| %>
+    Status: <%= f.select "status", options_for_select([["In Progress", 0], ["Cancelled", 1], ["Completed", 2]]), value: @invoice.status%>
+    <%= f.button "Update Invoice" %>
+  <% end %>
+</div>
+
 <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
 
 <div id="invoice_revenue">
