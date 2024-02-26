@@ -62,7 +62,7 @@ namespace :import do
         Invoice.create(
           id: row['id'],
           customer_id: row['customer_id'],
-          status: row['status'],
+          status: row['status'].gsub(" ", "_"),
           created_at: DateTime.parse(row['created_at']),
           updated_at: DateTime.parse(row['updated_at'])
         )

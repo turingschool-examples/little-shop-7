@@ -1,0 +1,12 @@
+<h1>Little Etsy Shop</h1>
+<h2><%= @merchant.name %></h2>
+
+<%= link_to "Dashboard", merchant_dashboard_path(@merchant) %>
+<%= link_to "My Items", merchant_items_path(@merchant) %>
+
+<h3>My Invoices</h3>
+    <ul>
+        <% @invoices.each do |invoice| %>
+            <li><%= link_to "Invoice ##{invoice.id}", merchant_invoice_path(@merchant, invoice) %></li>
+        <% end %>
+    </ul>
