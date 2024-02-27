@@ -129,7 +129,7 @@ RSpec.describe 'Admin Index Show', type: :feature do
     it "displays a select field for" do
       # As an admin, When I visit an admin invoice show page (/admin/invoices/:invoice_id)
       visit admin_invoice_path(@invoice_1)
-
+save_and_open_page
       within "#invoice_status" do
         # I see the invoice status is a select field
         expect(page).to have_select("status")

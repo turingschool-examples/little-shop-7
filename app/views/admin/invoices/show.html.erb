@@ -1,3 +1,17 @@
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
 <h1>Invoice #<%= @invoice.id %></h1>
 
 <div id="invoice_status">
@@ -17,12 +31,24 @@
 
 <section class="invoice_items">
   <h3>Items on this invoice</h3>
-  <% @invoice.invoice_items.each do |invoice_item| %>
-    <div id="invoice_item-<%= invoice_item.id%>">
-      <%= invoice_item.item.name %>
-      <%= invoice_item.quantity %>
-      <%= number_to_currency((invoice_item.unit_price_to_dollars), unit: "$") %>
-      <%= invoice_item.status %>
-    </div>
-  <% end %>
+  <table style="width:80%">
+    <tr>
+      <th style="background-color:grey">Item Name</th>
+      <th style="background-color:grey">Quantity</th>
+      <th style="background-color:grey">Unit Price</th>
+      <th style="background-color:grey">Status</th>
+    </tr>
+    <% @invoice.invoice_items.each do |invoice_item| %>
+      <tr>
+        <div id="invoice_item-<%= invoice_item.id%>">
+          <td><%= invoice_item.item.name %></td>
+          <td><%= invoice_item.quantity %></td>
+          <td><%= number_to_currency((invoice_item.unit_price_to_dollars), unit: "$") %></td>
+          <td><%= invoice_item.status %></td>
+        </div>
+      </tr>
+    <% end %>
+  </table>
 </section>
+</body>
+</html>
