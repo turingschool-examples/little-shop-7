@@ -67,5 +67,34 @@ RSpec.describe 'Merchant Dashboard Show Page' do
       expect(page).to have_content("testitem")
       
     end
+
+    
+  end
+  describe '#calculate_top_items' do
+    it 'returns the top 5 items by revenue' do
+      merchant = create(:merchant) 
+      items = create_list(:item, 10, merchant: merchant) 
+      items.each do |item|
+        invoice = create(:invoice)
+        transaction = create(:transaction, invoice: invoice, result: 'success')
+        create(:invoice_item, item: item, invoice: invoice, quantity: 2, unit_price: 10)
+      end
+      visit merchant_items_path(merchant_id: merchant.id)
+      top_items = merchant.calculate_top_items
+      
+      expect(page).to have_content(top_items.first.name)
+      expect(page).to have_content(top_items[1].name)
+      expect(page).to have_content(top_items[3].name)
+      expect(page).to have_content(top_items[2].name)
+      expect(page).to have_content(top_items[4].name)
+    
+
+      first(:link, top_items[0].name).click
+      
+      
+      
+      expect(current_path).to eq("/merchants/#{merchant.id}/items/#{top_items[0].id}")
+      
+    end
   end
 end

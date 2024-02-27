@@ -1,4 +1,4 @@
-# require 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
 
@@ -56,6 +56,27 @@ RSpec.describe Merchant, type: :model do
       invoice_item_3 = InvoiceItem.create!(invoice: invoice_3, item: item_3, status: "shipped")
 
       expect(merchant.items_ready_to_ship).to eq([invoice_item_2])
+    end
+  end
+
+  describe '#calculate_top_items' do
+    it 'returns the top 5 items by revenue' do
+      merchant = create(:merchant) 
+
+      
+      items = create_list(:item, 10, merchant: merchant) 
+      items.each do |item|
+        invoice = create(:invoice)
+        transaction = create(:transaction, invoice: invoice, result: 'success')
+        create(:invoice_item, item: item, invoice: invoice, quantity: 2, unit_price: 10)
+      end
+      
+      top_items = merchant.calculate_top_items
+      
+      expect(top_items.length).to eq(5)
+      expect(top_items.first).to be_a(Item)
+      expect(top_items.first.total_revenue).to be >= top_items.last.total_revenue 
+      
     end
   end
 end
