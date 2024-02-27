@@ -1,39 +1,107 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  before(:each) do 
-    @cust_1 = create(:customer)
-    @cust_2 = create(:customer)
-    @cust_3 = create(:customer)
-    @cust_4 = create(:customer)
-    @cust_5 = create(:customer)
-    @cust_6 = create(:customer)
+  # before(:each) do 
+  #   @cust_1 = create(:customer)
+  #   @cust_2 = create(:customer)
+  #   @cust_3 = create(:customer)
+  #   @cust_4 = create(:customer)
+  #   @cust_5 = create(:customer)
+  #   @cust_6 = create(:customer)
     
-    @invoice_1 = create(:invoice, customer_id: @cust_1.id)
-    @invoice_2 = create(:invoice, customer_id: @cust_2.id)
-    @invoice_3 = create(:invoice, customer_id: @cust_3.id)
-    @invoice_4 = create(:invoice, customer_id: @cust_4.id)
-    @invoice_5 = create(:invoice, customer_id: @cust_5.id)
-    @invoice_6 = create(:invoice, customer_id: @cust_6.id)
+  #   @invoice_1 = create(:invoice, customer_id: @cust_1.id)
+  #   @invoice_2 = create(:invoice, customer_id: @cust_2.id)
+  #   @invoice_3 = create(:invoice, customer_id: @cust_3.id)
+  #   @invoice_4 = create(:invoice, customer_id: @cust_4.id)
+  #   @invoice_5 = create(:invoice, customer_id: @cust_5.id)
+  #   @invoice_6 = create(:invoice, customer_id: @cust_6.id)
     
-    @trans_1 = create(:transaction, invoice_id: @invoice_1.id)
-    @trans_2 = create(:transaction, invoice_id: @invoice_2.id)
-    @trans_3 = create(:transaction, invoice_id: @invoice_3.id)
-    @trans_4 = create(:transaction, invoice_id: @invoice_4.id)
-    @trans_5 = create(:transaction, invoice_id: @invoice_5.id)
-    @trans_6 = create(:transaction, invoice_id: @invoice_6.id)
+  #   @trans_1 = create(:transaction, invoice_id: @invoice_1.id)
+  #   @trans_2 = create(:transaction, invoice_id: @invoice_2.id)
+  #   @trans_3 = create(:transaction, invoice_id: @invoice_3.id)
+  #   @trans_4 = create(:transaction, invoice_id: @invoice_4.id)
+  #   @trans_5 = create(:transaction, invoice_id: @invoice_5.id)
+  #   @trans_6 = create(:transaction, invoice_id: @invoice_6.id)
     
-    @merch_1 = create(:merchant, name: "Amazon") 
+  #   @merch_1 = create(:merchant, name: "Amazon") 
 
-    @item_1 = create(:item, unit_price: 1, merchant_id: @merch_1.id)
+  #   @item_1 = create(:item, unit_price: 1, merchant_id: @merch_1.id)
 
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100, status: 2)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80, status: 2)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60, status: 2)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50, status: 2)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40, status: 2)
-    create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_6.id, unit_price: 1, quantity: 5)
-  end 
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, unit_price: 1, quantity: 100, status: 2)
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_2.id, unit_price: 1, quantity: 80, status: 2)
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id, unit_price: 1, quantity: 60, status: 2)
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_4.id, unit_price: 1, quantity: 50, status: 2)
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_5.id, unit_price: 1, quantity: 40, status: 2)
+  #   create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_6.id, unit_price: 1, quantity: 5)
+  # end 
+
+  before(:each) do
+    @customer_1 = create(:customer)
+    @customer_2 = create(:customer)
+    @customer_3 = create(:customer)
+    @customer_4 = create(:customer)
+    @customer_5 = create(:customer)
+    @customer_6 = create(:customer)
+
+    @invoice_1 = create(:invoice, customer_id: @customer_1.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_2 = create(:invoice, customer_id: @customer_2.id, created_at: "Thurs, 22 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_3 = create(:invoice, customer_id: @customer_3.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_4 = create(:invoice, customer_id: @customer_4.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_5 = create(:invoice, customer_id: @customer_5.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_6 = create(:invoice, customer_id: @customer_6.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_7 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_8 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
+    @invoice_9 = create(:invoice, customer_id: @customer_5.id, status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
+
+    @trans_1= create(:transaction, invoice_id: @invoice_1.id)
+    @trans_2= create(:transaction, invoice_id: @invoice_1.id)
+    @trans_3= create(:transaction, invoice_id: @invoice_1.id)
+    @trans_4= create(:transaction, invoice_id: @invoice_1.id)
+    @trans_5= create(:transaction, invoice_id: @invoice_1.id)
+    @trans_6= create(:transaction, invoice_id: @invoice_2.id)
+    @trans_7= create(:transaction, invoice_id: @invoice_2.id)
+    @trans_8= create(:transaction, invoice_id: @invoice_2.id)
+    @trans_9= create(:transaction, invoice_id: @invoice_2.id)
+    @trans_10 = create(:transaction, invoice_id: @invoice_3.id)
+    @trans_11 = create(:transaction, invoice_id: @invoice_3.id)
+    @trans_12 = create(:transaction, invoice_id: @invoice_3.id)
+    @trans_13 = create(:transaction, invoice_id: @invoice_4.id)
+    @trans_14 = create(:transaction, invoice_id: @invoice_4.id)
+    @trans_15 = create(:transaction, invoice_id: @invoice_5.id)
+    @trans_16 = create(:transaction, invoice_id: @invoice_6.id)
+    @trans_17 = create(:transaction, invoice_id: @invoice_6.id, result: 1)
+    @trans_18 = create(:transaction, invoice_id: @invoice_7.id)
+    @trans_19 = create(:transaction, invoice_id: @invoice_8.id)
+    @trans_20 = create(:transaction, invoice_id: @invoice_9.id, result: 1)
+    
+    @merchant_1 = create(:merchant, name: "Amazon", status: 0) 
+    @merchant_2 = create(:merchant, name: "Walmart", status: 0) 
+    @merchant_3 = create(:merchant, name: "Apple", status: 0) 
+    @merchant_4 = create(:merchant, name: "Microsoft", status: 0) 
+    @merchant_5 = create(:merchant, name: "Petco", status: 1) 
+    @merchant_6 = create(:merchant, name: "Aetna", status: 1) 
+    @merchant_7 = create(:merchant, name: "Adidas", status: 1) 
+
+    @item_1 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
+    @item_2 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
+    @item_3 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
+    @item_4 = create(:item, unit_price: 1, merchant_id: @merchant_1.id)
+    @item_5 = create(:item, unit_price: 1, merchant_id: @merchant_2.id)
+    @item_6 = create(:item, unit_price: 1, merchant_id: @merchant_2.id)
+    @item_7 = create(:item, unit_price: 1, merchant_id: @merchant_3.id)
+    @item_8 = create(:item, unit_price: 1, merchant_id: @merchant_4.id)
+    @item_9 = create(:item, unit_price: 1, merchant_id: @merchant_5.id)
+    @item_10 = create(:item, unit_price: 1, merchant_id: @merchant_6.id)
+
+    @invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 1300, status: 0)
+    @invoice_iem_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id, quantity: 1, unit_price: 1300, status: 0)
+    @invoice_iem_3 = create(:invoice_item, item_id: @item_9.id, invoice_id: @invoice_3.id, quantity: 10, unit_price: 500, status: 1)
+    @invoice_iem_4 = create(:invoice_item, item_id: @item_10.id, invoice_id: @invoice_4.id, quantity: 2, unit_price: 100, status: 2)
+    @invoice_iem_5 = create(:invoice_item, item_id: @item_5.id, invoice_id: @invoice_5.id, quantity: 1, unit_price: 78000, status: 2)
+    @invoice_iem_6 = create(:invoice_item, item_id: @item_6.id, invoice_id: @invoice_7.id, quantity: 1, unit_price: 78000, status: 0)
+    @invoice_iem_7 = create(:invoice_item, item_id: @item_7.id, invoice_id: @invoice_8.id, quantity: 1, unit_price: 78000, status: 0)
+    @invoice_iem_8 = create(:invoice_item, item_id: @item_8.id, invoice_id: @invoice_9.id, quantity: 4, unit_price: 5500, status: 0)
+  end
 
   describe 'Validations' do
     it { should validate_presence_of :name }
@@ -54,13 +122,13 @@ RSpec.describe Merchant, type: :model do
 
   describe '#instance methods' do 
     it "#top_five_customers" do 
-      customers = [@cust_1, @cust_2, @cust_3, @cust_4, @cust_5]
+      customers = [@customer_1, @customer_2]
 
-      expect(@merch_1.top_five_cust).to eq(customers)
+      expect(@merchant_1.top_five_cust).to eq(customers)
     end
 
     it "#not_shipped_invoices" do
-      expect(@merch_1.not_shipped_invoices).to eq([@invoice_6])
+      expect(@merchant_1.not_shipped_invoices).to eq([@invoice_1, @invoice_2])
     end
 
     describe '#enabled?' do
@@ -74,86 +142,7 @@ RSpec.describe Merchant, type: :model do
         expect(merch_2.enabled?).to eq(true)
       end
     end
-  end
 
-  before(:each) do
-    @customer_11 = create(:customer)
-    @customer_21 = create(:customer)
-    @customer_31 = create(:customer)
-    @customer_41 = create(:customer)
-    @customer_51 = create(:customer)
-    @customer_61 = create(:customer)
-
-    @invoice_11 = create(:invoice, customer_id: @customer_11.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_21 = create(:invoice, customer_id: @customer_21.id, created_at: "Thurs, 22 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_31 = create(:invoice, customer_id: @customer_31.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_41 = create(:invoice, customer_id: @customer_41.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_51 = create(:invoice, customer_id: @customer_51.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_61 = create(:invoice, customer_id: @customer_61.id, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_71 = create(:invoice, customer_id: @customer_51.id, status: 0, created_at: "Wed, 21 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_81 = create(:invoice, customer_id: @customer_51.id, status: 0, created_at: "Tues, 20 Feb 2024 00:47:11.096539000 UTC +00:00")
-    @invoice_91 = create(:invoice, customer_id: @customer_51.id, status: 0, created_at: "Mon, 19 Feb 2024 00:47:11.096539000 UTC +00:00")
-
-    @trans_11 = create(:transaction, invoice_id: @invoice_11.id)
-    @trans_21 = create(:transaction, invoice_id: @invoice_11.id)
-    @trans_31 = create(:transaction, invoice_id: @invoice_11.id)
-    @trans_41 = create(:transaction, invoice_id: @invoice_11.id)
-    @trans_51 = create(:transaction, invoice_id: @invoice_11.id)
-    @trans_61 = create(:transaction, invoice_id: @invoice_21.id)
-    @trans_71 = create(:transaction, invoice_id: @invoice_21.id)
-    @trans_81 = create(:transaction, invoice_id: @invoice_21.id)
-    @trans_91 = create(:transaction, invoice_id: @invoice_21.id)
-    @trans_101 = create(:transaction, invoice_id: @invoice_31.id)
-    @trans_111 = create(:transaction, invoice_id: @invoice_31.id)
-    @trans_121 = create(:transaction, invoice_id: @invoice_31.id)
-    @trans_131 = create(:transaction, invoice_id: @invoice_41.id)
-    @trans_141 = create(:transaction, invoice_id: @invoice_41.id)
-    @trans_151 = create(:transaction, invoice_id: @invoice_51.id)
-    @trans_161 = create(:transaction, invoice_id: @invoice_61.id)
-    @trans_171 = create(:transaction, invoice_id: @invoice_61.id, result: 1)
-    @trans_181 = create(:transaction, invoice_id: @invoice_71.id)
-    @trans_191 = create(:transaction, invoice_id: @invoice_81.id)
-    @trans_201 = create(:transaction, invoice_id: @invoice_91.id, result: 1)
-    
-    @merchant_11 = create(:merchant, name: "Amazon", status: 0) 
-    @merchant_21 = create(:merchant, name: "Walmart", status: 0) 
-    @merchant_31 = create(:merchant, name: "Apple", status: 0) 
-    @merchant_41 = create(:merchant, name: "Microsoft", status: 0) 
-    @merchant_51 = create(:merchant, name: "Petco", status: 1) 
-    @merchant_61 = create(:merchant, name: "Aetna", status: 1) 
-    @merchant_71 = create(:merchant, name: "Adidas", status: 1) 
-
-    @item_11 = create(:item, unit_price: 1, merchant_id: @merchant_11.id)
-    @item_21 = create(:item, unit_price: 1, merchant_id: @merchant_11.id)
-    @item_31 = create(:item, unit_price: 1, merchant_id: @merchant_11.id)
-    @item_41 = create(:item, unit_price: 1, merchant_id: @merchant_11.id)
-    @item_51 = create(:item, unit_price: 1, merchant_id: @merchant_21.id)
-    @item_61 = create(:item, unit_price: 1, merchant_id: @merchant_21.id)
-    @item_71 = create(:item, unit_price: 1, merchant_id: @merchant_31.id)
-    @item_81 = create(:item, unit_price: 1, merchant_id: @merchant_41.id)
-    @item_91 = create(:item, unit_price: 1, merchant_id: @merchant_51.id)
-    @item_101 = create(:item, unit_price: 1, merchant_id: @merchant_61.id)
-
-    @invoice_item_11 = create(:invoice_item, item_id: @item_11.id, invoice_id: @invoice_11.id, quantity: 1, unit_price: 1300, status: 0)
-    @invoice_item_21 = create(:invoice_item, item_id: @item_21.id, invoice_id: @invoice_21.id, quantity: 1, unit_price: 1300, status: 0)
-    @invoice_item_31 = create(:invoice_item, item_id: @item_91.id, invoice_id: @invoice_31.id, quantity: 10, unit_price: 500, status: 1)
-    @invoice_item_41 = create(:invoice_item, item_id: @item_101.id, invoice_id: @invoice_41.id, quantity: 2, unit_price: 100, status: 2)
-    @invoice_item_51 = create(:invoice_item, item_id: @item_51.id, invoice_id: @invoice_51.id, quantity: 1, unit_price: 78000, status: 2)
-    @invoice_item_61 = create(:invoice_item, item_id: @item_61.id, invoice_id: @invoice_71.id, quantity: 1, unit_price: 78000, status: 0)
-    @invoice_item_71 = create(:invoice_item, item_id: @item_71.id, invoice_id: @invoice_81.id, quantity: 1, unit_price: 78000, status: 0)
-    @invoice_item_81 = create(:invoice_item, item_id: @item_81.id, invoice_id: @invoice_91.id, quantity: 4, unit_price: 5500, status: 0)
-  end
-
-  describe '.class methods' do
-    describe ".top_five_merchants" do
-      it "returns an array of the 5 merchants with the highest revenue" do
-        expect(Merchant.top_five_merchants).to eq([@merchant_21, @merchant_31, @merchant_51, @merchant_11, @merchant_61])
-      end
-    end
-  end
-
-  
-  describe '#instance methods 2' do
     describe "#revenue_to_dollars" do
       it 'returns an integer with the pennies converted to dollars' do 
         expect(Merchant.top_five_merchants[0].revenue_to_dollars).to eq(1560)
@@ -162,12 +151,20 @@ RSpec.describe Merchant, type: :model do
     
     describe '#top_revenue_day' do
       it 'returns the date for the merchants highest revenue' do
-        expect(@merchant_11.top_revenue_day).to eq("2024-02-22 00:47:11.096539 UTC")
-        expect(@merchant_21.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
-        expect(@merchant_31.top_revenue_day).to eq("2024-02-20 00:47:11.096539 UTC")
-        expect(@merchant_51.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
-        expect(@merchant_61.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+        expect(@merchant_1.top_revenue_day).to eq("2024-02-22 00:47:11.096539 UTC")
+        expect(@merchant_2.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+        expect(@merchant_3.top_revenue_day).to eq("2024-02-20 00:47:11.096539 UTC")
+        expect(@merchant_5.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
+        expect(@merchant_6.top_revenue_day).to eq("2024-02-21 00:47:11.096539 UTC")
       end
     end
-  end  
+  end
+
+  describe '.class methods' do
+    describe ".top_five_merchants" do
+      it "returns an array of the 5 merchants with the highest revenue" do
+        expect(Merchant.top_five_merchants).to eq([@merchant_2, @merchant_3, @merchant_5, @merchant_1, @merchant_6])
+      end
+    end
+  end
 end
