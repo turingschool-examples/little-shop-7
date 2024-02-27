@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :invoices, controller: 'merchant_invoices', only: [:index, :show]
   end
   
-
+  get "/", to: "welcome#index"
   resources :invoices, controller: "merchant_invoices"
 
 end
