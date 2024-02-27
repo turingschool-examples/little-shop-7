@@ -29,7 +29,7 @@ RSpec.describe 'Admin merchants create page' do
 
             # within new merchant?
             expect(page).to have_content("Merchant Name")
-            expect(page).to have_content("Disable")
+            expect(page).to have_button("Enable")
         end
 
         it 'displays an error flash message when merchant creation fails' do
