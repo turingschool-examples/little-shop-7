@@ -1,0 +1,3 @@
+<% @merchants.each do |merchant| %>
+ <%= link_to merchant.name, dashboard_merchant_path(merchant), method: :get %><br>
+<% end %>
