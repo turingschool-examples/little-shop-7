@@ -8,10 +8,12 @@ Rails.application.routes.draw do
   #Merchant
 
   resources :merchants, only: [:show]do 
-    resources :dashboard, only: :index, action: :show, controller: "merchants"
+    # resources :dashboard, only: :index, action: :show, controller: "merchants"
+    member { get "dashboard"}
     resources :items, only:[ :index, :show, :edit, :update,:new, :create]
-    resources :invoices, only: :index
-
+    # resources :invoices, only: [:index, :show]
+    resources :invoices, only: [:index, :show], :controller => "merchant_invoices"
+    
   end
   
   
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "dashboard#index"
-    resources :merchants, only: [:index, :show, :edit, :update]
-    resources :invoices, only: [:index, :show]
+    resources :merchants, only: [:index, :show, :edit, :update, :new, :create]
+    resources :invoices, only: [:index, :show, :edit, :update]
   end
 end
