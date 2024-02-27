@@ -1,6 +1,6 @@
 <h1>Admin Create Merchant</h1>
 
-<%= form_with(model: @merchant, url: admin_merchants_path) do |form| %>
+<%= form_with(model: @merchant) do |form| %>
     <%= form.label :name %>
     <%= form.text_field :name %>
     <%= form.submit 'Submit' %>
