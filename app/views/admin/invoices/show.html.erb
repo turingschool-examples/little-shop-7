@@ -2,4 +2,4 @@
 <h3><%=@invoice.id%></h3>
 
 
-<h3>Total Revenue: $<%=@invoice.total_revenue%></h3>
+<h3>Total Revenue: <%=number_to_currency(@invoice.total_revenue)%></h3>
