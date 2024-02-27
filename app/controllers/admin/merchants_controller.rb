@@ -26,12 +26,23 @@ class Admin::MerchantsController < ApplicationController
     end
 
     def update
-        merchant = Merchant.find(params[:id])
-        if merchant.update(merchant_params)
-            flash[:notice] = "Merchant information is updated successfully"
-            redirect_to admin_merchant_path(merchant)
+        @merchant = Merchant.find(params[:id])
 
+        if params[:change_status].present?
+            @merchant.change_status
+            redirect_to "/admin/merchants/index"
+        else
+            if @merchant.update(merchant_params)
+                flash[:notice] = "Merchant information is updated successfully"
+            end
+            redirect_to admin_merchant_path
         end
+
+        # Original #update method
+        # if merchant.update(merchant_params)
+        #     flash[:notice] = "Merchant information is updated successfully"
+        #     redirect_to admin_merchant_path(merchant)
+        # end
     end
 
     private

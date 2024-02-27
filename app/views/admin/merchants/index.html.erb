@@ -1,6 +1,19 @@
 <h1>Merchants</h1>
-<%@merchants.each do |merchant|%>
-<%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
-<%end%>
+    <ul>
+    <% @merchants.each do |merchant| %>
+        <li>
+        <%= link_to merchant.name, admin_merchant_path(merchant) %>
+        
+            <%= form_with(url: admin_merchant_path(merchant), method: :patch) do |form| %>
+                <%= form.hidden_field :change_status, value: true %>
+                    <% if merchant.enabled? %>
+                        <%= form.submit "Disable" %>
+                    <% else %>
+                        <%= form.submit "Enable" %>
+                    <% end %>
+            <% end %>
+        </li>
+    <% end %>
+    </ul>
 
-<h3><%= link_to "Create Merchant", "/admin/merchants/new" %></h3>
+<h3><%= link_to "Create Merchant", new_admin_merchant_path %></h3>

@@ -59,6 +59,8 @@ RSpec.describe 'Admin merchants index' do
 
             visit '/admin/merchants'
 
+            save_and_open_page
+
             # 'Enable' initially appears because all merchants are disabled
             expect(page).to have_button("Enable")
 

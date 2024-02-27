@@ -6,6 +6,11 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
 
   validates :name, presence: true
+
+  enum status: {
+    disabled: 0,
+    enabled: 1
+  }
   
   # SELECT customers.*, COUNT(transactions.id) as "transaction_count"
   # FROM transactions
@@ -43,5 +48,13 @@ class Merchant < ApplicationRecord
         .group('items.id')
         .order('total_revenue DESC')
         .limit(5)
+  end
+
+  def change_status
+    if disabled?
+      update(status: :enabled)
+    else
+      update(status: :disabled)
+    end
   end
 end
