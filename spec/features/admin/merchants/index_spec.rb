@@ -81,15 +81,11 @@ RSpec.describe 'Admin merchants index' do
 
     # describe 'User story 30' do
     #     it 'displays the top 5 merchants by revenue' do
-
     #         visit admin_merchants_path
-
     #     end
 
     #     it 'has links for each merchant name' do
-
     #         visit admin_merchants_path
-
     #     end
     # end
 
