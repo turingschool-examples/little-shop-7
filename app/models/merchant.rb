@@ -6,7 +6,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
 
   validates :name, presence: true
-
+  
   # SELECT customers.*, COUNT(transactions.id) as "transaction_count"
   # FROM transactions
   # INNER JOIN invoices ON transactions.invoice_id = invoices.id
@@ -32,5 +32,16 @@ class Merchant < ApplicationRecord
       .joins(:invoice)
       .where(invoice_items: {status: "packaged"})
       .order('invoices.created_at ASC')
+  end
+
+  def calculate_top_items
+    self.items
+        .select('items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+        .joins(:invoice_items)
+        .joins(invoices: :transactions) # Change 'invoice' to 'invoices'
+        .where(transactions: { result: 'success' })
+        .group('items.id')
+        .order('total_revenue DESC')
+        .limit(5)
   end
 end

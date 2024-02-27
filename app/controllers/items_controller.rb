@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
     def index
       @merchant = Merchant.find(params[:merchant_id])
-
+      @top_items = @merchant.calculate_top_items
+      
     end
     def show
       @merchant = Merchant.find(params[:merchant_id])
