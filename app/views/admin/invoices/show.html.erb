@@ -12,7 +12,7 @@ table, th, td {
 </head>
 <body>
 
-<h1>Invoice #<%= @invoice.id %></h1>
+<h1 style="background-color:grey; text-align:center; border-top-style: solid;">Invoice #<%= @invoice.id %></h1>
 
 <div id="invoice_status">
   <%= form_with url: admin_invoice_path(@invoice), method: :patch, data: {turbo: false} do |f| %>
@@ -33,10 +33,10 @@ table, th, td {
   <h3>Items on this invoice</h3>
   <table style="width:80%">
     <tr>
-      <th style="background-color:grey">Item Name</th>
-      <th style="background-color:grey">Quantity</th>
-      <th style="background-color:grey">Unit Price</th>
-      <th style="background-color:grey">Status</th>
+      <th style="background-color:grey; color: white;">Item Name</th>
+      <th style="background-color:grey; color: white;">Quantity</th>
+      <th style="background-color:grey; color: white;">Unit Price</th>
+      <th style="background-color:grey; color: white;">Status</th>
     </tr>
     <% @invoice.invoice_items.each do |invoice_item| %>
       <tr>
