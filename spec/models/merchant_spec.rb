@@ -79,4 +79,24 @@ RSpec.describe Merchant, type: :model do
       
     end
   end
+
+  describe '#calculate_top_items' do
+    it 'returns the top 5 items by revenue' do
+      merchant = create(:merchant)
+
+      # create 10 items for the merchant
+      items = create_list(:item, 10, merchant: merchant)
+
+      # create invoices and invoice items with successful transactions
+      items.each do |item|
+        invoice = create(:invoice)
+        transaction = create(:transaction, result: 'success', invoice: invoice)
+        create(:invoice_item, item: item, invoice: invoice, quantity: 2, unit_price: 10)
+      end
+
+      top_items = merchant.calculate_top_items
+
+      expect(top_items.length).to eq(5)
+    end
+  end
 end

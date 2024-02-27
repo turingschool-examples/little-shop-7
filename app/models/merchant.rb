@@ -44,4 +44,6 @@ class Merchant < ApplicationRecord
         .order('total_revenue DESC')
         .limit(5)
   end
+
+  
 end
