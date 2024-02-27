@@ -1,4 +1,18 @@
 <h1>Merchants</h1>
-<%@merchants.each do |merchant|%>
-<%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
+<%@merchants.each do |merchant|%>   
+    <%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
+    
+    <% if merchant.disable? %>
+      <%= form_with model: [:admin, merchant], method: :patch, local: true, id: merchant.id do |form| %>
+        <%= form.hidden_field :status, value: 'enable'%>
+        <%= form.submit "Enable" %>
+      <% end %>
+    <% end %>
+    
+    <% if merchant.enable? %>
+      <%= form_with model: [:admin, merchant], method: :patch, local: true, id: merchant.id do |form| %>
+          <%= form.hidden_field :status, value: 'disable'%>
+          <%= form.submit "Disable" %>
+      <% end %>
+    <% end %>
 <%end%>

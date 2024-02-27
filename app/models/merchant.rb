@@ -6,7 +6,11 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :items
 
   validates :name, presence: true
-  
+
+  enum status: {
+  disable: 0,
+  enable: 1
+  }
   # SELECT customers.*, COUNT(transactions.id) as "transaction_count"
   # FROM transactions
   # INNER JOIN invoices ON transactions.invoice_id = invoices.id
@@ -26,7 +30,7 @@ class Merchant < ApplicationRecord
       .limit(5)
       .select("customers.*", "COUNT(transactions.id) AS transaction_count")
   end
-  
+
   def items_ready_to_ship
     invoice_items
       .joins(:invoice)
@@ -43,5 +47,10 @@ class Merchant < ApplicationRecord
         .group('items.id')
         .order('total_revenue DESC')
         .limit(5)
+  end
+
+  def self.top_revenue
+    self.joins(:invoice_items)
+        .joins()
   end
 end
