@@ -42,6 +42,7 @@ namespace :csv_load do
     CSV.foreach(file_path, headers: true) do |row|
       Transaction.create!(row.to_hash)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
 
   task :invoice_items => [:environment] do 
@@ -49,6 +50,7 @@ namespace :csv_load do
     CSV.foreach(file_path, headers: true) do |row|
       InvoiceItem.create!(row.to_hash)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
   end
 
   task :all => [:environment] do
