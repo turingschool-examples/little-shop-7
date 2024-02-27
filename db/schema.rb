@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_223237) do
     t.bigint "invoice_id", null: false
     t.integer "quantity"
     t.integer "unit_price"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_223237) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", default: 0
     t.bigint "customer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_223237) do
     t.bigint "invoice_id", null: false
     t.string "credit_card_number"
     t.string "credit_card_expiration_date"
-    t.integer "result"
+    t.integer "result", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
