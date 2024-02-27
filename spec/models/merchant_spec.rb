@@ -81,4 +81,46 @@ RSpec.describe Merchant, type: :model do
       expect(merchant.calculate_top_items).to match_array(top_items)
     end
   end
+
+  describe "#total_revenue" do
+    it "returns total revenue of a merchant" do
+      merchant = create(:merchant)
+      items = create_list(:item, 3, merchant: merchant)
+      invoice_items = []
+      items.each do |item|
+        invoice = create(:invoice)
+        transaction = create(:transaction, invoice: invoice, result: 'success')
+        invoice_items << create(:invoice_item, item: item, invoice: invoice, quantity: 1, unit_price: 10)
+      end
+      expected = invoice_items.map{|invoice_item| invoice_item.quantity * invoice_item.unit_price}.sum
+
+      expect(merchant.total_revenue).to eq(expected)
+    end
+  end
+
+  describe "#self.top_merchants" do
+    it "returns top 5 merchants by revenue" do
+      top_merchants = create_list(:merchant, 5)
+      top_merchants.each do |top_merchant|
+        items = create_list(:item, 3, merchant: top_merchant)
+        items.each do |item|
+          invoice = create(:invoice)
+          transaction = create(:transaction, invoice: invoice, result: 'success')
+          invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: 10)
+        end
+      end
+
+      merchants = create_list(:merchant, 5)
+      merchants.each do |merchant|
+        items = create_list(:item, 3, merchant: merchant)
+        items.each do |item|
+          invoice = create(:invoice)
+          transaction = create(:transaction, invoice: invoice, result: 'success')
+          invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 1, unit_price: 10)
+        end
+      end
+
+      expect(Merchant.top_merchants).to match_array(top_merchants)
+    end
+  end
 end
