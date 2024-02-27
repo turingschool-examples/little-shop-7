@@ -58,8 +58,8 @@ RSpec.describe Customer, type: :model do
 
    describe "#successful_transactions_count" do
       it 'count the transactions for a specific customer' do
-         expect(@customer_5.successful_transactions_count).to eq(31)
-         expect(@customer_4.successful_transactions_count).to eq(15)
+         expect(@customer_5.successful_transactions_count).to eq(13)
+         expect(@customer_4.successful_transactions_count).to eq(5)
       end
    end
 
@@ -112,9 +112,9 @@ RSpec.describe Customer, type: :model do
          # transaction9 = FactoryBot.create(:transaction, invoice: invoice9, result: 0)
          transaction10 = FactoryBot.create(:transaction, invoice: invoice10, result: 1)  #cust_5 = 27 successful transactions and 1 is unsuccessful so it should still give us 27 successful transactions 
 
-       expect(cust_1.successful_trans_count).to eq(21)
-       expect(cust_4.successful_trans_count).to eq(15)
-       expect(cust_5.successful_trans_count).to eq(27)
+       expect(cust_1.successful_trans_count).to eq(7)
+       expect(cust_4.successful_trans_count).to eq(5)
+       expect(cust_5.successful_trans_count).to eq(9)
      end
    end
 

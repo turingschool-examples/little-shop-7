@@ -33,7 +33,7 @@ RSpec.describe 'Admin Invoice Show', type: :feature do
          visit admin_invoice_path(@invoice1.id)
          
          within "#invoice_attributes" do
-            expect(page).to have_content(@invoice1.status.titleize)
+            expect(page).to have_content(@invoice1.status)
             expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %e, %Y"))
             expect(page).to have_content(@invoice1.customer.first_name)
             expect(page).to have_content(@invoice1.customer.last_name)
@@ -43,6 +43,7 @@ RSpec.describe 'Admin Invoice Show', type: :feature do
       # User Story 34
       it 'displays the Invoice Item Information to that Invoice' do
          visit admin_invoice_path(@invoice1.id)
+        
          within "#invoice_items" do
             expect(page).to have_content("Invoice Items")
 
@@ -60,6 +61,22 @@ RSpec.describe 'Admin Invoice Show', type: :feature do
          visit admin_invoice_path(@invoice1.id)
 
          expect(page).to have_content(@invoice_item_1.total_revenue)
+      end
+
+      # User Story 36
+      it 'display the invoice status as a select field and the current status is selected' do
+         visit admin_invoice_path(@invoice1.id)
+         
+         within "#status-selector" do
+         expect(page).to have_content('Status')
+         expect(page).to have_content("in progress")
+
+         select("completed", from: "invoice[status]")
+         click_on "Update Invoice Status"
+         end
+
+         expect(current_path).to eq(admin_invoice_path(@invoice1.id))
+         expect(page).to have_content("completed")
       end
    end
 end

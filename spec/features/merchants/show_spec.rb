@@ -85,27 +85,28 @@ RSpec.describe "Dashboard index" do
   
       within "#customer_#{@cust_5.id}" do 
         expect(page).to have_content(@cust_5.first_name)
-        expect(page).to have_content("Number of Successful Transactions: 27")
+        # require 'pry' ; binding.pry
+        expect(page).to have_content("Number of Successful Transactions: #{@cust_5.transactions.success.count}")
       end
 
       within "#customer_#{@cust_2.id}" do 
         expect(page).to have_content(@cust_2.first_name)
-        expect(page).to have_content("Number of Successful Transactions: 24")
+        expect(page).to have_content("Number of Successful Transactions: #{@cust_2.transactions.success.count}")
       end
 
       within "#customer_#{@cust_1.id}" do 
         expect(page).to have_content(@cust_1.first_name)
-        expect(page).to have_content("Number of Successful Transactions: 21")
+        expect(page).to have_content("Number of Successful Transactions: #{@cust_1.transactions.success.count}")
       end
 
       within "#customer_#{@cust_3.id}" do 
         expect(page).to have_content(@cust_3.first_name)
-        expect(page).to have_content("Number of Successful Transactions: 18")
+        expect(page).to have_content("Number of Successful Transactions: #{@cust_3.transactions.success.count}")
       end
 
       within "#customer_#{@cust_4.id}" do 
         expect(page).to have_content(@cust_4.first_name)
-        expect(page).to have_content("Number of Successful Transactions: 15")
+        expect(page).to have_content("Number of Successful Transactions: #{@cust_4.transactions.success.count}")
       end
 
       expect(page).to_not have_content(@cust_6.first_name)

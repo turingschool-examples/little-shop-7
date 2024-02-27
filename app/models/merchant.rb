@@ -5,6 +5,7 @@ class Merchant < ApplicationRecord
    has_many :customers, through: :invoices
    
    validates :name, presence: true
+   enum :status, [ "enabled", "disabled"]
 
    def top_five_customers
       Customer.select("customers.*, count(transactions.id) as count_transactions")
