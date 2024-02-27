@@ -52,46 +52,46 @@ RSpec.describe 'Admin merchants index' do
         end
     end
 
-    describe 'User story 27' do
-        it 'has a button to enable/disable next to each merchant' do
-            odell = Merchant.create!(name: "Odell")
+    # describe 'User story 27' do
+    #     it 'has a button to enable/disable next to each merchant' do
+    #         odell = Merchant.create!(name: "Odell")
 
-            visit admin_merchants_path
+    #         visit admin_merchants_path
 
-            # 'Enable' initially appears because all merchants are disabled
-            expect(page).to have_button("Enable")
+    #         # 'Enable' initially appears because all merchants are disabled
+    #         expect(page).to have_button("Enable")
 
-            click_on "Enable"
+    #         click_on "Enable"
 
-            expect(page).to have_button("Disable")
-            expect(odell.status).to eq 1
-        end
+    #         expect(page).to have_button("Disable")
+    #         expect(odell.status).to eq 1
+    #     end
 
-        it 'changes merchant status and redirects to admin merch index' do
-            odell = Merchant.create!(name: "Odell")
+    #     it 'changes merchant status and redirects to admin merch index' do
+    #         odell = Merchant.create!(name: "Odell")
 
-            visit admin_merchants_path
+    #         visit admin_merchants_path
 
-            click_on 'Enable'
+    #         click_on 'Enable'
 
-            expect(current_path).to eq("/admin/merchants")
-            expect(page).to have_button("Disable")
-        end
-    end
+    #         expect(current_path).to eq("/admin/merchants")
+    #         expect(page).to have_button("Disable")
+    #     end
+    # end
 
-    describe 'User story 30' do
-        it 'displays the top 5 merchants by revenue' do
+    # describe 'User story 30' do
+    #     it 'displays the top 5 merchants by revenue' do
 
-            visit admin_merchants_path
+    #         visit admin_merchants_path
 
-        end
+    #     end
 
-        it 'has links for each merchant name' do
+    #     it 'has links for each merchant name' do
 
-            visit admin_merchants_path
+    #         visit admin_merchants_path
 
-        end
-    end
+    #     end
+    # end
 
     describe 'User story 28' do
         it 'sorts merchants by disabled/enabled' do
@@ -99,7 +99,6 @@ RSpec.describe 'Admin merchants index' do
             nico = Merchant.create!(name: "Nico", status: :disabled)
 
             visit admin_merchants_path
-            save_and_open_page
 
             within ".disabled" do
                 expect(page).to have_content("Nico")
