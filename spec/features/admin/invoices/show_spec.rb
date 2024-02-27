@@ -1,6 +1,40 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin show page' do
+RSpec.describe 'Admin invoice show page' do
+
+    describe 'User story 33' do
+        let(:customer_1) { FactoryBot.create(:customer) }
+        let(:customer_2) { FactoryBot.create(:customer) }
+        
+        it 'displays invoice information' do
+
+            invoice_1 = FactoryBot.create(:invoice, customer: customer_1, status: 0)
+            invoice_2 = FactoryBot.create(:invoice, customer: customer_2, status: 1)
+            invoice_3 = FactoryBot.create(:invoice, customer: customer_2, status: 2)
+
+            # As an admin,
+            # When I visit an admin invoice show page (/admin/invoices/:invoice_id)
+            visit admin_invoice_path(invoice_1)
+            # Then I see information related to that invoice including:
+            # - Invoice id
+            expect(page).to have_content("Invoice id: #{invoice_1.id}")
+            # - Invoice status
+            expect(page).to have_content("Invoice status: in_progress")
+            # - Invoice created_at date in the format "Monday, July 18, 2019"
+            expect(page).to have_content("Invoice created date: #{invoice_1.created_at.strftime("%A, %B %d, %Y")}")
+            # - Customer first and last name
+            expect(page).to have_content("Invoice customer name: #{invoice_1.customer.first_name} #{invoice_1.customer.last_name}")
+
+            visit admin_invoice_path(invoice_3)
+            expect(page).to have_content("Invoice id: #{invoice_3.id}")
+            expect(page).to have_content("Invoice status: completed")
+            expect(page).to_not have_content("Invoice status: cancelled")
+            expect(page).to have_content("Invoice created date: #{invoice_3.created_at.strftime("%A, %B %d, %Y")}")
+            expect(page).to have_content("Invoice customer name: #{invoice_3.customer.first_name} #{invoice_3.customer.last_name}")
+            save_and_open_page
+        end 
+    end
+
     describe 'User story 35' do
         let(:merchant) { FactoryBot.create(:merchant) }
         let(:item_1) { FactoryBot.create(:item, merchant: merchant) }

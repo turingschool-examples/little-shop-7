@@ -1,4 +1,5 @@
 class Admin::InvoicesController < ApplicationController
+    include Admin::DashboardsHelper
     def index 
         @invoices = Invoice.all
     end
