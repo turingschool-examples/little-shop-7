@@ -38,7 +38,7 @@ class Admin::MerchantsController < ApplicationController
             redirect_to admin_merchant_path
         end
 
-        # Original #update method
+        # Original #update
         # if merchant.update(merchant_params)
         #     flash[:notice] = "Merchant information is updated successfully"
         #     redirect_to admin_merchant_path(merchant)
