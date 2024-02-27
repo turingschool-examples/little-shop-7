@@ -27,6 +27,7 @@ namespace :csv_load do
     CSV.foreach(file_path, headers: true) do |row|
       Item.create!(row.to_hash)
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 
   task :invoices => [:environment] do 
