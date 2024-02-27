@@ -11,8 +11,8 @@ class Admin::MerchantsController < ApplicationController
     end
 
     def create
-        @merchant = Merchant.new(merchant_params)
-        if @merchant.save
+        merchant = Merchant.new(merchant_params)
+        if merchant.save
             redirect_to admin_merchants_path
         else
             flash[:alert] = "Error. Please enter a name."
