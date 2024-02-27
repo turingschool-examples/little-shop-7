@@ -1,6 +1,6 @@
 <h1>Merchants</h1>
 <%@merchants.each do |merchant|%>   
-    <%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
+    <%=link_to merchant.name, admin_merchant_path(merchant) %>
     
     <% if merchant.disable? %>
       <%= form_with model: [:admin, merchant], method: :patch, local: true, id: merchant.id do |form| %>
@@ -16,3 +16,13 @@
       <% end %>
     <% end %>
 <%end%>
+
+<h2> Top 5 Merchants by Total Revenue </h2>
+  <ol>
+      <% @top_merchants.each do |top_merchant| %>
+          <li id = "top_merchant-<%= top_merchant.id %>">
+              <%= link_to top_merchant.name, admin_merchant_path(top_merchant) %>  
+              Total Revenue: <%= number_to_currency(top_merchant.total_revenue) %>
+          </li>
+      <% end %>
+  </ol>
