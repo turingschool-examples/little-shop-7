@@ -1,9 +1,18 @@
 <h1>Merchants</h1>
+
     <ul>
     <% @merchants.each do |merchant| %>
         <li>
+            <% if merchant.enabled? %>
+                <div id="enabled">
+                <b>Enabled:</b>
+                </div>
+            <% else %>
+                <div id="disabled">
+                <b>Disabled:</b>
+                </div>
+                <% end %>
         <%= link_to merchant.name, admin_merchant_path(merchant) %>
-        
             <%= form_with(url: admin_merchant_path(merchant), method: :patch) do |form| %>
                 <%= form.hidden_field :change_status, value: true %>
                     <% if merchant.enabled? %>

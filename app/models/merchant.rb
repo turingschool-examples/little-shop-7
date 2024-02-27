@@ -57,4 +57,9 @@ class Merchant < ApplicationRecord
       update(status: :disabled)
     end
   end
+
+  def enabled_merchant
+    @merchant.status == 1
+  end
+
 end

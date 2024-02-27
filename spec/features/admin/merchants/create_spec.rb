@@ -27,9 +27,9 @@ RSpec.describe 'Admin merchants create page' do
 
             click_on 'Submit'
 
-            # within new merchant?
             expect(page).to have_content("Merchant Name")
             expect(page).to have_button("Enable")
+            expect(current_path).to eq("/admin/merchants")
         end
 
         it 'displays an error flash message when merchant creation fails' do

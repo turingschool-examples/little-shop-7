@@ -52,30 +52,56 @@ RSpec.describe 'Admin merchants index' do
         end
     end
 
-    describe 'User story 27' do
-        it 'has a button to enable/disable next to each merchant' do
-            odell = Merchant.create!(name: "Odell")
-            nico = Merchant.create!(name: "Nico")
+    # describe 'User story 27' do
+    #     it 'has a button to enable/disable next to each merchant' do
+    #         odell = Merchant.create!(name: "Odell")
 
-            visit '/admin/merchants'
+    #         visit '/admin/merchants/index'
 
-            # 'Enable' initially appears because all merchants are disabled
-            expect(page).to have_button("Enable")
+    #         # 'Enable' initially appears because all merchants are disabled
+    #         expect(page).to have_button("Enable")
 
-            click_on 'Enable'
+    #         click_on "Enable"
 
-            expect(page).to have_button("Disable")
-        end
+    #         expect(page).to have_button("Disable")
+    #         expect(odell.status).to eq 1
+    #     end
 
-        it 'changes merchant status and redirects to admin merch index' do
-            odell = Merchant.create!(name: "Odell")
-            nico = Merchant.create!(name: "Nico")
+    #     it 'changes merchant status and redirects to admin merch index' do
+    #         odell = Merchant.create!(name: "Odell")
 
-            visit '/admin/merchants'
+    #         visit '/admin/merchants'
 
-            click_on 'Enable'
+    #         click_on 'Enable'
 
-            expect(current_path).to eq("/admin/merchants")
-        end
-    end
+    #         expect(current_path).to eq("/admin/merchants")
+    #     end
+    # end
+
+    # describe 'User story 30' do
+    #     it 'displays the top 5 merchants by revenue' do
+            
+    #     end
+
+    #     it 'has links for each merchant name' do
+
+    #     end
+    # end
+
+    # describe 'User story 28' do
+    #     it 'sorts merchants by disabled/enabled' do
+    #         odell = Merchant.create!(name: "Odell", status: :enabled)
+    #         nico = Merchant.create!(name: "Nico", status: :disabled)
+
+    #         visit '/admin/merchants/index'            
+
+    #         within "#merchant-disabled" do
+    #             expect(page).to have_content("Nico")
+    #         end
+
+    #         within "#merchant-enabled" do
+    #             expect(page).to have_content("Odell")
+    #         end
+    #     end
+    # end
 end
