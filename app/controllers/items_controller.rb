@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
 
   def show 
     @merchant = Merchant.find(params[:merchant_id])
-    @item = @merchant.items.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def new 
