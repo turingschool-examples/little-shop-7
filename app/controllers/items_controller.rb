@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
 
     def update
       merchant = Merchant.find(params[:merchant_id])
-      item = Item.find(item_params[:id])
+      item = Item.find(params[:id])
       if params[:commit].include?("Enable") || params[:commit].include?("Disable")
         item.change_status(params[:commit])
         redirect_to merchant_items_path(merchant_id: merchant.id)
