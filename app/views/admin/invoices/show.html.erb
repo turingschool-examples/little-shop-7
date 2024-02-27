@@ -4,5 +4,17 @@
 <p>Invoice created date: <%=format_created_at(@invoice.created_at)%></p>
 <p>Invoice customer name: <%=@invoice.customer.first_name%> <%=@invoice.customer.last_name%></p>
 
+<h3>Invoice Items</h3>
+<ul>
+        <% @invoice.invoice_items.each do |invoice_item| %>
+                <section id="invoice_item-<%= invoice_item.id %>">
+                    <h4><%= invoice_item.item.name %></h4>
+                    <li>Quantity: <%=invoice_item.quantity%></li>
+                    <li>Unit price: <%=number_to_currency(invoice_item.unit_price)%></li>
+                    <li>Status: <%=invoice_item.status%></li>
+                </section>
+        <% end %>
+    </ul>
+
 
 <h3>Total Revenue: <%=number_to_currency(@invoice.total_revenue)%></h3>
