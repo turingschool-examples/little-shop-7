@@ -16,7 +16,7 @@
 <ol>
         <% @incomplete_invoices.each do |invoice_item| %>
             <section id="invoice_item-<%= invoice_item.invoice_id %>">
-            <li> <%=link_to "Invoice: #{invoice_item.invoice_id}", admin_invoice_path(invoice_item)%> <%=format_created_at(invoice_item.invoice.created_at)%></li>
+            <li> <%=link_to "Invoice: #{invoice_item.invoice_id}", admin_invoice_path(invoice_item.invoice_id)%> <%=format_created_at(invoice_item.invoice.created_at)%></li>
             </section>
         <% end %>   
     </ol>

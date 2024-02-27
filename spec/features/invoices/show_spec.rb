@@ -58,15 +58,14 @@ RSpec.describe 'Merchant Invoice Show Page' do
       it "shows each invoice item's current status is a select field, when I click this select field I can select a new status for the Item, shows a button to 'Update Item Status' when I click this button I am taken back to the invoice show page and my Item's status has now been updated" do
         visit merchant_invoice_path(merchant, invoice)
         within "#item_#{invoice_item_1.item.id}" do
-        expect(page).to have_select("invoice_item_status", selected: "Packaged")
-        save_and_open_page
-        select "Shipped", from: "invoice_item_status"
-        click_on "Update Item Status"
+          expect(page).to have_select("invoice_item_status", selected: "Packaged")
 
-        expect(current_path).to eq(merchant_invoice_path(merchant, invoice))
-        expect(page).to have_content("Item #{item_1.name} is updated successfully")
-        expect(page).to have_select("invoice_item_status", selected: "Shipped")
+          select "Shipped", from: "invoice_item_status"
+          click_on "Update Item Status"
+          expect(current_path).to eq(merchant_invoice_path(merchant, invoice))
+          expect(page).to have_select("invoice_item_status", selected: "Shipped")
         end
+        expect(page).to have_content("Item #{item_1.name} is updated successfully")
       end
     end
   end
