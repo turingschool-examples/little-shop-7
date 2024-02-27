@@ -38,10 +38,11 @@
 
 <h2>5 most popular items</h2>
 <ul>
-  <% @top_items.each do |item| %>
+  <% @top_items_withdate.each do |item, top_selling_date| %>
     <li>
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
       - Total Revenue: <%= number_to_currency(item.total_revenue) %>
+      <p>Top Selling Date: <%= top_selling_date %></p>
     </li>
   <% end %>
 </ul>
