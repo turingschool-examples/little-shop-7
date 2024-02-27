@@ -9,11 +9,9 @@ class Item < ApplicationRecord
 
 
   enum status: {
-  Disable: 0,  
+  Disable: 0,
   Enable: 1
   }
-
-
 
   def change_status(status)
     if status == "Enable"
@@ -22,6 +20,6 @@ class Item < ApplicationRecord
       update(status: 0)
     end
   end
-  
+
 
 end
