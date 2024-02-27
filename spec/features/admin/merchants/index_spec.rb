@@ -57,4 +57,37 @@ RSpec.describe 'Admin merchants index' do
             expect(page).to have_content('Merchant status is updated successfully')
         end
     end
+
+    describe 'User Story 30' do
+        it "shows the names of the top 5 merchants by total revenue generated with the link to admin merchant show page" do
+            top_merchants = create_list(:merchant, 5)
+            top_merchants.each do |top_merchant|
+                items = create_list(:item, 3, merchant: top_merchant)
+                items.each do |item|
+                    invoice = create(:invoice)
+                    transaction = create(:transaction, invoice: invoice, result: 'success')
+                    invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: 10)
+                end
+            end
+
+            merchants = create_list(:merchant, 5)
+            merchants.each do |merchant|
+                items = create_list(:item, 3, merchant: merchant)
+                items.each do |item|
+                    invoice = create(:invoice)
+                    transaction = create(:transaction, invoice: invoice, result: 'success')
+                    invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 1, unit_price: 10)
+                end
+            end
+
+            visit admin_merchants_path
+
+            top_merchants.each do |top_merchant|
+                within "#top_merchant-#{top_merchant.id}" do
+                    expect(page).to have_link(top_merchant.name, href: admin_merchant_path(top_merchant))
+                    expect(page).to have_content("Total Revenue: $#{top_merchant.total_revenue}.00")
+                end
+            end
+        end
+    end
 end
