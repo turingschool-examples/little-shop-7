@@ -51,4 +51,31 @@ RSpec.describe 'Admin merchants index' do
             expect(current_path).to eq('/admin/merchants/new')
         end
     end
+
+    describe 'User story 27' do
+        it 'has a button to enable/disable next to each merchant' do
+            odell = Merchant.create!(name: "Odell")
+            nico = Merchant.create!(name: "Nico")
+
+            visit '/admin/merchants'
+
+            # 'Enable' initially appears because all merchants are disabled
+            expect(page).to have_button("Enable")
+
+            click_on 'Enable'
+
+            expect(page).to have_button("Disable")
+        end
+
+        it 'changes merchant status and redirects to admin merch index' do
+            odell = Merchant.create!(name: "Odell")
+            nico = Merchant.create!(name: "Nico")
+
+            visit '/admin/merchants'
+
+            click_on 'Enable'
+
+            expect(current_path).to eq("/admin/merchants")
+        end
+    end
 end
