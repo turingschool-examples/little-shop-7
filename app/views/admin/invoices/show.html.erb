@@ -11,10 +11,17 @@
                     <h4><%= invoice_item.item.name %></h4>
                     <li>Quantity: <%=invoice_item.quantity%></li>
                     <li>Unit price: <%=number_to_currency(invoice_item.unit_price)%></li>
-                    <li>Status: <%=invoice_item.status%></li>
+                    <li>Item Status: <%=invoice_item.status%></li>
                 </section>
         <% end %>
     </ul>
+
+
+    <%= form_with model: [:admin, @invoice], method: :patch do |f| %>
+                        <%= f.label :status, "Invoice Status" %>
+                        <%= f.select :status, [["In Progress", "in_progress"], ["Cancelled", "cancelled"], ["Completed", "completed"]] %>
+                        <%= f.submit "Update Invoice Status" %>
+                    <% end %>
 
 
 <h3>Total Revenue: <%=number_to_currency(@invoice.total_revenue)%></h3>

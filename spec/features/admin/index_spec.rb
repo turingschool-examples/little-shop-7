@@ -5,7 +5,7 @@ RSpec.describe 'Admin dashboard' do
     let(:item) { FactoryBot.create(:item, merchant: merchant) }
     let(:top_customers) { FactoryBot.create_list(:customer, 5) }
     let(:customers) { FactoryBot.create_list(:customer, 5) }
-    
+
 
     describe 'User story 19' do
         it 'displays admin dashboard header' do
@@ -44,7 +44,7 @@ RSpec.describe 'Admin dashboard' do
               invoice.save!
             end
         end
-        
+
         it 'displays top 5 customers and count of successful transactions' do
             # As an admin,
             # When I visit the admin dashboard (/admin)
@@ -80,7 +80,7 @@ RSpec.describe 'Admin dashboard' do
         let!(:invoice_item_1) { InvoiceItem.create!(invoice: invoice_1, item: item_1, status: "packaged") }
         let!(:invoice_item_2) { InvoiceItem.create!(invoice: invoice_2, item: item_2, status: "pending") }
         let!(:invoice_item_3) { InvoiceItem.create!(invoice: invoice_3, item: item_3, status: "shipped") }
-        
+
         it 'displays ids of invoices that have items in not shipped status' do
             # As an admin,
             # When I visit the admin dashboard (/admin)
@@ -136,4 +136,6 @@ RSpec.describe 'Admin dashboard' do
             expect(invoice_2.created_at.strftime("%A, %B %d, %Y")).to_not appear_before(invoice_1.created_at.strftime("%A, %B %d, %Y"))
         end
     end
+
+
 end

@@ -1,6 +1,7 @@
 class Admin::MerchantsController < ApplicationController
     def index
         @merchants = Merchant.all
+        @top_merchants = Merchant.top_merchants
     end
 
     def show
@@ -26,28 +27,24 @@ class Admin::MerchantsController < ApplicationController
     end
 
     def update
-        @merchant = Merchant.find(params[:id])
+        merchant = Merchant.find(params[:id])
 
-        if params[:change_status].present?
-            @merchant.change_status
-            redirect_to "/admin/merchants/index"
-        else
-            if @merchant.update(merchant_params)
-                flash[:notice] = "Merchant information is updated successfully"
-            end
-            redirect_to admin_merchant_path
+        merchant.update(merchant_params)
+
+        if merchant_params[:name]
+            flash[:notice] = "Merchant information is updated successfully"
+            redirect_to admin_merchant_path(merchant)
         end
 
-        # Original #update
-        # if merchant.update(merchant_params)
-        #     flash[:notice] = "Merchant information is updated successfully"
-        #     redirect_to admin_merchant_path(merchant)
-        # end
+        if merchant_params[:status]
+            flash[:notice] = "Merchant status is updated successfully"
+            redirect_to admin_merchants_path
+        end
     end
 
     private
 
     def merchant_params
-        params.require(:merchant).permit(:name)
+        params.require(:merchant).permit(:name, :status)
     end
 end
