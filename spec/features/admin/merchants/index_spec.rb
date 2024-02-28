@@ -46,7 +46,7 @@ RSpec.describe 'Admin merchants index' do
             within "##{odell.id}" do
                 click_on "Enable"
             end
-            save_and_open_page
+
             expect(page).to have_button('Disable')
             expect(page).to have_content('Merchant status is updated successfully')
 
@@ -55,6 +55,39 @@ RSpec.describe 'Admin merchants index' do
             end
             expect(page).to have_button('Enable')
             expect(page).to have_content('Merchant status is updated successfully')
+        end
+    end
+
+    describe 'User story 28' do
+        it 'sorts merchants by disabled/enabled' do
+            odell = Merchant.create!(name: "Odell", status: 0)
+            nico = Merchant.create!(name: "Nico", status: 1)
+
+            visit admin_merchants_path
+            # save_and_open_page
+            within "#disabled" do
+                expect(page).to have_content("Odell")
+            end
+
+            within "#enabled" do
+                expect(page).to have_content("Nico")
+            end
+        end
+    end
+
+    describe 'User story 29' do
+        it 'has a link to merchant create page' do
+            # I see a link to create a new merchant
+            odell = Merchant.create!(name: "Odell")
+            nico = Merchant.create!(name: "Nico")
+
+            visit '/admin/merchants'
+
+            expect(page).to have_link('Create Merchant', href: '/admin/merchants/new')
+
+            click_on 'Create Merchant'
+
+            expect(current_path).to eq('/admin/merchants/new')
         end
     end
 

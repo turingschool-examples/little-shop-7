@@ -8,6 +8,20 @@ class Admin::MerchantsController < ApplicationController
         @merchant = Merchant.find(params[:id])
     end
 
+    def new
+        @merchant = Merchant.new
+    end
+
+    def create
+        @merchant = Merchant.new(merchant_params)
+        if @merchant.save
+            redirect_to admin_merchants_path
+        else
+            flash[:alert] = "Error. Please enter a name."
+            render :new
+        end
+    end
+
     def edit
         @merchant = Merchant.find(params[:id])
     end
