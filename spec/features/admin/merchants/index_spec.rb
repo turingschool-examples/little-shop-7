@@ -90,4 +90,29 @@ RSpec.describe 'Admin merchants index' do
             end
         end
     end
+
+    describe "User Story 31" do
+        it "shows the top selling date next to each of 5 top merchants by revenue" do
+            top_merchants = create_list(:merchant, 5)
+            top_merchants.each do |top_merchant|
+                item = create(:item, merchant: top_merchant)
+                best_day = (Time.current - 6.day).beginning_of_day
+                3.times do
+                    invoice = create(:invoice, created_at: best_day + Random.rand(0..23).hour)
+                    transaction = create(:transaction, invoice: invoice, result: 'success')
+                    invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: 10)
+                end
+            end
+
+            visit admin_merchants_path
+
+            top_merchants.each do |top_merchant|
+                within "#top_merchant-#{top_merchant.id}" do
+                    expect(page).to have_link(top_merchant.name, href: admin_merchant_path(top_merchant))
+                    expect(page).to have_content("Total Revenue: $#{top_merchant.total_revenue}.00")
+                    expect(page).to have_content("Top selling date: #{top_merchant.best_day.strftime("%A, %B %d, %Y")}")
+                end
+            end
+        end
+    end
 end
