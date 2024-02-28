@@ -6,7 +6,7 @@ RSpec.describe Item, type: :model do
      
     @merch_2 = create(:merchant) 
 
-    @test_item_1 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "1")
+    @test_item_1 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "1", status: 1)
     @test_item_2 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "2")
     @test_item_3 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "3")
     @test_item_4 = create(:item, unit_price: 10, merchant_id: @merch_2.id, name: "4")
@@ -48,6 +48,14 @@ RSpec.describe Item, type: :model do
   describe "class methods" do 
     it ".top_five_items" do 
       expect(Item.top_five_items).to eq([@test_item_6, @test_item_1, @test_item_2, @test_item_3, @test_item_4])
+    end
+
+    it ".enabled_items" do 
+      expect(Item.enabled_items).to eq([@test_item_1])
+    end
+
+    it ".disabled_items" do 
+      expect(Item.disabled_items).to eq([@test_item_2, @test_item_3, @test_item_4, @test_item_5, @test_item_6])
     end
   end
 
