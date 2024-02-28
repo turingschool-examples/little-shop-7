@@ -63,4 +63,36 @@ class Merchant < ApplicationRecord
         .order('total_revenue DESC')
         .limit(5)
   end
+
+#   SELECT
+#   DATE_TRUNC('day', invoices.created_at) AS created_at_day,
+#   merchants.id,
+#   SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue
+# FROM
+#   invoices
+# INNER JOIN invoice_items ON invoices.id = invoice_items.invoice_id
+# INNER JOIN items ON invoice_items.item_id = items.id
+# INNER JOIN merchants ON items.merchant_id = merchants.id
+# INNER JOIN transactions ON transactions.invoice_id = invoices.id
+# WHERE
+#   transactions.result = 'success'
+# GROUP BY
+#   created_at_day,
+#   merchants.id
+# ORDER BY
+#   total_revenue DESC
+# LIMIT 1;
+
+  def best_day
+    self.invoices
+        .joins(items: :invoice_items)
+        .joins(:transactions)
+        .where(transactions: { result: 'success' })
+        .group("created_at_day")
+        .order(Arel.sql("SUM(invoice_items.quantity * invoice_items.unit_price) DESC"))
+        .limit(1)
+        .pluck(Arel.sql("DATE_TRUNC('day', invoices.created_at) AS created_at_day"))
+        .first
+        # .pluck("invoices.created_at as created_at_day").first
+  end
 end
