@@ -10,6 +10,7 @@ RSpec.describe 'Welcome Index', type: :feature do
       click_link("Admin")
       expect(current_path).to eq(admin_index_path)
 
+      visit "/"
       click_link("Merchant")
       expect(current_path).to eq(merchants_path)
     end
