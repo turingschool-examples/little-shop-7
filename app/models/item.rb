@@ -21,8 +21,6 @@ class Item < ApplicationRecord
   end
 
   def self.top_five_items
-    # items/invoice_items/invoices/transactions
-    # we are returning item obejcts
     self.joins(:invoice_items, :invoices, :transactions)
       .where(transactions: { result: 0 })
       .select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue")
@@ -32,11 +30,6 @@ class Item < ApplicationRecord
   end
 
   def date_with_most_sales
-    # require 'pry'; binding.pry
-    # self.invoice_items.joins(:invoice)
-    #   .select("invoices.*")
-    #   .group("SUM(invoices_items.created_at) DESC")
-    #   .limit(1)
       self.invoices
       .group('DATE(invoices.created_at)')
       .order('COUNT(invoices.id) DESC')

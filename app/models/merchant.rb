@@ -22,8 +22,6 @@ class Merchant < ApplicationRecord
   end
 
   def not_shipped_invoices  
-    # invoices.invoices_with_unshipped_items_oldest_to_newest
-    # self.invoice_items.where("invoice_items.status != 2")
     invoices.joins(:items)
       .joins(:invoice_items)
       .where.not(invoice_items: { status: 2 })
