@@ -23,6 +23,7 @@
           <li id = "top_merchant-<%= top_merchant.id %>">
               <%= link_to top_merchant.name, admin_merchant_path(top_merchant) %>  
               Total Revenue: <%= number_to_currency(top_merchant.total_revenue) %>
+              Top selling date: <%= top_merchant.best_day.strftime("%A, %B %d, %Y") %>
           </li>
       <% end %>
   </ol>
