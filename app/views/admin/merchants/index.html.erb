@@ -1,4 +1,33 @@
-<h1>Merchants</h1>
-<%@merchants.each do |merchant|%>
-<%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%>
-<%end%>
+<h1>All Merchants</h1>
+
+<section class="enabled">
+    <h2>Enabled Merchants:</h2>
+    <ul>
+    <% @merchants.select { |merchant| merchant.enabled? }.each do |merchant| %>
+        <li>
+            <%= link_to merchant.name, admin_merchant_path(merchant) %>
+            <%= form_with(url: admin_merchant_path(merchant), method: :patch) do |form| %>
+                <%= form.hidden_field :change_status, value: true %>
+                <%= form.submit "Disable" %>
+            <% end %>
+        </li>
+    <% end %>
+    </ul>
+</section>
+
+<section class="disabled">
+    <h2>Disabled Merchants:</h2>
+    <ul>
+    <% @merchants.select { |merchant| merchant.disabled? }.each do |merchant| %>
+        <li>
+            <%= link_to merchant.name, admin_merchant_path(merchant) %>
+            <%= form_with(url: admin_merchant_path(merchant), method: :patch) do |form| %>
+                <%= form.hidden_field :change_status, value: true %>
+                <%= form.submit "Enable" %>
+            <% end %>
+        </li>
+    <% end %>
+    </ul>
+</section>
+
+<h3><%= link_to "Create Merchant", new_admin_merchant_path %></h3>
