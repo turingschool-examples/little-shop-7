@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchants New Page', type: :feature do
   describe 'As an admin' do
-    before(:each) do
-      
-    end
+    
     # User story 29. Admin Merchant Create continued
     it 'shows a form to create a new merchant with a default status, and returns to the admin merchants index page where it is displayed with the entered info and default status' do
       visit new_admin_merchant_path
