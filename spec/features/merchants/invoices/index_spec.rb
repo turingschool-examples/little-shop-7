@@ -29,8 +29,8 @@ RSpec.describe 'Merchant_invoices Index Page', type: :feature do
       end
 
       within "#merchant_invoices" do
-        expect(page).to have_link(@invoice1.id)
-        expect(page).to have_link(@invoice2.id)
+        expect(page).to have_link("#{@invoice1.id}")
+        expect(page).to have_link("#{@invoice2.id}")
       end
     end
   end
