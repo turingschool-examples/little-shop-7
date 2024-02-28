@@ -11,6 +11,6 @@ class InvoiceItem < ApplicationRecord
    def total_revenue
       total_rev = (unit_price.to_f/100) * quantity
       formatted_tot_rev = '%.2f' % total_rev
-      formatted_tot_rev
+      formatted_tot_rev.to_f
    end
 end
