@@ -78,7 +78,7 @@ RSpec.describe "Dashboard index" do
   end
 
   describe 'US 3' do
-    xit 'displays top 5 customers' do
+    it 'displays top 5 customers' do
       visit dashboard_merchant_path(@green_merchant)
 
       expect(page).to have_content("Top 5 Customers:")
