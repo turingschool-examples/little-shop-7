@@ -45,21 +45,40 @@ class Merchant < ApplicationRecord
         .limit(5)
   end
 
+  # def calculate_topitems_date(top_items)
+  #   top_items.map do |item|
+  #     top_selling_date = item.invoices
+  #                            .joins(:transactions)
+  #                            .where(transactions: { result: 'success' })
+  #                            .group(:created_at)
+  #                            .order(Arel.sql('COUNT(*) DESC, created_at DESC'))
+  #                            .limit(1)
+  #                            .pluck(:created_at)
+  #                            .first
+      
+        
+  #     formatted_date = top_selling_date.strftime("%Y-%m-%d")
+    
+  #     [item, formatted_date]
+  #   end
+  # end
+
+
   def calculate_topitems_date(top_items)
     top_items.map do |item|
       top_selling_date = item.invoices
                              .joins(:transactions)
                              .where(transactions: { result: 'success' })
                              .group(:created_at)
-                             .order(Arel.sql('COUNT(*) DESC, created_at DESC'))
+                             .order(Arel.sql('SUM(invoice_items.quantity * invoice_items.unit_price) DESC, created_at DESC'))
                              .limit(1)
                              .pluck(:created_at)
                              .first
-      
         
       formatted_date = top_selling_date.strftime("%Y-%m-%d")
     
       [item, formatted_date]
     end
   end
+  
 end

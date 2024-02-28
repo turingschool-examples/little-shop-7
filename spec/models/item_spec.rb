@@ -28,4 +28,35 @@ RSpec.describe Item, type: :model do
       expect(item.status).to eq("Enable")
     end
   end
+
+  describe '#top_date' do
+  it 'returns the top selling date for the item' do
+    merchant = create(:merchant)
+    item = create(:item, merchant: merchant)
+
+   
+    invoice1 = create(:invoice)
+    create(:transaction, invoice: invoice1, result: 'success')
+    create(:invoice_item, invoice: invoice1, quantity: 2, unit_price: 10)
+
+    invoice2 = create(:invoice)
+    create(:transaction, invoice: invoice2, result: 'success')
+    create(:invoice_item, invoice: invoice2, quantity: 3, unit_price: 15)
+
+    invoice3 = create(:invoice)
+    create(:transaction, invoice: invoice3, result: 'failed')
+    create(:invoice_item, invoice: invoice3, quantity: 4, unit_price: 20)
+
+    a = InvoiceItem.create(item_id: item.id, invoice_id: invoice1.id)
+    b = InvoiceItem.create(item_id: item.id, invoice_id: invoice2.id)
+    c = InvoiceItem.create(item_id: item.id, invoice_id: invoice3.id)
+
+
+    
+    top_date = item.top_date
+
+    
+    expect(top_date).to eq(invoice2.created_at.strftime("%Y-%m-%d"))
+  end
+end
 end
