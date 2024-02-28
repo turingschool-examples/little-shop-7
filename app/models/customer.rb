@@ -9,7 +9,12 @@ class Customer < ApplicationRecord
   has_many :merchants, through: :items
 
   def self.top_five_customers
-    Customer.select("customers.*, count(transactions.result = 0) as successful_transactions").joins(:transactions).group('customers.id').order('successful_transactions desc').limit(5)
+    Customer
+    .select("customers.*, count(transactions.result = 0) as successful_transactions")
+    .joins(:transactions)
+    .group('customers.id')
+    .order('successful_transactions desc')
+    .limit(5)
   end
 
   def successful_transactions_count 

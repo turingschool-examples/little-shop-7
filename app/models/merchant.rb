@@ -35,7 +35,7 @@ class Merchant < ApplicationRecord
 
   def self.top_five_merchants
     Merchant.select("merchants.name, merchants.id, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
-    .joins(items: { invoice_items: { invoice: :transactions } })
+    .joins(:transactions)
     .where("transactions.result = ?", "0")
     .group("merchants.id")
     .limit(5)
@@ -48,7 +48,7 @@ class Merchant < ApplicationRecord
 
   def top_revenue_day
     Merchant.select("merchants.id, (invoice_items.quantity * invoice_items.unit_price) AS day_revenue, invoices.created_at")
-    .joins(items: { invoice_items: { invoice: :transactions } })
+    .joins(:transactions)
     .where("transactions.result = ?", "0")
     .order("day_revenue DESC")
     .order("invoice_date DESC")
