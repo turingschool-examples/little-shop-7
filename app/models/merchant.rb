@@ -18,6 +18,12 @@ class Merchant < ApplicationRecord
    def invoices_with_items_ready_to_ship
       invoice_items.packaged.order("created_at desc")
    end
+
+   def self.top_five_merchants
+      select("merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue")
+      .joins(invoices: [:transactions, :invoice_items]).where(transactions: { result: "success" })
+      .group("merchants.id")
+      .order("revenue DESC")
+      .limit(5)
+   end
 end
-
-
