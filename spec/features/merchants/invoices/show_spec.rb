@@ -22,6 +22,7 @@ RSpec.describe 'Merchant_invoices Show Page', type: :feature do
         expect(page).to have_content("Status: completed")
         expect(page).to have_content("Created on: Wednesday, February 28, 2024") #"Created on: Wednesday, February 28, 2024"        #{@invoice1.created_at.strftime("%A, %B %d, %Y")}
         expect(page).to have_content("Joey Ondricka")
+        save_and_open_page
     end
   end
 end
