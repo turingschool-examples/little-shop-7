@@ -123,4 +123,30 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.top_merchants).to match_array(top_merchants)
     end
   end
+
+  describe "#best_day" do
+    it "returns the best day of a merchant" do
+      merchant = create(:merchant)
+
+      item = create(:item, merchant: merchant)
+      # revenue for the best day should be 3 * (10 * 3) = 90
+      # Note that we group by day and not full timestamp
+      best_day = (Time.current - 6.day).beginning_of_day
+      3.times do
+        invoice = create(:invoice, created_at: best_day + Random.rand(0..23).hour)
+        transaction = create(:transaction, invoice: invoice, result: 'success')
+        invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 3, unit_price: 10)
+      end
+
+      # revenue for the day should be 45
+      day = (Time.current - 3.day).beginning_of_day
+      3.times do
+        invoice = create(:invoice, created_at: day)
+        transaction = create(:transaction, invoice: invoice, result: 'success')
+        invoice_items = create(:invoice_item, item: item, invoice: invoice, quantity: 1, unit_price: 15)
+      end
+
+      expect(merchant.best_day).to eq(best_day)
+    end
+  end
 end
