@@ -96,5 +96,27 @@ RSpec.describe 'Merchant Dashboard Show Page' do
         expect(page).to have_link(top_item.name, href: merchant_item_path(merchant, top_item))
       end
     end
+
+    it "shows the items with dates" do
+      merchant = create(:merchant)
+      items = create_list(:item, 5, merchant: merchant)
+      dates = [Date.new(2023, 1, 5), Date.new(2023, 1, 4), Date.new(2023, 1, 3), Date.new(2023, 1, 2), Date.new(2023, 1, 1)] 
+
+        items.each_with_index do |item, index|
+          invoice = create(:invoice, created_at: dates[index])
+          transaction = create(:transaction, invoice: invoice, result: 'success')
+          create(:invoice_item, item: item, invoice: invoice, quantity: Random.rand(1..2), unit_price: 10)
+        end
+        top_items = merchant.calculate_top_items
+        top_items_with_dates = merchant.calculate_topitems_date(top_items)
+
+        visit merchant_items_path(merchant_id: merchant.id)
+
+        expected_dates = ['2023-01-05', '2023-01-04', '2023-01-03', '2023-01-02', '2023-01-01']
+         
+        expected_dates.each do |date|
+          expect(page).to have_content(date)
+        end
+    end
   end
 end

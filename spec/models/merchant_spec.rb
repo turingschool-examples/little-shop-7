@@ -82,6 +82,33 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
+#   describe '#calculate_top_items_with_dates' do
+#   let(:merchant) { create(:merchant) }
+#   let!(:items) { create_list(:item, 5, merchant: merchant) }
+#   let(:dates) { [Date.new(2023, 1, 5), Date.new(2023, 1, 4), Date.new(2023, 1, 3), Date.new(2023, 1, 2), Date.new(2023, 1, 1)] }
+
+#   before do
+#     items.each_with_index do |item, index|
+#       invoice = create(:invoice, created_at: dates[index])
+#       transaction = create(:transaction, invoice: invoice, result: 'success')
+#       create(:invoice_item, item: item, invoice: invoice, quantity: Random.rand(1..2), unit_price: 10)
+#     end
+#   end
+
+#   it 'returns the top dates for top items' do
+#     top_items = merchant.calculate_top_items
+#     top_items_with_dates = merchant.calculate_topitems_date(top_items)
+
+#     expected_dates = ['2023-01-05', '2023-01-04', '2023-01-03', '2023-01-02', '2023-01-01']
+
+#     top_items_with_dates.each do |(item, date)|
+#       expect(expected_dates).to include(date)
+
+#     end
+#   end
+# end
+
+
   describe "#total_revenue" do
     it "returns total revenue of a merchant" do
       merchant = create(:merchant)

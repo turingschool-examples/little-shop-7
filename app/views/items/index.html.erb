@@ -42,6 +42,7 @@
     <li>
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
       - Total Revenue: <%= number_to_currency(item.total_revenue) %>
+      <p>Top Selling Date: <%= (item.top_date) %></p>
     </li>
   <% end %>
 </ul>
