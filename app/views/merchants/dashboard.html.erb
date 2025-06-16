@@ -1,1 +1,6 @@
 <h1><%= @merchant.name %></h1>
+<h2>Links</h2>
+<ul>
+  <li><%= link_to "My Items", merchant_items_path(@merchant) %></li>
+  <li><%= link_to "My Invoices", merchant_invoices_path(@merchant) %></li>
+</ul>
