@@ -3,8 +3,8 @@ class Invoice < ApplicationRecord
     has_many :invoice_items
 
     enum status: {
-        pending: 0,
-        shipped: 1,
-        returned: 2
+        cancelled: 0,
+        in_progress: 1,
+        completedok: 2
     }
 end
