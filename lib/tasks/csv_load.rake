@@ -57,7 +57,7 @@ namespace :csv_load do
       Invoice.create!(
         id: row[:id],
         customer_id: row[:customer_id],
-        status: Invoice.statuses[row[:status]],
+        status: row[:status].parameterize.underscore.to_sym,
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
