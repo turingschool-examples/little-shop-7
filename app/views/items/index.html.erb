@@ -1,6 +1,27 @@
+<a href="<%= dashboard_merchant_path(@merchant) %>" class="btn btn-outline-secondary">← Back to Dashboard</a>
+
 <h1><%= @merchant.name %>'s Items</h1>
+
+<!-- Show flash message if present -->
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
 <ul>
-    <% @items.each do |item| %>
-        <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
-    <% end %>
+  <% @items.each do |item| %>
+    <li>
+      <!-- Link to item show page -->
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+
+      <!-- Status text -->
+      - Status: <%= item.enabled ? "Enabled" : "Disabled" %>
+
+      <!-- Enable/Disable button -->
+      <%= button_to(
+            item.enabled ? "Disable" : "Enable",
+            toggle_status_merchant_item_path(@merchant, item),
+            method: :patch
+          ) %>
+    </li>
+  <% end %>
 </ul>

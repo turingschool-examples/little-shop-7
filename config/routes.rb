@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :merchants, only: [] do
     get 'dashboard', on: :member
-    resources :items, only: [:index, :show, :edit, :update]
-    resources :invoices, only: [:index, :show]
+
+    resources :items, only: %i[index show edit update] do
+      member do
+        patch :toggle_status
+      end
+    end
+
+    resources :invoices, only: %i[index show]
   end
-end
+end # rubocop:disable Lint/Syntax
