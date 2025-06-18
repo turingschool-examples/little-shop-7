@@ -19,6 +19,7 @@
         <li>
             <%= invoice_item.item.name %> -
             <%= link_to "Invoice ##{invoice_item.invoice.id}", merchant_invoice_path(@merchant, invoice_item.invoice) %>
+            - <%= invoice_item.invoice.created_at.strftime("%A, %B, %d, %Y") %>
         </li>
     <% end %>
 </ul>

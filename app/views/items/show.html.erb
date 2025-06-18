@@ -1,0 +1,6 @@
+<h1><%= @item.name %></h1>
+
+<p><strong>Description:</strong> <%= @item.description %></p>
+<p><strong>Unit Price:</strong> <%= number_to_currency(@item.unit_price / 100.0) %></p>
+
+<%= link_to "Back to Items", merchant_items_path(@merchant) %>
